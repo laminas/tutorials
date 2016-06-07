@@ -15,7 +15,7 @@ way it was when you wrote your tests.
 
 This tutorial is written in the hopes of showing how to test different parts of
 a zend-mvc application. As such, this tutorial will use the application written
-in the [getting started user guide](user-guide/overview.md). It is in no way a
+in the [getting started user guide](getting-started/overview.md). It is in no way a
 guide to unit testing in general, but is here only to help overcome the initial
 hurdles in writing unit tests for zend-mvc applications.
 
