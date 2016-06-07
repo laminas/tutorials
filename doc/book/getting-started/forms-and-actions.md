@@ -64,7 +64,7 @@ attributes and options, including the label to be displayed.
 >
 > HTML forms can be sent using `POST` and `GET`. zend-form defaults to `POST`;
 > therefore you don't have to be explicit in setting this option. If you want to
-> change it to `GET` however, set the method attribute in > the constructor:
+> change it to `GET` however, set the method attribute in the constructor:
 >
 > ```php
 > $this->setAttribute('method', 'GET');
@@ -684,19 +684,19 @@ To change it, open `module/Application/config/module.config.php` and find the
 home route:
 
 ```php
-'home' => array(
-    'type' => 'Zend\Mvc\Router\Http\Literal',
-    'options' => array(
+'home' => [
+    'type' => Literal::class,
+    'options' => [
         'route'    => '/',
-        'defaults' => array(
-            'controller' => 'Application\Controller\Index',
+        'defaults' => [
+            'controller' => Controller\IndexController::class,
             'action'     => 'index',
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 
-Import `Album\Controller\AlbumController`:
+Import `Album\Controller\AlbumController` at the top of the file:
 
 ```php
 use Album\Controller\AlbumController;

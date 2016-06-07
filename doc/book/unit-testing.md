@@ -1,5 +1,11 @@
 # Unit Testing a zend-mvc application
 
+> ### TODO
+>
+> - Remove section on installing phpunit, and replace with installing zend-test.
+> - Update assertions against controller names; they're the same as the class now.
+> - Try the tests and confirm they work.
+
 A solid unit test suite is essential for ongoing development in large projects,
 especially those with many people involved. Going back and manually testing
 every individual component of an application after every change is impractical.

@@ -147,25 +147,25 @@ contains the `Album` module as well, so the file now looks like this:
 file are omitted for brevity.)
 
 ```php
-return array(
-    'modules' => array(
+return [
+    'modules' => [
         'Zend\Form',
         'Zend\Db',
         'Zend\Router',
         'Zend\Validator',
         'Application',
         'Album',                  // <-- Add this line
-    ),
-    'module_listener_options' => array(
-        'config_glob_paths'    => array(
+    ],
+    'module_listener_options' => [
+        'config_glob_paths'    => [
             'config/autoload/{{,*.}global,{,*.}local}.php',
-        ),
-        'module_paths' => array(
+        ],
+        'module_paths' => [
             './module',
             './vendor',
-        ),
-    ),
-);
+        ],
+    ],
+];
 ```
 
 As you can see, we have added our `Album` module into the list of modules after

@@ -1,5 +1,12 @@
 # Using zend-paginator in your Album Module
 
+> ### TODO
+>
+> Update to:
+>
+> - follow the changes in the user-guide
+> - use SQLite-compatible SQL syntax, and provide a script for inserting the data
+
 In this tutorial we will use the [zend-paginator component](https://zendframework.github.io/zend-paginator/intro/)
 to add a handy pagination controller to the bottom of the album list.
 

@@ -4,6 +4,10 @@ In this tutorial we will use the [zend-navigation component](https://zendframewo
 to add a navigation menu to the black bar at the top of the screen, and add
 breadcrumbs above the main site content.
 
+> ### TODO
+>
+> Update this to follow the changes made in the getting-started guide.
+
 ## Preparation
 
 In a real world application, the album browser would be only a portion of a

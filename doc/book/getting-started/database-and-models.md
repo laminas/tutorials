@@ -247,6 +247,20 @@ instantiated object. See
 [PHP Constructor Best Practices and the Prototype Pattern](http://ralphschindler.com/2012/03/09/php-constructor-best-practices-and-the-prototype-pattern)
 for more details.
 
+> ### Factories
+>
+> The above demonstrates building factories as closures within your module
+> class. Another option is to build the factory as a *class*, and then map the
+> class in your module configuration. This approach has a number of benefits:
+>
+> - The code is not parsed or executed unless the factory is invoked.
+> - You can easily unit test the factory to ensure it does what it should.
+> - You can extend the factory if desired.
+> - You can re-use the factory across multiple instances that have related
+>   construction.
+> 
+> Creating factories is covered in the [zend-servicemanager documentation](https://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/#factories).
+
 The `Zend\Db\Adapter\AdapterInterface` service is registered by the zend-db
 component.  You may have noticed earlier that `config/application.config.php`
 contains the following entries:
