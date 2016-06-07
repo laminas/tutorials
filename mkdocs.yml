@@ -1,0 +1,24 @@
+docs_dir: doc/book
+site_dir: doc/html
+pages:
+    - index.md
+    - Tutorials:
+      - "Getting Started with Zend Framework":
+          - Overview: getting-started/overview.md
+          - "The Skeleton Application": getting-started/skeleton-application.md
+          - Modules: getting-started/modules.md
+          - "Routing and Controllers": getting-started/routing-and-controllers.md
+          - "Database and Models": getting-started/database-and-models.md
+          - "Forms and Actions": getting-started/forms-and-actions.md
+          - Conclusion: getting-started/conclusion.md
+      - "Advanced Configuration": advanced-config.md
+      - "Setting Up A Database Adapter": db-adapter.md
+      - "Using the EventManager": event-manager.md
+      - Internationalization: i18n.md
+      - "Adding zend-navigation to the Album Module": navigation.md
+      - "Adding zend-paginator to the Album Module": pagination.md
+      - "Unit Testing A zend-mvc Application": unit-testing.md
+site_name: tutorials
+site_description: "Zend Framework Tutorials"
+repo_url: 'https://github.com/zendframework/tutorials'
+copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
