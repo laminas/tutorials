@@ -1,990 +1,821 @@
-Making use of Forms and Fieldsets
-=================================
+# Making Use of Forms and Fieldsets
 
-So far all we did was read data from the database. In a real-life-application this won't get us very far as very often the least we need to do is to support full `Create`, `Read`, `Update` and `Delete` operations (CRUD). Most often the process of getting data into our database is that a user enters the data into a web `<form>` and the application then uses the user input and saves it into our backend.
+So far all we have done is read data from the database. In a real-life
+application, this won't get us very far, as we'll often need to support the full
+range of full `Create`, `Read`, `Update` and `Delete` operations (CRUD).
+Typically, new data will arrive via web form submissions.
 
-Core components
----------------
+## Form components
 
-We want to be able to do exactly this and Zend Framework provides us with all the tools we need to achieve our goal. Before we jump into coding, we need to understand the two core components for this task first. So let's take a look at what these components are and what they are used for.
+The [zend-form](https://zendframework.github.io/zend-form/) and
+[zend-inputfilter](https://zendframework.github.io/zend-inputfilter/) components
+provide us with the ability to create fully-featured forms and their validation
+rules. zend-form consumes zend-inputfilter internally, so let's take a look at
+the elements of zend-form that we will use for our application.
 
-### Zend\\Form\\Fieldset
+### Fieldsets
 
-The first component that you have to know about is `Zend\Form\Fieldset`. A `Fieldset` is a component that contains a reusable set of elements. You will use the `Fieldset` to create the frontend-input for your backend-models. It is considered good practice to have one `Fieldset` for every `Model` of your application.
+`Zend\Form\Fieldset` models a reusable set of elements. You will use a
+`Fieldset` to create the various HTML inputs needed to map to your server-side
+entities. It is considered good practice to have one `Fieldset` for every entity
+in your application.
 
-The `Fieldset`-component, however, is no `Form`, meaning you will not be able to use a `Fieldset` without attaching it to the `Form`-component. The advantage here is that you have one set of elements that you can re-use for as many `Forms` as you like without having to re-declare all the inputs for the `Model` that's represented by the `Fieldset`.
+The `Fieldset` component, however, is not a form, meaning you will not be able
+to use a `Fieldset` without attaching it to the `Zend\Form\Form` instance. The
+advantage here is that you have one set of elements that you can re-use for as
+many forms as you like.
 
-### Zend\\Form\\Form
+### Forms
 
-The main component you'll need and that most probably you've heard about already is `Zend\Form\Form`. The `Form`-component is the main container for all elements of your web `<form>`. You are able to add single elements or a set of elements in the form of a `Fieldset`, too.
+`Zend\Form\Form` is a container for all elements of your HTML `<form>`. You are
+able to add both single elements or fieldsets (modeled as `Zend\Form\Fieldset`
+instances).
 
-Creating your first Fieldset
-----------------------------
+## Creating your first Fieldset
 
-Explaining how the `Zend\Form` component works is best done by giving you real code to work with. So let's jump right into it and create all the forms we need to finish our `Blog` module. We start by creating a `Fieldset` that contains all the input elements that we need to work with our `Blog`-data.
+Explaining how zend-form works is best done by giving you real
+code to work with. So let's jump right into it and create all the forms we need
+to finish our `Blog` module. We start by creating a `Fieldset` that contains all
+the input elements that we need to work with our blog data:
 
--   You will need one hidden input for the `id` property, which is only needed for editting and deleting data.
--   You will need one text input for the `text` property
--   You will need one text input for the `title` property
+- You will need one hidden input for the `id` property, which is only needed for
+  editting and deleting data.
+- You will need one text input for the `title` property.
+- You will need one textarea for the `text` property.
 
-Create the file `/module/Blog/src/Blog/Form/PostFieldset.php` and add the following code:
+Create the file `module/Blog/src/Form/PostFieldset.php` with the following
+contents:
 
-~~~~ {.sourceCode .php}
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Form/PostFieldset.php
 namespace Blog\Form;
 
 use Zend\Form\Fieldset;
 
 class PostFieldset extends Fieldset
 {
-   public function __construct()
-   {
-      $this->add(array(
-         'type' => 'hidden',
-         'name' => 'id'
-      ));
+    public function init()
+    {
+        $this->add([
+            'type' => 'hidden',
+            'name' => 'id',
+        ]);
 
-      $this->add(array(
-         'type' => 'text',
-         'name' => 'text',
-         'options' => array(
-           'label' => 'The Text'
-         )
-      ));
+        $this->add([
+            'type' => 'text',
+            'name' => 'title',
+            'options' => [
+                'label' => 'Post Title',
+            ],
+        ]);
 
-      $this->add(array(
-         'type' => 'text',
-         'name' => 'title',
-         'options' => array(
-            'label' => 'Blog Title'
-         )
-      ));
-   }
+        $this->add([
+            'type' => 'textarea',
+            'name' => 'text',
+            'options' => [
+                'label' => 'Post Text',
+            ],
+        ]);
+    }
 }
-~~~~
+```
 
-As you can see this class is pretty handy. All we do is to have our class extend `Zend\Form\Fieldset` and then we write a `__construct()` method and add all the elements we need to the fieldset. This `Fieldset` can now be used by as many forms as we want. So let's go ahead and create our first `Form`.
+This new class creates an extension of `Zend\Form\Fieldset` that, in an `init()`
+method (more on this later),  adds elements for each aspect of our blog post. We
+can now re-use this fieldset in as many forms as we want. Let's create our first
+form.
 
-Creating the PostForm
----------------------
+## Creating the PostForm
 
-Now that we have our `PostFieldset` in place, we need to use it inside a `Form`. We then need to add a Submit-Button to the form so that the user will be able to submit the data and we're done. So create the `PostForm` within the same directory under `/module/Blog/src/Blog/Form/PostForm` and add the `PostFieldset` to it:
+Now that we have our `PostFieldset` in place, we can use it inside a `Form`.
+The form will use the `PostFieldset`, and also include a submit button so that
+the user can submit the data.
 
-~~~~ {.sourceCode .php}
+Create the file `module/Blog/src/Form/PostForm.php` with the following contents:
+
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Form/PostForm.php
 namespace Blog\Form;
 
 use Zend\Form\Form;
 
 class PostForm extends Form
 {
-    public function __construct()
+    public function init()
     {
-        $this->add(array(
-            'name' => 'post-fieldset',
-            'type' => 'Blog\Form\PostFieldset'
-        ));
+        $this->add([
+            'name' => 'post',
+            'type' => PostFieldset::class,
+        ]);
 
-        $this->add(array(
+        $this->add([
             'type' => 'submit',
             'name' => 'submit',
-            'attributes' => array(
-                'value' => 'Insert new Post'
-            )
-        ));
+            'attributes' => [
+                'value' => 'Insert new Post',
+            ],
+        ]);
     }
 }
-~~~~
+```
 
-And that's our form. Nothing special here, we add our `PostFieldset` to the Form, we add a submit button to the form and nothing more. Let's now make use of the Form.
+And that's our form. Nothing special here, we add our `PostFieldset` to the
+form, we add a submit button to the form, and nothing more.
 
-Adding a new Post
------------------
+## Adding a new Post
 
-Now that we have the `PostForm` written we want to use it. But there are a couple more tasks that you need to do. The tasks that are standing right in front of you are:
+Now that we have the `PostForm` written, it's time to use it. But there are a
+few more tasks left:
 
--   create a new controller `WriteController`
--   add `PostService` as a dependency to the `WriteController`
--   add `PostForm` as a dependency to the `WriteController`
--   create a new route `blog/add` that routes to the `WriteController` and its `addAction()`
--   create a new view that displays the form
+- We need to create a new controller `WriteController` which accepts the
+  following instances via its constructor:
+  - a `PostCommandInterface` instance
+  - a `PostForm` instance
+- We need to create an `addAction()` method in the new `WriteController` to
+  handle displaying the form and processing it.
+- We need to create a new route, `blog/add`, that routes to the
+  `WriteController` and its `addAction()` method.
+- We need to create a new view script to display the form.
 
 ### Creating the WriteController
 
-As you can see from the task-list we need a new controller and this controller is supposed to have two dependencies. One dependency being the `PostService` that's also being used within our `ListController` and the other dependency being the `PostForm` which is new. Since the `PostForm` is a dependency that the `ListController` doesn't need to display blog-data, we will create a new controller to keep things properly separated. First, register a controller-factory within the configuration:
+While we could re-use our existing controller, it has a different
+responsibility: it will be *writing* new blog posts. As such, it will need to
+emit *commands*, and thus use the `PostCommandInterface` that we have defined
+previously.
 
-~~~~ {.sourceCode .php}
+To do that, it needs to accept and process user input, which we have modeled
+in our `PostForm` in a previous section of this chapter.
+
+Let's create this new class now. Open a new file,
+`module/Blog/src/Controller/WriteController.php`, and add the following
+contents:
+
+```php
 <?php
-// Filename: /module/Blog/config/module.config.php
-return array(
-    'db'              => array( /** DB Config */ ),
-    'service_manager' => array( /** ServiceManager Config */),
-    'view_manager'    => array( /** ViewManager Config */ ),
-    'controllers'     => array(
-        'factories' => array(
-            'Blog\Controller\List'  => 'Blog\Factory\ListControllerFactory',
-            'Blog\Controller\Write' => 'Blog\Factory\WriteControllerFactory'
-        )
-    ),
-    'router'          => array( /** Router Config */ )
-);
-~~~~
-
-Next step would be to write the `WriteControllerFactory`. Have the factory return the `WriteController` and add the required dependencies within the constructor.
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Factory/WriteControllerFactory.php
-namespace Blog\Factory;
-
-use Blog\Controller\WriteController;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
-class WriteControllerFactory implements FactoryInterface
-{
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $realServiceLocator = $serviceLocator->getServiceLocator();
-        $postService        = $realServiceLocator->get('Blog\Service\PostServiceInterface');
-        $postInsertForm     = $realServiceLocator->get('FormElementManager')->get('Blog\Form\PostForm');
-
-        return new WriteController(
-            $postService,
-            $postInsertForm
-        );
-    }
-}
-~~~~
-
-In this code-example there are a couple of things to be aware of. First, the `WriteController` doesn't exist yet, but we will create this in the next step so we're just assuming that it will exist later on. Second, we access the `FormElementManager` to get access to our `PostForm`. All forms should be accessed through the `FormElementManager`. Even though we haven't registered the `PostForm` in our config files yet the `FormElementManager` automatically knows about forms that act as `invokables`. As long as you have no dependencies you don't need to register them explicitly.
-
-Next up is the creation of our controller. Be sure to type hint the dependencies by their interfaces and to add the `addAction()`!
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
 namespace Blog\Controller;
 
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-
-class WriteController extends AbstractActionController
-{
-    protected $postService;
-
-    protected $postForm;
-
-    public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
-    ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
-    }
-
-    public function addAction()
-    {
-    }
-}
-~~~~
-
-Right on to creating the new route:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/config/module.config.php
-return array(
-    'db'              => array( /** Db Config */ ),
-    'service_manager' => array( /** ServiceManager Config */ ),
-    'view_manager'    => array( /** ViewManager Config */ ),
-    'controllers'     => array( /** Controller Config */ ),
-    'router'          => array(
-        'routes' => array(
-            'blog' => array(
-                'type' => 'literal',
-                'options' => array(
-                    'route'    => '/blog',
-                    'defaults' => array(
-                        'controller' => 'Blog\Controller\List',
-                        'action'     => 'index',
-                    )
-                ),
-                'may_terminate' => true,
-                'child_routes'  => array(
-                    'detail' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/:id',
-                            'defaults' => array(
-                                'action' => 'detail'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                    'add' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/add',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Write',
-                                'action'     => 'add'
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-);
-~~~~
-
-And lastly let's create a dummy template:
-
-~~~~ {.sourceCode .html}
-<!-- Filename: /module/Blog/view/blog/write/add.phtml -->
-<h1>WriteController::addAction()</h1>
-~~~~
-
-**Checking the current status**
-
-If you try to access the new route `localhost:8080/blog/add` you're supposed to see the following error message:
-
-~~~~ {.sourceCode .text}
-Fatal error: Call to a member function insert() on a non-object in
-{libraryPath}/Zend/Form/Fieldset.php on line {lineNumber}
-~~~~
-
-If this is not the case, be sure to follow the tutorial correctly and carefully check all your files. Assuming you are getting this error, let's find out what it means and fix it!
-
-The above error message is very common and its solution isn't that intuitive. It appears that there is an error within the `Zend/Form/Fieldset.php` but that's not the case. The error message let's you know that something didn't go right while you were creating your form. In fact, while creating both the `PostForm` as well as the `PostFieldset` we have forgotten something very, very important.
-
-> **note**
->
-> When overwriting a `__construct()` method within the `Zend\Form`-component, be sure to always call `parent::__construct()`!
-
-Without this, forms and fieldsets will not be able to get initiated correctly. Let's now fix the problem by calling the parents constructor in both form and fieldset. To have more flexibility we will also include the signature of the `__construct()` function which accepts a couple of parameters.
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Form/PostForm.php
-namespace Blog\Form;
-
-use Zend\Form\Form;
-
-class PostForm extends Form
-{
-    public function __construct($name = null, $options = array())
-    {
-        parent::__construct($name, $options);
-
-        $this->add(array(
-            'name' => 'post-fieldset',
-            'type' => 'Blog\Form\PostFieldset'
-        ));
-
-        $this->add(array(
-            'type' => 'submit',
-            'name' => 'submit',
-            'attributes' => array(
-                'value' => 'Insert new Post'
-            )
-        ));
-    }
-}
-~~~~
-
-As you can see our `PostForm` now accepts two parameters to give our form a name and to set a couple of options. Both parameters will be passed along to the parent. If you look closely at how we add the `PostFieldset` to the form you'll notice that we assign a name to the fieldset. Those options will be passed from the `FormElementManager` when the `PostFieldset` is created. But for this to function we need to do the same step inside our fieldset, too:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Form/PostFieldset.php
-namespace Blog\Form;
-
-use Zend\Form\Fieldset;
-
-class PostFieldset extends Fieldset
-{
-    public function __construct($name = null, $options = array())
-    {
-        parent::__construct($name, $options);
-
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'id'
-        ));
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'text',
-            'options' => array(
-                'label' => 'The Text'
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'title',
-            'options' => array(
-                'label' => 'Blog Title'
-            )
-        ));
-    }
-}
-~~~~
-
-Reloading your application now will yield you the desired result.
-
-Displaying the form
--------------------
-
-Now that we have our `PostForm` within our `WriteController` it's time to pass this form to the view and have it rendered using the provided `ViewHelpers` from the `Zend\Form` component. First change your controller so that the form is passed to the view.
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
-namespace Blog\Controller;
-
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
+use Blog\Form\PostForm;
+use Blog\Model\Post;
+use Blog\Model\PostCommandInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class WriteController extends AbstractActionController
 {
-    protected $postService;
+    /**
+     * @var PostCommandInterface
+     */
+    private $command;
 
-    protected $postForm;
+    /**
+     * @var PostForm
+     */
+    private $form;
 
-    public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
-    ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
+    /**
+     * @param PostCommandInterface $command
+     * @param PostForm $form
+     */
+    public function __construct(PostCommandInterface $command, PostForm $form)
+    {
+        $this->command = $command;
+        $this->form = $form;
     }
 
     public function addAction()
     {
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
+        
     }
 }
-~~~~
+```
 
-And then we need to modify our view to have the form rendered.
+We'll now create a factory for this new controller; create a new file,
+`module/Blog/src/Factory/WriteControllerFactory.php`, with the following
+contents:
 
-~~~~ {.sourceCode .php}
-<!-- Filename: /module/Blog/view/blog/write/add.phtml -->
+```php
+<?php
+namespace Blog\Factory;
+
+use Blog\Controller\WriteController;
+use Blog\Form\PostForm;
+use Blog\Model\PostCommandInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+
+class WriteControllerFactory implements FactoryInterface
+{
+    /**
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return WriteController
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $formManager = $container->get('FormElementManager');
+        return new WriteController(
+            $container->get(PostCommandInterface::class),
+            $formManager->get(PostForm::class)
+        );
+    }
+}
+```
+
+The above factory introduces something new: the `FormElementManager`. This is a
+plugin manager implementation that is specifically for forms. We don't
+necessarily need to register our forms with it, as it will check to see if a
+requested instance is a form when attempting to pull one from it. However, it
+does provide a couple nice features: 
+
+- If the form or fieldset or element retrieved implements an `init()` method, it
+  invokes that method after instantiation. This is useful, as that way we're
+  initializing after we have all our dependencies injected, such as input
+  filters. Our form and fieldset define this method!
+- It ensures that the various plugin managers related to input validation are
+  shared with the instance, a feature we'll be using later.
+
+Finally, we need to configure the new factory; in
+`module/Blog/config/module.config.php`, add an entry in the `controllers`
+configuration section:
+
+```php
+'controllers' => [
+    'factories' => [
+        Controller\ListController::class => Factory\ListControllerFactory::class,
+        // Add the following line:
+        Controller\WriteController::class => Factory\WriteControllerFactory::class,
+    ],
+],
+```
+
+Now that we have the basics for our controller in place, we can create a route
+to it:
+
+```php
+<?php
+// In module/Blog/config/module.config.php:
+namespace Blog;
+
+use Zend\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'service_manager' => [ /* ... */ ],
+    'controllers'     => [ /* ... */ ],
+    'router'          => [
+        'routes' => [
+            'blog' => [
+                'type' => 'literal',
+                'options' => [
+                    'route'    => '/blog',
+                    'defaults' => [
+                        'controller' => Controller\ListController::class,
+                        'action'     => 'index',
+                    ]
+                ],
+
+                'may_terminate' => true,
+
+                'child_routes'  => [
+                    'detail' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => '/:id',
+                            'defaults' => [
+                                'action' => 'detail'
+                            ],
+                            'constraints' => [
+                                'id' => '\d+'
+                            ]
+                        ]
+                    ],
+
+                    // Add the following route:
+                    'add' => [
+                        'type' => 'literal',
+                        'options' => [
+                            'route'    => '/add',
+                            'defaults' => [
+                                'controller' => Controller\WriteController::class,
+                                'action'     => 'add',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'view_manager' => [ /* ... */ ],
+];
+```
+
+Finally, we'll create a dummy template:
+
+```html
+<!-- Filename: module/Blog/view/blog/write/add.phtml -->
 <h1>WriteController::addAction()</h1>
+```
+
+### Check-in
+
+If you try to access the new route `localhost:8080/blog/add` you're supposed to
+see the following error message:
+
+```text
+An error occurred
+
+An error occurred during execution; please try again later.
+
+Additional information:
+
+Zend\ServiceManager\Exception\ServiceNotFoundException
+
+File:
+{projectPath}/vendor/zendframework/zend-servicemanager/src/ServiceManager.php:{lineNumber}
+
+Message:
+Unable to resolve service "Blog\Model\PostCommandInterface" to a factory; are you certain you provided it during configuration?
+```
+
+If this is not the case, be sure to follow the tutorial correctly and carefully
+check all your files.
+
+The error is due to the fact that we have not yet defined an *implementation* of
+our `PostCommandInterface`, much less wired the implementation into our
+application!
+
+Let's create a dummy implementation, as we did when we first started working
+with repositories. Create the file `module/Blog/src/Model/PostCommand.php` with
+the following contents:
+
+```php
+<?php
+namespace Blog\Model;
+
+class PostCommand implements PostCommandInterface
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function insertPost(Post $post)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updatePost(Post $post)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deletePost(Post $post)
+    {
+    }
+}
+```
+
+Now add service configuration in `module/Blog/config/module.config.php`:
+
+```php
+'service_manager' => [
+    'aliases' => [
+        /* ... */
+        // Add the following line:
+        Model\PostCommandInterface::class => Model\PostCommand::class,
+    ],
+    'factories' => [
+        /* ... */
+        // Add the following line:
+        Model\PostCommand::class => InvokableFactory::class,
+    ],
+],
+```
+
+Reloading your application now will yield you the desired result.
+
+## Displaying the form
+
+Now that we have new controller working, it's time to pass this form to the view
+and render it.  Change your controller so that the form is passed to the view:
+
+```php
+// In /module/Blog/src/Controller/WriteController.php:
+public function addAction()
+{
+    return new ViewModel([
+        'form' => $this->form,
+    ]);
+}
+```
+
+And then we need to modify our view to render the form:
+
+```php
+<!-- Filename: module/Blog/view/blog/write/add.phtml -->
+<h1>Add a blog post</h1>
+
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url());
 $form->prepare();
 
 echo $this->form()->openTag($form);
-
 echo $this->formCollection($form);
-
 echo $this->form()->closeTag();
-~~~~
+```
 
-Firstly, we tell the form that it should send its data to the current URL and then we tell the form to `prepare()` itself which triggers a couple of internal things.
+The above does the following:
 
-> **note**
+- We set the `action` attribute of the form to the current URL.
+- We "prepare" the form; this ensures any data or error messages bound to the
+  form or its various elements are injected and ready to use for display
+  purposes.
+- We render an opening tag for the form we are using.
+- We render the contents of the form, using the `formCollection()` view helper;
+  this is a convenience method with some typically sane default markup. We'll be
+  changing it momentarily.
+- We render a closing tag for the form.
+
+> ### Form method
 >
-> HTML-Forms can be sent using `POST` and `GET`. ZF2s default is `POST`, therefore you don't have to be explicit in setting this option. If you want to change it to `GET` though, all you have to do is set the specific attribute prior to the `prepare()` call.
+> HTML forms can be sent using `POST` and `GET`. zend-form defaults to `POST`.
+> If you want to switch to `GET`:
 >
-> `$form->setAttribute('method', 'GET');`
+> ```php
+> $form->setAttribute('method', 'GET');
+> ```
 
-Next we're using a couple of `ViewHelpers` which take care of rendering the form for us. There are many different ways to render a form within Zend Framework but using `formCollection()` is probably the fastest one.
+Refreshing the browser you will now see your form properly displayed. It's not
+pretty, though, as the default markup does not follow semantics for Bootstrap
+(which is used in the skeleton application by default). Let's update it a bit to
+make it look better; we'll do that in the view script itself, as markup-related
+concerns belong in the view layer:
 
-Refreshing the browser you will now see your form properly displayed. However, if we're submitting the form all we see is our form being displayed again. And this is due to the simple fact that we didn't add any logic to the controller yet.
+```php
+<!-- Filename: module/Blog/view/blog/write/add.phtml -->
+<h1>Add a blog post</h1>
 
-> **note**
->
-> Keep in mind that this tutorial focuses solely on the OOP aspect of things. Rendering the form like this, without any stylesheets added doesn't really reflect most designers' idea of a beautiful form. You'll find out more about the rendering of forms in the chapter of Zend\\\\Form\\\\View\\\\Helper \<zend.form.view.helpers\>.
-
-Controller Logic for basically all Forms
-----------------------------------------
-
-Writing a Controller that handles a form workflow is pretty simple and it's basically identical for each and every form you have within your application.
-
-1.  You want to check if the current request is a POST-Request, meaning if the form has been sent
-2.  If the form has been sent, you want to:  
-    -   store the POST-Data within the Form
-    -   check if the form passes validation
-
-3.  If the form passes validation, you want to:  
-    -   pass the form data to your service to have it stored
-    -   redirect the user to either the detail page of the entered data or to some overview page
-
-4.  In all other cases, you want the form displayed, sometimes alongside given error messages
-
-And all of this is really not that much code. Modify your `WriteController` to the following code:
-
-~~~~ {.sourceCode .php}
 <?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
-namespace Blog\Controller;
+$form = $this->form;
+$form->setAttribute('action', $this->url());
 
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+$fieldset = $form->get('post');
 
-class WriteController extends AbstractActionController
+$title = $fieldset->get('title');
+$title->setAttribute('class', 'form-control');
+$title->setAttribute('placeholder', 'Post title');
+
+$text = $fieldset->get('text');
+$text->setAttribute('class', 'form-control');
+$text->setAttribute('placeholder', 'Post content');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<fieldset>
+<div class="form-group">
+    <?= $this->formLabel($title) ?>
+    <?= $this->formElement($title) ?>
+    <?= $this->formElementErrors()->render($title, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($text) ?>
+    <?= $this->formElement($text) ?>
+    <?= $this->formElementErrors()->render($text, ['class' => 'help-block']) ?>
+</div>
+</fieldset>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($fieldset->get('id'));
+echo $this->form()->closeTag();
+```
+
+The above adds HTML attributes to a number of the elements we've defined, and
+uses more specific view helpers to allow us to render the exact markup we want
+for our form.
+
+However, if we're submitting the form all we see is our form being displayed
+again. And this is due to the simple fact that we didn't add any logic to the
+controller yet.
+
+## General form-handling logic for controllers
+
+Writing a controller that handles a form workflow follows the same basic pattern
+regardless of form and entities:
+
+1. You need to check if the HTTP request method is via `POST`, meaning if the
+   form has been sent.
+2. If the form has been sent, you need to:
+   - pass the submitted data to your `Form` instance
+   - validate the `Form` instance
+3. If the form passes validation, you will:
+   - persist the form data
+   - redirect the user to either the detail page of the entered data, or to an
+     overview page
+4. In all other cases, you need to display the form, potentially with error
+   messages.
+
+Modify your `WriteController:addAction()` to read as follows:
+
+```php
+public function addAction()
 {
-    protected $postService;
+    $request   = $this->getRequest();
+    $viewModel = new ViewModel(['form' => $this->form]);
 
-    protected $postForm;
-
-    public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
-    ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
+    if (! $request->isPost()) {
+        return $viewModel;
     }
 
-    public function addAction()
-    {
-        $request = $this->getRequest();
+    $this->form->setData($request->getPost());
 
-        if ($request->isPost()) {
-            $this->postForm->setData($request->getPost());
-
-            if ($this->postForm->isValid()) {
-                try {
-                    $this->postService->savePost($this->postForm->getData());
-
-                    return $this->redirect()->toRoute('blog');
-                } catch (\Exception $e) {
-                    // Some DB Error happened, log it and let the user know
-                }
-            }
-        }
-
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
+    if (! $this->form->isValid()) {
+        return $viewModel;
     }
+
+    $data = $this->form->getData()['post'];
+    $post = new Post($data['title'], $data['text']);
+
+    try {
+        $post = $this->command->insertPost($post);
+    } catch (\Exception $ex) {
+        // An exception occurred; we may want to log this later and/or
+        // report it to the user. For now, we'll just re-throw.
+        throw $ex;
+    }
+
+    return $this->redirect()->toRoute(
+        'blog/detail',
+        ['id' => $post->getId()]
+    );
 }
-~~~~
+```
 
-This example code should be pretty straight forward. First we save the current request into a local variable. Then we check if the current request is a POST-Request and if so, we store the requests POST-data into the form. If the form turns out to be valid we try to save the form data through our service and then redirect the user to the route `blog`. If any error occurred at any point we simply display the form again.
+Stepping through the code:
+
+- We retrieve the current request.
+- We create a default view model containing the form.
+- If we do not have a `POST` request, we return the default view model.
+- We populate the form with data from the request.
+- If the form is not valid, we return the default view model; at this point, the
+  form will also contain error messages.
+- We create a `Post` instance from the validated data.
+- We attempt to insert the post.
+- On success, we redirect to the post's detail page.
+
+> ### Child route names
+>
+> When using the various `url()` helpers provided in zend-mvc and zend-view,
+> you need to provide the name of a route. When using child routes, the route
+> name is of the form `<parent>/<child>` &mdash; i.e., the parent name and child
+> name are separated with a slash.
 
 Submitting the form right now will return into the following error
 
-~~~~ {.sourceCode .text}
-Fatal error: Call to undefined method Blog\Service\PostService::savePost() in
-/module/Blog/src/Blog/Controller/WriteController.php on line 33
-~~~~
+```text
+Fatal error: Call to a member function getId() on null in
+{projectPath}/module/Blog/src/Controller/WriteController.php
+on line {lineNumber}
+```
 
-Let's fix this by extending our `PostService`. Be sure to also change the signature of the `PostServiceInterface`!
+This is because our stub `PostCommand` class does not return a new `Post`
+instance, violating the contract!
 
-~~~~ {.sourceCode .php}
+Let's create a new implementation to work against zend-db. Create the file
+`module/Blog/src/Model/ZendDbSqlCommand.php` with the following contents:
+
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Service/PostServiceInterface.php
-namespace Blog\Service;
+namespace Blog\Model;
 
-use Blog\Model\PostInterface;
-
-interface PostServiceInterface
-{
-    /**
-     * Should return a set of all blog posts that we can iterate over. Single entries of the array are supposed to be
-     * implementing \Blog\Model\PostInterface
-     *
-     * @return array|PostInterface[]
-     */
-    public function findAllPosts();
-
-    /**
-     * Should return a single blog post
-     *
-     * @param  int $id Identifier of the Post that should be returned
-     * @return PostInterface
-     */
-    public function findPost($id);
-
-    /**
-     * Should save a given implementation of the PostInterface and return it. If it is an existing Post the Post
-     * should be updated, if it's a new Post it should be created.
-     *
-     * @param  PostInterface $blog
-     * @return PostInterface
-     */
-    public function savePost(PostInterface $blog);
-}
-~~~~
-
-As you can see the `savePost()` function has been added and needs to be implemented within the `PostService` now.
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Service/PostService.php
-namespace Blog\Service;
-
-use Blog\Mapper\PostMapperInterface;
-
-
-class PostService implements PostServiceInterface
-{
-    /**
-     * @var \Blog\Mapper\PostMapperInterface
-     */
-    protected $postMapper;
-
-    /**
-     * @param PostMapperInterface $postMapper
-     */
-    public function __construct(PostMapperInterface $postMapper)
-    {
-        $this->postMapper = $postMapper;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findAllPosts()
-    {
-        return $this->postMapper->findAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findPost($id)
-    {
-        return $this->postMapper->find($id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function savePost(PostInterface $post)
-    {
-        return $this->postMapper->save($post);
-    }
-}
-~~~~
-
-And now that we're making an assumption against our `postMapper` we need to extend the `PostMapperInterface` and its implementation, too. Start by extending the interface:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Mapper/PostMapperInterface.php
-namespace Blog\Mapper;
-
-use Blog\Model\PostInterface;
-
-interface PostMapperInterface
-{
-    /**
-     * @param int|string $id
-     * @return PostInterface
-     * @throws \InvalidArgumentException
-     */
-    public function find($id);
-
-    /**
-     * @return array|PostInterface[]
-     */
-    public function findAll();
-
-    /**
-     * @param PostInterface $postObject
-     *
-     * @param PostInterface $postObject
-     * @return PostInterface
-     * @throws \Exception
-     */
-    public function save(PostInterface $postObject);
-}
-~~~~
-
-And now the implementation of the save function.
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Mapper/ZendDbSqlMapper.php
-namespace Blog\Mapper;
-
-use Blog\Model\PostInterface;
+use RuntimeException;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
-use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Update;
-use Zend\Stdlib\Hydrator\HydratorInterface;
 
-class ZendDbSqlMapper implements PostMapperInterface
+class ZendDbSqlCommand implements PostCommandInterface
 {
-   /**
-    * @var \Zend\Db\Adapter\AdapterInterface
-    */
-   protected $dbAdapter;
-
-   /**
-    * @var \Zend\Stdlib\Hydrator\HydratorInterface
-    */
-   protected $hydrator;
-
-   /**
-    * @var \Blog\Model\PostInterface
-    */
-   protected $postPrototype;
-
-   /**
-    * @param AdapterInterface  $dbAdapter
-    * @param HydratorInterface $hydrator
-    * @param PostInterface    $postPrototype
-    */
-   public function __construct(
-      AdapterInterface $dbAdapter,
-      HydratorInterface $hydrator,
-      PostInterface $postPrototype
-   ) {
-      $this->dbAdapter      = $dbAdapter;
-      $this->hydrator       = $hydrator;
-      $this->postPrototype  = $postPrototype;
-   }
-
-   /**
-    * @param int|string $id
-    *
-    * @return PostInterface
-    * @throws \InvalidArgumentException
-    */
-   public function find($id)
-   {
-      $sql    = new Sql($this->dbAdapter);
-      $select = $sql->select('posts');
-      $select->where(array('id = ?' => $id));
-
-      $stmt   = $sql->prepareStatementForSqlObject($select);
-      $result = $stmt->execute();
-
-      if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
-         return $this->hydrator->hydrate($result->current(), $this->postPrototype);
-      }
-
-      throw new \InvalidArgumentException("Blog with given ID:{$id} not found.");
-   }
-
-   /**
-    * @return array|PostInterface[]
-    */
-   public function findAll()
-   {
-      $sql    = new Sql($this->dbAdapter);
-      $select = $sql->select('posts');
-
-      $stmt   = $sql->prepareStatementForSqlObject($select);
-      $result = $stmt->execute();
-
-      if ($result instanceof ResultInterface && $result->isQueryResult()) {
-         $resultSet = new HydratingResultSet($this->hydrator, $this->postPrototype);
-
-         return $resultSet->initialize($result);
-      }
-
-      return array();
-   }
-
-   /**
-    * @param PostInterface $postObject
-    *
-    * @return PostInterface
-    * @throws \Exception
-    */
-   public function save(PostInterface $postObject)
-   {
-      $postData = $this->hydrator->extract($postObject);
-      unset($postData['id']); // Neither Insert nor Update needs the ID in the array
-
-      if ($postObject->getId()) {
-         // ID present, it's an Update
-         $action = new Update('posts');
-         $action->set($postData);
-         $action->where(array('id = ?' => $postObject->getId()));
-      } else {
-         // ID NOT present, it's an Insert
-         $action = new Insert('posts');
-         $action->values($postData);
-      }
-
-      $sql    = new Sql($this->dbAdapter);
-      $stmt   = $sql->prepareStatementForSqlObject($action);
-      $result = $stmt->execute();
-
-      if ($result instanceof ResultInterface) {
-         if ($newId = $result->getGeneratedValue()) {
-            // When a value has been generated, set it on the object
-            $postObject->setId($newId);
-         }
-
-         return $postObject;
-      }
-
-      throw new \Exception("Database error");
-   }
-}
-~~~~
-
-The `save()` function handles two cases. The `insert` and `update` routine. Firstly we extract the `Post`-Object since we need array data to work with `Insert` and `Update`. Then we remove the `id` from the array since this field is not wanted. When we do an update of a row, we don't update the `id` property itself and therefore it isn't needed. On the insert routine we don't need an `id` either so we can simply strip it away.
-
-After the `id` field has been removed we check what action is supposed to be called. If the `Post`-Object has an `id` set we create a new `Update`-Object and if not we create a new `Insert`-Object. We set the data for both actions accordingly and after that the data is passed over to the `Sql`-Object for the actual query into the database.
-
-At last we check if we receive a valid result and if there has been an `id` generated. If it's the case we call the `setId()`-function of our blog and return the object in the end.
-
-Let's submit our form again and see what we get.
-
-~~~~ {.sourceCode .text}
-Catchable fatal error: Argument 1 passed to Blog\Service\PostService::savePost()
-must implement interface Blog\Model\PostInterface, array given,
-called in /module/Blog/src/Blog/Controller/InsertController.php on line 33
-and defined in /module/Blog/src/Blog/Service/PostService.php on line 49
-~~~~
-
-Forms, per default, give you data in an array format. But our `PostService` expects the format to be an implementation of the `PostInterface`. This means we need to find a way to have this array data become object data. If you recall the previous chapter, this is done through the use of hydrators.
-
-> **note**
->
-> On the Update-Query you'll notice that we have assigned a condition to only update the row matching a given id
->
-> `$action->where(array('id = ?' => $postObject->getId()));`
->
-> You'll see here that the condition is: **id equals ?**. With the question-mark being the id of the post-object. In the same way you could assign a condition to update (or select) rows with all entries higher than a given id:
->
-> `$action->where(array('id > ?' => $postObject->getId()));`
->
-> This works for all conditions. `=`, `>`, `<`, `>=` and `<=`
-
-Zend\\Form and Zend\\Stdlib\\Hydrator working together
-------------------------------------------------------
-
-Before we go ahead and put the hydrator into the form, let's first do a data-dump of the data coming from the form. That way we can easily notice all changes that the hydrator does. Modify your `WriteController` to the following:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
-namespace Blog\Controller;
-
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-
-class WriteController extends AbstractActionController
-{
-    protected $postService;
-
-    protected $postForm;
-
-    public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
-    ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
+    /**
+     * @var AdapterInterface
+     */
+    private $db;
+ 
+    /**
+     * @param AdapterInterface $db
+     */
+    public function __construct(AdapterInterface $db)
+    {
+        $this->db = $db;
     }
 
-    public function addAction()
+    /**
+     * {@inheritDoc}
+     */
+    public function insertPost(Post $post)
     {
-        $request = $this->getRequest();
+        $insert = new Insert('posts');
+        $insert->values([
+            'title' => $post->getTitle(),
+            'text' => $post->getText(),
+        ]);
 
-        if ($request->isPost()) {
-            $this->postForm->setData($request->getPost());
+        $sql = new Sql($this->db);
+        $statement = $sql->prepareStatementForSqlObject($insert);
+        $result = $statement->execute();
 
-            if ($this->postForm->isValid()) {
-                try {
-                    \Zend\Debug\Debug::dump($this->postForm->getData());die();
-                    $this->postService->savePost($this->postForm->getData());
-
-                    return $this->redirect()->toRoute('blog');
-                } catch (\Exception $e) {
-                    // Some DB Error happened, log it and let the user know
-                }
-            }
+        if (! $result instanceof ResultInterface) {
+            throw new RuntimeException(
+                'Database error occurred during blog post insert operation'
+            );
         }
 
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
+        $id = $result->getGeneratedValue();
+
+        return new Post(
+            $post->getTitle(),
+            $post->getText(),
+            $result->getGeneratedValue()
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updatePost(Post $post)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deletePost(Post $post)
+    {
     }
 }
-~~~~
+```
 
-With this set up go ahead and submit the form once again. You should now see a data dump like the following:
+In the `insertPost()` method, we do the following:
 
-~~~~ {.sourceCode .text}
-array(2) {
-  ["submit"] => string(16) "Insert new Post"
-  ["post-fieldset"] => array(3) {
-    ["id"] => string(0) ""
-    ["text"] => string(3) "foo"
-    ["title"] => string(3) "bar"
-  }
-}
-~~~~
+- We create a `Zend\Db\Sql\Insert` instance, providing it the table name.
+- We add values to the `Insert` instance.
+- We create a `Zend\Db\Sql\Sql` instance with the database adapter, and prepare
+  a statement from our `Insert` instance.
+- We execute the statement and check for a valid result.
+- We marshal a return value.
 
-Now telling your fieldset to hydrate its data into an `Post`-object is very simple. All you need to do is to assign the hydrator and the object prototype like this:
+Now that we have this in place, we'll create a factory for it; create the file
+`module/Blog/src/Factory/ZendDbSqlCommandFactory.php` with the following
+contents:
 
-~~~~ {.sourceCode .php}
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Form/PostFieldset.php
-namespace Blog\Form;
+namespace Blog\Factory;
 
+use Interop\Container\ContainerInterface;
+use Blog\Model\ZendDbSqlCommand;
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+
+class ZendDbSqlCommandFactory implements FactoryInterface
+{
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return new ZendDbSqlCommand($container->get(AdapterInterface::class));
+    }
+}
+```
+
+And finally, we'll wire it up in the configuration; update the `service_manager`
+section of `module/Blog/config/module.config.php` to read as follows:
+
+```php
+'service_manager' => [
+    'aliases' => [
+        Model\PostRepositoryInterface::class => Model\ZendDbSqlRepository::class,
+        // Update the following alias:
+        Model\PostCommandInterface::class => Model\ZendDbSqlCommand::class,
+    ],
+    'factories' => [
+        Model\PostRepository::class => InvokableFactory::class,
+        Model\ZendDbSqlRepository::class => Factory\ZendDbSqlRepositoryFactory::class,
+        Model\PostCommand::class => InvokableFactory::class,
+        // Add the following line:
+        Model\ZendDbSqlCommand::class => Factory\ZendDbSqlCommandFactory::class,
+    ],
+],
+```
+
+Submitting your form again, it should process the form and redirect you to the
+detail page for the new entry!
+
+Let's see if we an improve this a bit.
+
+## Using zend-hydrator with zend-form
+
+In our controller currently, we have the following:
+
+```php
+$data = $this->form->getData()['post'];
+$post = new Post($data['title'], $data['text']);
+```
+
+What if we could automate that, so we didn't need to worry about:
+
+- Whether or not we're using a fieldset
+- What the form fields are named
+
+Fortunately, zend-form features integration with zend-hydrator. This will allow
+us to return a `Post` instance when we retrieve the validated values!
+
+Let's udpate our fieldset to provide a hydrator and a prototype object.
+
+First, add two import statements to the top of the class file:
+
+```php
+// In module/Blog/src/Form/PostFieldset.php:
 use Blog\Model\Post;
-use Zend\Form\Fieldset;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\Reflection as ReflectionHydrator;
+```
 
-class PostFieldset extends Fieldset
+Next, update the `init()` method to add the following two lines:
+
+```php
+// In /module/Blog/src/Form/PostFieldset.php:
+
+public function init()
 {
-    public function __construct($name = null, $options = array())
-    {
-        parent::__construct($name, $options);
+    $this->setHydrator(new ReflectionHydrator());
+    $this->setObject(new Post('', ''));
 
-        $this->setHydrator(new ClassMethods(false));
-        $this->setObject(new Post());
-
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'id'
-        ));
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'text',
-            'options' => array(
-                'label' => 'The Text'
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'title',
-            'options' => array(
-                'label' => 'Blog Title'
-            )
-        ));
-    }
+    /* ... */
 }
-~~~~
+```
 
-As you can see we're doing two things. We tell the fieldset to be using the `ClassMethods` hydrator and then we tell the fieldset that the default object to be returned is our `Blog`-Model. However, when you're re-submitting the form now you'll notice that nothing has changed. We're still only getting array data returned and no object.
+When you grab the data from this fiedlset, it will be returned as a `Post`
+instance.
 
-This is due to the fact that the form itself doesn't know that it has to return an object. When the form doesn't know that it's supposed to return an object it uses the `ArraySeriazable` hydrator recursively. To change this, all we need to do is to make our `PostFieldset` a so-called `base_fieldset`.
+However, we grab data *from the form*; how can we simplify that interaction?
 
-A `base_fieldset` basically tells the form "this form is all about me, don't worry about other data, just worry about me". And when the form knows that this fieldset is the real deal, then the form will use the hydrator presented by the fieldset and return the object that we desire. Modify your `PostForm` and assign the `PostFieldset` as `base_fieldset`:
+Since we only have the one fieldset, we'll set it as the form's *base fieldset*.
+This hints to the form that when we retrieve data from it, it should return the
+values from the specified fieldset instead; since our fieldset returns the
+`Post` instance, we'll have exactly what we need.
 
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Form/PostForm.php
-namespace Blog\Form;
+Modify your `PostForm` class as follows:
 
-use Zend\Form\Form;
+```php
+// In /module/Blog/src/Form/PostForm.php:
 
-class PostForm extends Form
+public function init()
 {
-    public function __construct($name = null, $options = array())
-    {
-        parent::__construct($name, $options);
+    $this->add([
+        'name' => 'post',
+        'type' => PostFieldset::class,
+        'options' => [
+            'use_as_base_fieldset' => true,
+        ],
+    ]);
 
-        $this->add(array(
-            'name' => 'post-fieldset',
-            'type' => 'Blog\Form\PostFieldset',
-            'options' => array(
-                'use_as_base_fieldset' => true
-            )
-        ));
+    /* ... */
+```
 
-        $this->add(array(
-            'type' => 'submit',
-            'name' => 'submit',
-            'attributes' => array(
-                'value' => 'Insert new Post'
-            )
-        ));
-    }
-}
-~~~~
+Let's update our `WriteController`; modify the `addAction()` method to replace
+the following two lines:
 
-Now submit your form again. You should see the following output:
+```php
+$data = $this->form->getData()['post'];
+$post = new Post($data['title'], $data['text']);
+```
 
-~~~~ {.sourceCode .text}
-object(Blog\Model\Post)#294 (3) {
-  ["id":protected] => string(0) ""
-  ["title":protected] => string(3) "foo"
-  ["text":protected] => string(3) "bar"
-}
-~~~~
+to:
 
-You can now revert back your `WriteController` to its previous form to have the form-data passed through the `PostService`.
+```php
+$post = $this->form->getData();
+```
 
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
-namespace Blog\Controller;
+Everything should continue to work. The changes done serve the purpose of
+de-coupling the details of how the form is structured from the controller,
+allowing us to work directly with our entities at all times!
 
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+## Conclusion
 
-class WriteController extends AbstractActionController
-{
-    protected $postService;
+In this chapter, we've learned the fundamentals of using zend-form, including
+adding fieldsets and elements, rendering the form, validating input, and wiring
+forms and fieldsets to use entities.
 
-    protected $postForm;
-
-    public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
-    ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
-    }
-
-    public function addAction()
-    {
-        $request = $this->getRequest();
-
-        if ($request->isPost()) {
-            $this->postForm->setData($request->getPost());
-
-            if ($this->postForm->isValid()) {
-                try {
-                    $this->postService->savePost($this->postForm->getData());
-
-                    return $this->redirect()->toRoute('blog');
-                } catch (\Exception $e) {
-                    // Some DB Error happened, log it and let the user know
-                }
-            }
-        }
-
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
-    }
-}
-~~~~
-
-If you send the form now you'll now be able to add as many new blogs as you want. Great!
-
-Conclusion
-----------
-
-In this chapter you've learned a great deal about the `Zend\Form` component. You've learned that `Zend\Stdlib\Hydrator` takes a big part within the `Zend\Form` component and by making use of both components you've been able to create an insert form for the blog module.
-
-In the next chapter we will finalize the CRUD functionality by creating the update and delete routines for the blog module.
+In the next chapter we will finalize the CRUD functionality by creating the
+update and delete routines for the blog module.

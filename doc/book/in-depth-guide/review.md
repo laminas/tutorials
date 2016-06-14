@@ -1,63 +1,55 @@
-Reviewing the Blog-application
-==============================
+# Reviewing the Blog Module
 
-Throughout the past seven chapters we have created a fully functional CRUD-Application using music-blogs as an example. While doing so we've made use of several different design-patterns and best-practices. Now it's time to reiterate and take a look at some of the code-samples we've written. This is going to be done in a Q&A fashion.
+Throughout the tutorial, we have created a fully functional CRUD module
+using a blog as an example. While doing so, we've made use of several different
+design patterns and best-practices. Now it's time to reiterate and take a look
+at some of the code samples we've written. This is going to be done in a Q&A
+fashion.
 
--   Do we always need all the layers and interfaces?\_
--   Having many objects, won't there be much code-duplication?\_
--   Why are there so many controllers?\_
-
-Do we always need all the layers and interfaces?
-------------------------------------------------
+## Do we always need all the layers and interfaces?
 
 Short answer: no.
 
-Long answer: The importance of interfaces goes up the bigger your application becomes. If you can foresee that your application will be used by other people or is supposed to be extendable, then you should strongly consider to always code against interfaces. This is a very common best-practice that is not tied to ZF2 specifically but rather aimed at strict OOP programming.
+Long answer: The importance of interfaces increases the bigger your application
+becomes. If you can foresee that your application will be used by other people
+or should be extendable, then you should strongly consider creating interfaces
+and coding to them.  This is a very common best-practice that is not tied to
+Zend Framework specifically, but rather more general object oriented
+programming.
 
-The main role of the multiple layers that we have introduced ( **Controller** -\> **Service** -\> **Mapper** -\> **Backend** ) are to get a strict separation of concerns for all of our objects. There are many resources who can explain in detail the big advantages of each layer so please go ahead and read up on them.
+The main role of the multiple layers that we have introduced are to provide a
+strict separation of concerns for our application.
 
-For a very simple application, though, you're most likely to strip away the **Mapper**-layer. In practice all the code from the mapper layer often resides inside the services directly. And this works for most of the applications but as soon as you plan to support multiple backends (i.e. open source software) or you want to be prepared for changing backends, you should always consider including this layer.
+It is tempting to include your database access directly in your controllers. We
+recommend splitting it out to other objects, and providing interfaces for the
+interactions whenever you can. Doing so helps decouple your controllers from the
+implementation, allowing you to swap out the implementation later without
+changing the controllers. Using interfaces also simplifies testing, as you can
+provide mock implementations easily.
 
-Having many objects, won't there be much code-duplication?
-----------------------------------------------------------
+## Why are there so many controllers?
 
-Short answer: yes.
+With the exception of our `ListController`, we created a controller for each
+route we added.
 
-Long answer: there doesn't need to be. Most code-duplication would come from the mapper-layer, too. If you take a closer look at the class you'll notice that there's just two things that are tied to a specific object. First, it is the name of the database-table. Second, it is the object-prototype that's passed into the mapper.
+We could have combined these into a single controller. In practice, we have
+observed the following when doing so:
 
-The prototype is already passed into the class from the `__construct()` function so that's already interchangeable. If you want to make the table-name interchangeable, too, all you need to do is to provide the table-name from the constructor, too, and you have a fully versatile db-mapper-implementation that can be used for pretty much every object of your application.
+- Controllers grow in complexity, making maintenance and additions more
+  difficult.
+- The number of dependencies grows with the number of responsibilities. Many
+  actions may need only a subset of the dependencies, leading to needless
+  performance and resource overhead.
+- Testing becomes more difficult.
+- Re-use becomes more difficult.
 
-You could then write a factory class that could look like this:
+The primary problem is that such controllers quickly break the
+[Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle),
+and inherit all the problems that principle attempts to combat.
 
-~~~~ {.sourceCode .php}
-<?php
+We recommend a single action per controller whenever possible.
 
-class NewsMapperFactory implements FactoryInterface
-{
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return new ZendDbSqlMapper(
-            $serviceLocator->get('Zend\Db\Adapter\Adapter'), // DB-Adapter
-            'news',                                          // Table-Name
-            new ClassMethods(false),                         // Object-Hydrator
-            new News()                                       // Object-Prototype
-        );
-    }
-}
-~~~~
+## Do you have more questions? PR them!
 
-Why are there so many controllers?
-----------------------------------
-
-Looking back at code-examples from a couple of years back you'll notice that there was a lot of code inside each controller. This has become a bad-practice that's known as Fat Controllers or Bloated Controllers.
-
-The major difference about each controller we have created is that there are different dependencies. For example, the `WriteController` required the `PostForm` as well as the `PostService` while the `DeleteController` only required the `PostService`. In this example it wouldn't make sense to write the `deleteAction()` into the `WriteController` because we then would needlessly create an instance of the `PostForm` which is not required. In large scale applications this would create a huge bottleneck that would slow down the application.
-
-Looking at the `DeleteController` as well as the `ListController` you'll notice that both controllers have the same dependency. Both require only the `PostService` so why not merge them into one controller? The reason here is for semantical reasons. Would you look for a `deleteAction()` in a `ListController`? Most of us wouldn't and therefore we have created a new class for that.
-
-In applications where the `InsertForm` differs from the `UpdateForm` you'd always want to have two different controllers for each of them instead of one united `WriteController` like we have in our example. These things heavily differ from application to application but the general intent always is: **keep your controllers slim / lightweight**!
-
-Do you have more questions? PR them!
-------------------------------------
-
-If there's anything you feel that's missing in this FAQ, please PR your question and we will give you the answer that you need!
+If there's anything you feel that's missing in this FAQ, please create an issue
+or send a pull request with your question!

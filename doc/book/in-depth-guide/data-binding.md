@@ -1,693 +1,653 @@
-Editing and Deleting Data
-=========================
+# Editing and Deleting Data
 
-In the previous chapter we've come to learn how we can use the `Zend\Form`- and `Zend\Db`-components to create the functionality of creating new data-sets. This chapter will focus on finalizing the CRUD functionality by introducing the concepts for editting and deleting data. We start by editting the data.
+In the previous chapter we've come to learn how we can use the zend-form and
+zend-db components for *creating* new data-sets. This chapter will focus on
+finalizing the CRUD functionality by introducing the concepts for *editing* and
+*deleting* data.
 
-Binding Objects to Forms
-------------------------
+## Binding Objects to Forms
 
-The one fundamental difference between an insert- and an edit-form is the fact that inside an edit-form there is already data preset. This means we need to find a way to get data from our database into the form. Luckily `Zend\Form` provides us with a very handy way of doing so and it's called **data-binding**.
+The one fundamental difference between our "add post" and "edit post" forms is
+the existence of data.  This means we need to find a way to get data from our
+repository into the form. Luckily, zend-form provides this via a
+**data-binding** feature.
 
-All you need to do when providing an edit-form is to get the object of interest from your service and `bind` it to the form. This is done the following way inside your controller.
+In order to use this feature, you will need to retrieve a `Post` instance, and
+bind it to the form. To do this, we will need to:
 
-~~~~ {.sourceCode .php}
+- Add a dependency in our `WriteController` on our `PostRepositoryInterface`,
+  from which we will retrieve our `Post`.
+- Add a new method to our `WriteController`, `editAction()`, that will retrieve
+  a `Post`, bind it to the form, and either display the form or process it.
+- Update our `WriteControllerFactory` to inject the `PostRepositoryInterface`.
+
+We'll begin by updating the `WriteController`:
+
+- We will import the `PostRepositoryInterface`.
+- We will add a property for storing the `PostRepositoryInterface`.
+- We will update the constructor to accept the `PostRepositoryInterface`.
+- We will add the `editAction()` implementation.
+
+The final result will look like the following:
+
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Controller/WriteController.php
+// In module/Blog/src/Controller/WriteController.php:
+
 namespace Blog\Controller;
 
-use Blog\Service\PostServiceInterface;
-use Zend\Form\FormInterface;
+use Blog\Form\PostForm;
+use Blog\Model\Post;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use InvalidArgumentException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class WriteController extends AbstractActionController
 {
-    protected $postService;
+    /**
+     * @var PostCommandInterface
+     */
+    private $command;
 
-    protected $postForm;
+    /**
+     * @var PostForm
+     */
+    private $form;
 
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * @param PostCommandInterface $command
+     * @param PostForm $form
+     * @param PostRepositoryInterface $repository
+     */
     public function __construct(
-        PostServiceInterface $postService,
-        FormInterface $postForm
+        PostCommandInterface $command,
+        PostForm $form,
+        PostRepositoryInterface $repository
     ) {
-        $this->postService = $postService;
-        $this->postForm    = $postForm;
+        $this->command = $command;
+        $this->form = $form;
+        $this->repository = $repository;
     }
 
     public function addAction()
     {
-        $request = $this->getRequest();
+        $request   = $this->getRequest();
+        $viewModel = new ViewModel(['form' => $this->form]);
 
-        if ($request->isPost()) {
-            $this->postForm->setData($request->getPost());
-
-            if ($this->postForm->isValid()) {
-                try {
-                    $this->postService->savePost($this->postForm->getData());
-
-                    return $this->redirect()->toRoute('blog');
-                } catch (\Exception $e) {
-                    die($e->getMessage());
-                    // Some DB Error happened, log it and let the user know
-                }
-            }
+        if (! $request->isPost()) {
+            return $viewModel;
         }
 
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
+        $this->form->setData($request->getPost());
+
+        if (! $this->form->isValid()) {
+            return $viewModel;
+        }
+
+        $post = $this->form->getData();
+
+        try {
+            $post = $this->command->insertPost($post);
+        } catch (\Exception $ex) {
+            // An exception occurred; we may want to log this later and/or
+            // report it to the user. For now, we'll just re-throw.
+            throw $ex;
+        }
+
+        return $this->redirect()->toRoute(
+            'blog/detail',
+            ['id' => $post->getId()]
+        );
     }
 
     public function editAction()
     {
-        $request = $this->getRequest();
-        $post    = $this->postService->findPost($this->params('id'));
-
-        $this->postForm->bind($post);
-
-        if ($request->isPost()) {
-            $this->postForm->setData($request->getPost());
-
-            if ($this->postForm->isValid()) {
-                try {
-                    $this->postService->savePost($post);
-
-                    return $this->redirect()->toRoute('blog');
-                } catch (\Exception $e) {
-                    die($e->getMessage());
-                    // Some DB Error happened, log it and let the user know
-                }
-            }
+        $id = $this->params()->fromRoute('id');
+        if (! $id) {
+            return $this->redirect()->toRoute('blog');
         }
 
-        return new ViewModel(array(
-            'form' => $this->postForm
-        ));
+        try {
+            $post = $this->repository->findPost($id);
+        } catch (InvalidArgumentException $ex) {
+            return $this->redirect()->toRoute('blog');
+        }
+
+        $this->form->bind($post);
+        $viewModel = new ViewModel(['form' => $this->form]);
+
+        $request = $this->getRequest();
+        if (! $request->isPost()) {
+            return $viewModel;
+        }
+
+        $this->form->setData($request->getPost());
+
+        if (! $this->form->isValid()) {
+            return $viewModel;
+        }
+
+        $post = $this->command->updatePost($post);
+        return $this->redirect()->toRoute(
+            'blog/detail',
+            ['id' => $post->getId()]
+        );
     }
 }
-~~~~
+```
 
-Compared to the `addAction()` the `editAction()` has only three different lines. The first one is used to simply get the relevant `Post`-object from the service identified by the `id`-parameter of the route (which we'll be writing soon).
+The primary differences between `addAction()` and `editAction()` are that the
+latter needs to first fetch a `Post`, and this post is *bound* to the form. By
+binding it, we ensure that the data is populated in the form for the initial
+display, and, once validated, the same instance is updated. This means that we
+can omit the call to `getData()` after validating the form.
 
-The second line then shows you how you can bind data to the `Zend\Form`-Component. We're able to use an object here because our `PostFieldset` will use the hydrator to display the data coming from the object.
+Now we need to update our `WriteControllerFactory`. First, add a new import
+statement to it:
 
-Lastly instead of actually doing `$form->getData()` we simply use the previous `$post`-variable since it will be updated with the latest data from the form thanks to the data-binding. And that's all there is to it. The only things we need to add now is the new edit-route and the view for it.
+```php
+// In module/Blog/src/Factory/WriteControllerFactory.php:
+use Blog\Model\PostRepositoryInterface;
+```
 
-Adding the edit-route
----------------------
+Next, update the body of the factory to read as follows:
 
-The edit route is a normal segment route just like the route `blog/detail`. Configure your route config to include the new route:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/config/module.config.php
-return array(
-    'db'              => array( /** Db Config */ ),
-    'service_manager' => array( /** ServiceManager Config */ ),
-    'view_manager'    => array( /** ViewManager Config */ ),
-    'controllers'     => array( /** ControllerManager Config* */ ),
-    'router'          => array(
-        'routes' => array(
-            'blog' => array(
-                'type' => 'literal',
-                'options' => array(
-                    'route'    => '/blog',
-                    'defaults' => array(
-                        'controller' => 'Blog\Controller\List',
-                        'action'     => 'index',
-                    )
-                ),
-                'may_terminate' => true,
-                'child_routes'  => array(
-                    'detail' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/:id',
-                            'defaults' => array(
-                                'action' => 'detail'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                    'add' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/add',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Write',
-                                'action'     => 'add'
-                            )
-                        )
-                    ),
-                    'edit' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/edit/:id',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Write',
-                                'action'     => 'edit'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                )
-            )
-        )
-    )
-);
-~~~~
-
-Creating the edit-template
---------------------------
-
-Next in line is the creation of the new template `blog/write/edit`:
-
-~~~~ {.sourceCode .php}
-<!-- Filename: /module/Blog/view/blog/write/edit.phtml -->
-<h1>WriteController::editAction()</h1>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('blog/edit', array(), true));
-$form->prepare();
-
-echo $this->form()->openTag($form);
-
-echo $this->formCollection($form);
-
-echo $this->form()->closeTag();
-~~~~
-
-All that is really changing on the view-end is that you need to pass the current `id` to the `url()` view helper. To achieve this you have two options. The first one would be to pass the ID to the parameters array like
-
-~~~~ {.sourceCode .php}
-$this->url('blog/edit', array('id' => $id));
-~~~~
-
-The downside is that `$id` is not available as we have not assigned it to the view. The `Zend\Mvc\Router`-component however provides us with a nice functionality to re-use the currently matched parameters. This is done by setting the last parameter of the view-helper to `true`.
-
-~~~~ {.sourceCode .php}
-$this->url('blog/edit', array(), true);
-~~~~
-
-**Checking the status**
-
-If you go to your browser and open up the edit form at `localhost:8080/blog/edit/1` you'll see that the form contains the data from your selected blog. And when you submit the form you'll notice that the data has been changed successfully. However sadly the submit-button still contains the text `Insert new Post`. This can be changed inside the view, too.
-
-~~~~ {.sourceCode .php}
-<!-- Filename: /module/Blog/view/blog/write/add.phtml -->
-<h1>WriteController::editAction()</h1>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('blog/edit', array(), true));
-$form->prepare();
-
-$form->get('submit')->setValue('Update Post');
-
-echo $this->form()->openTag($form);
-
-echo $this->formCollection($form);
-
-echo $this->form()->closeTag();
-~~~~
-
-Implementing the delete functionality
--------------------------------------
-
-Last but not least it's time to delete some data. We start this process by creating a new route and adding a new controller:
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/config/module.config.php
-return array(
-    'db'              => array( /** Db Config */ ),
-    'service_manager' => array( /** ServiceManager Config */ ),
-    'view_manager'    => array( /** ViewManager Config */ ),
-    'controllers'     => array(
-        'factories' => array(
-            'Blog\Controller\List'   => 'Blog\Factory\ListControllerFactory',
-            'Blog\Controller\Write'  => 'Blog\Factory\WriteControllerFactory',
-            'Blog\Controller\Delete' => 'Blog\Factory\DeleteControllerFactory'
-        )
-    ),
-    'router'          => array(
-        'routes' => array(
-            'post' => array(
-                'type' => 'literal',
-                'options' => array(
-                    'route'    => '/blog',
-                    'defaults' => array(
-                        'controller' => 'Blog\Controller\List',
-                        'action'     => 'index',
-                    )
-                ),
-                'may_terminate' => true,
-                'child_routes'  => array(
-                    'detail' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/:id',
-                            'defaults' => array(
-                                'action' => 'detail'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                    'add' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/add',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Write',
-                                'action'     => 'add'
-                            )
-                        )
-                    ),
-                    'edit' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/edit/:id',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Write',
-                                'action'     => 'edit'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                    'delete' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/delete/:id',
-                            'defaults' => array(
-                                'controller' => 'Blog\Controller\Delete',
-                                'action'     => 'delete'
-                            ),
-                            'constraints' => array(
-                                'id' => '\d+'
-                            )
-                        )
-                    ),
-                )
-            )
-        )
-    )
-);
-~~~~
-
-Notice here that we have assigned yet another controller `Blog\Controller\Delete`. This is due to the fact that this controller will **not** require the `PostForm`. A `DeleteForm` is a perfect example for when you do not even need to make use of the `Zend\Form` component. Let's go ahead and create our controller first:
-
-**The Factory**
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Factory/DeleteControllerFactory.php
-namespace Blog\Factory;
-
-use Blog\Controller\DeleteController;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
-class DeleteControllerFactory implements FactoryInterface
+```php
+// In module/Blog/src/Factory/WriteControllerFactory.php:
+public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
 {
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $realServiceLocator = $serviceLocator->getServiceLocator();
-        $postService        = $realServiceLocator->get('Blog\Service\PostServiceInterface');
+    $formManager = $container->get('FormElementManager');
 
-        return new DeleteController($postService);
-    }
+    return new WriteController(
+        $container->get(PostCommandInterface::class),
+        $formManager->get(PostForm::class),
+        $container->get(PostRepositoryInterface::class)
+    );
 }
-~~~~
+```
 
-**The Controller**
+The controller and model are now wired together, so it's time to turn to
+routing.
 
-~~~~ {.sourceCode .php}
+## Adding the edit route
+
+The edit route is identical to the `blog/detail` route we previously defined,
+with two exceptions:
+
+- it will have a path prefix, `/edit`
+- it will route to our `WriteController`
+
+Update the 'blog' `child_routes` to add the new route:
+
+```php
+// In module/Blog/config/module.config.php:
+
+return [
+    'service_manager' => [ /* ... */ ],
+    'controllers'     => [ /* ... */ ],
+    'router'          => [
+        'routes' => [
+            'blog' => [
+                /* ... */
+
+                'child_routes'  => [
+                    /* ... */
+
+                    'edit' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'controller' => Controller\WriteController::class,
+                                'action' => 'edit'
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'view_manager'    => [ /* ... */ ],
+];
+```
+
+## Creating the edit template
+
+Rendering the form remains essentially the same between the `add` and `edit`
+templates; the only difference between them is the form action. As such, we will
+create a new *partial* script for the form, update the `add` template to use it,
+and create a new `edit` template.
+
+Create a new file, `module/Blog/view/blog/write/form.phtml`, with the following
+contents:
+
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Controller/DeleteController.php
+$form = $this->form;
+$fieldset = $form->get('post');
+
+$title = $fieldset->get('title');
+$title->setAttribute('class', 'form-control');
+$title->setAttribute('placeholder', 'Post title');
+
+$text = $fieldset->get('text');
+$text->setAttribute('class', 'form-control');
+$text->setAttribute('placeholder', 'Post content');
+
+$submit = $form->get('submit');
+$submit->setValue($this->submitLabel);
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<fieldset>
+<div class="form-group">
+    <?= $this->formLabel($title) ?>
+    <?= $this->formElement($title) ?>
+    <?= $this->formElementErrors()->render($title, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($text) ?>
+    <?= $this->formElement($text) ?>
+    <?= $this->formElementErrors()->render($text, ['class' => 'help-block']) ?>
+</div>
+</fieldset>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($fieldset->get('id'));
+echo $this->form()->closeTag();
+```
+
+Now, update the `add` template, `module/Blog/view/write/add.phtml` to read as
+follows:
+
+```php
+<h1>Add a blog post</h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url());
+echo $this->partial('blog/write/form', [
+    'form' => $form,
+    'submitLabel' => 'Insert new post',
+]);
+```
+
+The above retrieves the form, sets the form action, provides a
+context-appropriate label for the submit button, and renders it with our new
+partial view script.
+
+Next in line is the creation of the new template, `blog/write/edit`:
+
+```php
+<h1>Edit blog post</h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('blog/edit', [], true));
+echo $this->partial('blog/write/form', [
+    'form' => $form,
+    'submitLabel' => 'Update post',
+]);
+```
+
+The three differences between the `add` and `edit` templates are:
+
+- The heading at the top of the page.
+- The URI used for the form action.
+- The label used for the submit button.
+
+Because the URI requires the identifier, we need to ensure the identifier is
+passed. The way we've done this in the controllers is to pass the identifier as
+a parameter: `$this->url('blog/edit/', ['id' => $id])`. This would require that
+we pass the original `Post` instance or the identifier we pull from it to the
+view, however. zend-router allows another option, however: you can tell it to
+re-use currently matched parameters.  This is done by setting the last parameter
+of the view-helper to `true`: `$this->url('blog/edit', array(), true)`.
+
+If you try and update the post, it'll be successful, but you'll notice that no
+edits were saved! Why? Because we have not yet implemented the functionality in
+our command class. Let's do that now.
+
+Edit the file `module/Blog/src/Model/ZendDbSqlCommand.php`, and update the
+`updatePost()` method to read as follows:
+
+```php
+public function updatePost(Post $post)
+{
+    if (! $post->getId()) {
+        throw RuntimeException('Cannot update post; missing identifier');
+    }
+
+    $update = new Update('posts');
+    $update->set([
+            'title' => $post->getTitle(),
+            'text' => $post->getText(),
+    ]);
+    $update->where(['id = ?' => $post->getId()]);
+
+    $sql = new Sql($this->db);
+    $statement = $sql->prepareStatementForSqlObject($update);
+    $result = $statement->execute();
+
+    if (! $result instanceof ResultInterface) {
+        throw new RuntimeException(
+            'Database error occurred during blog post update operation'
+        );
+    }
+
+    return $post;
+}
+```
+
+This looks very similar to the `insertPost()` implementation we did earlier. The
+primary difference is the usage of the `Update` class; instead of calling a
+`values()` method on it, we call:
+
+- `set()`, to provide the values we are updating.
+- `where()`, to provide criteria to determine which records (record singular, in
+  our case) are updated.
+
+Additionally, we test for the presence of an identifier before performing the
+operation, and, because we already have one, and the `Post` submitted to us
+contains all the edits we submitted to the database, we return it verbatim on
+success.
+
+## Implementing the delete functionality
+
+Last but not least, it's time to delete some data. We start this process by
+implementing the `deletePost()` method in our `ZendDbSqlCommand` class:
+
+```php
+// In module/Blog/src/Model/ZendDbSqlCommand.php:
+
+public function deletePost(Post $post)
+{
+    if (! $post->getId()) {
+        throw RuntimeException('Cannot update post; missing identifier');
+    }
+
+    $delete = new Delete('posts');
+    $delete->where(['id = ?' => $post->getId()]);
+
+    $sql = new Sql($this->db);
+    $statement = $sql->prepareStatementForSqlObject($delete);
+    $result = $statement->execute();
+
+    if (! $result instanceof ResultInterface) {
+        return false;
+    }
+
+    return true;
+}
+```
+
+The above uses `Zend\Db\Sql\Delete` to create the SQL necessary to delete the
+post with the given identifier, which we then execute.
+
+Next, let's create a new controller, `Blog\Controller\DeleteController`, in a
+new file `module/Blog/src/Controller/DeleteController.php`, with the following
+contents:
+
+```php
+<?php
 namespace Blog\Controller;
 
-use Blog\Service\PostServiceInterface;
+use Blog\Model\Post;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use InvalidArgumentException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class DeleteController extends AbstractActionController
 {
     /**
-     * @var \Blog\Service\PostServiceInterface
+     * @var PostCommandInterface
      */
-    protected $postService;
+    private $command;
 
-    public function __construct(PostServiceInterface $postService)
-    {
-        $this->postService = $postService;
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * @param PostCommandInterface $command
+     * @param PostRepositoryInterface $repository
+     */
+    public function __construct(
+        PostCommandInterface $command,
+        PostRepositoryInterface $repository
+    ) {
+        $this->command = $command;
+        $this->repository = $repository;
     }
 
     public function deleteAction()
     {
+        $id = $this->params()->fromRoute('id');
+        if (! $id) {
+            return $this->redirect()->toRoute('blog');
+        }
+
         try {
-            $post = $this->postService->findPost($this->params('id'));
-        } catch (\InvalidArgumentException $e) {
+            $post = $this->repository->findPost($id);
+        } catch (InvalidArgumentException $ex) {
             return $this->redirect()->toRoute('blog');
         }
 
         $request = $this->getRequest();
+        if (! $request->isPost()) {
+            return new ViewModel(['post' => $post]);
+        }
 
-        if ($request->isPost()) {
-            $del = $request->getPost('delete_confirmation', 'no');
-
-            if ($del === 'yes') {
-                $this->postService->deletePost($post);
-            }
-
+        if ($id != $request->getPost('id')
+            || 'Delete' !== $request->getPost('confirm', 'no')
+        ) {
             return $this->redirect()->toRoute('blog');
         }
 
-        return new ViewModel(array(
-            'post' => $post
-        ));
+        $post = $this->command->deletePost($post);
+        return $this->redirect()->toRoute('blog');
     }
 }
-~~~~
+```
 
-As you can see this is nothing new. We inject the `PostService` into the controller and inside the action we first check if the blog exists. If so we check if it's a post request and inside there we check if a certain post parameter called `delete_confirmation` is present. If the value of that then is `yes` we delete the blog through the `PostService`'s `deletePost()` function.
+Like the `WriteController`, it composes both our `PostRepositoryInterface` and
+`PostCommandInterface`. The former is used to ensure we are referencing a valid
+post instance, and the latter to perform the actual deletion.
 
-When you're writing this code you'll notice that you don't get typehints for the `deletePost()` function because we haven't added it to the service / interface yet. Go ahead and add the function to the interface and implement it inside the service.
+When a user requests the page via the `GET` method, we will display a page
+containing details of the post, and a confirmation form. When submitted, we'll
+check to make sure they confirmed the deletion before issuing our delete
+command. If any conditions fail, or on a successful deletion, we redirect to our
+blog listing page.
 
-**The Interface**
+Like the other controllers, we now need a factory. Create the file
+`module/Blog/src/Factory/DeleteControllerFactory.php` with the following
+contents:
 
-~~~~ {.sourceCode .php}
+```php
 <?php
-// Filename: /module/Blog/src/Blog/Service/PostServiceInterface.php
-namespace Blog\Service;
+namespace Blog\Factory;
 
-use Blog\Model\PostInterface;
+use Blog\Controller\DeleteController;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-interface PostServiceInterface
+class DeleteControllerFactory implements FactoryInterface
 {
     /**
-     * Should return a set of all blog posts that we can iterate over. Single entries of the array are supposed to be
-     * implementing \Blog\Model\PostInterface
-     *
-     * @return array|PostInterface[]
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return DeleteController
      */
-    public function findAllPosts();
-
-    /**
-     * Should return a single blog post
-     *
-     * @param  int $id Identifier of the Post that should be returned
-     * @return PostInterface
-     */
-    public function findPost($id);
-
-    /**
-     * Should save a given implementation of the PostInterface and return it. If it is an existing Post the Post
-     * should be updated, if it's a new Post it should be created.
-     *
-     * @param  PostInterface $blog
-     * @return PostInterface
-     */
-    public function savePost(PostInterface $blog);
-
-    /**
-     * Should delete a given implementation of the PostInterface and return true if the deletion has been
-     * successful or false if not.
-     *
-     * @param  PostInterface $blog
-     * @return bool
-     */
-    public function deletePost(PostInterface $blog);
-}
-~~~~
-
-**The Service**
-
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Service/PostService.php
-namespace Blog\Service;
-
-use Blog\Mapper\PostMapperInterface;
-use Blog\Model\PostInterface;
-
-class PostService implements PostServiceInterface
-{
-    /**
-     * @var \Blog\Mapper\PostMapperInterface
-     */
-    protected $postMapper;
-
-    /**
-     * @param PostMapperInterface $postMapper
-     */
-    public function __construct(PostMapperInterface $postMapper)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $this->postMapper = $postMapper;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findAllPosts()
-    {
-        return $this->postMapper->findAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findPost($id)
-    {
-        return $this->postMapper->find($id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function savePost(PostInterface $post)
-    {
-        return $this->postMapper->save($post);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function deletePost(PostInterface $post)
-    {
-        return $this->postMapper->delete($post);
+        return new DeleteController(
+            $container->get(PostCommandInterface::class),
+            $container->get(PostRepositoryInterface::class)
+        );
     }
 }
-~~~~
+```
 
-Now we assume that the `PostMapperInterface` has a `delete()`-function. We haven't yet implemented this one so go ahead and add it to the `PostMapperInterface`.
+We'll now wire this into the application, mapping the controller to its factory,
+and providing a new route. Open the file `module/Blog/config/module.config.php`
+and make the following edits.
 
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Mapper/PostMapperInterface.php
-namespace Blog\Mapper;
+First, map the controller to its factory:
 
-use Blog\Model\PostInterface;
+```php
+'controllers' => [
+    'factories' => [
+        Controller\ListController::class => Factory\ListControllerFactory::class,
+        Controller\WriteController::class => Factory\WriteControllerFactory::class,
+        // Add the following line:
+        Controller\DeleteController::class => Factory\DeleteControllerFactory::class,
+    ],
+],
+```
 
-interface PostMapperInterface
-{
-    /**
-     * @param int|string $id
-     * @return PostInterface
-     * @throws \InvalidArgumentException
-     */
-    public function find($id);
+Now add another child route to our "blog" route:
 
-    /**
-     * @return array|PostInterface[]
-     */
-    public function findAll();
+```php
+'router' => [
+    'routes' => [
+        'blog' => [
+            /* ... */
 
-    /**
-     * @param PostInterface $postObject
-     *
-     * @param PostInterface $postObject
-     * @return PostInterface
-     * @throws \Exception
-     */
-    public function save(PostInterface $postObject);
+            'child_routes' => [
+                /* ... */
 
-    /**
-     * @param PostInterface $postObject
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function delete(PostInterface $postObject);
-}
-~~~~
+                'delete' => [
+                    'type' => 'segment',
+                    'options' => [
+                        'route' => '/delete/:id',
+                        'defaults' => [
+                            'controller' => Controller\DeleteController::class,
+                            'action' => 'delete',
+                        ],
+                        'constraints' => [
+                            'id' => '[1-9]\d*',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-Now that we have declared the function inside the interface it's time to implement it inside our `ZendDbSqlMapper`:
+Finally, we'll create a new view script,
+`module/Blog/view/blog/delete/delete.phtml`, with the following contents:
 
-~~~~ {.sourceCode .php}
-<?php
-// Filename: /module/Blog/src/Blog/Mapper/ZendDbSqlMapper.php
-namespace Blog\Mapper;
+```php
+<h1>Delete post</h1>
 
-use Blog\Model\PostInterface;
-use Zend\Db\Adapter\AdapterInterface;
-use Zend\Db\Adapter\Driver\ResultInterface;
-use Zend\Db\ResultSet\HydratingResultSet;
-use Zend\Db\Sql\Delete;
-use Zend\Db\Sql\Insert;
-use Zend\Db\Sql\Sql;
-use Zend\Db\Sql\Update;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+<p>Are you sure you want to delete the following post?</p>
 
-class ZendDbSqlMapper implements PostMapperInterface
-{
-    /**
-     * @var \Zend\Db\Adapter\AdapterInterface
-     */
-    protected $dbAdapter;
+<ul class="list-group">
+    <li class="list-group-item"><?= $this->escapeHtml($this->post->getTitle()) ?></li>
+</ul>
 
-    protected $hydrator;
-
-    protected $postPrototype;
-
-    /**
-     * @param AdapterInterface  $dbAdapter
-     * @param HydratorInterface $hydrator
-     * @param PostInterface    $postPrototype
-     */
-    public function __construct(
-        AdapterInterface $dbAdapter,
-        HydratorInterface $hydrator,
-        PostInterface $postPrototype
-    ) {
-        $this->dbAdapter      = $dbAdapter;
-        $this->hydrator       = $hydrator;
-        $this->postPrototype  = $postPrototype;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function find($id)
-    {
-        $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('posts');
-        $select->where(array('id = ?' => $id));
-
-        $stmt   = $sql->prepareStatementForSqlObject($select);
-        $result = $stmt->execute();
-
-        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
-            return $this->hydrator->hydrate($result->current(), $this->postPrototype);
-        }
-
-        throw new \InvalidArgumentException("Blog with given ID:{$id} not found.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findAll()
-    {
-        $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('posts');
-
-        $stmt   = $sql->prepareStatementForSqlObject($select);
-        $result = $stmt->execute();
-
-        if ($result instanceof ResultInterface && $result->isQueryResult()) {
-            $resultSet = new HydratingResultSet($this->hydrator, $this->postPrototype);
-
-            return $resultSet->initialize($result);
-        }
-
-        return array();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function save(PostInterface $postObject)
-    {
-        $postData = $this->hydrator->extract($postObject);
-        unset($postData['id']); // Neither Insert nor Update needs the ID in the array
-
-        if ($postObject->getId()) {
-            // ID present, it's an Update
-            $action = new Update('post');
-            $action->set($postData);
-            $action->where(array('id = ?' => $postObject->getId()));
-        } else {
-            // ID NOT present, it's an Insert
-            $action = new Insert('post');
-            $action->values($postData);
-        }
-
-        $sql    = new Sql($this->dbAdapter);
-        $stmt   = $sql->prepareStatementForSqlObject($action);
-        $result = $stmt->execute();
-
-        if ($result instanceof ResultInterface) {
-            if ($newId = $result->getGeneratedValue()) {
-                // When a value has been generated, set it on the object
-                $postObject->setId($newId);
-            }
-
-            return $postObject;
-        }
-
-        throw new \Exception("Database error");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function delete(PostInterface $postObject)
-    {
-        $action = new Delete('posts');
-        $action->where(array('id = ?' => $postObject->getId()));
-
-        $sql    = new Sql($this->dbAdapter);
-        $stmt   = $sql->prepareStatementForSqlObject($action);
-        $result = $stmt->execute();
-
-        return (bool)$result->getAffectedRows();
-    }
-}
-~~~~
-
-The `Delete` statement should look fairly similar to you as this is basically the same deal as all other queries we've created so far. With all of this set up now we're good to go ahead and write our view file so we can delete blogs.
-
-~~~~ {.sourceCode .php}
-<!-- Filename: /module/Blog/view/blog/delete/delete.phtml -->
-<h1>DeleteController::deleteAction()</h1>
-<p>
-    Are you sure that you want to delete
-    '<?php echo $this->escapeHtml($this->post->getTitle()); ?>' by
-    '<?php echo $this->escapeHtml($this->post->getText()); ?>'?
-</p>
-<form action="<?php echo $this->url('blog/delete', array(), true) ?>" method="post">
-    <input type="submit" name="delete_confirmation" value="yes">
-    <input type="submit" name="delete_confirmation" value="no">
+<form action="<?php $this->url('blog/delete', [], true) ?>" method="post">
+    <input type="hidden" name="id" value="<?= $this->escapeHtmlAttr($this->post->getId()) ?>" />
+    <input class="btn btn-default" type="submit" name="confirm" value="Cancel" />
+    <input class="btn btn-danger" type="submit" name="confirm" value="Delete" />
 </form>
-~~~~
+```
 
-Summary
--------
+This time around, we're not using zend-form; as it consists of just a hidden
+element and cancel/confirm buttons, there's no need to provide an OOP model for it.
 
-In this chapter we've learned how data binding within the `Zend\Form`-component works and through it we have finished our update-routine. Then we have learned how we can use HTML-Forms and checking it's data without relying on `Zend\Form`, which ultimately lead us to having a full CRUD-Routine for the Blog example.
+From here, you can now visit one of the existing blog posts, e.g.,
+`http://localhost:8080/blog/delete/1` to see the form. If you choose `Cancel`,
+you should be taken back to the list; if you choose `Delete`, it should delete
+the post and then take you back to the list, and you should see the post is no
+longer present.
 
-In the next chapter we'll recapitulate everything we've done. We'll talk about the design-patterns we've used and we're going to cover a couple of questions that highly likely arose during the course of this tutorial.
+## Making the list more useful
+
+Our blog post list currently lists everything about all of our blog posts;
+additionally, it doesn't link to them, which means we have to manually update
+the URL in our browser in order to test functionality. Let's update the list
+view to be more useful; we'll:
+
+- List just the title of each blog post;
+- linking the title to the post display;
+- and providing links for editing and deleting the post.
+- Add a button to allow users to add a new post.
+
+In a real-world application, we'd probably use some sort of access controls to
+determine if the edit and delete links will be displayed; we'll leave that for
+another tutorial, however.
+
+Open your `module/Blog/view/blog/list/index.phtml` file, and update it to read
+as follows:
+
+```php
+<h1>Blog Posts</h1>
+
+<div class="list-group">
+<?php foreach ($this->posts as $post): ?>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">
+      <a href="<?= $this->url('blog/detail', ['id' => $post->getId()]) ?>">
+        <?= $post->getTitle() ?>
+      </a>
+    </h4>
+
+    <div class="btn-group" role="group" aria-label="Post actions">
+      <a class="btn btn-xs btn-default" href="<?= $this->url('blog/edit', ['id' => $post->getId()]) ?>">Edit</a>
+      <a class="btn btn-xs btn-danger" href="<?= $this->url('blog/delete', ['id' => $post->getId()]) ?>">Delete</a>
+    </div>
+  </div>    
+<?php endforeach ?>
+</div>
+
+<div class="btn-group" role="group" aria-label="Post actions">
+  <a class="btn btn-primary" href="<?= $this->url('blog/add') ?>">Write new post</a>
+</div>
+```
+
+At this point, we have a far more functional blog, as we can move around between
+pages using links and buttons.
+
+## Summary
+
+In this chapter we've learned how data binding within the zend-form component
+works, and used it to provide functionality for our update routine. We also
+learned how this allows us to de-couple our controllers from the details of how
+a form is structured, helping us keep implementation details out of our
+controller.
+
+We also demonstrated the use of view partials, which allow us to split out
+duplication in our views and re-use them. In particular, we did this with our
+form, to prevent needlessly duplicating the form markup.
+
+Finally, we looked at two more aspects of the `Zend\Db\Sql` subcomponent, and
+learned how to `Update` and `Delete` operations.
+
+In the next chapter we'll summarize everything we've done. We'll talk about the
+design patterns we've used, and we'll cover several questions that likely arose
+during the course of this tutorial.

@@ -1,486 +1,543 @@
-Understanding the Router
-========================
+# Understanding the Router
 
-Right now we have a pretty solid set up for our module. However, we're not really doing all too much yet, to be precise, all we do is display all `Blog` entries on one page. In this chapter you will learn everything you need to know about the `Router` to create other routes to be able to display only a single blog, to add new blogs to your application and to edit and delete existing blogs.
+Our module is coming along nicely. However, we're not really doing all that much
+yet; to be precise, all we do is display *all* blog entries on one page. In this
+chapter, you will learn everything you need to know about the `Router` in order
+to route to controllers and actions for displaying a single blog post, adding a
+new blog post, editing an existing post, and deleting a post.
 
-Different route types
----------------------
+## Different route types
 
-Before we go into details on our application, let's take a look at the most important route types that Zend Framework offers.
+Before we go into details on our application, let's take a look at the most
+often used route types.
 
-### Zend\\Mvc\\Router\\Http\\Literal
+### Literal routes
 
-The first common route type is the `Literal`-Route. As mentioned in a previous chapter a literal route is one that matches a specific string. Examples for URLs that are usually literal routes are:
+As mentioned in a previous chapter, a literal route is one that exactly matches
+a specific string. Examples of URLs that can utilize literal routes include:
 
--   <http://domain.com/blog>
--   <http://domain.com/blog/add>
--   <http://domain.com/about-me>
--   <http://domain.com/my/very/deep/page>
--   <http://domain.com/my/very/deep/page>
+- `http://domain.com/blog`
+- `http://domain.com/blog/add`
+- `http://domain.com/about-me`
+- `http://domain.com/my/very/deep/page`
+- `http://domain.com/my/very/deep/page`
 
-Configuration for a literal route requires you to set up the route that should be matched and needs you to define some defaults to be used, for example which controller and which action to call. A simple configuration for a literal route looks like this:
+Configuration for a literal route requires you to provide the path to match, and
+the "defaults" to return on a match. The "defaults" are then returned as route
+match parameters; one use case for these is to specify the controller to invoke
+and the action method on that controller to use. As an example:
 
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'about' => array(
+```php
+'router' => [
+    'routes' => [
+        'about' => [
             'type' => 'literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/about-me',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'AboutMeController',
                     'action'     => 'aboutme',
-                ),
-            ),
-        )
-    )
-)
-~~~~
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-### Zend\\Mvc\\Router\\Http\\Segment
+### Segment routes
 
-The second most commonly used route type is the `Segment`-Route. A segmented route is used for whenever your url is supposed to contain variable parameters. Pretty often those parameters are used to identify certain objects within your application. Some examples for URLs that contain parameters and are usually segment routes are:
+Segment routes allow you to define routes with variable parameters; a common use
+case is for specifying an identifier in the path.  Examples of URLs that might
+require segment routes include:
 
-~~~~ {.sourceCode .text}
-http://domain.com/blog/1                     // parameter "1"
-http://domain.com/blog/details/1             // parameter "1"
-http://domain.com/blog/edit/1                // parameter "1"
-http://domain.com/blog/1/edit                // parameter "1"
-http://domain.com/news/archive/2014           // parameter "2014"
-http://domain.com/news/archive/2014/january   // parameter "2014" and "january"
-~~~~
+- `http://domain.com/blog/1` (parameter "1" is dynamic)
+- `http://domain.com/blog/details/1` (parameter "1" is dynamic)
+- `http://domain.com/blog/edit/1` (parameter "1" is dynamic)
+- `http://domain.com/blog/1/edit` (parameter "1" is dynamic)
+- `http://domain.com/news/archive/2014` (parameter "2014" is dynamic)
+- `http://domain.com/news/archive/2014/january` (parameter "2014" and "january"
+   are dynamic)
 
-Configuring a `Segment`-Route takes a little more effort but isn't difficult to understand. The tasks you have to do are similar at first, you have to define the route-type, just be sure to make it `Segment`. Then you have to define the route and add parameters to it. Then as usual you define the defaults to be used, the only thing that differs in this part is that you can assign defaults for your parameters, too. The new part that is used on routes of the `Segment` type is to define so called `constraints`. They are used to tell the `Router` what "rules" are given for parameters. For example, an `id`-parameter is only allowed to be of type `integer`, the `year`-parameter is only allowed to be of type `integer` and may only contain exactly `four digits`. A sample configuration can look like this:
+Configuring a segment route is similar to that of a literal route.
+The primary differences are:
 
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'archives' => array(
+- The route will have one or more `:<varname>` segments, indicating items that
+  will be dynamically filled. `<varname>` should be a string, and will be used
+  to identify the variable to return when routing is successful.
+- The route *may* also contain *optional* segments, which are items surrounded
+  by square braces (`[]`), and which can contain any mix of literal and variable
+  segments internally.
+- The "defaults" can include the names of variable segments; in case that
+  segment is missing, the default will be used. (They can also be completely
+  independent; for instance, the "controller" rarely should be included as a
+  segment!).
+- You may also specify "constraints" for each variable segment; each constraint
+  will be a regular expression that must pass for matching to be successful.
+
+As an example, let's consider a route where we want to specify a variable "year"
+segment, and indicate that the segment must contain exactly four digits; when
+matched, we should use the `ArchiveController` and its `byYear` action:
+
+```php
+'router' => [
+    'routes' => [
+        'archives' => [
             'type' => 'segment',
-            'options' => array(
-                'route'    => '/news/archive/:year',
-                'defaults' => array(
-                    'controller' => 'ArchiveController',
-                    'action'     => 'byYear',
-                ),
-                'constraints' => array(
-                    'year' => '\d{4}'
-                )
-            ),
-        )
-    )
-)
-~~~~
-
-This configuration defines a route for a URL like `domain.com/news/archive/2014`. As you can see, our route now contains the part `:year`. This is called a route-parameter. Route parameters for `Segment`-Routes are defined by a full-colon ("`:`") in front of a string; the string is the parameter `name`.
-
-Under `constraints` you see that we have another array. This array contains regular expression rules for each parameter of your route. In our example case the regex uses two parts, the first one being `\d` which means "a digit", so any number from 0-9. The second part is `{4}` which means that the part before this has to match exactly four times. So in easy words we say "four digits".
-
-If now you call the URL `domain.com/news/archive/123`, the router will not match the URL because we only support years with four digits.
-
-You may notice that we did not define any `defaults` for the parameter `year`. This is because the parameter is currently set up as a `required` parameter. If a parameter is supposed to be `optional` we need to define this inside the route definition. This is done by adding square brackets around the parameter. Let's modify the above example route to have the `year` parameter optional and use the current year as default:
-
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'archives' => array(
-            'type' => 'segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/news/archive[/:year]',
-                'defaults' => array(
-                    'controller' => 'ArchiveController',
+                'defaults' => [
+                    'controller' => ArchiveController::class,
                     'action'     => 'byYear',
-                    'year'       => date('Y')
-                ),
-                'constraints' => array(
-                    'year' => '\d{4}'
-                )
-            ),
-        )
-    )
-)
-~~~~
+                    'year'       => date('Y'),
+                ],
+                'constraints' => [
+                    'year' => '\d{4}',
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-Notice that now we have a part in our route that is optional. Not only the parameter `year` is optional. The slash that is separating the `year` parameter from the URL string `archive` is optional, too, and may only be there whenever the `year` parameter is present.
+This configuration defines a route for a URL such as
+`//example.com/news/archive/2014`. The route contains the variable segment
+`:year`, which has a regex constraint defined as `\d{4}`, indicating it will
+match if and only if it is exactly four digits. As such, the URL
+`//example.com/news/archive/123` will fail to match, but
+`//example.com/news/archive/1234` will.
 
-Different routing concepts
---------------------------
+The definition marks an optional segment, denoted by `[/:year]`. This has a
+couple of implications. First, it means that we can also match:
 
-When thinking about the whole application it becomes clear that there are a lot of routes to be matched. When writing these routes you have two options. One option is to spend less time writing routes that in turn are a little slow in matching. Another option is to write very explicit routes that match a little faster but require more work to define. Let's take a look at both of them.
+- `//example.com/news/archive` 
+- `//example.com/news/archive/` 
+
+In both cases, we'll also still receive a value for the `:year` segment, because
+we defined a default for it: the expression `date('Y')` (returning the current
+year).
+
+Segment routes allow you to dynamically match paths, and provide extensive
+capabilities for how you shape those paths, matching variable segments, and
+providing constraints for them.
+
+## Different routing concepts
+
+When thinking about an entire application, you'll quickly realize that you may
+have many, many routes to define.
+When writing these routes you have two options:
+
+- Spend less time writing routes that in turn are a little slow in matching.
+- Write very explicit routes that match faster, but require more work to define.
 
 ### Generic routes
 
-A generic route is one that matches many URLs. You may remember this concept from Zend Framework 1 where basically you didn't even bother about routes because we had one "god route" that was used for everything. You define the controller, the action, and all parameters within just one single route.
+A generic route is greedy, and will match as many URLs as possible.
+A common approach is to write a route that matches the controller and action:
 
-The big advantage of this approach is the immense time you save when developing your application. The downside, however, is that matching such a route can take a little bit longer due to the fact that so many variables need to be checked. However, as long as you don't overdo it, this is a viable concept. For this reason the ZendSkeletonApplication uses a very generic route, too. Let's take a look at a generic route:
-
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'default' => array(
+```php
+'router' => [
+    'routes' => [
+        'default' => [
             'type' => 'segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/[:controller[/:action]]',
-                'defaults' => array(
-                    '__NAMESPACE__' => 'Application\Controller',
-                    'controller'    => 'Index',
+                'defaults' => [
+                    'controller'    => Application\Controller\IndexController::class,
                     'action'        => 'index',
-                ),
+                ],
                 'constraints' => [
                     'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                ]
-            ),
-        )
-    )
-)
-~~~~
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-Let's take a closer look as to what has been defined in this configuration. The `route` part now contains two optional parameters, `controller` and `action`. The `action` parameter is optional only when the `controller` parameter is present.
+Let's take a closer look as to what has been defined in this configuration. The
+`route` part now contains two optional parameters, `controller` and `action`.
+The `action` parameter is optional only when the `controller` parameter is
+present. Both have constraints that ensure they only allow strings that would be
+valid PHP class and method names.
 
-Within the `defaults`-section it looks a little bit different, too. The `__NAMESPACE__` will be used to concatenate with the `controller` parameter at all times. So for example when the `controller` parameter is "news" then the `controller` to be called from the `Router` will be `Application\Controller\news`, if the parameter is "archive" the `Router` will call the controller `Application\Controller\archive`.
+The big advantage of this approach is the immense time you save when developing
+your application; one route, and then all you need to do is create controllers,
+add action methods to them, and they are immediately available.
 
-The `defaults`-section then is pretty straight forward again. Both parameters, `controller` and `action`, only have to follow the conventions given by PHP-Standards. They have to start with a letter from `a-z`, upper- or lowercase and after that first letter there can be an (almost) infinite amount of letters, digits, underscores or dashes.
+The downsides are in the details.
 
-**The big downside** to this approach not only is that matching this route is a little slower, it is that there is no error-checking going on. For example, when you were to call a URL like `domain.com/weird/doesntExist` then the `controller` would be "Application\\Controller\\weird" and the `action` would be "doesntExistAction". As you can guess by the names let's assume neither `controller` nor `action` does exist. The route will still match but an `Exception` will be thrown because the `Router` will be unable to find the requested resources and we'll receive a `404`-Response.
+In order for this to work, you will need to use aliases when defining your
+controllers, so that you can alias shorter names that omit namespaces to the
+fully qualified controller class names; this sets up the potential for
+collisions between different application modules which might define the same
+controller class names.
 
-### Explicit routes using child\_routes
+Second, matching nested optional segments, each with regular expression
+constraints, adds performance overhead to routing.
 
-Explicit routing is done by defining all possible routes yourself. For this method you actually have two options available, too.
+Third, such a route does not match any additional segments, constraining your
+controllers to omit dynamic route segments and instead rely on query string
+arguments for route parameters &mdash; which in turn leaves parameter validation
+to your controllers.
 
-**Without config structure**
+Finally, there is no guarantee that a valid match will result in a valid
+controller and action. As an example, if somebody requested
+`//example.com/strange/nonExistent`, and no controller maps to `strange`, or the
+controller has no `nonExistentAction()` method, the application will use more
+cycles to discover and report the error condition than it would if routing had
+simply failed to match. This is both a performance and a security consideration,
+as an attacker could use this fact to launch a Denial of Service.
 
-The probably most easy to understand way to write explicit routes would be to write many top level routes like in the following configuration:
+### Basic routing
 
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'news' => array(
+By now, you should be convinced that generic routes, while nice for prototyping,
+should likely be avoided. That means defining explicit routes. 
+
+Your initial approach might be to create one route for every permutation:
+
+```php
+'router' => [
+    'routes' => [
+        'news' => [
             'type' => 'literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/news',
-                'defaults' => array(
-                    'controller' => 'NewsController',
+                'defaults' => [
+                    'controller' => NewsController::class,
                     'action'     => 'showAll',
-                ),
-            ),
-        ),
-        'news-archive' => array(
+                ],
+            ],
+        ],
+        'news-archive' => [
             'type' => 'segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/news/archive[/:year]',
-                'defaults' => array(
-                    'controller' => 'NewsController',
+                'defaults' => [
+                    'controller' => NewsController::class,
                     'action'     => 'archive',
-                ),
-                'constraints' => array(
-                    'year' => '\d{4}'
-                )
-            ),
-        ),
-        'news-single' => array(
+                ],
+                'constraints' => [
+                    'year' => '\d{4}',
+                ],
+            ],
+        ],
+        'news-single' => [
             'type' => 'segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/news/:id',
-                'defaults' => array(
-                    'controller' => 'NewsController',
+                'defaults' => [
+                    'controller' => NewsController::class,
                     'action'     => 'detail',
-                ),
-                'constraints' => array(
-                    'id' => '\d+'
-                )
-            ),
-        ),
-    )
-)
-~~~~
+                ],
+                'constraints' => [
+                    'id' => '\d+',
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-As you can see with this little example, all routes have an explicit name and there's lots of repetition going on. We have to redefine the default `controller` to be used every single time and we don't really have any structure within the configuration. Let's take a look at how we could bring more structure into a configuration like this.
+Routing is done as a stack, meaning last in, first out (LIFO). The trick is to
+define your most general routes first, and your most specific routes last. In
+the example above, our most general route is a literal match against the path
+`/news`. We then have two additional routes that are more specific, one matching
+`/news/archive` (with an optional segment for the year), and another one
+matching `/news/:id`. These exhibit a fair bit of repetition:
 
-**Using child\_routes for more structure**
+- In order to prevent naming collisions between routes, each route name is
+  prefixed with `news-`.
+- Each routing string contains `/news`.
+- Each defines the same default controller.
 
-Another option to define explicit routes is to be using `child_routes`. Child routes inherit all `options` from their respective parents. Meaning: when the `controller` doesn't change, you do not need to redefine it. Let's take a look at a child routes configuration using the same example as above:
+Clearly, this can get tedious. Additionally, if you have many routes with
+repitition such as this, you need to pay special attention to the stack and
+possible route overlaps, as well as performance (if the stack becomes large).
 
-~~~~ {.sourceCode .php}
-'router' => array(
-    'routes' => array(
-        'news' => array(
+### Child routes
+
+To solve the problems detailed in the last section, zend-router allows defining
+"child routes". Child routes inherit inherit all `options` from their respective
+parents; this means that if an option, such as the controller default, doesn't change, you do not need to
+redefine it.
+
+Additionally, child routes match *relative* to the parent route. This provides
+several optimizations:
+
+- You do not need to duplicate common path segments.
+- Routing will ignore the child routes *unless the parent matches*, which can
+  provide enormous performance benefits during routing.
+
+Let's take a look at a child routes configuration using the same example as
+above:
+
+```php
+'router' => [
+    'routes' => [
+        'news' => [
+            // First we define the basic options for the parent route:
             'type' => 'literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/news',
-                'defaults' => array(
-                    'controller' => 'NewsController',
+                'defaults' => [
+                    'controller' => NewsController::class,
                     'action'     => 'showAll',
-                ),
-            ),
-            // Defines that "/news" can be matched on its own without a child route being matched
+                ],
+            ],
+
+            // The following allows "/news" to match on its own if no child
+            // routes match:
             'may_terminate' => true,
-            'child_routes' => array(
-                'archive' => array(
+            
+            // Child routes begin:
+            'child_routes' => [
+                'archive' => [
                     'type' => 'segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/archive[/:year]',
-                        'defaults' => array(
-                            'action'     => 'archive',
-                        ),
-                        'constraints' => array(
-                            'year' => '\d{4}'
-                        )
-                    ),
-                ),
-                'single' => array(
+                        'defaults' => [
+                            'action' => 'archive',
+                        ],
+                        'constraints' => [
+                            'year' => '\d{4}',
+                        ],
+                    ],
+                ],
+                'single' => [
                     'type' => 'segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/:id',
-                        'defaults' => array(
-                            'action'     => 'detail',
-                        ),
-                        'constraints' => array(
-                            'id' => '\d+'
-                        )
-                    ),
-                ),
-            )
-        ),
-    )
-)
-~~~~
+                        'defaults' => [
+                            'action' => 'detail',
+                        ],
+                        'constraints' => [
+                            'id' => '\d+',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+],
+```
 
-This routing configuration requires a little more explanation. First of all we have a new configuration entry which is called `may_terminate`. This property defines that the parent route can be matched alone, without child routes needing to be matched, too. In other words all of the following routes are valid:
+At its most basic, we define a parent route as normal, and then add an
+additional key, `child_routes`, which is normal routing configuration for
+additional routes to match if the parent route matches.
 
--   /news
--   /news/archive
--   /news/archive/2014
--   /news/42
+The `may_terminate` configuration key is used to determine if the parent route
+is allowed to match on its own; in other words, if no child routes match, is the
+parent route a valid route match? The flag is `false` by default; setting it to
+`true` allows the parent to match on its own.
 
-If, however, you were to set `may_terminate => false`, then the parent route would only be used for global defaults that all `child_routes` were to inherit. In other words: only `child_routes` can be matched, so the only valid routes would be:
+The `child_routes` themselves look like standard routing at the top-level, and
+follow the same rules; they themselves can have child routes, too! The thing to
+remember is that any routing strings defined *are relative to the parent*. As
+such, the above definition allows matching any of the following:
 
--   /news/archive
--   /news/archive/2014
--   /news/42
+- `/news`
+- `/news/archive`
+- `/news/archive/2014`
+- `/news/42`
 
-The parent route would not be able to be matched on its own.
+(If `may_terminate` was set to `false`, the first path above, `/news`, *would not
+match*.)
 
-Next to that we have a new entry called `child_routes`. In here we define new routes that will be appended to the parent route. There's no real difference in configuration from routes you define as a child route to routes that are on the top level of the configuration. The only thing that may fall away is the re-definition of shared default values.
+You'll note that the child routes defined above do not specify a `controller`
+default. Child routes *inherit options* from the parent, however, which means
+that, effectively, each of these will use the same controller as the parent!
 
-The big advantage you have with this kind of configuration is the fact that you explicitly define the routes and therefore you will never run into problems of non-existing controllers like you would with generic routes like described above. The second advantage would be that this kind of routing is a little bit faster than generic routes and the last advantage would be that you can easily see all possible URLs that start with `/news`.
+The advantages to using child routes include:
 
-While ultimately this falls into the category of personal preference bare in mind that debugging of explicit routes is significantly easier than debugging generic routes.
+- Explicit routes mean fewer error conditions with regards to matching
+  controllers and action methods.
+- Performance; the router ignores child routes unless the parent matches.
+- De-duplication; the parent route contains the common path prefix and common
+  options.
+- Organization; you can see at a glance all route definitions that start with a
+  common path segment.
 
-A practical example for our Blog Module
----------------------------------------
+The primary disadvantage is the verbosity of configuration.
 
-Now that we know how to configure new routes, let's first create a route to display only a single `Blog` from our Database. We want to be able to identify blog posts by their internal ID. Given that ID is a variable parameter we need a route of type `Segment`. Furthermore we want to put this route as a child route to the route of name `blog`.
+## A practical example for our blog module
 
-~~~~ {.sourceCode .php}
-<?php
-// FileName: /module/Blog/config/module.config.php
-return array(
-    'db'              => array( /** DB Config */ ),
-    'service_manager' => array( /* ServiceManager Config */ ),
-    'view_manager'    => array( /* ViewManager Config */ ),
-    'controllers'     => array( /* ControllerManager Config */ ),
-    'router' => array(
-        'routes' => array(
-            'blog' => array(
+Now that we know how to configure routes, let's first create a route to display
+only a single blog entry based on internal identifier.  Given that ID is a
+variable parameter, we need a segment route. Furthermore, we know that the route
+will also match against the same `/blog` path prefix, so we can define it as a
+child route of our existing route. Let's update our configuration:
+
+```php
+// In module/Blog/config/module.config.php:
+namespace Blog;
+
+use Zend\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'service_manager' => [ /* ... */ ],
+    'controllers'     => [ /* ... */ ],
+    'router' => [
+        'routes' => [
+            'blog' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/blog',
-                    'defaults' => array(
-                        'controller' => 'Blog\Controller\List',
+                    'defaults' => [
+                        'controller' => Controller\ListController::class,
                         'action'     => 'index',
-                    ),
-                ),
+                    ],
+                ],
+
                 'may_terminate' => true,
-                'child_routes'  => array(
-                    'detail' => array(
+
+                'child_routes'  => [
+                    'detail' => [
                         'type' => 'segment',
-                        'options' => array(
+                        'options' => [
                             'route'    => '/:id',
-                            'defaults' => array(
-                                'action' => 'detail'
-                            ),
-                            'constraints' => array(
-                                'id' => '[1-9]\d*'
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-);
-~~~~
+                            'defaults' => [
+                                'action' => 'detail',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'view_manager'    => [ /* ... */ ],
+];
+```
 
-With this we have set up a new route that we use to display a single blog entry. We have assigned a parameter called `id` that needs to be a positive digit excluding 0. Database entries usually start with a 0 when it comes to primary ID keys and therefore our regular expression `constraints` for the `id` fields looks a little more complicated. Basically we tell the router that the parameter `id` has to start with an integer between 1 and 9, that's the `[1-9]` part, and after that zero or more digits can follow (that's the `\d*` part).
+With this we have set up a new route that we use to display a single blog entry.
+The route defines a parameter, `id`, which needs to be a sequence of 1 or more
+positive digits, not beginning with 0.
 
-The route will call the same `controller` like the parent route but it will call the `detailAction()` instead. Go to your browser and request the URL `http://localhost:8080/blog/2`. You'll see the following error message:
+The route will call the same `controller` as the parent route, but using
+the `detailAction()` method instead. Go to your browser and request the URL
+`http://localhost:8080/blog/2`; you'll see the following error message:
 
-~~~~ {.sourceCode .text}
+```text
 A 404 error occurred
 
 Page not found.
+
 The requested controller was unable to dispatch the request.
 
 Controller:
-Blog\Controller\List
+Blog\Controller\ListController
 
 No Exception available
-~~~~
+```
 
-This is due to the fact that the controller tries to access the `detailAction()` which does not yet exist. Let's go ahead and create this action now. Go to your `ListController` and add the action. Return an empty `ViewModel` and then refresh the page.
+This is due to the fact that the controller tries to access the
+`detailAction()`, which does not yet exist. We'll create this action now; go to
+your `ListController` and add the following action, which will return an empty
+view model
 
-~~~~ {.sourceCode .php}
-<?php
-// FileName: /module/Blog/src/Blog/Controller/ListController.php
-namespace Blog\Controller;
+```php
+// In module/Blog/src/Controller/ListController.php:
 
-use Blog\Service\PostServiceInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+/* .. */
 
 class ListController extends AbstractActionController
 {
-    /**
-     * @var \Blog\Service\PostServiceInterface
-     */
-    protected $postService;
-
-    public function __construct(PostServiceInterface $postService)
-    {
-        $this->postService = $postService;
-    }
-
-    public function indexAction()
-    {
-        return new ViewModel(array(
-            'posts' => $this->postService->findAllPosts()
-        ));
-    }
+    /* ... */
 
     public function detailAction()
     {
         return new ViewModel();
     }
 }
-~~~~
+```
 
-Now you'll see the all familiar message that a template was unable to be rendered. Let's create this template now and assume that we will get one `Post`-Object passed to the template to see the details of our blog. Create a new view file under `/view/blog/list/detail.phtml`:
+Refresh your browser, which should result in the familiar message that a template
+was unable to be rendered.
 
-~~~~ {.sourceCode .html}
-<!-- FileName: /module/Blog/view/blog/list/detail.phtml -->
+Let's create this template now and assume that we will get a `Post` instance
+passed to the template to see the details of our blog. Create a new view file
+under `module/Blog/view/blog/list/detail.phtml`:
+
+```php
 <h1>Post Details</h1>
 
 <dl>
     <dt>Post Title</dt>
-    <dd><?php echo $this->escapeHtml($this->post->getTitle());?></dd>
+    <dd><?= $this->escapeHtml($this->post->getTitle()) ?></dd>
+
     <dt>Post Text</dt>
-    <dd><?php echo $this->escapeHtml($this->post->getText());?></dd>
+    <dd><?= $this->escapeHtml($this->post->getText()) ?></dd>
 </dl>
-~~~~
+```
 
-Looking at this template we're expecting the variable `$this->post` to be an instance of our `Post`-Model. Let's now modify our `ListController` so that a `Post` will be passed.
+The above template is expecting a `$post` variable referencing a `Post` instance
+in the view model. We'll now update the `ListController` to provide that:
 
-~~~~ {.sourceCode .php}
-<?php
-// FileName: /module/Blog/src/Blog/Controller/ListController.php
-namespace Blog\Controller;
-
-use Blog\Service\PostServiceInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-
-class ListController extends AbstractActionController
+```php
+public function detailAction()
 {
-    /**
-     * @var \Blog\Service\PostServiceInterface
-     */
-    protected $postService;
+    $id = $this->params()->fromRoute('id');
 
-    public function __construct(PostServiceInterface $postService)
-    {
-        $this->postService = $postService;
-    }
-
-    public function indexAction()
-    {
-        return new ViewModel(array(
-            'posts' => $this->postService->findAllPosts()
-        ));
-    }
-
-    public function detailAction()
-    {
-        $id = $this->params()->fromRoute('id');
-
-        return new ViewModel(array(
-            'post' => $this->postService->findPost($id)
-        ));
-    }
+    return new ViewModel([
+        'post' => $this->postRepository->findPost($id)
+    ]);
 }
-~~~~
+```
 
-If you refresh your application now you'll see the details for our `Post` to be displayed. However, there is one little Problem with what we have done. While we do have our Service set up to throw an `\InvalidArgumentException` whenever no `Post` matching a given `id` is found, we don't make use of this just yet. Go to your browser and open the URL `http://localhost:8080/blog/99`. You will see the following error message:
+If you refresh your application now, you'll see the details for our `Post` are
+displayed. However, there is one problem with what we have done: while we
+have our repository set up to throw an `InvalidArgumentException` when no post
+is found matching a given identifier, we do not check for it in our controller.
 
-~~~~ {.sourceCode .text}
+Go to your browser and open the URL `http://localhost:8080/blog/99`; you will
+see the following error message:
+
+```text
 An error occurred
+
 An error occurred during execution; please try again later.
 
 Additional information:
 InvalidArgumentException
 
 File:
-{rootPath}/module/Blog/src/Blog/Service/PostService.php:40
+{projectPath}/module/Blog/src/Model/ZendDbSqlRepository.php:{lineNumber}
 
 Message:
-Could not find row 99
-~~~~
+Blog post with identifier "99" not found.
+```
 
-This is kind of ugly, so our `ListController` should be prepared to do something whenever an `InvalidArgumentException` is thrown by the `PostService`. Whenever an invalid `Post` is requested we want the User to be redirected to the Post-Overview. Let's do this by putting the call against the `PostService` in a try-catch statement.
+This is kind of ugly, so our `ListController` should be prepared to do something
+whenever an `InvalidArgumentException` is thrown by the `PostService`. Let's
+have the controller redirect to the blog post overview.
 
-~~~~ {.sourceCode .php}
-<?php
-// FileName: /module/Blog/src/Blog/Controller/ListController.php
-namespace Blog\Controller;
+First, add a new import to the `ListController` class file:
 
-use Blog\Service\PostServiceInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+```php
+use InvalidArgumentException;
+```
 
-class ListController extends AbstractActionController
+Now add the following try-catch statement to the `detailAction()` method:
+
+```php
+public function detailAction()
 {
-    /**
-     * @var \Blog\Service\PostServiceInterface
-     */
-    protected $postService;
+    $id = $this->params()->fromRoute('id');
 
-    public function __construct(PostServiceInterface $postService)
-    {
-        $this->postService = $postService;
+    try {
+        $post = $this->postService->findPost($id);
+    } catch (\InvalidArgumentException $ex) {
+        return $this->redirect()->toRoute('blog');
     }
 
-    public function indexAction()
-    {
-        return new ViewModel(array(
-            'posts' => $this->postService->findAllPosts()
-        ));
-    }
-
-    public function detailAction()
-    {
-        $id = $this->params()->fromRoute('id');
-
-        try {
-            $post = $this->postService->findPost($id);
-        } catch (\InvalidArgumentException $ex) {
-            return $this->redirect()->toRoute('blog');
-        }
-
-        return new ViewModel(array(
-            'post' => $post
-        ));
-    }
+    return new ViewModel(array(
+        'post' => $post
+    ));
 }
-~~~~
+```
 
-Now whenever you access an invalid `id` you'll be redirected to the route `blog` which is our list of blog posts, perfect!
+Now whenever a user requests an invalid identifier, you'll be redirected to the
+route `blog`, which is our list of blog posts!
