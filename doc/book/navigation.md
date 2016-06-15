@@ -47,7 +47,7 @@ following:
 $ composer require zendframework/zend-navigation
 ```
 
-Assuming you followed the [Getting Started tutorial](../getting-started/overview.md),
+Assuming you followed the [Getting Started tutorial](getting-started/overview.md),
 you will be prompted by the [zend-component-installer](https://zendframework.github.io/zend-component-installer)
 plugin to inject `Zend\Navigation`; be sure to select the option for either
 `config/application.config.php` or `config/modules.config.php`; since it is the
