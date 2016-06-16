@@ -2,7 +2,6 @@
 
 > ## TODO
 >
-> - Weasel words
 > - Ensure usage is up-to-date with current API
 
 This tutorial explores the various features of `Zend\EventManager`.
@@ -28,7 +27,7 @@ The minimal things necessary to start using events are:
 - One or more listeners on one or more events
 - A call to `trigger()` an event
 
-The simplest example looks something like this:
+A basic example looks something like this:
 
 ```php
 use Zend\EventManager\EventManager;
@@ -59,7 +58,7 @@ Handled event "do", with parameters {"foo":"bar","baz":"bat"}
 > Throughout this tutorial, we use closures as listeners. However, any valid PHP
 > callback can be attached as a listeners: PHP function names, static class
 > methods, object instance methods, functors, or closures. We use closures
-> within this post simply for illustration and simplicity.
+> within this post for illustration only.
 
 If you were paying attention to the example, you will have noted the `null`
 argument. Why is it there?
@@ -389,7 +388,7 @@ implements the following methods:
 - `first()` will retrieve the first result received
 - `last()` will retrieve the last result received
 - `contains($value)` allows you to test all values to see if a given one was
-  received, and returns simply a boolean `true` if found, and `false` if not.
+  received, and returns a boolean `true` if found, and `false` if not.
 
 Typically, you should not worry about the return values from events, as the
 object triggering the event shouldn't really have much insight into what
@@ -433,8 +432,8 @@ public function someExpensiveCall($criteria1, $criteria2)
 ```
 
 With this paradigm, we know that the likely reason of execution halting is due
-to the last result meeting the test callback criteria; as such, we simply return
-that last result.
+to the last result meeting the test callback criteria; as such, we return that
+last result.
 
 The other way to halt execution is within a listener, acting on the `Event`
 object it receives. In this case, the listener calls `stopPropagation(true)`,
@@ -549,7 +548,7 @@ if (is_string($result)) {
 }
 ```
 
-But how do we use this custom event? Simple: `trigger()` can accept an event
+But how do we use this custom event? `trigger()` can accept an event
 object instead of any of the event name, target, or params arguments.
 
 ```php
@@ -576,14 +575,14 @@ $results = $events->trigger('foo', $this, $event, $callback);
 This is a really powerful technique for domain-specific event systems, and
 definitely worth experimenting with.
 
-## Putting it together: Implementing a simple caching system
+## Putting it together: Implementing a caching system
 
 In previous sections, I indicated that short-circuiting is a way to potentially
 implement a caching solution. Let's create a full example.
 
 First, let's define a method that could use caching. You'll note that in most of
 the examples, I've used `__FUNCTION__` as the event name; this is a good
-practice, as it makes it simple to create a macro for triggering events, as well
+practice, as it makes possible creating a macro for triggering events, as well
 as helps to keep event names unique (as they're usually within the context of
 the triggering class). However, in the case of a caching example, this would
 lead to identical events being triggered. As such, I recommend postfixing the
@@ -696,13 +695,12 @@ The listeners would then attach to the "someExpensiveCall" event, with the cache
 lookup listener listening at high priority, and the cache storage listener
 listening at low (negative) priority.
 
-Sure, we could probably simply add caching to the object itself &mdash; but this
+Sure, we could probably add caching to the object itself &mdash; but this
 approach allows the same handlers to be attached to multiple events, or to
 attach multiple listeners to the same events (e.g. an argument validator, a
 logger and a cache manager). The point is that if you design your object with
-events in mind, you can easily make it more flexible and extensible, without
-requiring developers to actually extend it &mdash; they can simply attach
-listeners.
+events in mind, you can make it more flexible and extensible, without requiring
+developers to actually extend it &mdash; they can attach listeners.
 
 ## Conclusion
 
