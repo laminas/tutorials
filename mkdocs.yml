@@ -28,6 +28,11 @@ pages:
     - "Component Tutorials":
       - "Setting Up A Database Adapter": db-adapter.md
       - "Using the EventManager": event-manager.md
+    - Migration:
+        - "To Version 3":
+            - Overview: migration/to-v3/overview.md
+            - Components: migration/to-v3/components.md
+            - Applications: migration/to-v3/application.md
 site_name: tutorials
 site_description: "Zend Framework Tutorials"
 repo_url: 'https://github.com/zendframework/tutorials'
