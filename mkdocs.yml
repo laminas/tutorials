@@ -2,7 +2,7 @@ docs_dir: doc/book
 site_dir: doc/html
 pages:
     - index.md
-    - Tutorials:
+    - "MVC Tutorials":
       - "Getting Started with Zend Framework":
           - Overview: getting-started/overview.md
           - "The Skeleton Application": getting-started/skeleton-application.md
@@ -11,6 +11,9 @@ pages:
           - "Database and Models": getting-started/database-and-models.md
           - "Forms and Actions": getting-started/forms-and-actions.md
           - Conclusion: getting-started/conclusion.md
+      - "Unit Testing A zend-mvc Application": unit-testing.md
+      - "Adding zend-navigation to the Album Module": navigation.md
+      - "Adding zend-paginator to the Album Module": pagination.md
       - "In-Depth Tutorial":
           - "Introducing the Blog Module": in-depth-guide/first-module.md
           - "Models and the ServiceManager": in-depth-guide/models-and-servicemanager.md
@@ -21,12 +24,10 @@ pages:
           - "Editing and Deleting Data": in-depth-guide/data-binding.md
           - "Reviewing the Blog Module": in-depth-guide/review.md
       - "Advanced Configuration": advanced-config.md
+      - Internationalization: i18n.md
+    - "Component Tutorials":
       - "Setting Up A Database Adapter": db-adapter.md
       - "Using the EventManager": event-manager.md
-      - Internationalization: i18n.md
-      - "Adding zend-navigation to the Album Module": navigation.md
-      - "Adding zend-paginator to the Album Module": pagination.md
-      - "Unit Testing A zend-mvc Application": unit-testing.md
 site_name: tutorials
 site_description: "Zend Framework Tutorials"
 repo_url: 'https://github.com/zendframework/tutorials'
