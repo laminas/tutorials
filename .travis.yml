@@ -1,0 +1,33 @@
+sudo: false
+
+language: php
+
+branches:
+    only:
+        - master
+
+cache:
+    directories:
+        - $HOME/local
+        - $HOME/zf-mkdoc-theme
+
+env:
+    global:
+        - SITE_URL=https://zendframework.github.io/tutorials
+        - GH_USER_NAME="Matthew Weier O'Phinney"
+        - GH_USER_EMAIL="matthew@weierophinney.net"
+        - GH_REF="github.com/zendframework/tutorials.git"
+        - PATH="$HOME/.local/bin:$PATH"
+        - secure: "duuNSLsPW7CB/O46tbXli8BUssFhVj78RDD8dJUfwX3XUgxRESkx4IT7oJBO/bhOiMb7l8e8HxCaH5fWd97u8JXMYNVmWV2une1VJyAKsXRMOYNR6Q8oXMuoH0CIESq4X0O387YQKqYqcbEx4GpRqhQjIEI5/drvd7wo4np5WUrd1RdalT5zAv5xeytlDVa78CQUBVfo7m17Ql+V7zTL0Lah/TCSp/MAD9RetrMlgMm8RWFO/T/Zy+NHClPDvO39QEtOm+H3M7cyY4r0NiD0I3NihIpkYEZw/EKKZwYjLOoHBmTXjdoc7/2pZr8S+1nsaypjsBpiaGDKvTkYwoXSObyGwlVup77gfUzEG5a2FcC+3j1AKdSeQVXwNa6WcDCPW7BSs7EgMM6IfgrVBcp2a/v7MZcsM94k+2vlGlbGuGYQIwfEOnY10ZYLkVbSdTrWv2xrBtDhLZBNfTlURlJouptj2V4wserTCWTwUX+PVf08oB3UXKN5huFm4LBQN+gzS81Lla/etX9P2f+P8pmwhrpSedKyoh1YInrbFdYblK41macGoXLohN30A3H1JCidoqai6OglAaRZ7U1g5BROLz1TnwVRIsjWo6e2+S2D8qY64wxcz9/q4/HOJRg9KQ8/DldU6P1O9XRcGhB75GiNjvkPQO3qcJiccXvLWBFSw2s="
+
+matrix:
+    include:
+        - php: 7
+
+script:
+  - wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh"
+  - chmod 755 theme-installer.sh
+  - ./theme-installer.sh ; fi
+  - echo "Preparing to build and deploy documentation"
+  - ./zf-mkdoc-theme/deploy.sh
+  - echo "Completed deploying documentation"
