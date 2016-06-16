@@ -27,7 +27,7 @@ matrix:
 script:
   - wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh"
   - chmod 755 theme-installer.sh
-  - ./theme-installer.sh ; fi
+  - ./theme-installer.sh
   - echo "Preparing to build and deploy documentation"
   - ./zf-mkdoc-theme/deploy.sh
   - echo "Completed deploying documentation"
