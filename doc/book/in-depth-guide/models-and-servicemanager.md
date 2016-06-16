@@ -180,22 +180,22 @@ class PostRepository implements PostRepositoryInterface
             'text'  => 'This is our first blog post!',
         ],
         2 => [
-            'id'     => 2,
+            'id'    => 2,
             'title' => 'Hello World #2',
             'text'  => 'This is our second blog post!',
         ],
         3 => [
-            'id'     => 3,
+            'id'    => 3,
             'title' => 'Hello World #3',
             'text'  => 'This is our third blog post!',
         ],
         4 => [
-            'id'     => 4,
+            'id'    => 4,
             'title' => 'Hello World #4',
             'text'  => 'This is our fourth blog post!',
         ],
         5 => [
-            'id'     => 5,
+            'id'    => 5,
             'title' => 'Hello World #5',
             'text'  => 'This is our fifth blog post!',
         ],
@@ -236,22 +236,22 @@ class PostRepository implements PostRepositoryInterface
             'text'  => 'This is our first blog post!',
         ],
         2 => [
-            'id'     => 2,
+            'id'    => 2,
             'title' => 'Hello World #2',
             'text'  => 'This is our second blog post!',
         ],
         3 => [
-            'id'     => 3,
+            'id'    => 3,
             'title' => 'Hello World #3',
             'text'  => 'This is our third blog post!',
         ],
         4 => [
-            'id'     => 4,
+            'id'    => 4,
             'title' => 'Hello World #4',
             'text'  => 'This is our fourth blog post!',
         ],
         5 => [
-            'id'     => 5,
+            'id'    => 5,
             'title' => 'Hello World #5',
             'text'  => 'This is our fifth blog post!',
         ],
@@ -381,7 +381,7 @@ namespace Blog;
 // Remove the InvokableFactory import statement
 
 return [
-    'controllers'  => [
+    'controllers' => [
         'factories' => [
             // Update the following line:
             Controller\ListController::class => Factory\ListControllerFactory::class,

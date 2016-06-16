@@ -46,7 +46,7 @@ $ ./vendor/bin/phpunit
 You should see output similar to the following:
 
 ```text
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 ...                                                                 3 / 3 (100%)
 
@@ -121,7 +121,7 @@ Now run `phpunit -- testsuite Album` from the project root; you should get
 similar output to the following:
 
 ```text
-PHPUnit 5.3.4 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 Time: 0 seconds, Memory: 1.75Mb
 
@@ -212,7 +212,7 @@ $ ./vendor/bin/phpunit --testsuite Album
 again, you should see something like the following:
 
 ```text
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -246,7 +246,7 @@ When we run the tests now:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.3.4 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 F
 
@@ -414,7 +414,7 @@ now pass:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -468,7 +468,7 @@ Running `phpunit` gives us the following output:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 ..                                                                  2 / 2 (100%)
 
@@ -622,7 +622,7 @@ model is indeed correct:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 .......                                                             7 / 7 (100%)
 
@@ -765,7 +765,7 @@ Running `phpunit` one last time, we get the output as follows:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.5 by Sebastian Bergmann and contributors.
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
 
 .............                                                     13 / 13 (100%)
 

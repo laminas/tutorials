@@ -63,7 +63,7 @@ PDO, and the supplied PDO DSN:
 return [
     'db' => [
         'driver' => 'Pdo',
-        'dsn'    => 'mysql:dbname=zf2tutorial;host=localhost',
+        'dsn'    => 'mysql:dbname=zf2tutorial;host=localhost;charset=utf8',
     ],
 ];
 ```
@@ -88,11 +88,11 @@ return [
         'adapters' => [
             'Application\Db\WriteAdapter' => [
                 'driver' => 'Pdo',
-                'dsn'    => 'mysql:dbname=application;host=canonical.example.com',
+                'dsn'    => 'mysql:dbname=application;host=canonical.example.com;charset=utf8',
             ],
             'Application\Db\ReadOnlyAdapter' => [
                 'driver' => 'Pdo',
-                'dsn'    => 'mysql:dbname=application;host=replica.example.com',
+                'dsn'    => 'mysql:dbname=application;host=replica.example.com;charset=utf8',
             ],
         ],
     ],

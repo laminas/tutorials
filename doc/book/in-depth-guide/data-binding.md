@@ -189,6 +189,8 @@ Update the 'blog' `child_routes` to add the new route:
 ```php
 // In module/Blog/config/module.config.php:
 
+use Zend\Router\Http\Segment;
+
 return [
     'service_manager' => [ /* ... */ ],
     'controllers'     => [ /* ... */ ],
@@ -197,16 +199,16 @@ return [
             'blog' => [
                 /* ... */
 
-                'child_routes'  => [
+                'child_routes' => [
                     /* ... */
 
                     'edit' => [
-                        'type' => 'segment',
+                        'type' => Segment::class,
                         'options' => [
                             'route'    => '/edit/:id',
                             'defaults' => [
                                 'controller' => Controller\WriteController::class,
-                                'action' => 'edit'
+                                'action'     => 'edit',
                             ],
                             'constraints' => [
                                 'id' => '[1-9]\d*',
@@ -318,7 +320,7 @@ a parameter: `$this->url('blog/edit/', ['id' => $id])`. This would require that
 we pass the original `Post` instance or the identifier we pull from it to the
 view, however. zend-router allows another option, however: you can tell it to
 re-use currently matched parameters.  This is done by setting the last parameter
-of the view-helper to `true`: `$this->url('blog/edit', array(), true)`.
+of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
 If you try and update the post, it'll be successful, but you'll notice that no
 edits were saved! Why? Because we have not yet implemented the functionality in
@@ -540,12 +542,12 @@ Now add another child route to our "blog" route:
                 /* ... */
 
                 'delete' => [
-                    'type' => 'segment',
+                    'type' => Segment::class,
                     'options' => [
                         'route' => '/delete/:id',
                         'defaults' => [
                             'controller' => Controller\DeleteController::class,
-                            'action' => 'delete',
+                            'action'     => 'delete',
                         ],
                         'constraints' => [
                             'id' => '[1-9]\d*',

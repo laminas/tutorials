@@ -82,9 +82,13 @@ namespace Album\Model;
 
 // Add the following import statements:
 use DomainException;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\Filter\ToInt;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\StringLength;
 
 class Album implements InputFilterAwareInterface
 {
@@ -97,9 +101,9 @@ class Album implements InputFilterAwareInterface
 
     public function exchangeArray(array $data)
     {
-        $this->id     = ! empty($data['id']) ? $data['id'] : null;
-        $this->artist = ! empty($data['artist']) ? $data['artist'] : null;
-        $this->title  = ! empty($data['title']) ? $data['title'] : null;
+        $this->id     = !empty($data['id']) ? $data['id'] : null;
+        $this->artist = !empty($data['artist']) ? $data['artist'] : null;
+        $this->title  = !empty($data['title']) ? $data['title'] : null;
     }
 
     public function getArrayCopy()
@@ -133,7 +137,7 @@ class Album implements InputFilterAwareInterface
             'name' => 'id',
             'required' => true,
             'filters' => [
-                ['name' => 'int'],
+                ['name' => ToInt::class],
             ],
         ]);
 
@@ -141,12 +145,12 @@ class Album implements InputFilterAwareInterface
             'name' => 'artist',
             'required' => true,
             'filters' => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
             'validators' => [
                 [
-                    'name' => 'StringLength',
+                    'name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
                         'min' => 1,
@@ -160,12 +164,12 @@ class Album implements InputFilterAwareInterface
             'name' => 'title',
             'required' => true,
             'filters' => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
             'validators' => [
                 [
-                    'name' => 'StringLength',
+                    'name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
                         'min' => 1,
@@ -518,9 +522,9 @@ entity, so we now need to write `getArrayCopy()`:
 
     public function exchangeArray($data)
     {
-        $this->id     = (isset($data['id']))     ? $data['id']     : null;
-        $this->artist = (isset($data['artist'])) ? $data['artist'] : null;
-        $this->title  = (isset($data['title']))  ? $data['title']  : null;
+        $this->id     = isset($data['id']) ? $data['id'] : null;
+        $this->artist = isset($data['artist']) ? $data['artist'] : null;
+        $this->title  = isset($data['title']) ? $data['title'] : null;
     }
 
     // Add the following method:
@@ -632,10 +636,10 @@ Let's start with the action code in `AlbumController::deleteAction()`:
             return $this->redirect()->toRoute('album');
         }
 
-        return array(
+        return [
             'id'    => $id,
-            'album' => $this->getAlbumTable()->getAlbum($id)
-        );
+            'album' => $this->getAlbumTable()->getAlbum($id),
+        ];
     }
 //...
 ```
@@ -685,7 +689,7 @@ home route:
 
 ```php
 'home' => [
-    'type' => Literal::class,
+    'type' => \Zend\Router\Http\Literal::class,
     'options' => [
         'route'    => '/',
         'defaults' => [
@@ -706,7 +710,7 @@ and change the `controller` from `Controller\IndexController::class` to `AlbumCo
 
 ```php
 'home' => [
-    'type' => Literal::class,
+    'type' => \Zend\Router\Http\Literal::class,
     'options' => [
         'route'    => '/',
         'defaults' => [
