@@ -100,7 +100,7 @@ your application, you will need to install
 ## Autoloading
 
 If you are doing a partial upgrade per the above recommendations (vs. upgrading
-the zendframework package), one change is that zend-loader is no longer
+the full zendframework package), one change is that zend-loader is no longer
 installed by default, nor recommended. Instead, we recommend using
 [Composer for autoloading](https://getcomposer.org/doc/04-schema.md#autoload).
 
@@ -199,3 +199,44 @@ if (! class_exists(Application::class)) {
 // Run the application!
 Application::init(require __DIR__ . '/../config/application.config.php')->run();
 ```
+
+## Scripts
+
+The skeleton application for version 2 shipped three scripts with it:
+
+- `bin/classmap_generator.php`
+- `bin/pluginmap_generator.php`
+- `bin/templatemap_generator.php`
+
+If you are upgrading an existing application, these will still be present.
+However, if you are starting a new application, and used these previously, they
+are no longer present.
+
+- `classmap_generator.php` was removed as it's unnecessary when using Composer
+  for autoloading. When preparing a production installation, run `composer
+  dump-autoload -o` and/or `composer dump-autoload -a`; both will generate
+  optimized class map autoloading rules for you.
+- `pluginmap_generator.php` was essentially obsolete due to the presence of
+  `classmap_generator.php` anyways.
+- `templatemap_generator.php` was moved to the zend-view component with the
+  2.8.0 release of that component, and is now available via
+  `./vendor/bin/templatemap_generator.php`. Additionally, its usage signature
+  has changed; please use the `--help` or `-h` switches on first invocation to
+  discover how to use it.
+
+## Development mode
+
+Version 3 of the skeleton application adds a requirement on
+[zfcampus/zf-development-mode](https://github.com/zfcampus/zf-development-mode),
+which provides a way to store common development-specific settings in your
+repository and then selectively enable/disable them during development.
+
+If you are upgrading from an existing application, you can install this feature:
+
+```bash
+$ composer require zfcampus/zf-development-mode
+```
+
+Please refer to the [package documentation](https://github.com/zfcampus/zf-development-mode)
+for details on how to setup your application configuration to make use of this
+feature.
