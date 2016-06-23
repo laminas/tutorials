@@ -262,11 +262,11 @@ for more details.
 > Creating factories is covered in the [zend-servicemanager documentation](https://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/#factories).
 
 The `Zend\Db\Adapter\AdapterInterface` service is registered by the zend-db
-component.  You may have noticed earlier that `config/application.config.php`
+component.  You may have noticed earlier that `config/modules.config.php`
 contains the following entries:
 
 ```php
-'modules' => [
+return [
     'Zend\Form',
     'Zend\Db',
     'Zend\Router',

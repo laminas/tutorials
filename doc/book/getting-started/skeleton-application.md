@@ -92,7 +92,7 @@ Updating application configuration...
 
   Please select which config file you wish to inject 'Zend\Db' into:
   [0] Do not inject
-  [1] config/application.config.php
+  [1] config/modules.config.php
   Make your selection (default is 0):
 ```
 
@@ -415,6 +415,57 @@ if (! class_exists(Application::class)) {
     );
 }
 
+// Retrieve configuration
+$appConfig = require __DIR__ . '/../config/application.config.php';
+if (file_exists(__DIR__ . '/../config/development.config.php')) {
+    $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
+}
+
 // Run the application!
-Application::init(require __DIR__ . '/../config/application.config.php')->run();
+Application::init($appConfig)->run();
 ```
+
+## Development mode
+
+Before we begin, we're going to enable *development mode* for the application.
+The skeleton application provides two files that allow us to specify general
+development settings we want to use everywhere; these may include enabling
+modules for debugging, or enabling error display in our view scripts. These
+files are located at:
+
+- `config/development.config.php.dist`
+- `config/autoload/development.local.php.dist`
+
+When we enable development mode, these files are copied to:
+
+- `config/development.config.php`
+- `config/autoload/development.local.php`
+
+This allows them to be merged into our application. When we disable development
+mode, these two files that were created are then removed, leaving only the
+`.dist` versions. (The repository also contains rules to ignore the copies.)
+
+Let's enable development mode now:
+
+```bash
+$ composer development-enable
+```
+
+> ### Never enable development mode in production
+>
+> You should never enable development mode in production, as the typical
+> reason to enable it is to enable debugging! As noted, the artifacts generated
+> by enabling development mode cannot be committed to your repository, so
+> assuming you don't run the command in production, you should be safe.
+>
+> You can test the status of development mode using:
+>
+> ```bash
+> $ composer development-status
+> ```
+>
+> And you can disable it using:
+>
+> ```bash
+> $ composer development-disable
+> ```

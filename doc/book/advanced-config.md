@@ -30,12 +30,9 @@ When using the skeleton application, the **system configuration** is by default
 in `config/application.config.php`. The defaults look like this:
 
 ```php
-<?php
 return [
-    // This should be an array of module namespaces used in the application.
-    'modules' => [
-        'Application',
-    ],
+    // Retrieve list of modules used in this application.
+    'modules' => require __DIR__ . '/modules.config.php',
 
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => [
@@ -49,30 +46,30 @@ return [
         ],
 
         // An array of paths from which to glob configuration files after
-        // modules are loaded. These effectively overide configuration
+        // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => [
-            'config/autoload/{{,*.}global,{,*.}local}.php',
+            realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php',
         ],
 
         // Whether or not to enable a configuration cache.
         // If enabled, the merged configuration will be cached and used in
         // subsequent requests.
-        //'config_cache_enabled' => $booleanValue,
+        'config_cache_enabled' => true,
 
         // The key used to create the configuration cache file name.
-        //'config_cache_key' => $stringKey,
+        'config_cache_key' => 'application.config.cache',
 
         // Whether or not to enable a module class map cache.
         // If enabled, creates a module class map cache which will be used
         // by in future requests, to reduce the autoloading process.
-        //'module_map_cache_enabled' => $booleanValue,
+        'module_map_cache_enabled' => true,
 
         // The key used to create the class map cache file name.
-        //'module_map_cache_key' => $stringKey,
+        'module_map_cache_key' => 'application.module.cache',
 
         // The path in which to cache merged configuration.
-        //'cache_dir' => $stringPath,
+        'cache_dir' => 'data/cache/',
 
         // Whether or not to enable modules dependency checking.
         // Enabled by default, prevents usage of modules that depend on other modules
@@ -82,13 +79,13 @@ return [
 
     // Used to create an own service manager. May contain one or more child arrays.
     //'service_listener_options' => [
-    //     array(
+    //     [
     //         'service_manager' => $stringServiceManagerName,
     //         'config_key'      => $stringConfigKey,
     //         'interface'       => $stringOptionalInterface,
     //         'method'          => $stringRequiredMethodName,
     //     ],
-    // ]
+    // ],
 
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
@@ -122,76 +119,66 @@ As an example, let's make the following requirements:
 - We want to use the `ZendDeveloperTools` module in development only.
 - We want to have configuration caching on in production only.
 
-To make this happen, we'll set an environment variable in our web server
-configuration, `APP_ENV`. In Apache, you'd put a directive like the following in
-either your system-wide `apache.conf` or `httpd.conf`, or in the definition for
-your virtual host; alternately, it can be placed in an `.htaccess` file.
+[zfcampus/zf-development-mode](https://github.com/zfcampus/zf-development-mode)
+provides a concise and conventions-based approach to switching between
+specifically production and development.  The package is installed by default
+with version 3+ skeletons, and can be installed with existing v2 skeletons
+using the following:
 
-```apache
-SetEnv "APP_ENV" "development"
+```bash
+$ composer require zfcampus/zf-development-mode
 ```
 
-For other web servers, consult the web server documentation to determine how to
-set environment variables.
+The approach it takes is as follows:
 
-To simplify matters, we'll assume the environment is "production" if no
-environment variable is present.
+- The user provides production settings in `config/application.config.php`.
+- The user provides development settings in
+  `config/development.config.php.dist` to override bootstrap-level settings
+  such as modules and configuration caching, and optionally also in
+  `config/autoload/development.local.php.dist` (to override application
+  settings).
+- The bootstrap script (`public/index.php`) checks for
+  `config/development.config.php`, and, if found, merges its configuration with
+  the application configuration prior to configuring the `Application` instance.
 
-We'll modify the `config/application.config.php` file to read as follows:
+When you execute:
 
-> #### TODO
->
-> Rewrite this example to follow how zend-development mode works, as the changes
-> introduced in this example will break how zend-component-installer works!
-
-```php
-<?php
-$env = getenv('APP_ENV') ?: 'production';
-
-// Use the $env value to determine which modules to load
-$modules = [
-    'Application',
-];
-
-if ($env == 'development') {
-    $modules[] = 'ZendDeveloperTools';
-}
-
-return [
-    'modules' => $modules,
-
-    'module_listener_options' => [
-        'module_paths' => [
-            './module',
-            './vendor',
-        ],
-
-        'config_glob_paths' => [
-            'config/autoload/{{,*.}global,{,*.}local}.php',
-        ],
-
-        // Use the $env value to determine the state of the flag
-        'config_cache_enabled' => ($env == 'production'),
-
-        'config_cache_key' => 'app_config',
-
-        // Use the $env value to determine the state of the flag
-        'module_map_cache_enabled' => ($env === 'production'),
-
-        'module_map_cache_key' => 'module_map',
-
-        'cache_dir' => 'data/config/',
-
-        // Use the $env value to determine the state of the flag
-        'check_dependencies' => ($env !== 'production'),
-    ],
-];
+```bash
+$ ./vendor/bin/zf-development-mode enable
 ```
 
-This approach gives you flexibility to alter system-level settings.
+The `.dist` files are copied to versions removing the suffix; doing so ensures
+they will then be used when invoking the application.
 
-However, how about altering *application* *specific* settings (not system
-configuration) based on the environment?
+As such, to accomplish our goals, we will do the following:
+
+- In `config/development.config.php.dist`, add `ZendDeveloperTools` to the list
+  of modules:
+
+  ```php
+  'modules' => [
+      'ZendDeveloperTools',
+  ],
+  ```
+
+- Also in `config/development.config.php.dist`, we will disable config caching:
+
+  ```php
+  'config_cache_enable' => false,
+  ```
+
+- In `config/application.config.php`, we will enable config caching:
+
+  ```php
+  'config_cache_enable' => true,
+  ```
+
+Enabling development mode now enables the selected module, and disables
+configuration caching; disabling development mode enables configuration
+caching. (Also, either operation clears the configuration cache.)
+
+If you require additional environments, you can extend zf-development-mode to
+address them using the same workflow.
 
 ### Environment-specific application configuration
 
@@ -217,18 +204,48 @@ files, which you would then commit to your version control system, and
 environment-specific overrides in your "local" configuration files, which you
 would *omit* from version control.
 
+> ### Additional glob patterns for development mode
+>
+> When using zf-development-mode, as detailed in the previous section, the
+> shipped `config/development.config.php.dist` file provides an additional
+> glob pattern for specifying development configuration:
+>
+> - `config/autoload/{,*.}{global,local}-development.php`
+>
+> This will match files such as:
+>
+> - database.global-development.php
+> - database.local-development.php
+>
+> These will only be considered when development mode is enabled!
+
 This is a great solution for development, as it allows you to specify alternate
 configuration that's specific to your development environment without worrying
 about accidently deploying it. However, what if you have more environments
 &mdash such as a "testing" or "staging" environment &mdash; and they each have
 their own specific overrides?
 
-Again, the application environment variable comes to play. We can alter the glob
-path in the system configuration slightly:
+To accomplish this, we'll provide an *environment variable* via our web server
+configuration, `APP_ENV`. In Apache, you'd put a directive like the following
+in either your system-wide apache.conf or httpd.conf, or in the definition for
+your virtual host; alternately, it can be placed in an .htaccess file.
+
+```apacheconf
+SetEnv "APP_ENV" "development"
+```
+
+For other web servers, consult the web server documentation to determine how to
+set environment variables.
+
+To simplify matters, we'll assume the environment is "production" if no
+environment variable is present.
+
+With that in place, We can alter the glob path in the system configuration
+slightly:
 
 ```php
 'config_glob_paths' => [
-    sprintf('config/autoload/{,*.}{global,%s,local}.php', $env)
+    realpath(__DIR__) . sprintf('config/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
 ],
 ```
 

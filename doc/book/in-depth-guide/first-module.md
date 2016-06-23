@@ -65,21 +65,17 @@ We now have a module that can be detected by the
 Let's add this module to our application. Although our module doesn't do
 anything yet, just having the `Module.php` class allows it to be loaded by the
 ModuleManager.  To do this, add an entry for `Blog` to the modules array inside
-the main application config file at `/config/application.config.php`:
+`config/modules.config.php`:
 
 ```php
 <?php
-// In config/application.config.php:
+// In config/modules.config.php:
 
 return [
-    'modules' => [(
-        /* ... */
-        'Application',
-        'Album',
-        'Blog',
-    ],
-
     /* ... */
+    'Application',
+    'Album',
+    'Blog',
 ];
 ```
 
