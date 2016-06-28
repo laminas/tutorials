@@ -38,12 +38,20 @@ raise any additional prompts, and finish installing your application. If you
 anser "n", it will continue prompting you:
 
 ```text
+    Would you like to install the developer toolbar? y/N
+```
+
+The [developer toolbar](https://github.com/zendframework/ZendDeveloperTools)
+provides an in-browser toolbar with timing and profiling information, and can be
+useful when debugging an application. For the purposes of the tutorial, however,
+we will not be using it; hit either "Enter", or "n" followed by "Enter".
+
+```text
     Would you like to install caching support? y/N
 ```
 
 We will not be demonstrating caching in this tutorial, so either hit "Enter", or
 "n" followed by "Enter".
-
 
 ```text
     Would you like to install database support (installs zend-db)? y/N
