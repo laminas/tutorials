@@ -299,7 +299,7 @@ return [
         'driver' => 'Pdo',
         'dsn'    => sprintf('sqlite:%s/data/zftutorial.db', realpath(getcwd())),
     ],
-);
+];
 ```
 
 If you were configuring a database that required credentials, you would put the
