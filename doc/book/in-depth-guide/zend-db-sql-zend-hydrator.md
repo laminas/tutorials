@@ -328,7 +328,7 @@ use Zend\Db\ResultSet\ResultSet;
 Now update the `findAllPosts()` method as follows:
 
 ```php
-public function findAll()
+public function findAllPosts()
 {
     $sql    = new Sql($this->dbAdapter);
     $select = $sql->select('posts');
