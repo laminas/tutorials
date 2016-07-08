@@ -435,7 +435,6 @@ A common scenario with controllers is processing POST data submitted via a form,
 as we do in the `AlbumController::addAction()`. Let's write a test for that.
 
 ```php
- :linenos:}
 public function testAddActionRedirectsAfterValidPost()
 {
     $this->albumTable
