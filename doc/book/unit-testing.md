@@ -55,6 +55,10 @@ Time: 116 ms, Memory: 11.00MB
 OK (3 tests, 7 assertions)
 ```
 
+There might be 2 failing tests if you followed the getting started guide. This
+is because the `Application\IndexController` is overridden by the
+`AlbumController`. This can be ignored for now.
+
 Now it's time to write our own tests!
 
 ## Setting up the tests directory
