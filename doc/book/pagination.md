@@ -367,7 +367,15 @@ Now, tell the view script to iterate over the `pagination` view variable, rather
 than the `albums` variable:
 
 ```php
-<?php // in module/Album/view/album/album/index.phtml: ?>
+<?php // in module/Album/view/album/album/index.phtml
+$title = 'My albums';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?= $this->url('album', ['action' => 'add']) ?>">Add new album</a>
+</p>
+
 <table class="table">
     <tr>
         <th>Title</th>
