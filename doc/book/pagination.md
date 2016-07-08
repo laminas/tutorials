@@ -5,7 +5,6 @@
 > Update to:
 >
 > - follow the changes in the user-guide
-> - use SQLite-compatible SQL syntax, and provide a script for inserting the data
 
 In this tutorial, we will use the [zend-paginator component](https://zendframework.github.io/zend-paginator/intro/)
 to add a handy pagination controller to the bottom of the album list.
@@ -21,9 +20,8 @@ and you can see their pagination control at the bottom of the page:
 
 ## Preparation
 
-In order for us to have lots of albums in our database, you'll need to run the
-following SQL insert statement to insert the current 150 top iTunes albums (at
-the time of writing!):
+As before, we are going to use Sqlite, via PHP's PDO driver. Create a text file
+data/album-fixtures.sql with the following contents:
 
 ```sql
 INSERT INTO "album" ("artist", "title")
@@ -181,36 +179,38 @@ VALUES
 );
 ```
 
-> ### Populating the database
+(The test data chosen happens to be the current 150 top iTunes albums at the
+time of writing!)
+
+Now create the database using the following:
+
+```bash
+$ sqlite data/zftutorial.db < data/album-fixtures.sql
+```
+
+Some systems, including Ubuntu, use the command `sqlite3`; check to see which
+one to use on your system.
+
+> ### Using PHP to create the database
 >
-> You have a number of options for populating the database, based on your
-> operating system and installed applications.
->
-> First, copy the above into the file `data/bulk_albums.sql`.
->
-> Next, if you have the `sqlite` or `sqlite3` command installed, run:
->
-> ```bash
-> $ sqlite data/zftutorial.db < data/bulk_albums.sql
-> ```
->
-> (If you have `sqlite3` on your system, use that, as sqlite typically refers to
-> the SQLite v2 binary.)
->
-> If you do not, you can use PHP. Create a new file, `data/load_bulk_albums.php`,
-> with the following contents:
+> If you do not have Sqlite installed on your system, you can use PHP to load
+> the database using the same SQL schema file created earlier. Create the file
+> `data/load_album_fixtures.php` with the following contents:
 >
 > ```php
 > <?php
 > $db = new PDO('sqlite:' . realpath(__DIR__) . '/zftutorial.db');
-> $sql = file_get_contents(__DIR__ . '/bulk_albums.sql');
-> $db->exec($sql);
+> $fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
+> while ($line = fread($fh, 4096)) {
+>     $db->exec($line);
+> }
+> fclose($fh);
 > ```
 >
-> Then, execute it with:
+> Once created, execute it:
 >
 > ```bash
-> $ php data/load_bulk_albums.php
+> $ php data/load_album_fixtures.php
 > ```
 
 This gives us a handy extra 150 rows to play with. If you now visit your album
