@@ -228,7 +228,7 @@ A successful first test!
 We likely don't want to hit the same database during testing as we use for our
 web property. Let's add some configuration to the test case to remove the
 database configuration. In your `AlbumControllerTest::setUp()` method, add the
-following lines following the call to `parent::setUp();`:
+following lines right after the call to `parent::setUp();`:
 
 ```php
 $services = $this->getApplicationServiceLocator();
