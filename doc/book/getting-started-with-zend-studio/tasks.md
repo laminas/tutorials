@@ -10,7 +10,7 @@ pass them to the view. To do this, we fill in `indexAction()` within
 public function indexAction()
 {
     $mapper = $this->getTaskMapper();
-    return new ViewModel(array('tasks' => $mapper->fetchAll()));
+    return new ViewModel(['tasks' => $mapper->fetchAll()]);
 }
 ```
 
@@ -142,7 +142,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class TaskForm extends Form
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct('task');
 
@@ -172,7 +172,7 @@ class TaskForm extends Form
             'type' => 'checkbox',
             'options' => [
                 'label' => 'Completed?',
-                'label_attributes' => array('class'=>'checkbox'),
+                'label_attributes' => ['class'=>'checkbox'],
             ],
         ]);
 
@@ -471,7 +471,7 @@ public function editAction()
     $id = (int) $this->params('id');
 
     if (! $id) {
-        return $this->redirect()->toRoute('task', array('action'=>'add'));
+        return $this->redirect()->toRoute('task', ['action'=>'add']);
     }
 
     $task = $this->getTaskMapper()->getTask($id);

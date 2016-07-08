@@ -318,7 +318,7 @@ a parameter: `$this->url('blog/edit/', ['id' => $id])`. This would require that
 we pass the original `Post` instance or the identifier we pull from it to the
 view, however. zend-router allows another option, however: you can tell it to
 re-use currently matched parameters.  This is done by setting the last parameter
-of the view-helper to `true`: `$this->url('blog/edit', array(), true)`.
+of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
 If you try and update the post, it'll be successful, but you'll notice that no
 edits were saved! Why? Because we have not yet implemented the functionality in

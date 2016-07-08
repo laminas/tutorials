@@ -222,7 +222,7 @@ entire router section of the array to be:
             'type'    => 'Segment',
             'options' => [
                 'route'    => '/task[/:action[/:id]]',
-                'defaults' => array(
+                'defaults' => [
                     '__NAMESPACE__' => 'Checklist\Controller',
                     'controller'    => 'Task',
                     'action'        => 'index',
@@ -426,7 +426,7 @@ class TaskMapper
     public function fetchAll()
     {
         $select = $this->sql->select();
-        $select->order(array('completed ASC', 'created ASC'));
+        $select->order(['completed ASC', 'created ASC']);
 
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();

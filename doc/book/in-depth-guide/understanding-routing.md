@@ -109,8 +109,8 @@ match if and only if it is exactly four digits. As such, the URL
 The definition marks an optional segment, denoted by `[/:year]`. This has a
 couple of implications. First, it means that we can also match:
 
-- `//example.com/news/archive` 
-- `//example.com/news/archive/` 
+- `//example.com/news/archive`
+- `//example.com/news/archive/`
 
 In both cases, we'll also still receive a value for the `:year` segment, because
 we defined a default for it: the expression `date('Y')` (returning the current
@@ -192,7 +192,7 @@ as an attacker could use this fact to launch a Denial of Service.
 ### Basic routing
 
 By now, you should be convinced that generic routes, while nice for prototyping,
-should likely be avoided. That means defining explicit routes. 
+should likely be avoided. That means defining explicit routes.
 
 Your initial approach might be to create one route for every permutation:
 
@@ -289,7 +289,7 @@ above:
             // The following allows "/news" to match on its own if no child
             // routes match:
             'may_terminate' => true,
-            
+
             // Child routes begin:
             'child_routes' => [
                 'archive' => [
@@ -533,9 +533,9 @@ public function detailAction()
         return $this->redirect()->toRoute('blog');
     }
 
-    return new ViewModel(array(
+    return new ViewModel([
         'post' => $post
-    ));
+    ]);
 }
 ```
 

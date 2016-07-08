@@ -632,10 +632,10 @@ Let's start with the action code in `AlbumController::deleteAction()`:
             return $this->redirect()->toRoute('album');
         }
 
-        return array(
+        return [
             'id'    => $id,
             'album' => $this->getAlbumTable()->getAlbum($id)
-        );
+        ];
     }
 //...
 ```

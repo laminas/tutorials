@@ -390,7 +390,7 @@ class Module
 
         // Registering a listener at default priority, 1, which will trigger
         // after the ConfigListener merges config.
-        $events->attach(ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
+        $events->attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this, 'onMergeConfig']);
     }
 
     public function onMergeConfig(ModuleEvent $e)
