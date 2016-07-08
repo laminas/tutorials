@@ -323,10 +323,12 @@ the `fetchAll` method.
 
 First, let's do some setup.
 
-Add an import statement to the top of the test class file for the `AlbumTable`:
+Add import statements to the top of the test class file for the `AlbumTable`
+and `ServiceManager`:
 
 ```php
 use Album\Model\AlbumTable;
+use Zend\ServiceManager\ServiceManager;
 ```
 
 Now add the following property to the test class:
