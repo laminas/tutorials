@@ -232,7 +232,7 @@ written:
             ->breadcrumbs()
             ->setMinDepth(0)
             ->setPartial('partial/breadcrumb') ?>
-    <?= $this->content ?>
+    <?= $this->content; ?>
 </div>
 ```
 
