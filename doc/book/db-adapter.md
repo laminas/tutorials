@@ -63,7 +63,7 @@ PDO, and the supplied PDO DSN:
 return [
     'db' => [
         'driver' => 'Pdo',
-        'dsn'    => 'mysql:dbname=zf2tutorial;host=localhost',
+        'dsn'    => 'mysql:dbname=zftutorial;host=localhost',
     ],
 ];
 ```

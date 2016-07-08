@@ -1,8 +1,8 @@
-# Getting Started with Zend Framework 2
+# Getting Started with Zend Framework 3
 
-This tutorial is intended to give an introduction to using Zend Framework 2 by
+This tutorial is intended to give an introduction to using Zend Framework 3 by
 creating a simple database driven application using the Model-View-Controller
-paradigm. By the end you will have a working ZF2 application and you can then
+paradigm. By the end you will have a working ZF3 application and you can then
 poke around the code to find out more about how it all works and fits together.
 
 We will develop this application using Zend Studio 10 and run the application on
@@ -13,11 +13,11 @@ in both free and paid editions, both of which provide lots of features; however
 the most interesting ones for developers are the dead-simple environment setup
 and the ability to investigate application problems, including profiling
 performance and memory issues with code-tracing abilities. Zend Server also
-ships with Zend Framework 2, which is convenient.
+ships with Zend Framework 3, which is convenient.
 
 Zend Studio is a PHP-focused IDE based on Eclipse that comes in two flavours:
 the free Eclipse PDT and Zend Studio, a paid-for product that provides enhanced
-features and support options. Usefully, Eclipse PDT provides Zend Framework 2
+features and support options. Usefully, Eclipse PDT provides Zend Framework 3
 support out of the box along with Zend Server integration. You don't get the
 mobile features though, or integrated PHP Documenter & PHPUnit features.
 
@@ -76,7 +76,7 @@ Enter *MyTaskList* as the Project Name and set the location to the Zend Server
 document root. Due to the integration between Zend Server and Zend Studio, you
 should find the correct directory as an option in the drop down list. Select
 Zend Framework as the Content and you can then select which version of Zend
-Framework to use. Select the latest Zend Framework 2 version and press Next.
+Framework to use. Select the latest Zend Framework 3 version and press Next.
 
 The next step is the Launch Settings tab. Choose Launch URL and set the host to
 `http://localhost` (or `http://localhost:10088` on OS X) and the Base Path to
@@ -90,8 +90,8 @@ Zend Studio has now created a default Zend Framework project for us:
 
 ![image](../images/getting-started-with-zend-studio.studio3.png)
 
-This is a standard Zend Framework 2 Skeleton Application and is a great starting
-point for a new ZF2 application.
+This is a standard Zend Framework 3 Skeleton Application and is a great starting
+point for a new ZF3 application.
 
 To set up Zend Studio to run this project, select "Run" -&gt; "Run
 Configurations..." and double click on PHP Web Application in the left hand
@@ -103,7 +103,7 @@ path to `/MyTaskList/public` and press "Apply" and then "Close":
 ![image](../images/getting-started-with-zend-studio.studio4.png%0A%20:width:%20525px)
 
 To test that all is working, press the run button in the toolbar (white arrow in
-a green circle). The ZF2 Skeleton Application home page will display in a new
+a green circle). The ZF3 Skeleton Application home page will display in a new
 tab within Zend Studio:
 
 ![image](../images/getting-started-with-zend-studio.studio5.png)

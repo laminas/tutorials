@@ -258,7 +258,7 @@ for more details.
 > - You can extend the factory if desired.
 > - You can re-use the factory across multiple instances that have related
 >   construction.
-> 
+>
 > Creating factories is covered in the [zend-servicemanager documentation](https://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/#factories).
 
 The `Zend\Db\Adapter\AdapterInterface` service is registered by the zend-db
@@ -485,7 +485,7 @@ links.
 > We always use the `escapeHtml()` view helper to help protect ourselves from
 > [Cross Site Scripting (XSS) vulnerabilities](http://en.wikipedia.org/wiki/Cross-site_scripting).
 
-If you open `http://localhost:8080/album` (or `http://zf2-tutorial.localhost/album` 
+If you open `http://localhost:8080/album` (or `http://zf-tutorial.localhost/album` 
 if you are using self-hosted Apache) you should see this:
 
 ![Initial album listing](../images/user-guide.database-and-models.album-list.png)

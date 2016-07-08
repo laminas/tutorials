@@ -115,7 +115,7 @@ letter.
 > service, `AbstractRestfulController` may be useful.
 
 Let’s go ahead and create our controller class in the file
-`zf2-tutorials/module/Album/src/Controller/AlbumController.php`:
+`zf-tutorials/module/Album/src/Controller/AlbumController.php`:
 
 ```php
 namespace Album\Controller;
@@ -148,10 +148,10 @@ until we set up the views. The URLs for each action are:
 
 URL                                          | Method called
 -------------------------------------------- | -------------
-`http://zf2-tutorial.localhost/album`        | `Album\Controller\AlbumController::indexAction`
-`http://zf2-tutorial.localhost/album/add`    | `Album\Controller\AlbumController::addAction`
-`http://zf2-tutorial.localhost/album/edit`   | `Album\Controller\AlbumController::editAction`
-`http://zf2-tutorial.localhost/album/delete` | `Album\Controller\AlbumController::deleteAction`
+`http://zf-tutorial.localhost/album`        | `Album\Controller\AlbumController::indexAction`
+`http://zf-tutorial.localhost/album/add`    | `Album\Controller\AlbumController::addAction`
+`http://zf-tutorial.localhost/album/edit`   | `Album\Controller\AlbumController::editAction`
+`http://zf-tutorial.localhost/album/delete` | `Album\Controller\AlbumController::deleteAction`
 
 We now have a working router and the actions are set up for each page of our
 application.
