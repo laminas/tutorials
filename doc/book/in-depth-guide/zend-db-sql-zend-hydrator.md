@@ -248,7 +248,7 @@ class ZendDbSqlRepository implements PostRepositoryInterface
      */
     public function findAllPosts()
     {
-        $sql    = new Sql($this->dbAdapter);
+        $sql    = new Sql($this->db);
         $select = $sql->select('posts');
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
@@ -278,7 +278,7 @@ we get here. Change the `findAllPosts()` method and dump the result:
 ```php
 public function findAllPosts()
 {
-    $sql    = new Sql($this->dbAdapter);
+    $sql    = new Sql($this->db);
     $select = $sql->select('posts');
     $stmt   = $sql->prepareStatementForSqlObject($select);
     $result = $stmt->execute();
@@ -330,7 +330,7 @@ Now update the `findAllPosts()` method as follows:
 ```php
 public function findAll()
 {
-    $sql    = new Sql($this->dbAdapter);
+    $sql    = new Sql($this->db);
     $select = $sql->select('posts');
     $stmt   = $sql->prepareStatementForSqlObject($select);
     $result = $stmt->execute();
