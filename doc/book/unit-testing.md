@@ -117,8 +117,8 @@ test suite to it. When done, it should read as follows:
 </phpunit>
 ```
 
-Now run `phpunit -- testsuite Album` from the project root; you should get
-similar output to the following:
+Now run `./vendor/bin/phpunit --testsuite Album` from the project root; you
+should get similar output to the following:
 
 ```text
 PHPUnit 5.3.4 by Sebastian Bergmann and contributors.
