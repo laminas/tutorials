@@ -491,8 +491,8 @@ to display our pagination control:
     // The partial to use to render the control:
     'partial/paginator',
     // The route to link to when a user clicks a control link:
-    [ 'route' => 'album' ]
-) ?>
+    ['route' => 'album']
+); ?>
 ```
 
 The above echoes the `paginationControl` helper, and tells it to use our
