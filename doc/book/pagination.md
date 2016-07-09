@@ -14,8 +14,8 @@ and you can see their pagination control at the bottom of the page:
 
 ## Preparation
 
-As before, we are going to use Sqlite, via PHP's PDO driver. Create a text file
-data/album-fixtures.sql with the following contents:
+As before, we are going to use sqlite, via PHP's PDO driver. Create a text file
+`data/album-fixtures.sql` with the following contents:
 
 ```sql
 INSERT INTO "album" ("artist", "title")
@@ -361,7 +361,7 @@ Now, tell the view script to iterate over the `pagination` view variable, rather
 than the `albums` variable:
 
 ```php
-<?php // in module/Album/view/album/album/index.phtml
+<?php // in module/Album/view/album/album/index.phtml:
 $title = 'My albums';
 $this->headTitle($title);
 ?>
@@ -474,7 +474,7 @@ to display our pagination control:
 
 ```php
 <?php
-// In module/Album/view/album/album/index.phtml.
+// In module/Album/view/album/album/index.phtml:
 // Add at the end of the file after the table:
 ?>
 <?= $this->paginationControl(
