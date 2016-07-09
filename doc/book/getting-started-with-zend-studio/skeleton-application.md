@@ -14,7 +14,7 @@ Folder   | Information stored
 `public` | The web server's document root. All files served directly by the web server are in here.
 `vendor` | Third party libraries.
 
-One of the key features of Zend Framework 2 is its module system. This provides
+One of the key features of Zend Framework 3 is its module system. This provides
 organisation within your application; all application code lives within a
 module. The skeleton provides the `Application` module for bootstrapping, error
 and routing configuration. It also provides the application-level controllers
@@ -37,7 +37,7 @@ application specific, with the list of modules to load stored in
 
 ## The dispatch cycle
 
-Zend Framework 2 applications use the [Front Controller](http://www.martinfowler.com/eaaCatalog/frontController.html)
+Zend Framework 3 applications use the [Front Controller](http://www.martinfowler.com/eaaCatalog/frontController.html)
 design pattern. This means that all requests are directed to a single entry
 point, the `public/index.php` file. This is done using a `.htaccess` file
 containing rewrite rules that serves all static files (such as CSS &amp;
@@ -77,10 +77,10 @@ The Service Manager and Event Manager are two other key features of a Zend
 Framework 2 application.  [zend-servicemanager](https://zendframework.github.io/zend-servicemanager/)
 allows for decoupling the instantiation and configuration of a class and its
 dependencies from where that class is used. This is known as Dependency
-Injection and is used extensively in Zend Framework 2.
+Injection and is used extensively in Zend Framework 3.
 [zend-eventmanager](https://zendframework.github.io/zend-eventmanager/)
 is an implementation of the Observer design pattern which allows decoupling of
-code. In Zend Framework 2, every key process in the dispatch cycle is
+code. In Zend Framework 3, every key process in the dispatch cycle is
 implemented as an event. This means that you can write listeners for these
 events which can then change the flow of operation or perform additional
 processes when something else has happened.
@@ -95,7 +95,7 @@ within the controller class to be executed. The view rendering event, `render`,
 is then triggered if an HTML view is required. Finally the `finish` event is
 triggered which sends the response back to the user's web browser.
 
-While this is a typical dispatch cycle, Zend Framework 2's dispatch system is
+While this is a typical dispatch cycle, Zend Framework 3's dispatch system is
 very flexible and can be configured in a variety of ways depending on the
 specific application. Now that we've looked at how Zend Framework works, let's
 move on and write the *MyTaskList* application.
