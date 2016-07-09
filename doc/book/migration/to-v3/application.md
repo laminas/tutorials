@@ -155,6 +155,12 @@ You can then update the `autoload` configuration to:
 }
 ```
 
+To make composer update the new `Application` namespace rule, you can run:
+
+```bash
+$ composer dump-autoload
+```
+
 The updated application skeleton already takes this approach.
 
 ## Bootstrap
