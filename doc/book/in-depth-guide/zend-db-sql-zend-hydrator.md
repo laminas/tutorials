@@ -15,13 +15,13 @@ database. We will be re-using it, and adding another table to it.
 Create the file `data/posts.schema.sql` with the following contents:
 
 ```sql
-CREATE TABLE posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar(100) NOT NULL, text TEXT NOT NULL);
+CREATE TABLE posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar(100) NOT NULL, text TEXT NOT NULL);
 
-INSERT INTO posts (title, text) VALUES  ('Blog #1',  'Welcome to my first blog post');
-INSERT INTO posts (title, text) VALUES  ('Blog #2',  'Welcome to my second blog post');
-INSERT INTO posts (title, text) VALUES  ('Blog #3',  'Welcome to my third blog post');
-INSERT INTO posts (title, text) VALUES  ('Blog #4',  'Welcome to my fourth blog post');
-INSERT INTO posts (title, text) VALUES  ('Blog #5',  'Welcome to my fifth blog post');
+INSERT INTO posts (title, text) VALUES ('Blog #1', 'Welcome to my first blog post');
+INSERT INTO posts (title, text) VALUES ('Blog #2', 'Welcome to my second blog post');
+INSERT INTO posts (title, text) VALUES ('Blog #3', 'Welcome to my third blog post');
+INSERT INTO posts (title, text) VALUES ('Blog #4', 'Welcome to my fourth blog post');
+INSERT INTO posts (title, text) VALUES ('Blog #5', 'Welcome to my fifth blog post');
 ```
 
 Now we will execute this against the existing `data/zftutorial.db` SQLite
@@ -487,9 +487,9 @@ class ZendDbSqlRepository implements PostRepositoryInterface
         HydratorInterface $hydrator,
         PostInterface $postPrototype
     ) {
-        $this->db             = $db;
-        $this->hydrator       = $hydrator;
-        $this->postPrototype  = $postPrototype;
+        $this->db            = $db;
+        $this->hydrator      = $hydrator;
+        $this->postPrototype = $postPrototype;
     }
 
     /**

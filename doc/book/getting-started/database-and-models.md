@@ -13,12 +13,12 @@ We are going to use Sqlite, via PHP's PDO driver. Create a text file
 `data/schema.sql` with the following contents:
 
 ```sql
-CREATE TABLE album ( id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
-INSERT INTO album (artist, title) VALUES  ('The  Military  Wives',  'In  My  Dreams');
-INSERT INTO album (artist, title) VALUES  ('Adele',  '21');
-INSERT INTO album (artist, title) VALUES  ('Bruce  Springsteen',  'Wrecking Ball (Deluxe)');
-INSERT INTO album (artist, title) VALUES  ('Lana  Del  Rey',  'Born  To  Die');
-INSERT INTO album (artist, title) VALUES  ('Gotye',  'Making  Mirrors');
+CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
+INSERT INTO album (artist, title) VALUES ('The Military Wives', 'In My Dreams');
+INSERT INTO album (artist, title) VALUES ('Adele', '21');
+INSERT INTO album (artist, title) VALUES ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
+INSERT INTO album (artist, title) VALUES ('Lana Del Rey', 'Born To Die');
+INSERT INTO album (artist, title) VALUES ('Gotye', 'Making Mirrors');
 ```
 
 (The test data chosen happens to be the Bestsellers on Amazon UK at the time of writing!)
@@ -89,9 +89,9 @@ class Album
 
     public function exchangeArray(array $data)
     {
-        $this->id     = (!empty($data['id'])) ? $data['id'] : null;
-        $this->artist = (!empty($data['artist'])) ? $data['artist'] : null;
-        $this->title  = (!empty($data['title'])) ? $data['title'] : null;
+        $this->id     = !empty($data['id']) ? $data['id'] : null;
+        $this->artist = !empty($data['artist']) ? $data['artist'] : null;
+        $this->title  = !empty($data['title']) ? $data['title'] : null;
     }
 }
 ```
@@ -216,7 +216,7 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Model\AlbumTable::class =>  function($container) {
+                Model\AlbumTable::class => function($container) {
                     $tableGateway = $container->get(Model\AlbumTableGateway::class);
                     return new Model\AlbumTable($tableGateway);
                 },
@@ -363,7 +363,7 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\AlbumController::class =>  function($container) {
+                Controller\AlbumController::class => function($container) {
                     return new Controller\AlbumController(
                         $container->get(Model\AlbumTable::class)
                     );
@@ -432,9 +432,9 @@ name}`. We can now fill in the `index.phtml` view script:
 $title = 'My albums';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title); ?></h1>
+<h1><?= $this->escapeHtml($title) ?></h1>
 <p>
-    <a href="<?= $this->url('album', ['action'=>'add']) ?>">Add new album</a>
+    <a href="<?= $this->url('album', ['action' => 'add']) ?>">Add new album</a>
 </p>
 
 <table class="table">
@@ -444,14 +444,14 @@ $this->headTitle($title);
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($albums as $album) : ?>
-<tr>
-    <td><?= $this->escapeHtml($album->title) ?></td>
-    <td><?= $this->escapeHtml($album->artist) ?></td>
-    <td>
-        <a href="<?= $this->url('album', ['action'=>'edit', 'id' => $album->id]) ?>">Edit</a>
-        <a href="<?= $this->url('album', ['action'=>'delete', 'id' => $album->id]) ?>">Delete</a>
-    </td>
-</tr>
+    <tr>
+        <td><?= $this->escapeHtml($album->title) ?></td>
+        <td><?= $this->escapeHtml($album->artist) ?></td>
+        <td>
+            <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
+            <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
+        </td>
+    </tr>
 <?php endforeach; ?>
 </table>
 ```

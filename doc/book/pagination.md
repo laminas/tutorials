@@ -426,12 +426,12 @@ our modules:
     <?php if ($page !== $this->current): ?>
       <li>
         <a href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
-          <?= $page; ?>
+          <?= $page ?>
         </a>
       </li>
     <?php else: ?>
       <li class="active">
-        <a href="#"><?= $page; ?></a>
+        <a href="#"><?= $page ?></a>
       </li>
     <?php endif ?>
   <?php endforeach ?>
@@ -483,7 +483,7 @@ to display our pagination control:
     // The partial to use to render the control:
     'partial/paginator',
     // The route to link to when a user clicks a control link:
-    [ 'route' => 'album' ]
+    ['route' => 'album']
 ) ?>
 ```
 

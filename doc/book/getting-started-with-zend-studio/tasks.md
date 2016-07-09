@@ -10,7 +10,7 @@ pass them to the view. To do this, we fill in `indexAction()` within
 public function indexAction()
 {
     $mapper = $this->getTaskMapper();
-    return new ViewModel(array('tasks' => $mapper->fetchAll()));
+    return new ViewModel(['tasks' => $mapper->fetchAll()]);
 }
 ```
 
@@ -36,8 +36,8 @@ this new code:
 $title = 'My task list';
 $this->headTitle($title);
 ?>
-<h1><?p= $this->escapeHtml($title); ?></h1>
-<p><a href="<?= $this->url('task', [ 'action'=>'add']);?>">Add new item</a></p>
+<h1><?p= $this->escapeHtml($title) ?></h1>
+<p><a href="<?= $this->url('task', ['action' => 'add']) ?>">Add new item</a></p>
 
 <table class="table">
 <tr>
@@ -49,13 +49,13 @@ $this->headTitle($title);
 <?php foreach ($tasks as $task): ?>
 <tr>
     <td>
-        <a href="<?= $this->url('task', ['action'=>'edit', 'id' => $task->getId()]) ?>">
+        <a href="<?= $this->url('task', ['action' => 'edit', 'id' => $task->getId()]) ?>">
             <?= $this->escapeHtml($task->getTitle()) ?></a>
     </td>
     <td><?= $this->escapeHtml($task->getCreated()) ?></td>
     <td><?= $task->getCompleted() ? 'Yes' : 'No' ?></td>
     <td>
-        <a href="<?= $this->url('task', ['action'=>'delete', 'id' => $task->getId()]) ?>">Delete</a>
+        <a href="<?= $this->url('task', ['action' => 'delete', 'id' => $task->getId()]) ?>">Delete</a>
     </td>
 </tr>
 <?php endforeach; ?>
@@ -142,7 +142,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class TaskForm extends Form
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct('task');
 
@@ -172,7 +172,7 @@ class TaskForm extends Form
             'type' => 'checkbox',
             'options' => [
                 'label' => 'Completed?',
-                'label_attributes' => array('class'=>'checkbox'),
+                'label_attributes' => ['class' => 'checkbox'],
             ],
         ]);
 
@@ -208,7 +208,11 @@ Create a new PHP file called `TaskFilter.php` in the
 <?php
 namespace Checklist\Form;
 
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\Filter\ToInt;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\StringLength;
 
 class TaskFilter extends InputFilter
 {
@@ -218,7 +222,7 @@ class TaskFilter extends InputFilter
             'name' => 'id',
             'required' => true,
             'filters' => [
-                ['name' => 'Int'],
+                ['name' => ToInt::class],
             ],
         ]);
 
@@ -226,12 +230,12 @@ class TaskFilter extends InputFilter
             'name' => 'title',
             'required' => true,
             'filters' => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
             'validators' => [
                 [
-                    'name' => 'StringLength',
+                    'name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
                         'max' => 100,
@@ -420,7 +424,7 @@ add this code:
 $title = 'Add new task';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title); ?></h1>
+<h1><?= $this->escapeHtml($title) ?></h1>
 
 <?php
 $form = $this->form;
@@ -471,7 +475,7 @@ public function editAction()
     $id = (int) $this->params('id');
 
     if (! $id) {
-        return $this->redirect()->toRoute('task', array('action'=>'add'));
+        return $this->redirect()->toRoute('task', ['action' => 'add']);
     }
 
     $task = $this->getTaskMapper()->getTask($id);
@@ -505,7 +509,7 @@ task to be edited:
 $id = (int) $this->params('id');
 
 if (! $id) {
-    return $this->redirect()->toRoute('task', ['action'=>'add']);
+    return $this->redirect()->toRoute('task', ['action' => 'add']);
 }
 
 $task = $this->getTaskMapper()->getTask($id);
@@ -563,7 +567,7 @@ this code:
 $title = 'Edit task';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title); ?></h1>
+<h1><?= $this->escapeHtml($title) ?></h1>
 
 <?php
 $form = $this->form;
@@ -615,10 +619,9 @@ public function deleteAction()
         return $this->redirect()->toRoute('task');
     }
 
-
     $request = $this->getRequest();
     if (! $request->isPost()) {
-        return  [
+        return [
             'id' => $id,
             'task' => $task,
         ];
@@ -668,15 +671,15 @@ the `module/Checklist/view/checklist/task` folder with this content:
 $title = 'Delete task';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title); ?></h1>
+<h1><?= $this->escapeHtml($title) ?></h1>
 
 <p>
   Are you sure that you want to delete the
   '<?= $this->escapeHtml($task->getTitle()) ?>' task?
 </p>
 <?php
-$url = $this->url('task', ['action' => 'delete', 'id'=>$id]); ?>
-<form action="<?= $url; ?>" method="post">
+$url = $this->url('task', ['action' => 'delete', 'id' => $id]) ?>
+<form action="<?= $url ?>" method="post">
 <div>
   <input type="submit" name="del" value="Yes" />
   <input type="submit" name="del" value="No" />

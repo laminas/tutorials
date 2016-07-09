@@ -185,7 +185,6 @@ class WriteController extends AbstractActionController
 
     public function addAction()
     {
-        
     }
 }
 ```
@@ -258,6 +257,8 @@ to it:
 // In module/Blog/config/module.config.php:
 namespace Blog;
 
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -266,34 +267,32 @@ return [
     'router'          => [
         'routes' => [
             'blog' => [
-                'type' => 'literal',
+                'type' => Literal::class,
                 'options' => [
                     'route'    => '/blog',
                     'defaults' => [
                         'controller' => Controller\ListController::class,
                         'action'     => 'index',
-                    ]
+                    ],
                 ],
-
                 'may_terminate' => true,
-
                 'child_routes'  => [
                     'detail' => [
-                        'type' => 'segment',
+                        'type' => Segment::class,
                         'options' => [
                             'route'    => '/:id',
                             'defaults' => [
-                                'action' => 'detail'
+                                'action' => 'detail',
                             ],
                             'constraints' => [
-                                'id' => '\d+'
-                            ]
-                        ]
+                                'id' => '\d+',
+                            ],
+                        ],
                     ],
 
                     // Add the following route:
                     'add' => [
-                        'type' => 'literal',
+                        'type' => Literal::class,
                         'options' => [
                             'route'    => '/add',
                             'defaults' => [
@@ -306,7 +305,7 @@ return [
             ],
         ],
     ],
-    'view_manager' => [ /* ... */ ],
+    'view_manager'    => [ /* ... */ ],
 ];
 ```
 

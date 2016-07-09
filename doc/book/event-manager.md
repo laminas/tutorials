@@ -104,7 +104,7 @@ class Example implements EventManagerAwareInterface
     {
         $events->setIdentifiers([
             __CLASS__,
-            get_class($this)
+            get_class($this),
         ]);
         $this->events = $events;
     }
