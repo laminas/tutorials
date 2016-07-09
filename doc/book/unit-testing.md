@@ -319,7 +319,8 @@ the `fetchAll` method.
 
 First, let's do some setup.
 
-Add an import statement to the top of the test class file for the `AlbumTable` and `ServiceManager`:
+Add import statements to the top of the test class file for the `AlbumTable` and
+`ServiceManager` classes:
 
 ```php
 use Album\Model\AlbumTable;
