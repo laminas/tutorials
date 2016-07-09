@@ -37,7 +37,6 @@ CREATE TABLE task_item (
     title VARCHAR(100) NOT NULL,
     completed TINYINT NOT NULL DEFAULT '0',
     created DATETIME NOT NULL,
-
     PRIMARY KEY (id)
 );
 
@@ -178,7 +177,7 @@ route is defined like this:
 'router' => [
     'routes' => [
         'checklist' => [
-            'type'    => 'Literal',
+            'type'    => \Zend\Router\Http\Literal::class,
             'options' => [
                 'route'    => '/task',
                 'defaults' => [
@@ -190,9 +189,9 @@ route is defined like this:
             'may_terminate' => true,
             'child_routes' => [
                 'default' => [
-                    'type'    => 'Segment',
+                    'type'    => \Zend\Router\Http\Segment::class,
                     'options' => [
-                        'route'    => '/[:controller[/:action]]',
+                        'route' => '/[:controller[/:action]]',
                     ],
                 ],
             ],
@@ -219,16 +218,16 @@ entire router section of the array to be:
 'router' => [
     'routes' => [
         'task' => [
-            'type'    => 'Segment',
+            'type'    => \Zend\Router\Http\Segment::class,
             'options' => [
                 'route'    => '/task[/:action[/:id]]',
-                'defaults' => array(
+                'defaults' => [
                     '__NAMESPACE__' => 'Checklist\Controller',
                     'controller'    => 'Task',
                     'action'        => 'index',
                 ],
                 'constraints' => [
-                    'action' => '(add|edit|delete)',
+                    'action' => 'add|edit|delete',
                     'id'     => '[0-9]+',
                 ],
             ],
@@ -426,7 +425,7 @@ class TaskMapper
     public function fetchAll()
     {
         $select = $this->sql->select();
-        $select->order(array('completed ASC', 'created ASC'));
+        $select->order(['completed ASC', 'created ASC']);
 
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
@@ -505,7 +504,7 @@ class Module
                     $dbAdapter = $container->get(Adapter::class);
                     $mapper = new TaskMapper($dbAdapter);
                     return $mapper;
-                }
+                },
             ],
         ];
     }
@@ -547,10 +546,7 @@ Open `config/autoload/global.php` and replace the empty array with:
 return [
     'db' => [
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=mytasklist;hostname=localhost',
-        'driver_options' => [
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-        ],
+        'dsn'    => 'mysql:dbname=mytasklist;hostname=localhost;charset=utf8',
     ],
 ];
 ```

@@ -31,7 +31,7 @@ and the action method on that controller to use. As an example:
 'router' => [
     'routes' => [
         'about' => [
-            'type' => 'literal',
+            'type' => \Zend\Router\Http\Literal::class,
             'options' => [
                 'route'    => '/about-me',
                 'defaults' => [
@@ -82,7 +82,7 @@ matched, we should use the `ArchiveController` and its `byYear` action:
 'router' => [
     'routes' => [
         'archives' => [
-            'type' => 'segment',
+            'type' => \Zend\Router\Http\Segment::class,
             'options' => [
                 'route'    => '/news/archive[/:year]',
                 'defaults' => [
@@ -138,12 +138,12 @@ A common approach is to write a route that matches the controller and action:
 'router' => [
     'routes' => [
         'default' => [
-            'type' => 'segment',
+            'type' => \Zend\Router\Http\Segment::class,
             'options' => [
                 'route'    => '/[:controller[/:action]]',
                 'defaults' => [
-                    'controller'    => Application\Controller\IndexController::class,
-                    'action'        => 'index',
+                    'controller' => Application\Controller\IndexController::class,
+                    'action'     => 'index',
                 ],
                 'constraints' => [
                     'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -200,7 +200,7 @@ Your initial approach might be to create one route for every permutation:
 'router' => [
     'routes' => [
         'news' => [
-            'type' => 'literal',
+            'type' => \Zend\Router\Http\Literal::class,
             'options' => [
                 'route'    => '/news',
                 'defaults' => [
@@ -210,7 +210,7 @@ Your initial approach might be to create one route for every permutation:
             ],
         ],
         'news-archive' => [
-            'type' => 'segment',
+            'type' => \Zend\Router\Http\Segment::class,
             'options' => [
                 'route'    => '/news/archive[/:year]',
                 'defaults' => [
@@ -223,7 +223,7 @@ Your initial approach might be to create one route for every permutation:
             ],
         ],
         'news-single' => [
-            'type' => 'segment',
+            'type' => \Zend\Router\Http\Segment::class,
             'options' => [
                 'route'    => '/news/:id',
                 'defaults' => [
@@ -277,7 +277,7 @@ above:
     'routes' => [
         'news' => [
             // First we define the basic options for the parent route:
-            'type' => 'literal',
+            'type' => \Zend\Router\Http\Literal::class,
             'options' => [
                 'route'    => '/news',
                 'defaults' => [
@@ -293,7 +293,7 @@ above:
             // Child routes begin:
             'child_routes' => [
                 'archive' => [
-                    'type' => 'segment',
+                    'type' => \Zend\Router\Http\Segment::class,
                     'options' => [
                         'route'    => '/archive[/:year]',
                         'defaults' => [
@@ -305,7 +305,7 @@ above:
                     ],
                 ],
                 'single' => [
-                    'type' => 'segment',
+                    'type' => \Zend\Router\Http\Segment::class,
                     'options' => [
                         'route'    => '/:id',
                         'defaults' => [
@@ -372,15 +372,17 @@ child route of our existing route. Let's update our configuration:
 // In module/Blog/config/module.config.php:
 namespace Blog;
 
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [ /* ... */ ],
     'controllers'     => [ /* ... */ ],
-    'router' => [
+    'router'          => [
         'routes' => [
             'blog' => [
-                'type' => 'literal',
+                'type' => Literal::class,
                 'options' => [
                     'route'    => '/blog',
                     'defaults' => [
@@ -388,12 +390,10 @@ return [
                         'action'     => 'index',
                     ],
                 ],
-
                 'may_terminate' => true,
-
                 'child_routes'  => [
                     'detail' => [
-                        'type' => 'segment',
+                        'type' => Segment::class,
                         'options' => [
                             'route'    => '/:id',
                             'defaults' => [
@@ -482,7 +482,7 @@ public function detailAction()
     $id = $this->params()->fromRoute('id');
 
     return new ViewModel([
-        'post' => $this->postRepository->findPost($id)
+        'post' => $this->postRepository->findPost($id),
     ]);
 }
 ```
@@ -533,9 +533,9 @@ public function detailAction()
         return $this->redirect()->toRoute('blog');
     }
 
-    return new ViewModel(array(
-        'post' => $post
-    ));
+    return new ViewModel([
+        'post' => $post,
+    ]);
 }
 ```
 

@@ -36,6 +36,7 @@ highlighted using comments.
 ```php
 namespace Album;
 
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -49,9 +50,9 @@ return [
     'router' => [
         'routes' => [
             'album' => [
-                'type'    => 'segment',
+                'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/album[/:action[/:id]]',
+                    'route' => '/album[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',

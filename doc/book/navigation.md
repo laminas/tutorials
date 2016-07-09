@@ -100,18 +100,18 @@ return [
                 'route' => 'album',
                 'pages' => [
                     [
-                        'label' => 'Add',
-                        'route' => 'album',
+                        'label'  => 'Add',
+                        'route'  => 'album',
                         'action' => 'add',
                     ],
                     [
-                        'label' => 'Edit',
-                        'route' => 'album',
+                        'label'  => 'Edit',
+                        'route'  => 'album',
                         'action' => 'edit',
                     ],
                     [
-                        'label' => 'Delete',
-                        'route' => 'album',
+                        'label'  => 'Delete',
+                        'route'  => 'album',
                         'action' => 'delete',
                     ],
                 ],
