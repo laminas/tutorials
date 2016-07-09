@@ -278,7 +278,7 @@ There was 1 failure:
 1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
 Failed asserting response code "200", actual status code is "500"
 
-{projectPath}/vendor/ZF3/library/Zend/Test/PHPUnit/Controller/AbstractControllerTestCase.php:{lineNumber}
+{projectPath}/vendor/zendframework/zend-test/src/PHPUnit/Controller/AbstractControllerTestCase.php:{lineNumber}
 {projectPath}/module/Album/test/AlbumTest/Controller/AlbumControllerTest.php:{lineNumber}
 
 FAILURES!
