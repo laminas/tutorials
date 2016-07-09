@@ -288,7 +288,7 @@ information will be communicated to the view layer.
 
 ```php
 $album->exchangeArray($form->getData());
-$this->getAlbumTable()->saveAlbum($album);
+$this->table->saveAlbum($album);
 ```
 
 If the form is valid, then we grab the data from the form and store to the model
@@ -629,7 +629,7 @@ Let's start with the action code in `AlbumController::deleteAction()`:
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->getAlbumTable()->deleteAlbum($id);
+                $this->table->deleteAlbum($id);
             }
 
             // Redirect to list of albums
@@ -638,7 +638,7 @@ Let's start with the action code in `AlbumController::deleteAction()`:
 
         return [
             'id'    => $id,
-            'album' => $this->getAlbumTable()->getAlbum($id),
+            'album' => $this->table->getAlbum($id),
         ];
     }
 //...
