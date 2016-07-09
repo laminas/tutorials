@@ -63,6 +63,10 @@ Time: 116 ms, Memory: 11.00MB
 OK (3 tests, 7 assertions)
 ```
 
+There might be 2 failing tests if you followed the getting started guide. This
+is because the `Application\IndexController` is overridden by the
+`AlbumController`. This can be ignored for now.
+
 Now it's time to write our own tests!
 
 ## Setting up the tests directory
@@ -128,7 +132,7 @@ test suite to it. When done, it should read as follows:
 Now run your new Album test suite from the project root:
 
 ```bash
-$ vendor/bin/phpunit --testsuite Album
+$ ./vendor/bin/phpunit --testsuite Album
 ```
 
 > ### Windows and PHPUnit
@@ -249,7 +253,7 @@ A successful first test!
 We likely don't want to hit the same database during testing as we use for our
 web property. Let's add some configuration to the test case to remove the
 database configuration. In your `AlbumControllerTest::setUp()` method, add the
-following lines following the call to `parent::setUp();`:
+following lines right after the call to `parent::setUp();`:
 
 ```php
 $services = $this->getApplicationServiceLocator();
@@ -340,8 +344,8 @@ the `fetchAll` method.
 
 First, let's do some setup.
 
-Add import statements to the top of the test class file for the `AlbumTable` and
-`ServiceManager` classes:
+Add import statements to the top of the test class file for each of the
+`AlbumTable` and `ServiceManager` classes:
 
 ```php
 use Album\Model\AlbumTable;
