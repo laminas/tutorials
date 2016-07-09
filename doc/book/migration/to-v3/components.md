@@ -15,6 +15,6 @@ The following is a list of migration documents for components we ship.
 - [zend-router](https://zendframework.github.io/zend-router/migration/)
   (for migrating MVC-based router functionality)
 - [zend-servicemanager](https://zendframework.github.io/zend-servicemanager/migration/)
-- [zend-servicemanager-di](https://zendframework.github.io/zend-servicemanager-di/migration/)
+- [zend-servicemanager-di](https://zendframework.github.io/zend-servicemanager-di/migration/v2-to-v3/)
   (for migrating zend-servicemanager &lt;-&gt; zend-di integration)
 - [zend-stdlib](https://zendframework.github.io/zend-stdlib/migration/)
