@@ -294,20 +294,17 @@ Refreshing the application you should now see output similar to the following:
 
 ```text
 Zend\Db\Adapter\Driver\Pdo\Result::__set_state(array(
-   'statementMode' => 'forward',
-   'fetchMode' => 2,
-   'resource' => 
-  PDOStatement::__set_state(array(
-     'queryString' => 'SELECT "posts".* FROM "posts"',
-  )),
-   'options' => NULL,
-   'currentComplete' => false,
-   'currentData' => NULL,
-   'position' => -1,
-   'generatedValue' => '0',
-   'rowCount' => 
-  Closure::__set_state(array(
-  )),
+    'statementMode'   => 'forward',
+    'fetchMode'       => 2,
+    'resource'        => PDOStatement::__set_state(array(
+        'queryString' => 'SELECT "posts".* FROM "posts"',
+    )),
+    'options'         => null,
+    'currentComplete' => false,
+    'currentData'     => null,
+    'position'        => -1,
+    'generatedValue'  => '0',
+    'rowCount'        => Closure::__set_state(array()),
 ))
 ```
 
@@ -350,36 +347,36 @@ Refreshing the page, you should now see the dump of a `ResultSet` instance:
 
 ```text
 Zend\Db\ResultSet\ResultSet::__set_state(array(
-   'allowedReturnTypes' =>
-  array (
-    0 => 'arrayobject',
-    1 => 'array',
-  ),
-   'arrayObjectPrototype' =>
-  ArrayObject::__set_state(array(
-  )),
-   'returnType' => 'arrayobject',
-   'buffer' => NULL,
-   'count' => NULL,
-   'dataSource' =>
-  Zend\Db\Adapter\Driver\Pdo\Result::__set_state(array(
-     'statementMode' => 'forward',
-     'fetchMode' => 2,
-     'resource' =>
-    PDOStatement::__set_state(array(
-       'queryString' => 'SELECT "album".* FROM "album"',
-    )),
-     'options' => NULL,
-     'currentComplete' => false,
-     'currentData' => NULL,
-     'position' => -1,
-     'generatedValue' => '0',
-     'rowCount' =>
-    Closure::__set_state(array(
-    )),
-  )),
-   'fieldCount' => 3,
-   'position' => 0,
+    'allowedReturnTypes'   =>
+        array(
+            0 => 'arrayobject',
+            1 => 'array',
+        ),
+    'arrayObjectPrototype' =>
+        ArrayObject::__set_state(array(
+        )),
+    'returnType'           => 'arrayobject',
+    'buffer'               => null,
+    'count'                => null,
+    'dataSource'           =>
+        Zend\Db\Adapter\Driver\Pdo\Result::__set_state(array(
+            'statementMode'   => 'forward',
+            'fetchMode'       => 2,
+            'resource'        =>
+                PDOStatement::__set_state(array(
+                    'queryString' => 'SELECT "album".* FROM "album"',
+                )),
+            'options'         => null,
+            'currentComplete' => false,
+            'currentData'     => null,
+            'position'        => -1,
+            'generatedValue'  => '0',
+            'rowCount'        =>
+                Closure::__set_state(array(
+                )),
+        )),
+    'fieldCount'           => 3,
+    'position'             => 0,
 ))
 ```
 
@@ -600,7 +597,7 @@ several differences.
 
 - We need to add a condition to the query to select only the row matching the
   provided identifier; this is done using the `where()` method of the `Sql`
-  object. 
+  object.
 - We check if the `$result` is valid, using `isQueryResult()`; if not, an error
   occurred during the query that we report via a `RuntimeException`.
 - We pull the `current()` item off the result set we create, and test to make
