@@ -155,7 +155,7 @@ You can then update the `autoload` configuration to:
 }
 ```
 
-To make composer update the new `Application` namespace rule, you can run:
+Afterwards, run the following to update the generated autoloader:
 
 ```bash
 $ composer dump-autoload
