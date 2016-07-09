@@ -30,7 +30,29 @@ component to your application.
 
 - For zend-mvc applications, update your list of modules in either
   `config/application.config.php` or `config/modules.config.php` to add an
-  entry for `'Zend\Db'` at the top of the list.
+  entry for `'Zend\Db'` at the top of the list:
+  ```php
+  <?php
+    // In a config/modules.config.php
+    return [
+      'Zend\Db', // <-- This line
+      'Zend\Form', 
+      /* ... */
+    ];
+    
+    // OR in a config/application.config.php
+    return [
+    /* ... */
+    // Retrieve list of modules used in this application.
+    'modules' => [
+      'Zend\Db', // <-- This line
+      'Zend\Form', 
+      /* ... */
+    ],
+    /* ... */
+  ```
+
+
 - For Expressive applications, create a new file,
   `config/autoload/zend-db.global.php`, with the following contents:
 
@@ -60,6 +82,7 @@ adapter. As an example, the following would connect to a MySQL database using
 PDO, and the supplied PDO DSN:
 
 ```php
+// In a config/autoload/global.php
 return [
     'db' => [
         'driver' => 'Pdo',
@@ -83,6 +106,7 @@ you will need to create named configuration keys under `db.adapters`, each with
 configuration for an adapter:
 
 ```php
+// In a config/autoload/global.php
 return [
     'db' => [
         'adapters' => [
@@ -127,6 +151,7 @@ service configuration as well:
 use Zend\Db\Adapter\AdapterAbstractServiceFactory;
 
 // If using zend-mvc:
+// In a module/YourModule/config/module.config.php
 'service_manager' => [
     'factories' => [
         'Application\Db\WriteAdapter' => AdapterAbstractServiceFactory::class,
