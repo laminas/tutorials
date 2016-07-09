@@ -482,7 +482,7 @@ class ZendDbSqlRepository implements PostRepositoryInterface
     public function __construct(
         AdapterInterface $db,
         HydratorInterface $hydrator,
-        PostInterface $postPrototype
+        Post $postPrototype
     ) {
         $this->db            = $db;
         $this->hydrator      = $hydrator;
