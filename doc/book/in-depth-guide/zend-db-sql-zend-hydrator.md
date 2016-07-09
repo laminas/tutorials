@@ -112,8 +112,8 @@ Create a `__construct()` method that accepts an `AdapterInterface` as its sole
 parameter, and stores it as an instance property:
 
 ```php
-// In module/Blog/src/Model/ZendDbSqlModel.php:
-namespace Blog\Mapper;
+// In module/Blog/src/Model/ZendDbSqlRepository.php:
+namespace Blog\Model;
 
 use InvalidArgumentException;
 use RuntimeException;
@@ -174,7 +174,7 @@ class ZendDbSqlRepositoryFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new ZendDbSqlMapper($container->get(AdapterInterface::class));
+        return new ZendDbSqlRepository($container->get(AdapterInterface::class));
     }
 }
 ```
@@ -328,7 +328,7 @@ use Zend\Db\ResultSet\ResultSet;
 Now update the `findAllPosts()` method as follows:
 
 ```php
-public function findAll()
+public function findAllPosts()
 {
     $sql    = new Sql($this->dbAdapter);
     $select = $sql->select('posts');
