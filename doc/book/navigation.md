@@ -206,12 +206,12 @@ rather than album specific):
             // if this isn't the last page, add a link and the separator:
             if ($key < count($this->pages) - 1):
             ?>
-                <a href="<?= $page->getHref(); ?>"><?= $page->getLabel(); ?></a>
+                <a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a>
             <?php
             // otherwise, output the name only:
             else:
             ?>
-                <?= $page->getLabel(); ?>
+                <?= $page->getLabel() ?>
             <?php endif; ?>
         </li>
     <?php endforeach; ?>
@@ -232,7 +232,7 @@ written:
             ->breadcrumbs()
             ->setMinDepth(0)
             ->setPartial('partial/breadcrumb') ?>
-    <?= $this->content; ?>
+    <?= $this->content ?>
 </div>
 ```
 
