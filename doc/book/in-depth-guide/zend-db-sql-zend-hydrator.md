@@ -293,19 +293,19 @@ public function findAllPosts()
 Refreshing the application you should now see output similar to the following:
 
 ```text
-Zend\Db\Adapter\Driver\Pdo\Result::__set_state([
+Zend\Db\Adapter\Driver\Pdo\Result::__set_state(array(
     'statementMode'   => 'forward',
     'fetchMode'       => 2,
-    'resource'        => PDOStatement::__set_state([
+    'resource'        => PDOStatement::__set_state(array(
         'queryString' => 'SELECT "posts".* FROM "posts"',
-    ]),
+    )),
     'options'         => null,
     'currentComplete' => false,
     'currentData'     => null,
     'position'        => -1,
     'generatedValue'  => '0',
-    'rowCount'        => Closure::__set_state([]),
-])
+    'rowCount'        => Closure::__set_state(array()),
+))
 ```
 
 As you can see, we do not get any data returned. Instead we are presented with a
@@ -346,38 +346,38 @@ public function findAllPosts()
 Refreshing the page, you should now see the dump of a `ResultSet` instance:
 
 ```text
-Zend\Db\ResultSet\ResultSet::__set_state([
+Zend\Db\ResultSet\ResultSet::__set_state(array(
     'allowedReturnTypes'   =>
-        [
+        array(
             0 => 'arrayobject',
             1 => 'array',
-        ],
+        ),
     'arrayObjectPrototype' =>
-        ArrayObject::__set_state([
-        ]),
+        ArrayObject::__set_state(array(
+        )),
     'returnType'           => 'arrayobject',
     'buffer'               => null,
     'count'                => null,
     'dataSource'           =>
-        Zend\Db\Adapter\Driver\Pdo\Result::__set_state([
+        Zend\Db\Adapter\Driver\Pdo\Result::__set_state(array(
             'statementMode'   => 'forward',
             'fetchMode'       => 2,
             'resource'        =>
-                PDOStatement::__set_state([
+                PDOStatement::__set_state(array(
                     'queryString' => 'SELECT "album".* FROM "album"',
-                ]),
+                )),
             'options'         => null,
             'currentComplete' => false,
             'currentData'     => null,
             'position'        => -1,
             'generatedValue'  => '0',
             'rowCount'        =>
-                Closure::__set_state([
-                ]),
-        ]),
+                Closure::__set_state(array(
+                )),
+        )),
     'fieldCount'           => 3,
     'position'             => 0,
-])
+))
 ```
 
 Of particular interest is the `returnType` property, which has a value of
