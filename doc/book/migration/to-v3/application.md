@@ -155,6 +155,12 @@ You can then update the `autoload` configuration to:
 }
 ```
 
+Afterwards, run the following to update the generated autoloader:
+
+```bash
+$ composer dump-autoload
+```
+
 The updated application skeleton already takes this approach.
 
 ## Bootstrap
