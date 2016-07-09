@@ -117,7 +117,7 @@ test suite to it. When done, it should read as follows:
 </phpunit>
 ```
 
-Now run `phpunit -- testsuite Album` from the project root; you should get
+Now run `phpunit --testsuite Album` from the project root; you should get
 similar output to the following:
 
 ```text
@@ -319,10 +319,11 @@ the `fetchAll` method.
 
 First, let's do some setup.
 
-Add an import statement to the top of the test class file for the `AlbumTable`:
+Add an import statement to the top of the test class file for the `AlbumTable` and `ServiceManager`:
 
 ```php
 use Album\Model\AlbumTable;
+use Zend\ServiceManager\ServiceManager;
 ```
 
 Now add the following property to the test class:
@@ -429,7 +430,6 @@ A common scenario with controllers is processing POST data submitted via a form,
 as we do in the `AlbumController::addAction()`. Let's write a test for that.
 
 ```php
- :linenos:}
 public function testAddActionRedirectsAfterValidPost()
 {
     $this->albumTable
