@@ -43,6 +43,14 @@ installed, you can run these:
 $ ./vendor/bin/phpunit
 ```
 
+> ### PHPUnit invocation on Windows
+>
+> On Windows, you need to wrap the command in double quotes:
+> 
+> ```bash
+> $ "vendor/bin/phpunit"
+> ```
+
 You should see output similar to the following:
 
 ```text
@@ -117,8 +125,21 @@ test suite to it. When done, it should read as follows:
 </phpunit>
 ```
 
-Now run `phpunit --testsuite Album` from the project root; you should get
-similar output to the following:
+Now run your new Album test suite from the project root:
+
+```bash
+$ vendor/bin/phpunit --testsuite Album
+```
+
+> ### Windows and PHPUnit
+>
+> On Windows, don't forget to wrap the `phpunit` command in double quotes:
+> 
+> ```bash
+> $ "vendor/bin/phpunit" --testsuite Album
+> ```
+
+You should get similar output to the following:
 
 ```text
 PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
