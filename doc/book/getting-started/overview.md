@@ -1,6 +1,6 @@
 # Getting Started with Zend Framework MVC Applications
 
-This tutorial is intended to give an introduction to using Zend Framework 2 by creating a simple database driven application using the Model-View-Controller paradigm. By the end you will have a working ZF2 application and you can then poke around the code to find out more about how it all works and fits together.
+This tutorial is intended to give an introduction to using Zend Framework by creating a simple database driven application using the Model-View-Controller paradigm. By the end you will have a working ZF application and you can then poke around the code to find out more about how it all works and fits together.
 
 ## Some assumptions
 

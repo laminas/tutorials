@@ -20,7 +20,7 @@ Start by creating a directory called `Album` under `module` with the following
 subdirectories to hold the module’s files:
 
 ```text
-zf2-tutorial/
+zf-tutorial/
     /module
         /Album
             /config
@@ -104,7 +104,7 @@ method in `Album\Module`. This method loads the `config/module.config.php` file
 under the module's root directory.
 
 Create a file called `module.config.php` under
-`zf2-tutorial/module/Album/config/`:
+`zf-tutorial/module/Album/config/`:
 
 ```php
 namespace Album;

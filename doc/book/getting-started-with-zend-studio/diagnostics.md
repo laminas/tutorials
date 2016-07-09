@@ -2,7 +2,7 @@
 
 One really useful feature of Zend Server is the code trace feature that can show
 you the method-by-method execution of any given PHP request. This is especially
-useful in a Zend Framework 2 application as the use of Events and Service
+useful in a Zend Framework application as the use of Events and Service
 Manager means that our code base isn't necessarily linear.
 
 Let's consider a contrived example and introduce a delay into our codebase. One

@@ -93,7 +93,7 @@ contains three methods: `getAutoloaderConfig()`, `getConfig()` and
 ### Autoloading files
 
 Our `getAutoloaderConfig()` method returns an array that is compatible with
-ZF2's `AutoloaderFactory`. It is configured for us with both a classmap file
+ZF's `AutoloaderFactory`. It is configured for us with both a classmap file
 (`autoload_classmap.php`) and a standard autoloader to load any files in
 `src/Checklist` according to the [PSR-0](http://www.php-fig.org/psr/psr-0/)
 rules.
@@ -103,7 +103,7 @@ the array within the `autoload_classmap.php` file, which slows down development.
 The standard autoloader, however, doesn't have this requirement and will always
 load a class if its file is named correctly. This allows us to develop quickly
 by creating new classes when we need them and then gain a performance boost by
-using the classmap autoloader in production. Zend Framework 2 provides
+using the classmap autoloader in production. Zend Framework provides
 `bin/classmap_generator.php` to create and update the file.
 
 ### Configuration
@@ -251,7 +251,7 @@ attention to the controller.
 
 ### The TaskController
 
-In Zend Framework 2, the controller is a class that is generally called
+In Zend Framework, the controller is a class that is generally called
 `{Controller name}Controller`. Note that `{Controller name}` starts with a
 capital letter. This class lives in a file called `{Controller name}Controller.php`
 within the `Controller` directory for the module. In our
@@ -260,7 +260,7 @@ action is a public function within the controller class that is named `{action
 name}Action`. In this case `{action name}` should start with a lower case
 letter.
 
-Note that this is merely a convention. Zend Framework 2's only restrictions on a
+Note that this is merely a convention. Zend Framework's only restrictions on a
 controller is that it must implement the `Zend\Stdlib\Dispatchable` interface.
 The framework provides two abstract classes that do this for us:
 `Zend\Mvc\Controller\ActionController` and

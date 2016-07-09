@@ -127,11 +127,11 @@ new application is ready to start!
 > name like `ZendSkeletonApplication-master.zip` or similar.
 >
 > Unzip this file into the directory where you keep all your vhosts and rename
-> the resultant directory to `zf2-tutorial`.
+> the resultant directory to `zf-tutorial`.
 >
 > ZendSkeletonApplication is set up to use [Composer](http://getcomposer.org)
 > to resolve its dependencies. Run the following from within your new
-> zf2-tutorial folder to install them:
+> zf-tutorial folder to install them:
 >
 > ```bash
 > $ composer self-update
@@ -148,7 +148,7 @@ new application is ready to start!
 >
 > Generating autoload files
 > ```
-> 
+>
 > At this point, you will be prompted to answer questions as noted above.
 >
 > Alternately, if you do not have Composer installed, but *do* have either
@@ -169,7 +169,7 @@ new application is ready to start!
 >
 > ```text
 > [RuntimeException]      
->   The process timed out. 
+>   The process timed out.
 > ```
 >
 > then your connection was too slow to download the entire package in time, and
@@ -320,8 +320,8 @@ you already have it installed. We recommend installing Apache 2.4, and will only
 cover configuration for that version.
 
 You now need to create an Apache virtual host for the application and edit your
-hosts file so that `http://zf2-tutorial.localhost` will serve `index.php` from
-the `zf2-tutorial/public/` directory.
+hosts file so that `http://zf-tutorial.localhost` will serve `index.php` from
+the `zf-tutorial/public/` directory.
 
 Setting up the virtual host is usually done within `httpd.conf` or
 `extra/httpd-vhosts.conf`. If you are using `httpd-vhosts.conf`, ensure that
@@ -329,17 +329,17 @@ this file is included by your main `httpd.conf` file. Some Linux distributions
 (ex: Ubuntu) package Apache so that configuration files are stored in
 `/etc/apache2` and create one file per virtual host inside folder
 `/etc/apache2/sites-enabled`. In this case, you would place the virtual host
-block below into the file `/etc/apache2/sites-enabled/zf2-tutorial`.
+block below into the file `/etc/apache2/sites-enabled/zf-tutorial`.
 
 Ensure that `NameVirtualHost` is defined and set to `*:80` or similar, and then
 define a virtual host along these lines:
 
 ```apache
 <VirtualHost *:80>
-    ServerName zf2-tutorial.localhost
-    DocumentRoot /path/to/zf2-tutorial/public
+    ServerName zf-tutorial.localhost
+    DocumentRoot /path/to/zf-tutorial/public
     SetEnv APPLICATION_ENV "development"
-    <Directory /path/to/zf2-tutorial/public>
+    <Directory /path/to/zf-tutorial/public>
         DirectoryIndex index.php
         AllowOverride All
         Require all granted
@@ -348,12 +348,12 @@ define a virtual host along these lines:
 ```
 
 Make sure that you update your `/etc/hosts` or
-`c:\windows\system32\drivers\etc\hosts` file so that `zf2-tutorial.localhost` is
+`c:\windows\system32\drivers\etc\hosts` file so that `zf-tutorial.localhost` is
 mapped to `127.0.0.1`. The website can then be accessed using
-`http://zf2-tutorial.localhost`.
+`http://zf-tutorial.localhost`.
 
 ```none
-127.0.0.1 zf2-tutorial.localhost localhost
+127.0.0.1 zf-tutorial.localhost localhost
 ```
 
 Restart Apache.
@@ -362,7 +362,7 @@ If you've done so correctly, you will get the same results as covered under
 [the PHP built-in web server](#using-the-built-in-php-web-server).
 
 To test that your `.htaccess` file is working, navigate to
-`http://zf2-tutorial.localhost/1234`, and you should see the 404 page as noted
+`http://zf-tutorial.localhost/1234`, and you should see the 404 page as noted
 earlier.  If you see a standard Apache 404 error, then you need to fix your
 `.htaccess` usage before continuing.
 
@@ -381,7 +381,7 @@ Optionally, *when using Apache*, you can use the `APPLICATION_ENV` setting in
 your `VirtualHost` to let PHP output all its errors to the browser. This can be
 useful during the development of your application.
 
-Edit `zf2-tutorial/public/index.php` directory and change it to the following:
+Edit `zf-tutorial/public/index.php` directory and change it to the following:
 
 ```php
 <?php
