@@ -222,7 +222,7 @@ would *omit* from version control.
 This is a great solution for development, as it allows you to specify alternate
 configuration that's specific to your development environment without worrying
 about accidently deploying it. However, what if you have more environments
-&mdash such as a "testing" or "staging" environment &mdash; and they each have
+&mdash; such as a "testing" or "staging" environment &mdash; and they each have
 their own specific overrides?
 
 To accomplish this, we'll provide an *environment variable* via our web server
