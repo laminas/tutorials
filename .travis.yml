@@ -13,6 +13,7 @@ cache:
 
 env:
     global:
+        - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
         - SITE_URL=https://zendframework.github.io/tutorials
         - GH_USER_NAME="Matthew Weier O'Phinney"
         - GH_USER_EMAIL="matthew@weierophinney.net"
@@ -25,9 +26,9 @@ matrix:
         - php: 7
 
 script:
-  - wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh"
-  - chmod 755 theme-installer.sh
-  - ./theme-installer.sh
-  - echo "Preparing to build and deploy documentation"
-  - ./zf-mkdoc-theme/deploy.sh
-  - echo "Completed deploying documentation"
+  - if [[ $DEPLOY_DOCS == "true" ]]; then wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh" ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then chmod 755 theme-installer.sh ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then ./theme-installer.sh ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then ./zf-mkdoc-theme/deploy.sh ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Completed deploying documentation" ; fi
