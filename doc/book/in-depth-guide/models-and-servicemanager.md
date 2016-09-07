@@ -526,7 +526,7 @@ return [
 This aliases `PostRepositoryInterface` to our `PostRepository` implementation,
 and then creates a factory for the `PostRepository` class by mapping it to the
 `InvokableFactory` (like we originally did for the `ListController`); we can do
-this latter as our implementation has no dependencies of its own.
+this as our `PostRepository` implementation has no dependencies of its own.
 
 Try refreshing your browser. You should see no more error messages, but rather
 exactly the page that we have created in the previous chapter of the tutorial.
