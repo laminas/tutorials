@@ -225,7 +225,7 @@ This test case dispatches the `/album` URL, asserts that the response code is
 >
 > For asserting the *controller name* we are using the controller name we
 > defined in our  routing configuration for the Album module. In our example
-> this should be defined on line 19 of the `module.config.php` file in the Album
+> this should be defined on line 16 of the `module.config.php` file in the Album
 > module.
 
 If you run:
