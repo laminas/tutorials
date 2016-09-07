@@ -427,7 +427,7 @@ public function testIndexActionCanBeAccessed()
 {
     $this->albumTable->fetchAll()->willReturn([]);
 
-    $this->dispatch('/album', 'GET');
+    $this->dispatch('/album');
     $this->assertResponseStatusCode(200);
     $this->assertModuleName('Album');
     $this->assertControllerName(AlbumController::class);
