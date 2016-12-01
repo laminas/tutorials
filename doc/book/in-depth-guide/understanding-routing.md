@@ -257,7 +257,7 @@ possible route overlaps, as well as performance (if the stack becomes large).
 ### Child routes
 
 To solve the problems detailed in the last section, zend-router allows defining
-"child routes". Child routes inherit inherit all `options` from their respective
+"child routes". Child routes inherit all `options` from their respective
 parents; this means that if an option, such as the controller default, doesn't change, you do not need to
 redefine it.
 
