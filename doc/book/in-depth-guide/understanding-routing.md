@@ -20,7 +20,6 @@ a specific string. Examples of URLs that can utilize literal routes include:
 - `http://domain.com/blog/add`
 - `http://domain.com/about-me`
 - `http://domain.com/my/very/deep/page`
-- `http://domain.com/my/very/deep/page`
 
 Configuration for a literal route requires you to provide the path to match, and
 the "defaults" to return on a match. The "defaults" are then returned as route
