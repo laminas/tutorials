@@ -30,7 +30,7 @@ usage correctly.
 >
 > Alternatively, you can use any of the following as well:
 >
-> - The built-in web server in PHP. Run `php -S 0.0.0.0:8080 -t public/
+> - The built-in web server in PHP. Run `php -S 0.0.0.0:8080 -t public
 >   public/index.php` in your application root to start a web server listening
 >   on port 8080.
 > - Use the shipped `Vagrantfile`, by executing `vagrant up` from the
