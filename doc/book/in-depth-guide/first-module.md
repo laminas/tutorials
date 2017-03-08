@@ -309,7 +309,7 @@ followed by the lowercased controller name (without the suffix 'controller'),
 and lastly comes the name of the action that we are accessing (again without the
 suffix 'action'). As a templated string, you can think of it as:
 `view/{namespace}/{controller}/{action}.phtml`. This has become a community
-standard but you you have the freedom to specify custom paths if desired.
+standard but you have the freedom to specify custom paths if desired.
 
 However creating this file alone is not enough and this brings as to the final
 topic of this part of the tutorial. We need to let the application know where
