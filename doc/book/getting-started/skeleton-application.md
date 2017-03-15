@@ -35,7 +35,7 @@ First, it will prompt:
 
 If you answer "Y", or press enter with no selection, the installer will not
 raise any additional prompts, and finish installing your application. If you
-anser "n", it will continue prompting you:
+answer "n", it will continue prompting you:
 
 ```text
     Would you like to install the developer toolbar? y/N
