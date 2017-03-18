@@ -343,7 +343,7 @@ class AlbumController extends AbstractActionController
 
 Our controller now depends on `AlbumTable`, so we will need to create a factory
 for the controller.  Similar to how we created factories for the model, we'll
-create in in our `Module` class, only this time, under a new method,
+create it in our `Module` class, only this time, under a new method,
 `Album\Module::getControllerConfig()`:
 
 ```php
