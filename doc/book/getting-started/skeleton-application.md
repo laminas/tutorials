@@ -227,7 +227,7 @@ You can use PHP's built-in web server when developing your application. To do
 this, start the server from the project's root directory:
 
 ```bash
-$ php -S 0.0.0.0:8080 -t public/ public/index.php
+$ php -S 0.0.0.0:8080 -t public public/index.php
 ```
 
 This will make the website available on port 8080 on all network interfaces,
