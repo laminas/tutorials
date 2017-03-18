@@ -20,7 +20,6 @@ a specific string. Examples of URLs that can utilize literal routes include:
 - `http://domain.com/blog/add`
 - `http://domain.com/about-me`
 - `http://domain.com/my/very/deep/page`
-- `http://domain.com/my/very/deep/page`
 
 Configuration for a literal route requires you to provide the path to match, and
 the "defaults" to return on a match. The "defaults" are then returned as route
@@ -258,7 +257,7 @@ possible route overlaps, as well as performance (if the stack becomes large).
 ### Child routes
 
 To solve the problems detailed in the last section, zend-router allows defining
-"child routes". Child routes inherit inherit all `options` from their respective
+"child routes". Child routes inherit all `options` from their respective
 parents; this means that if an option, such as the controller default, doesn't change, you do not need to
 redefine it.
 
