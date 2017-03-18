@@ -333,7 +333,7 @@ Edit the file `module/Blog/src/Model/ZendDbSqlCommand.php`, and update the
 public function updatePost(Post $post)
 {
     if (! $post->getId()) {
-        throw RuntimeException('Cannot update post; missing identifier');
+        throw new RuntimeException('Cannot update post; missing identifier');
     }
 
     $update = new Update('posts');
@@ -381,7 +381,7 @@ implementing the `deletePost()` method in our `ZendDbSqlCommand` class:
 public function deletePost(Post $post)
 {
     if (! $post->getId()) {
-        throw RuntimeException('Cannot update post; missing identifier');
+        throw new RuntimeException('Cannot update post; missing identifier');
     }
 
     $delete = new Delete('posts');
