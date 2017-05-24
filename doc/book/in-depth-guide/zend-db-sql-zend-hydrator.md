@@ -36,7 +36,7 @@ following script in `data/load_posts.php`:
 
 ```php
 <?php
-$db = new PDO('sqlite:' . realpath(__DIR__) . 'zftutorial.db');
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/zftutorial.db');
 $fh = fopen(__DIR__ . '/posts.schema.sql', 'r');
 while ($line = fread($fh, 4096)) {
     $line = trim($line);
