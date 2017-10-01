@@ -762,7 +762,7 @@ as follows:
 public function setEventManager(EventManagerInterface $events)
 {
     $this->events = $events;
-    $events->setIdentifiers([__CLASS__, get_class($this)));
+    $events->setIdentifiers([__CLASS__, get_class($this)]);
     $events->attach('someExpensiveCall', [$this, 'doSomeExpensiveCall']);
 }
 
