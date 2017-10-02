@@ -349,14 +349,14 @@ create it in our `Module` class, only this time, under a new method,
 ```php
 namespace Album;
 
-use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 class Module implements ConfigProviderInterface
 {
-    // getConfig() and getServiceConfig methods are here
+    // getConfig() and getServiceConfig() methods are here
 
     // Add this method:
     public function getControllerConfig()
