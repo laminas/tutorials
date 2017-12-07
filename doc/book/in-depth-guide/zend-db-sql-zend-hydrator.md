@@ -224,7 +224,7 @@ table:
 namespace Blog\Model;
 
 use InvalidArgumentException;
-use RuntimeException
+use RuntimeException;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Sql\Sql;
 
