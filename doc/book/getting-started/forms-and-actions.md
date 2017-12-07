@@ -56,7 +56,7 @@ class AlbumForm extends Form
 ```
 
 Within the constructor of `AlbumForm` we do several things. First, we set the
-name of the form as we call the parent's constructor. The, we create four form
+name of the form as we call the parent's constructor. Then, we create four form
 elements: the id, title, artist, and submit button. For each item we set various
 attributes and options, including the label to be displayed.
 
