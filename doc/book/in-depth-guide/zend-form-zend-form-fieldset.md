@@ -764,7 +764,7 @@ public function init()
 }
 ```
 
-When you grab the data from this fiedlset, it will be returned as a `Post`
+When you grab the data from this fieldset, it will be returned as a `Post`
 instance.
 
 However, we grab data *from the form*; how can we simplify that interaction?
