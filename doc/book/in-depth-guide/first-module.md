@@ -139,7 +139,7 @@ public function getConfig()
 }
 ```
 
-Reload your application and you'll see that everything remains as it was. Next
+Reload your application and you'll see that everything remains as it was [[This is confusing to me. If it means reload localhost:8080/blog, you get a 404 error as the route hasn't been properly configured yet. If it means reload localhost:8080, obviously everything will remain as it was as you haven't affected the landing page route. Might be my misunderstanding, but spelling out exactly what is meant would help. Also, would be good to keep phrasing consistent, e.g. "refresh your site" vs "reload your application"]]. Next
 we add the new route to our configuration file:
 
 ```php
@@ -174,7 +174,7 @@ return [
 ];
 ```
 
-We've now created a route called `post` that listens to the URL
+We've now created a route called `blog` that listens to the URL
 `localhost:8080/blog`. Whenever someone accesses this route, the `indexAction()`
 function of the class `Blog\Controller\ListController` will be executed.
 However, this controller does not exist yet, so if you reload the page you will
@@ -291,7 +291,7 @@ Message:
 Zend\View\Renderer\PhpRenderer::render: Unable to render template "blog/list/index"; resolver could not resolve to a file
 ```
 
-Now the application tells you that a view template-file can not be rendered,
+Now the application tells you that a view template-file cannot be rendered,
 which is to be expected as we've not created it yet. The application is
 expecting it to be at `module/Blog/view/blog/list/index.phtml`. Create this
 file and add some dummy content to it:
@@ -304,9 +304,9 @@ file and add some dummy content to it:
 Before we continue let us quickly take a look at where we placed this file. Note
 that view files are found within the `/view` subdirectory, not `/src` as they
 are not PHP class files, but template files for rendering HTML. The path,
-however, deserves some explanation. First we have the lowercased namespace,
-followed by the lowercased controller name (without the suffix 'controller'),
-and lastly comes the name of the action that we are accessing (again without the
+however, deserves some explanation. First we have the lowercased namespace `blog`,
+followed by the lowercased controller name `list` (without the suffix 'controller'),
+and lastly comes the name of the action that we are accessing, `index` (again without the
 suffix 'action'). As a templated string, you can think of it as:
 `view/{namespace}/{controller}/{action}.phtml`. This has become a community
 standard but you have the freedom to specify custom paths if desired.
@@ -332,11 +332,11 @@ return [
 
 The above configuration tells the application that the folder
 `module/Blog/view/` has view files in it that match the above described default
-scheme. It is important to note that with this you can not only ship view files
+scheme [[Not clear to me what default scheme is being referred to here. Do you mean the path structure? Could it be stated explicitly?]] . It is important to note that with this you can not only ship view files
 for your module, but you can also overwrite view files from other modules.
 
 Reload your site now. Finally we are at a point where we see something different
-than an error being displayed! Congratulations, not only have you created a
+than an error being displayed! [[Would be good if it said here what you should see, e.g. the Skeleton Application page with Blog\ListController::indexAction() as the header.]] Congratulations, not only have you created a
 simple "Hello World" style module, you also learned about many error messages
 and their causes. If we didn't exhaust you too much, continue with our
 tutorial, and let's create a module that actually does something.
