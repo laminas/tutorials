@@ -60,10 +60,9 @@ interface PostRepositoryInterface
 }
 ```
 
-The first method, `findAllPosts()`, will return return all posts, and the second
+The first method, `findAllPosts()`, will return all posts, and the second
 method, `findPost($id)`, will return the post matching the given identifier
-`$id`. What's new in here is the fact that we actually define a return value
-that doesn't exist yet. We will define this class at a later point; for now, we
+`$id`. What's new in here is the fact that we actually define a return value - `Post` - that doesn't exist yet. We will define this `Post` class at a later point; for now, we
 will create the `PostRepository` class.
 
 Create the class `PostRepository` at `module/Blog/src/Model/PostRepository.php`;
@@ -165,8 +164,8 @@ be unchangeable, allowing us to cache instances in the repository as necessary.
 Now that we have our entity in place, we can bring life into our
 `PostRepository` class. To keep the repository easy to understand, for now we
 will only return some hard-coded content from our `PostRepository` class directly.
-Create a property inside the `PostRepository` called `$data` and make this an array
-of our `Post` type. Edit `PostReepository` as follows:
+Create a property inside the `PostRepository` class called `$data` and make this an array
+of our `Post` type. Edit `PostRepository` as follows:
 
 ```php
 namespace Blog\Model;
@@ -298,7 +297,7 @@ that is able to give us some data in a way that is defined by our
 ## Bringing the Service into the Controller
 
 Now that we have our `PostRepository` written, we want to get access to this
-repository in our controllers. For this task, we will step foot into a new topic
+repository in our controllers. For this task, we will step into a new topic
 called "Dependency Injection" (DI).
 
 When we're talking about dependency injection, we're talking about a way to get
@@ -523,7 +522,7 @@ return [
 ];
 ```
 
-This aliases `PostRepositoryInterface` to our `PostRepository` implementation,
+This aliases `PostRepositoryInterface` to our `PostRepository` implementation [[Could you explain why this is done? Aliasing usually means using the alias in place of the aliased. How do you use the interface in place of the class?]],
 and then creates a factory for the `PostRepository` class by mapping it to the
 `InvokableFactory` (like we originally did for the `ListController`); we can do
 this as our `PostRepository` implementation has no dependencies of its own.
