@@ -89,7 +89,7 @@ module; or it might provide background functionality for other modules in the
 application to use, such as interacting with a third party API.
 
 Organizing your code into modules makes it easier for you to reuse functionality
-in other application, or to use modules written by the community.
+in other applications, or to use modules written by the community.
 
 ## Configuring the Module
 
@@ -138,9 +138,7 @@ public function getConfig()
     return include __DIR__ . '/../config/module.config.php';
 }
 ```
-
-Reload your application and you'll see that everything remains as it was [[This is confusing to me. If it means reload localhost:8080/blog, you get a 404 error as the route hasn't been properly configured yet. If it means reload localhost:8080, obviously everything will remain as it was as you haven't affected the landing page route. Might be my misunderstanding, but spelling out exactly what is meant would help. Also, would be good to keep phrasing consistent, e.g. "refresh your site" vs "reload your application"]]. Next
-we add the new route to our configuration file:
+Reload your application and you'll see that nothing changes. Creating, registering, and adding empty configuration for a new module has no visible effect on the application. Next we add the new route to our configuration file:
 
 ```php
 // In /module/Blog/config/module.config.php:
@@ -330,13 +328,8 @@ return [
 ];
 ```
 
-The above configuration tells the application that the folder
-`module/Blog/view/` has view files in it that match the above described default
-scheme [[Not clear to me what default scheme is being referred to here. Do you mean the path structure? Could it be stated explicitly?]] . It is important to note that with this you can not only ship view files
-for your module, but you can also overwrite view files from other modules.
+The above configuration tells the application that the folder `module/Blog/view/` has view files in it that match the standard path format: `view/{namespace}/{controller}/{action}.phtml`. It is important to note that the `view_manager` configuration not only allows you to ship view files for your module, but also to overwrite view files from other modules.
 
-Reload your site now. Finally we are at a point where we see something different
-than an error being displayed! [[Would be good if it said here what you should see, e.g. the Skeleton Application page with Blog\ListController::indexAction() as the header.]] Congratulations, not only have you created a
-simple "Hello World" style module, you also learned about many error messages
-and their causes. If we didn't exhaust you too much, continue with our
-tutorial, and let's create a module that actually does something.
+Reload your site now. Finally we are at a point where we see something different than an error being displayed! You should see the standard ZF Skeleton Application template page with **Blog\ListController::indexAction()** as the header.
+    
+Congratulations, not only have you created a simple "Hello World" style module, you also learned about many error messages and their causes. If we didn't exhaust you too much, continue with our tutorial, and let's create a module that actually does something.
