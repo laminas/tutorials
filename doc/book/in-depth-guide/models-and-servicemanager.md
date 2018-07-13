@@ -458,7 +458,7 @@ class ListControllerFactory implements FactoryInterface
 ```
 
 The factory receives an instance of the application container, which, in our
-case, is a `Zend\ServiceManager\ServiceManager` instance; these also conform to
+case, is a `Zend\ServiceManager\ServiceManager` instance. The container also conforms to
 `Interop\Container\ContainerInterface`, allowing re-use in other dependency
 injection systems if desired. We pull a service matching the
 `PostRepositoryInterface` fully qualified class name and pass it directly to the
@@ -595,9 +595,9 @@ template to display the data.
 When pushing variables to the view, they are accessible in two ways: either
 using object notation (`$this->posts`) or implicitly as script-level variables
 `$posts`). The two approaches are equivalent; however, calling `$posts` results
-in a little round-trip through the renderer's `__get()` method. We often
-recommend using `$this` notation to visually differentiate between variables
-passed to the view, and those created within the script itself.
+in a little round-trip through the renderer's `__get()` method <<what renderer? Hasn’t been mentioned yet. Also, doesn’t seem much point in mentioning this unless you explain why it matters.>>. We often
+recommend using `$this` notation <<is '$this notation' the same thing as object notation mentioned two sentences above? If so, can this be made clear to avoid confusion?>> to visually differentiate between variables
+passed to the view, and those created within the script itself. <<It’s not clear to me what the difference is between these two types of variables. I think it would be helpful if it was explained, even if just in a linked-to side note.>>
 
 Let's modify our view to display a table of all blog posts that our repository
 returns:
