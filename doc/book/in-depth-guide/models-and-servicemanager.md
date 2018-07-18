@@ -522,10 +522,18 @@ return [
 ];
 ```
 
-This aliases `PostRepositoryInterface` to our `PostRepository` implementation [[Could you explain why this is done? Aliasing usually means using the alias in place of the aliased. How do you use the interface in place of the class?]],
+This aliases `PostRepositoryInterface` to our `PostRepository` implementation,
 and then creates a factory for the `PostRepository` class by mapping it to the
 `InvokableFactory` (like we originally did for the `ListController`); we can do
 this as our `PostRepository` implementation has no dependencies of its own.
+
+> #### Aliasing services
+>
+> In zend-servicemanager, when you request a service by an alias you get the service
+> it is mapped to. So when you request `Model\PostRepositoryInterface::class` you get
+> the PostRepository class fully qualified class name (FQCN). We often alias an interface 
+> to an implementation service, as that allows the user to indicate they want an implementation 
+> of the interface, but do not care which implementation. For more information see [Aliases](https://docs.zendframework.com/zend-servicemanager/configuring-the-service-manager/#aliases).
 
 Try refreshing your browser. You should see no more error messages, but rather
 exactly the page that we have created in the previous chapter of the tutorial.
@@ -590,14 +598,7 @@ template to display the data.
 > return ['foo' => 'bar'];
 > ```
 
-## Accessing View Variables
-
-When pushing variables to the view, they are accessible in two ways: either
-using object notation (`$this->posts`) or implicitly as script-level variables
-`$posts`). The two approaches are equivalent; however, calling `$posts` results
-in a little round-trip through the renderer's `__get()` method <<what renderer? Hasn’t been mentioned yet. Also, doesn’t seem much point in mentioning this unless you explain why it matters.>>. We often
-recommend using `$this` notation <<is '$this notation' the same thing as object notation mentioned two sentences above? If so, can this be made clear to avoid confusion?>> to visually differentiate between variables
-passed to the view, and those created within the script itself. <<It’s not clear to me what the difference is between these two types of variables. I think it would be helpful if it was explained, even if just in a linked-to side note.>>
+## Accessing View Variables 
 
 Let's modify our view to display a table of all blog posts that our repository
 returns:
@@ -618,6 +619,15 @@ returns:
 In the view script, we iterate over the posts passed to the view model.  Since
 every single entry of our array is of type `Blog\Model\Post`, we can use its
 getter methods and render it.
+
+#### Instance Variables Vs Script Variables
+
+> By default, all variables passed via a view model to the renderer are imported 
+> directly into the view script, and can therefore be referenced as either instance 
+> or script variables (i.e., `$this->posts` is the same as `$posts`). However, we recommend 
+> to reference any variables defined as part of the original view model using 
+> _instance variable_ notation (`$this->posts`), to make it clear where they originate, and to only 
+> use _script variable_ notation (`$posts`) for variables defined in the script itself.
 
 After saving this file, refresh your browser, and you should now see a list of
 blog entries!
