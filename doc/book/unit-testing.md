@@ -766,10 +766,8 @@ public function testExceptionIsThrownWhenGettingNonExistentAlbum()
         ->select(['id' => 123])
         ->willReturn($resultSet->reveal());
 
-    $this->setExpectedException(
-        RuntimeException::class,
-        'Could not find row with identifier 123'
-    );
+    $this->expectException (RuntimeException::class);
+    $this->expectExceptionMessage('Could not find row with identifier 123');
     $this->albumTable->getAlbum(123);
 }
 ```
