@@ -138,7 +138,10 @@ public function getConfig()
     return include __DIR__ . '/../config/module.config.php';
 }
 ```
-Reload your application and you'll see that nothing changes. Creating, registering, and adding empty configuration for a new module has no visible effect on the application. Next we add the new route to our configuration file:
+
+Reload your application and you'll see that nothing changes. Creating,
+registering, and adding empty configuration for a new module has no visible
+effect on the application. Next we add the new route to our configuration file:
 
 ```php
 // In /module/Blog/config/module.config.php:
@@ -328,8 +331,18 @@ return [
 ];
 ```
 
-The above configuration tells the application that the folder `module/Blog/view/` has view files in it that match the standard path format: `view/{namespace}/{controller}/{action}.phtml`. It is important to note that the `view_manager` configuration not only allows you to ship view files for your module, but also to overwrite view files from other modules.
+The above configuration tells the application that the folder
+`module/Blog/view/` has view files in it that match the standard path format:
+`view/{namespace}/{controller}/{action}.phtml`. It is important to note that the
+`view_manager` configuration not only allows you to ship view files for your
+module, but also to overwrite view files from other modules.
 
-Reload your site now. Finally we are at a point where we see something different than an error being displayed! You should see the standard ZF Skeleton Application template page with **Blog\ListController::indexAction()** as the header.
+Reload your site now. Finally we are at a point where we see something different
+than an error being displayed! You should see the standard ZF Skeleton
+Application template page with **Blog\ListController::indexAction()** as the
+header.
     
-Congratulations, not only have you created a simple "Hello World" style module, you also learned about many error messages and their causes. If we didn't exhaust you too much, continue with our tutorial, and let's create a module that actually does something.
+Congratulations, not only have you created a simple "Hello World" style module,
+you also learned about many error messages and their causes. If we didn't
+exhaust you too much, continue with our tutorial, and let's create a module that
+actually does something.
