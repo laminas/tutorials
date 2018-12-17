@@ -89,7 +89,7 @@ module; or it might provide background functionality for other modules in the
 application to use, such as interacting with a third party API.
 
 Organizing your code into modules makes it easier for you to reuse functionality
-in other application, or to use modules written by the community.
+in other applications, or to use modules written by the community.
 
 ## Configuring the Module
 
@@ -139,8 +139,9 @@ public function getConfig()
 }
 ```
 
-Reload your application and you'll see that everything remains as it was. Next
-we add the new route to our configuration file:
+Reload your application and you'll see that nothing changes. Creating,
+registering, and adding empty configuration for a new module has no visible
+effect on the application. Next we add the new route to our configuration file:
 
 ```php
 // In /module/Blog/config/module.config.php:
@@ -174,7 +175,7 @@ return [
 ];
 ```
 
-We've now created a route called `post` that listens to the URL
+We've now created a route called `blog` that listens to the URL
 `localhost:8080/blog`. Whenever someone accesses this route, the `indexAction()`
 function of the class `Blog\Controller\ListController` will be executed.
 However, this controller does not exist yet, so if you reload the page you will
@@ -291,7 +292,7 @@ Message:
 Zend\View\Renderer\PhpRenderer::render: Unable to render template "blog/list/index"; resolver could not resolve to a file
 ```
 
-Now the application tells you that a view template-file can not be rendered,
+Now the application tells you that a view template-file cannot be rendered,
 which is to be expected as we've not created it yet. The application is
 expecting it to be at `module/Blog/view/blog/list/index.phtml`. Create this
 file and add some dummy content to it:
@@ -304,9 +305,9 @@ file and add some dummy content to it:
 Before we continue let us quickly take a look at where we placed this file. Note
 that view files are found within the `/view` subdirectory, not `/src` as they
 are not PHP class files, but template files for rendering HTML. The path,
-however, deserves some explanation. First we have the lowercased namespace,
-followed by the lowercased controller name (without the suffix 'controller'),
-and lastly comes the name of the action that we are accessing (again without the
+however, deserves some explanation. First we have the lowercased namespace `blog`,
+followed by the lowercased controller name `list` (without the suffix 'controller'),
+and lastly comes the name of the action that we are accessing, `index` (again without the
 suffix 'action'). As a templated string, you can think of it as:
 `view/{namespace}/{controller}/{action}.phtml`. This has become a community
 standard but you have the freedom to specify custom paths if desired.
@@ -331,12 +332,17 @@ return [
 ```
 
 The above configuration tells the application that the folder
-`module/Blog/view/` has view files in it that match the above described default
-scheme. It is important to note that with this you can not only ship view files
-for your module, but you can also overwrite view files from other modules.
+`module/Blog/view/` has view files in it that match the standard path format:
+`view/{namespace}/{controller}/{action}.phtml`. It is important to note that the
+`view_manager` configuration not only allows you to ship view files for your
+module, but also to overwrite view files from other modules.
 
 Reload your site now. Finally we are at a point where we see something different
-than an error being displayed! Congratulations, not only have you created a
-simple "Hello World" style module, you also learned about many error messages
-and their causes. If we didn't exhaust you too much, continue with our
-tutorial, and let's create a module that actually does something.
+than an error being displayed! You should see the standard ZF Skeleton
+Application template page with **Blog\ListController::indexAction()** as the
+header.
+    
+Congratulations, not only have you created a simple "Hello World" style module,
+you also learned about many error messages and their causes. If we didn't
+exhaust you too much, continue with our tutorial, and let's create a module that
+actually does something.
