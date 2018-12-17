@@ -152,14 +152,16 @@ class AlbumTable
             return;
         }
 
-        if (! $this->getAlbum($id)) {
+        try {
+            if ($this->getAlbum($id)) {
+                $this->tableGateway->update($data, ['id' => $id]);
+            }
+        } catch (RuntimeException $e) {
             throw new RuntimeException(sprintf(
                 'Cannot update album with identifier %d; does not exist',
                 $id
             ));
         }
-
-        $this->tableGateway->update($data, ['id' => $id]);
     }
 
     public function deleteAlbum($id)
