@@ -62,8 +62,9 @@ interface PostRepositoryInterface
 
 The first method, `findAllPosts()`, will return all posts, and the second
 method, `findPost($id)`, will return the post matching the given identifier
-`$id`. What's new in here is the fact that we actually define a return value - `Post` - that doesn't exist yet. We will define this `Post` class at a later point; for now, we
-will create the `PostRepository` class.
+`$id`. What's new in here is the fact that we actually define a return value -
+`Post` - that doesn't exist yet. We will define this `Post` class at a later
+point; for now, we will create the `PostRepository` class.
 
 Create the class `PostRepository` at `module/Blog/src/Model/PostRepository.php`;
 be sure to implement the `PostRepositoryInterface` and its required method (we
@@ -458,9 +459,9 @@ class ListControllerFactory implements FactoryInterface
 ```
 
 The factory receives an instance of the application container, which, in our
-case, is a `Zend\ServiceManager\ServiceManager` instance. The container also conforms to
-`Interop\Container\ContainerInterface`, allowing re-use in other dependency
-injection systems if desired. We pull a service matching the
+case, is a `Zend\ServiceManager\ServiceManager` instance. The container also
+conforms to `Interop\Container\ContainerInterface`, allowing re-use in other
+dependency injection systems if desired. We pull a service matching the
 `PostRepositoryInterface` fully qualified class name and pass it directly to the
 controller's constructor.
 
@@ -531,9 +532,11 @@ this as our `PostRepository` implementation has no dependencies of its own.
 >
 > In zend-servicemanager, when you request a service by an alias you get the service
 > it is mapped to. So when you request `Model\PostRepositoryInterface::class` you get
-> the PostRepository class fully qualified class name (FQCN). We often alias an interface 
-> to an implementation service, as that allows the user to indicate they want an implementation 
-> of the interface, but do not care which implementation. For more information see [Aliases](https://docs.zendframework.com/zend-servicemanager/configuring-the-service-manager/#aliases).
+> the PostRepository class using its fully qualified class name (FQCN). We often
+> alias an interface to an implementation service, as that allows the user to
+> indicate they want an implementation of the interface, but do not care which
+> implementation. For more information see
+> [the zend-servicemanager Aliases documentation](https://docs.zendframework.com/zend-servicemanager/configuring-the-service-manager/#aliases).
 
 Try refreshing your browser. You should see no more error messages, but rather
 exactly the page that we have created in the previous chapter of the tutorial.
@@ -622,12 +625,13 @@ getter methods and render it.
 
 #### Instance Variables Vs Script Variables
 
-> By default, all variables passed via a view model to the renderer are imported 
-> directly into the view script, and can therefore be referenced as either instance 
-> or script variables (i.e., `$this->posts` is the same as `$posts`). However, we recommend 
-> to reference any variables defined as part of the original view model using 
-> _instance variable_ notation (`$this->posts`), to make it clear where they originate, and to only 
-> use _script variable_ notation (`$posts`) for variables defined in the script itself.
+> By default, all variables passed via a view model to the renderer are imported
+> directly into the view script, and can therefore be referenced as either
+> instance or script variables (i.e., `$this->posts` is the same as `$posts`).
+> However, we recommend to reference any variables defined as part of the
+> original view model using _instance variable_ notation (`$this->posts`), to
+> make it clear where they originate, and to only use _script variable_ notation
+> (`$posts`) for variables defined in the script itself.
 
 After saving this file, refresh your browser, and you should now see a list of
 blog entries!
