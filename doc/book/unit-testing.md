@@ -545,7 +545,7 @@ with the following contents:
 namespace AlbumTest\Model;
 
 use Album\Model\Album;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AlbumTest extends TestCase
 {
@@ -677,7 +677,7 @@ namespace AlbumTest\Model;
 
 use Album\Model\AlbumTable;
 use Album\Model\Album;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\TableGateway\TableGatewayInterface;
