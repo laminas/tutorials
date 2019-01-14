@@ -387,6 +387,7 @@ Edit `zf-tutorial/public/index.php` directory and change it to the following:
 <?php
 
 use Zend\Mvc\Application;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Display all errors when APPLICATION_ENV is development.
