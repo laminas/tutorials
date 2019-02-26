@@ -133,7 +133,7 @@ service:
 
 ```php
 function ($container) {
-    return new SomeServiceObject($container->get('Application\Db\ReadOnlyAdapter));
+    return new SomeServiceObject($container->get('Application\Db\ReadOnlyAdapter'));
 }
 ```
 
