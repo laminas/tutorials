@@ -299,7 +299,7 @@ file and add some dummy content to it:
 
 ```html
 <!-- Filename: module/Blog/view/blog/list/index.phtml -->
-<h1>Blog\ListController::indexAction()</h1>
+<h1>Blog\Controller\ListController::indexAction()</h1>
 ```
 
 Before we continue let us quickly take a look at where we placed this file. Note
@@ -339,7 +339,7 @@ module, but also to overwrite view files from other modules.
 
 Reload your site now. Finally we are at a point where we see something different
 than an error being displayed! You should see the standard ZF Skeleton
-Application template page with **Blog\ListController::indexAction()** as the
+Application template page with **Blog\Controller\ListController::indexAction()** as the
 header.
     
 Congratulations, not only have you created a simple "Hello World" style module,
