@@ -444,7 +444,7 @@ Refreshing the page you will now see all your blog posts listed on the page. Gre
 ## Refactoring hidden dependencies
 
 There's one little thing that we have done that's not a best-practice. We use
-both a hydrator and an `Post` prototype inside our `ZendDbSqlRepository`. Let's
+both a hydrator and a `Post` prototype inside our `ZendDbSqlRepository`. Let's
 inject those instead, so that we can reuse them between our repository and
 command implementations, or vary them based on environment. Update your
 `ZendDbSqlRepository` as follows:
