@@ -647,7 +647,7 @@ class ZendDbSqlCommand implements PostCommandInterface
         return new Post(
             $post->getTitle(),
             $post->getText(),
-            $result->getGeneratedValue()
+            $id
         );
     }
 
@@ -721,7 +721,7 @@ section of `module/Blog/config/module.config.php` to read as follows:
 Submitting your form again, it should process the form and redirect you to the
 detail page for the new entry!
 
-Let's see if we an improve this a bit.
+Let's see if we can improve this a bit.
 
 ## Using zend-hydrator with zend-form
 
