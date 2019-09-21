@@ -322,9 +322,12 @@ view, however. zend-router allows another option, however: you can tell it to
 re-use currently matched parameters.  This is done by setting the last parameter
 of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
-If you try and update the post, it'll be successful, but you'll notice that no
-edits were saved! Why? Because we have not yet implemented the functionality in
-our command class. Let's do that now.
+If you try and update the post, you will receive the following error:   
+```
+Call to member function getId() on null
+```
+That is because we have not yet implemented the update functionality in
+our command class which will return a Post object on success. Let's do that now.
 
 Edit the file `module/Blog/src/Model/ZendDbSqlCommand.php`, and update the
 `updatePost()` method to read as follows:
@@ -648,7 +651,7 @@ duplication in our views and re-use them. In particular, we did this with our
 form, to prevent needlessly duplicating the form markup.
 
 Finally, we looked at two more aspects of the `Zend\Db\Sql` subcomponent, and
-learned how to `Update` and `Delete` operations.
+learned how to perform `Update` and `Delete` operations.
 
 In the next chapter we'll summarize everything we've done. We'll talk about the
 design patterns we've used, and we'll cover several questions that likely arose
