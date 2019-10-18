@@ -144,7 +144,7 @@ function ($container) {
 }
 ```
 
-### Using the AdapterAbstractServiceFactory as a Factory
+### Using the `AdapterAbstractServiceFactory` as a Factory
 
 Depending on what application container you use, abstract factories may not be
 available. Alternately, you may want to reduce lookup time when retrieving an
