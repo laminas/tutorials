@@ -16,6 +16,8 @@ First, install zend-db using Composer:
 $ composer require zendframework/zend-db
 ```
 
+### Installation and automated Configuration
+
 If you are using [zend-component-installer](https://zendframework.github.io/zend-component-installer/)
 (installed by default with the skeleton application, and optionally for
 Expressive applications), you will be prompted to install the package
@@ -25,43 +27,48 @@ configuration.
   `modules.config.php`.
 - For Expressive applications, choose `config/config.php`.
 
+### Installation and manual Configuration
+
 If you are not using the installer, you will need to manually configure add the
 component to your application.
 
-- For zend-mvc applications, update your list of modules in either
-  `config/application.config.php` or `config/modules.config.php` to add an
-  entry for `'Zend\Db'` at the top of the list:
-  ```php
-  <?php
-    // In config/modules.config.php
-    return [
-      'Zend\Db', // <-- This line
-      'Zend\Form', 
-      /* ... */
-    ];
-    
-    // OR in config/application.config.php
-    return [
+#### Configuration for a zend-mvc-based Application
+
+For zend-mvc applications, update your list of modules in either
+`config/application.config.php` or `config/modules.config.php` to add an
+entry for `'Zend\Db'` at the top of the list:
+  
+```php
+// In config/modules.config.php
+return [
+    'Zend\Db', // <-- This line
+    'Zend\Form', 
+    /* ... */
+];
+
+// OR in config/application.config.php
+return [
     /* ... */
     // Retrieve list of modules used in this application.
     'modules' => [
-      'Zend\Db', // <-- This line
-      'Zend\Form', 
-      /* ... */
+        'Zend\Db', // <-- This line
+        'Zend\Form', 
+        /* ... */
     ],
     /* ... */
-  ```
+];
+```
 
+#### Configuration for a zend-expressive-based Application
 
-- For Expressive applications, create a new file,
-  `config/autoload/zend-db.global.php`, with the following contents:
+For Expressive applications, create a new file,
+`config/autoload/zend-db.global.php`, with the following contents:
 
-  ```php
-  <?php
-  use Zend\Db\ConfigProvider;
+```php
+use Zend\Db\ConfigProvider;
 
-  return (new ConfigProvider())();
-  ```
+return (new ConfigProvider())();
+```
 
 ## Configuring the default adapter
 
