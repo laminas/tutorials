@@ -1,4 +1,4 @@
-# Setting up a database adapter
+# Setting up a Database Adapter
 
 zend-db provides a general purpose database abstraction layer. At its heart is
 the `Adapter`, which abstracts common database operations across the variety of
@@ -70,7 +70,7 @@ use Zend\Db\ConfigProvider;
 return (new ConfigProvider())();
 ```
 
-## Configuring the default adapter
+## Configuring the default Adapter
 
 Within your service factories, you may retrieve the default adapter from your application container using the
 class name `Zend\Db\Adapter\AdapterInterface`:
@@ -101,7 +101,7 @@ return [
 More information on adapter configuration can be found in the docs for
 [Zend\\Db\\Adapter](http://zendframework.github.io/zend-db/adapter/#creating-an-adapter-using-dependency-injection).
 
-## Configuring named adapters
+## Configuring named Adapters
 
 Sometimes you may need multiple adapters. As an example, if you work with a
 cluster of databases, one may allow write operations, while another may be
@@ -133,7 +133,7 @@ return [
 You retrieve the database adapters using the keys you define, so ensure they are
 unique to your application, and descriptive of their purpose!
 
-### Retrieving named adapters
+### Retrieving named Adapters
 
 Retrieve named adapters in your service factories just as you would another
 service:
@@ -144,7 +144,7 @@ function ($container) {
 }
 ```
 
-### Using the AdapterAbstractServiceFactory as a factory
+### Using the AdapterAbstractServiceFactory as a Factory
 
 Depending on what application container you use, abstract factories may not be
 available. Alternately, you may want to reduce lookup time when retrieving an
