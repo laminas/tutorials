@@ -189,25 +189,33 @@ new application is ready to start!
 >
 > For windows users with wamp:
 >
-> 1. Install [composer for windows](https://getcomposer.org/doc/00-intro.md#installation-windows).
->    Check composer is properly installed by running:
+> #### 1. Install Composer for Windows
+> 
+> Check Composer is properly installed by running:
 >
->    ```bash
->    $ composer
->    ```
+> ```bash
+> $ composer
+> ```
+> Otherwise follow the
+> [installation guide for Composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 >
-> 2. Install [GitHub Desktop](https://desktop.github.com/) for windows.
-     Check git is properly installed by running:
+> #### 2. Install Git for Windows
 >
->    ```bash
->    $ git
->    ```
 >
-> 3. Now install the skeleton using:
+> Check Git is properly installed by running:
 >
->    ```bash
->    $ composer create-project -s dev zendframework/skeleton-application path/to/install
->    ```
+> ```bash
+> $ git
+> ```
+> 
+> Otherwise follow the
+> [installation guide for GitHub Desktop](https://desktop.github.com/).
+>
+> #### 3. Now install the Skeleton using
+>
+> ```bash
+> $ composer create-project -s dev zendframework/skeleton-application path/to/install
+> ```
 
 We can now move on to the web server setup.
 
@@ -243,7 +251,7 @@ and you should see the following 404 page:
 
 ![zend-mvc 404 page](../images/user-guide.skeleton-application.404.png)
 
-> #### Development only
+> ### Development only
 >
 > PHP's built-in web server should be used **for development only**.
 
@@ -384,8 +392,6 @@ useful during the development of your application.
 Edit `zf-tutorial/public/index.php` directory and change it to the following:
 
 ```php
-<?php
-
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
