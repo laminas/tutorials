@@ -251,7 +251,7 @@ and you should see the following 404 page:
 
 ![zend-mvc 404 page](../images/user-guide.skeleton-application.404.png)
 
-> #### Development only
+> ### Development only
 >
 > PHP's built-in web server should be used **for development only**.
 
