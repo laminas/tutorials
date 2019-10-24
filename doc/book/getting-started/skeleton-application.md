@@ -196,6 +196,7 @@ new application is ready to start!
 > ```bash
 > $ composer
 > ```
+> 
 > Otherwise follow the
 > [installation guide for Composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 >
