@@ -392,8 +392,6 @@ useful during the development of your application.
 Edit `zf-tutorial/public/index.php` directory and change it to the following:
 
 ```php
-<?php
-
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
