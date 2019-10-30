@@ -323,9 +323,11 @@ re-use currently matched parameters.  This is done by setting the last parameter
 of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
 If you try and update the post, you will receive the following error:   
+
 ```text
 Call to member function getId() on null
 ```
+
 That is because we have not yet implemented the update functionality in
 our command class which will return a Post object on success. Let's do that now.
 
