@@ -322,7 +322,7 @@ view, however. zend-router allows another option, however: you can tell it to
 re-use currently matched parameters.  This is done by setting the last parameter
 of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
-If you try and update the post, you will receive the following error:   
+If you try and update the post, you will receive the following error:
 
 ```text
 Call to member function getId() on null
