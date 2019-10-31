@@ -1,6 +1,6 @@
 docs_dir: doc/book
 site_dir: doc/html
-pages:
+nav:
     - Home: index.md
     - "MVC Tutorials":
       - "Getting Started with Zend Framework":
