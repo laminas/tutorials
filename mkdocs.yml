@@ -37,3 +37,5 @@ site_name: Tutorials
 site_description: 'Learn how to create zend-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
 repo_url: 'https://github.com/zendframework/tutorials'
 copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+extra:
+    show_special_homepage : true
