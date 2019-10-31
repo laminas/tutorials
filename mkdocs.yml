@@ -33,7 +33,7 @@ pages:
             - Overview: migration/to-v3/overview.md
             - Components: migration/to-v3/components.md
             - Applications: migration/to-v3/application.md
-site_description: "Zend Framework Tutorials"
 site_name: Tutorials
+site_description: 'Learn how to create zend-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
 repo_url: 'https://github.com/zendframework/tutorials'
 copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
