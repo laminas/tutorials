@@ -1,7 +1,7 @@
 docs_dir: doc/book
 site_dir: doc/html
-pages:
-    - index.md
+nav:
+    - Home: index.md
     - "MVC Tutorials":
       - "Getting Started with Zend Framework":
           - Overview: getting-started/overview.md
@@ -33,7 +33,8 @@ pages:
             - Overview: migration/to-v3/overview.md
             - Components: migration/to-v3/components.md
             - Applications: migration/to-v3/application.md
-site_name: tutorials
-site_description: "Zend Framework Tutorials"
+site_name: Tutorials
+site_description: 'Learn how to create zend-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
 repo_url: 'https://github.com/zendframework/tutorials'
-copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+extra:
+    show_special_homepage : true
