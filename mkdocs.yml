@@ -2,6 +2,7 @@ docs_dir: docs/book
 site_dir: docs/html
 nav:
     - Home: index.md
+    - "Migration from Zend Framework": migration-from-zendframework.md
     - "MVC Tutorials":
       - "Getting Started with Laminas":
           - Overview: getting-started/overview.md
