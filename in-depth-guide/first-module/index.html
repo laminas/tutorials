@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/in-depth-guide/first-module/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Introducing the Blog Module - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#writing-a-new-module" class="toc__link">Writing a new Module</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuring-the-module" class="toc__link">Configuring the Module</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">In-Depth Tutorial</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Introducing the Blog Module</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">In-Depth Tutorial</h2>
+    
+
+    <h1 id="introducing-the-blog-module">Introducing the Blog Module</h1>
+<p>Now that we know about the basics of the laminas-mvc skeleton application,
+let's continue and create our very own module. We will create a module named
+"Blog". This module will display a list of database entries that represent a
+single blog post. Each post will have three properties: <code>id</code>, <code>text</code>, and
+<code>title</code>. We will create forms to enter new posts into our database and to edit
+existing posts. Furthermore we will do so by using best-practices throughout the
+whole tutorial.</p>
+<h2 id="writing-a-new-module">Writing a new Module</h2>
+<p>Let's start by creating a new folder under the <code>/module</code> directory called
+<code>Blog</code>, with the following stucture:</p>
+<pre class=codehilite><code class=language-text>module/
+    Blog/
+        config/
+        src/
+        view/</code></pre>
+<p>To be recognized as a module by the <a href="https://docs.laminas.dev/laminas-modulemanager/intro/">ModuleManager</a>,
+we need to do three things:</p>
+<ul>
+<li>Tell Composer how to autoload classes from our new module.</li>
+<li>Create a <code>Module</code> class in the <code>Blog</code> namespace.</li>
+<li>Notify the application of the new module.</li>
+</ul>
+<p>Let's tell Composer about our new module. Open the <code>composer.json</code> file in the
+project root, and edit the <code>autoload</code> section to add a new PSR-4 entry for the
+<code>Blog</code> module; when you're done, it should read:</p>
+<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
+   &quot;psr-4&quot;: {
+        &quot;Application\\&quot;: &quot;module/Application/src/&quot;,
+        &quot;Album\\&quot;: &quot;module/Album/src/&quot;,
+        &quot;Blog\\&quot;: &quot;module/Blog/src/&quot;
+   }
+}</code></pre>
+<p>Once you're done, tell Composer to update its autoloading definitions:</p>
+<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<p>Next, we will create a <code>Module</code> class under the <code>Blog</code> namespace. Create the
+file <code>module/Blog/src/Module.php</code> with the following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace Blog;
+
+class Module
+{
+}</code></pre>
+<p>We now have a module that can be detected by the
+<a href="https://docs.laminas.dev/laminas-modulemanager/intro/">ModuleManager</a>.
+Let's add this module to our application. Although our module doesn't do
+anything yet, just having the <code>Module.php</code> class allows it to be loaded by the
+ModuleManager.  To do this, add an entry for <code>Blog</code> to the modules array inside
+<code>config/modules.config.php</code>:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// In config/modules.config.php:
+
+return [
+    /* ... */
+    'Application',
+    'Album',
+    'Blog',
+];</code></pre>
+<p>If you refresh your application you should see no change at all (but also no
+errors).</p>
+<p>At this point it's worth taking a step back to discuss what modules are for. In
+short, a module is an encapsulated set of features for your application. A
+module might add features to the application that you can see, like our <code>Blog</code>
+module; or it might provide background functionality for other modules in the
+application to use, such as interacting with a third party API.</p>
+<p>Organizing your code into modules makes it easier for you to reuse functionality
+in other applications, or to use modules written by the community.</p>
+<h2 id="configuring-the-module">Configuring the Module</h2>
+<p>The next thing we're going to do is add a route to our application so that our
+module can be accessed through the URL <code>localhost:8080/blog</code>. We do this by
+adding router configuration to our module, but first we need to let the
+<code>ModuleManager</code> know that our module has configuration that it needs to load.</p>
+<p>This is done by adding a <code>getConfig()</code> method to the <code>Module</code> class that
+returns the configuration. (This method is defined in the
+<code>ConfigProviderInterface</code>, although explicitly implementing this interface in the
+module class is optional.) This method should return either an <code>array</code> or a
+<code>Traversable</code> object. Continue by editing <code>module/Blog/src/Module.php</code>:</p>
+<pre class=codehilite><code class=language-php>// In /module/Blog/Module.php:
+class Module
+{
+    public function getConfig()
+    {
+        return [];
+    }
+}</code></pre>
+<p>With this, our module is now able to be configured. Configuration files can
+become quite big, though, and keeping everything inside the <code>getConfig()</code> method
+won't be optimal. To help keep our project organized, we're going to put our
+array configuration in a separate file. Go ahead and create this file at
+<code>module/Blog/config/module.config.php</code>:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+return [];</code></pre>
+<p>Now rewrite the <code>getConfig()</code> function to include this newly created
+file instead of directly returning the array:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// In /module/Blog/Module.php:
+
+public function getConfig()
+{
+    return include __DIR__ . '/../config/module.config.php';
+}</code></pre>
+<p>Reload your application and you'll see that nothing changes. Creating,
+registering, and adding empty configuration for a new module has no visible
+effect on the application. Next we add the new route to our configuration file:</p>
+<pre class=codehilite><code class=language-php>// In /module/Blog/config/module.config.php:
+namespace Blog;
+
+use Laminas\Router\Http\Literal;
+
+return [
+    // This lines opens the configuration for the RouteManager
+    'router' =&gt; [
+        // Open configuration for all possible routes
+        'routes' =&gt; [
+            // Define a new route called &quot;blog&quot;
+            'blog' =&gt; [
+                // Define a &quot;literal&quot; route type:
+                'type' =&gt; Literal::class,
+                // Configure the route itself
+                'options' =&gt; [
+                    // Listen to &quot;/blog&quot; as uri:
+                    'route' =&gt; '/blog',
+                    // Define default controller and action to be called when
+                    // this route is matched
+                    'defaults' =&gt; [
+                        'controller' =&gt; Controller\ListController::class,
+                        'action'     =&gt; 'index',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];</code></pre>
+<p>We've now created a route called <code>blog</code> that listens to the URL
+<code>localhost:8080/blog</code>. Whenever someone accesses this route, the <code>indexAction()</code>
+function of the class <code>Blog\Controller\ListController</code> will be executed.
+However, this controller does not exist yet, so if you reload the page you will
+see this error message:</p>
+<pre class=codehilite><code class=language-text>A 404 error occurred
+Page not found.
+The requested controller could not be mapped by routing.
+
+Controller:
+Blog\Controller\ListController(resolves to invalid controller class or alias: Blog\Controller\ListController)</code></pre>
+<p>We now need to tell our module where to find this controller named
+<code>Blog\Controller\ListController</code>. To achieve this we have to add this key to the
+<code>controllers</code> configuration key inside your
+<code>module/Blog/config/module.config.php</code>.</p>
+<pre class=codehilite><code class=language-php>namespace Blog;
+
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'controllers' =&gt; [
+        'factories' =&gt; [
+            Controller\ListController::class =&gt; InvokableFactory::class,
+        ],
+    ],
+    /* ... */
+];</code></pre>
+<p>This configuration defines a factory for the controller class
+<code>Blog\Controller\ListController</code>, using the laminas-servicemanager
+<code>InvokableFactory</code> (which, internally, instantiates the class with no
+arguments).  Reloading the page should then give you:</p>
+<pre class=codehilite><code class=language-text>Fatal error: Class 'Blog\Controller\ListController' not found in {projectPath}/vendor/laminas/laminas-servicemanager/src/Factory/InvokableFactory.php on line 32</code></pre>
+<p>This error tells us that the application knows what class to load, but was not
+able to autoload it. In our case, we've already setup autoloading, but have not
+yet defined the controller class!</p>
+<p>Create the file <code>module/Blog/src/Controller/ListController.php</code> with the
+following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace Blog\Controller;
+
+class ListController
+{
+}</code></pre>
+<p>Reloading the page now will finally result into a new screen. The new error message looks like this:</p>
+<pre class=codehilite><code class=language-html>A 404 error occurred
+Page not found.
+The requested controller was not dispatchable.
+
+Controller:
+Blog\Controller\List(resolves to invalid controller class or alias: Blog\Controller\List)
+
+Additional information:
+Laminas\ServiceManager\Exception\InvalidServiceException
+
+File:
+{projectPath}/vendor/laminas/laminas-mvc/src/Controller/ControllerManager.php:{lineNumber}
+
+Message:
+Plugin of type &quot;Blog\Controller\ListController&quot; is invalid; must implement Laminas\Stdlib\DispatchableInterface</code></pre>
+<p>This happens because our controller must implement
+<a href="https://github.com/laminas/laminas-stdlib/blob/0e66240daec93f19ae104084e369c393453fc901/src/DispatchableInterface.php">DispatchableInterface</a>
+in order to be 'dispatched' (or run) by laminas-mvc. laminas-mvc provides a base
+controller implementation of it with
+<a href="https://github.com/laminas/laminas-mvc/blob/9fc7f2cf569760d6a0cdc62f56e042a0aee3a4c9/src/Controller/AbstractActionController.php">AbstractActionController</a>,
+which we are going to use. Let's modify our controller now:</p>
+<pre class=codehilite><code class=language-php>// In /module/Blog/src/Blog/Controller/ListController.php:
+
+namespace Blog\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
+
+class ListController extends AbstractActionController
+{
+}</code></pre>
+<p>It's now time for another refresh of the site. You should now see a new error message:</p>
+<pre class=codehilite><code class=language-text>An error occurred
+
+An error occurred during execution; please try again later.
+
+Additional information:
+
+Laminas\View\Exception\RuntimeException
+
+File:
+{projectPath}/vendor/laminas/laminas-view/src/Renderer/PhpRenderer.php:{lineNumber}
+
+Message:
+Laminas\View\Renderer\PhpRenderer::render: Unable to render template &quot;blog/list/index&quot;; resolver could not resolve to a file</code></pre>
+<p>Now the application tells you that a view template-file cannot be rendered,
+which is to be expected as we've not created it yet. The application is
+expecting it to be at <code>module/Blog/view/blog/list/index.phtml</code>. Create this
+file and add some dummy content to it:</p>
+<pre class=codehilite><code class=language-html>&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
+&lt;h1&gt;Blog\Controller\ListController::indexAction()&lt;/h1&gt;</code></pre>
+<p>Before we continue let us quickly take a look at where we placed this file. Note
+that view files are found within the <code>/view</code> subdirectory, not <code>/src</code> as they
+are not PHP class files, but template files for rendering HTML. The path,
+however, deserves some explanation. First we have the lowercased namespace <code>blog</code>,
+followed by the lowercased controller name <code>list</code> (without the suffix 'controller'),
+and lastly comes the name of the action that we are accessing, <code>index</code> (again without the
+suffix 'action'). As a templated string, you can think of it as:
+<code>view/{namespace}/{controller}/{action}.phtml</code>. This has become a community
+standard but you have the freedom to specify custom paths if desired.</p>
+<p>However creating this file alone is not enough and this brings as to the final
+topic of this part of the tutorial. We need to let the application know where
+to look for view files. We do this within our module's configuration file,
+<code>module.config.php</code>.</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+
+return [
+    'controllers' =&gt; [ /** Controller Configuration */ ],
+    'router'      =&gt; [ /** Route Configuration */ ]
+    'view_manager' =&gt; [
+        'template_path_stack' =&gt; [
+            __DIR__ . '/../view',
+        ],
+    ],
+];</code></pre>
+<p>The above configuration tells the application that the folder
+<code>module/Blog/view/</code> has view files in it that match the standard path format:
+<code>view/{namespace}/{controller}/{action}.phtml</code>. It is important to note that the
+<code>view_manager</code> configuration not only allows you to ship view files for your
+module, but also to overwrite view files from other modules.</p>
+<p>Reload your site now. Finally we are at a point where we see something different
+than an error being displayed! You should see the standard Laminas Skeleton
+Application template page with <strong>Blog\Controller\ListController::indexAction()</strong> as the
+header.</p>
+<p>Congratulations, not only have you created a simple "Hello World" style module,
+you also learned about many error messages and their causes. If we didn't
+exhaust you too much, continue with our tutorial, and let's create a module that
+actually does something.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../pagination/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../models-and-servicemanager/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/in-depth-guide/first-module.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

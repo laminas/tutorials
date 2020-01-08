@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/in-depth-guide/data-binding/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Editing and Deleting Data - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#binding-objects-to-forms" class="toc__link">Binding Objects to Forms</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#adding-the-edit-route" class="toc__link">Adding the edit route</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#creating-the-edit-template" class="toc__link">Creating the edit template</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#implementing-the-delete-functionality" class="toc__link">Implementing the delete functionality</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#making-the-list-more-useful" class="toc__link">Making the list more useful</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#summary" class="toc__link">Summary</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">In-Depth Tutorial</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Editing and Deleting Data</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">In-Depth Tutorial</h2>
+    
+
+    <h1 id="editing-and-deleting-data">Editing and Deleting Data</h1>
+<p>In the previous chapter we've come to learn how we can use the laminas-form and
+laminas-db components for <em>creating</em> new data-sets. This chapter will focus on
+finalizing the CRUD functionality by introducing the concepts for <em>editing</em> and
+<em>deleting</em> data.</p>
+<h2 id="binding-objects-to-forms">Binding Objects to Forms</h2>
+<p>The one fundamental difference between our "add post" and "edit post" forms is
+the existence of data.  This means we need to find a way to get data from our
+repository into the form. Luckily, laminas-form provides this via a
+<strong>data-binding</strong> feature.</p>
+<p>In order to use this feature, you will need to retrieve a <code>Post</code> instance, and
+bind it to the form. To do this, we will need to:</p>
+<ul>
+<li>Add a dependency in our <code>WriteController</code> on our <code>PostRepositoryInterface</code>,
+  from which we will retrieve our <code>Post</code>.</li>
+<li>Add a new method to our <code>WriteController</code>, <code>editAction()</code>, that will retrieve
+  a <code>Post</code>, bind it to the form, and either display the form or process it.</li>
+<li>Update our <code>WriteControllerFactory</code> to inject the <code>PostRepositoryInterface</code>.</li>
+</ul>
+<p>We'll begin by updating the <code>WriteController</code>:</p>
+<ul>
+<li>We will import the <code>PostRepositoryInterface</code>.</li>
+<li>We will add a property for storing the <code>PostRepositoryInterface</code>.</li>
+<li>We will update the constructor to accept the <code>PostRepositoryInterface</code>.</li>
+<li>We will add the <code>editAction()</code> implementation.</li>
+</ul>
+<p>The final result will look like the following:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// In module/Blog/src/Controller/WriteController.php:
+
+namespace Blog\Controller;
+
+use Blog\Form\PostForm;
+use Blog\Model\Post;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use InvalidArgumentException;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+
+class WriteController extends AbstractActionController
+{
+    /**
+     * @var PostCommandInterface
+     */
+    private $command;
+
+    /**
+     * @var PostForm
+     */
+    private $form;
+
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * @param PostCommandInterface $command
+     * @param PostForm $form
+     * @param PostRepositoryInterface $repository
+     */
+    public function __construct(
+        PostCommandInterface $command,
+        PostForm $form,
+        PostRepositoryInterface $repository
+    ) {
+        $this-&gt;command = $command;
+        $this-&gt;form = $form;
+        $this-&gt;repository = $repository;
+    }
+
+    public function addAction()
+    {
+        $request   = $this-&gt;getRequest();
+        $viewModel = new ViewModel(['form' =&gt; $this-&gt;form]);
+
+        if (! $request-&gt;isPost()) {
+            return $viewModel;
+        }
+
+        $this-&gt;form-&gt;setData($request-&gt;getPost());
+
+        if (! $this-&gt;form-&gt;isValid()) {
+            return $viewModel;
+        }
+
+        $post = $this-&gt;form-&gt;getData();
+
+        try {
+            $post = $this-&gt;command-&gt;insertPost($post);
+        } catch (\Exception $ex) {
+            // An exception occurred; we may want to log this later and/or
+            // report it to the user. For now, we'll just re-throw.
+            throw $ex;
+        }
+
+        return $this-&gt;redirect()-&gt;toRoute(
+            'blog/detail',
+            ['id' =&gt; $post-&gt;getId()]
+        );
+    }
+
+    public function editAction()
+    {
+        $id = $this-&gt;params()-&gt;fromRoute('id');
+        if (! $id) {
+            return $this-&gt;redirect()-&gt;toRoute('blog');
+        }
+
+        try {
+            $post = $this-&gt;repository-&gt;findPost($id);
+        } catch (InvalidArgumentException $ex) {
+            return $this-&gt;redirect()-&gt;toRoute('blog');
+        }
+
+        $this-&gt;form-&gt;bind($post);
+        $viewModel = new ViewModel(['form' =&gt; $this-&gt;form]);
+
+        $request = $this-&gt;getRequest();
+        if (! $request-&gt;isPost()) {
+            return $viewModel;
+        }
+
+        $this-&gt;form-&gt;setData($request-&gt;getPost());
+
+        if (! $this-&gt;form-&gt;isValid()) {
+            return $viewModel;
+        }
+
+        $post = $this-&gt;command-&gt;updatePost($post);
+        return $this-&gt;redirect()-&gt;toRoute(
+            'blog/detail',
+            ['id' =&gt; $post-&gt;getId()]
+        );
+    }
+}</code></pre>
+<p>The primary differences between <code>addAction()</code> and <code>editAction()</code> are that the
+latter needs to first fetch a <code>Post</code>, and this post is <em>bound</em> to the form. By
+binding it, we ensure that the data is populated in the form for the initial
+display, and, once validated, the same instance is updated. This means that we
+can omit the call to <code>getData()</code> after validating the form.</p>
+<p>Now we need to update our <code>WriteControllerFactory</code>. First, add a new import
+statement to it:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/src/Factory/WriteControllerFactory.php:
+use Blog\Model\PostRepositoryInterface;</code></pre>
+<p>Next, update the body of the factory to read as follows:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/src/Factory/WriteControllerFactory.php:
+public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+{
+    $formManager = $container-&gt;get('FormElementManager');
+
+    return new WriteController(
+        $container-&gt;get(PostCommandInterface::class),
+        $formManager-&gt;get(PostForm::class),
+        $container-&gt;get(PostRepositoryInterface::class)
+    );
+}</code></pre>
+<p>The controller and model are now wired together, so it's time to turn to
+routing.</p>
+<h2 id="adding-the-edit-route">Adding the edit route</h2>
+<p>The edit route is identical to the <code>blog/detail</code> route we previously defined,
+with two exceptions:</p>
+<ul>
+<li>it will have a path prefix, <code>/edit</code></li>
+<li>it will route to our <code>WriteController</code></li>
+</ul>
+<p>Update the 'blog' <code>child_routes</code> to add the new route:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+
+use Laminas\Router\Http\Segment;
+
+return [
+    'service_manager' =&gt; [ /* ... */ ],
+    'controllers'     =&gt; [ /* ... */ ],
+    'router'          =&gt; [
+        'routes' =&gt; [
+            'blog' =&gt; [
+                /* ... */
+
+                'child_routes' =&gt; [
+                    /* ... */
+
+                    'edit' =&gt; [
+                        'type' =&gt; Segment::class,
+                        'options' =&gt; [
+                            'route'    =&gt; '/edit/:id',
+                            'defaults' =&gt; [
+                                'controller' =&gt; Controller\WriteController::class,
+                                'action'     =&gt; 'edit',
+                            ],
+                            'constraints' =&gt; [
+                                'id' =&gt; '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'view_manager'    =&gt; [ /* ... */ ],
+];</code></pre>
+<h2 id="creating-the-edit-template">Creating the edit template</h2>
+<p>Rendering the form remains essentially the same between the <code>add</code> and <code>edit</code>
+templates; the only difference between them is the form action. As such, we will
+create a new <em>partial</em> script for the form, update the <code>add</code> template to use it,
+and create a new <code>edit</code> template.</p>
+<p>Create a new file, <code>module/Blog/view/blog/write/form.phtml</code>, with the following
+contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$form = $this-&gt;form;
+$fieldset = $form-&gt;get('post');
+
+$title = $fieldset-&gt;get('title');
+$title-&gt;setAttribute('class', 'form-control');
+$title-&gt;setAttribute('placeholder', 'Post title');
+
+$text = $fieldset-&gt;get('text');
+$text-&gt;setAttribute('class', 'form-control');
+$text-&gt;setAttribute('placeholder', 'Post content');
+
+$submit = $form-&gt;get('submit');
+$submit-&gt;setValue($this-&gt;submitLabel);
+$submit-&gt;setAttribute('class', 'btn btn-primary');
+
+$form-&gt;prepare();
+
+echo $this-&gt;form()-&gt;openTag($form);
+?&gt;
+
+&lt;fieldset&gt;
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($title) ?&gt;
+    &lt;?= $this-&gt;formElement($title) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($title, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($text) ?&gt;
+    &lt;?= $this-&gt;formElement($text) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($text, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;?php
+echo $this-&gt;formSubmit($submit);
+echo $this-&gt;formHidden($fieldset-&gt;get('id'));
+echo $this-&gt;form()-&gt;closeTag();</code></pre>
+<p>Now, update the <code>add</code> template, <code>module/Blog/view/write/add.phtml</code> to read as
+follows:</p>
+<pre class=codehilite><code class=language-php>&lt;h1&gt;Add a blog post&lt;/h1&gt;
+
+&lt;?php
+$form = $this-&gt;form;
+$form-&gt;setAttribute('action', $this-&gt;url());
+echo $this-&gt;partial('blog/write/form', [
+    'form' =&gt; $form,
+    'submitLabel' =&gt; 'Insert new post',
+]);</code></pre>
+<p>The above retrieves the form, sets the form action, provides a
+context-appropriate label for the submit button, and renders it with our new
+partial view script.</p>
+<p>Next in line is the creation of the new template, <code>blog/write/edit</code>:</p>
+<pre class=codehilite><code class=language-php>&lt;h1&gt;Edit blog post&lt;/h1&gt;
+
+&lt;?php
+$form = $this-&gt;form;
+$form-&gt;setAttribute('action', $this-&gt;url('blog/edit', [], true));
+echo $this-&gt;partial('blog/write/form', [
+    'form' =&gt; $form,
+    'submitLabel' =&gt; 'Update post',
+]);</code></pre>
+<p>The three differences between the <code>add</code> and <code>edit</code> templates are:</p>
+<ul>
+<li>The heading at the top of the page.</li>
+<li>The URI used for the form action.</li>
+<li>The label used for the submit button.</li>
+</ul>
+<p>Because the URI requires the identifier, we need to ensure the identifier is
+passed. The way we've done this in the controllers is to pass the identifier as
+a parameter: <code>$this-&gt;url('blog/edit/', ['id' =&gt; $id])</code>. This would require that
+we pass the original <code>Post</code> instance or the identifier we pull from it to the
+view, however. laminas-router allows another option, however: you can tell it to
+re-use currently matched parameters.  This is done by setting the last parameter
+of the view-helper to <code>true</code>: <code>$this-&gt;url('blog/edit', [], true)</code>.</p>
+<p>If you try and update the post, you will receive the following error:</p>
+<pre class=codehilite><code class=language-text>Call to member function getId() on null</code></pre>
+<p>That is because we have not yet implemented the update functionality in
+our command class which will return a Post object on success. Let's do that now.</p>
+<p>Edit the file <code>module/Blog/src/Model/LaminasDbSqlCommand.php</code>, and update the
+<code>updatePost()</code> method to read as follows:</p>
+<pre class=codehilite><code class=language-php>public function updatePost(Post $post)
+{
+    if (! $post-&gt;getId()) {
+        throw new RuntimeException('Cannot update post; missing identifier');
+    }
+
+    $update = new Update('posts');
+    $update-&gt;set([
+            'title' =&gt; $post-&gt;getTitle(),
+            'text' =&gt; $post-&gt;getText(),
+    ]);
+    $update-&gt;where(['id = ?' =&gt; $post-&gt;getId()]);
+
+    $sql = new Sql($this-&gt;db);
+    $statement = $sql-&gt;prepareStatementForSqlObject($update);
+    $result = $statement-&gt;execute();
+
+    if (! $result instanceof ResultInterface) {
+        throw new RuntimeException(
+            'Database error occurred during blog post update operation'
+        );
+    }
+
+    return $post;
+}</code></pre>
+<p>This looks very similar to the <code>insertPost()</code> implementation we did earlier. The
+primary difference is the usage of the <code>Update</code> class; instead of calling a
+<code>values()</code> method on it, we call:</p>
+<ul>
+<li><code>set()</code>, to provide the values we are updating.</li>
+<li><code>where()</code>, to provide criteria to determine which records (record singular, in
+  our case) are updated.</li>
+</ul>
+<p>Additionally, we test for the presence of an identifier before performing the
+operation, and, because we already have one, and the <code>Post</code> submitted to us
+contains all the edits we submitted to the database, we return it verbatim on
+success.</p>
+<h2 id="implementing-the-delete-functionality">Implementing the delete functionality</h2>
+<p>Last but not least, it's time to delete some data. We start this process by
+implementing the <code>deletePost()</code> method in our <code>LaminasDbSqlCommand</code> class:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/src/Model/LaminasDbSqlCommand.php:
+
+public function deletePost(Post $post)
+{
+    if (! $post-&gt;getId()) {
+        throw new RuntimeException('Cannot update post; missing identifier');
+    }
+
+    $delete = new Delete('posts');
+    $delete-&gt;where(['id = ?' =&gt; $post-&gt;getId()]);
+
+    $sql = new Sql($this-&gt;db);
+    $statement = $sql-&gt;prepareStatementForSqlObject($delete);
+    $result = $statement-&gt;execute();
+
+    if (! $result instanceof ResultInterface) {
+        return false;
+    }
+
+    return true;
+}</code></pre>
+<p>The above uses <code>Laminas\Db\Sql\Delete</code> to create the SQL necessary to delete the
+post with the given identifier, which we then execute.</p>
+<p>Next, let's create a new controller, <code>Blog\Controller\DeleteController</code>, in a
+new file <code>module/Blog/src/Controller/DeleteController.php</code>, with the following
+contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace Blog\Controller;
+
+use Blog\Model\Post;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use InvalidArgumentException;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+
+class DeleteController extends AbstractActionController
+{
+    /**
+     * @var PostCommandInterface
+     */
+    private $command;
+
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * @param PostCommandInterface $command
+     * @param PostRepositoryInterface $repository
+     */
+    public function __construct(
+        PostCommandInterface $command,
+        PostRepositoryInterface $repository
+    ) {
+        $this-&gt;command = $command;
+        $this-&gt;repository = $repository;
+    }
+
+    public function deleteAction()
+    {
+        $id = $this-&gt;params()-&gt;fromRoute('id');
+        if (! $id) {
+            return $this-&gt;redirect()-&gt;toRoute('blog');
+        }
+
+        try {
+            $post = $this-&gt;repository-&gt;findPost($id);
+        } catch (InvalidArgumentException $ex) {
+            return $this-&gt;redirect()-&gt;toRoute('blog');
+        }
+
+        $request = $this-&gt;getRequest();
+        if (! $request-&gt;isPost()) {
+            return new ViewModel(['post' =&gt; $post]);
+        }
+
+        if ($id != $request-&gt;getPost('id')
+            || 'Delete' !== $request-&gt;getPost('confirm', 'no')
+        ) {
+            return $this-&gt;redirect()-&gt;toRoute('blog');
+        }
+
+        $post = $this-&gt;command-&gt;deletePost($post);
+        return $this-&gt;redirect()-&gt;toRoute('blog');
+    }
+}</code></pre>
+<p>Like the <code>WriteController</code>, it composes both our <code>PostRepositoryInterface</code> and
+<code>PostCommandInterface</code>. The former is used to ensure we are referencing a valid
+post instance, and the latter to perform the actual deletion.</p>
+<p>When a user requests the page via the <code>GET</code> method, we will display a page
+containing details of the post, and a confirmation form. When submitted, we'll
+check to make sure they confirmed the deletion before issuing our delete
+command. If any conditions fail, or on a successful deletion, we redirect to our
+blog listing page.</p>
+<p>Like the other controllers, we now need a factory. Create the file
+<code>module/Blog/src/Factory/DeleteControllerFactory.php</code> with the following
+contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace Blog\Factory;
+
+use Blog\Controller\DeleteController;
+use Blog\Model\PostCommandInterface;
+use Blog\Model\PostRepositoryInterface;
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+
+class DeleteControllerFactory implements FactoryInterface
+{
+    /**
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return DeleteController
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return new DeleteController(
+            $container-&gt;get(PostCommandInterface::class),
+            $container-&gt;get(PostRepositoryInterface::class)
+        );
+    }
+}</code></pre>
+<p>We'll now wire this into the application, mapping the controller to its factory,
+and providing a new route. Open the file <code>module/Blog/config/module.config.php</code>
+and make the following edits.</p>
+<p>First, map the controller to its factory:</p>
+<pre class=codehilite><code class=language-php>'controllers' =&gt; [
+    'factories' =&gt; [
+        Controller\ListController::class =&gt; Factory\ListControllerFactory::class,
+        Controller\WriteController::class =&gt; Factory\WriteControllerFactory::class,
+        // Add the following line:
+        Controller\DeleteController::class =&gt; Factory\DeleteControllerFactory::class,
+    ],
+],</code></pre>
+<p>Now add another child route to our "blog" route:</p>
+<pre class=codehilite><code class=language-php>'router' =&gt; [
+    'routes' =&gt; [
+        'blog' =&gt; [
+            /* ... */
+
+            'child_routes' =&gt; [
+                /* ... */
+
+                'delete' =&gt; [
+                    'type' =&gt; Segment::class,
+                    'options' =&gt; [
+                        'route' =&gt; '/delete/:id',
+                        'defaults' =&gt; [
+                            'controller' =&gt; Controller\DeleteController::class,
+                            'action'     =&gt; 'delete',
+                        ],
+                        'constraints' =&gt; [
+                            'id' =&gt; '[1-9]\d*',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+],</code></pre>
+<p>Finally, we'll create a new view script,
+<code>module/Blog/view/blog/delete/delete.phtml</code>, with the following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;h1&gt;Delete post&lt;/h1&gt;
+
+&lt;p&gt;Are you sure you want to delete the following post?&lt;/p&gt;
+
+&lt;ul class=&quot;list-group&quot;&gt;
+    &lt;li class=&quot;list-group-item&quot;&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;post-&gt;getTitle()) ?&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;form action=&quot;&lt;?php $this-&gt;url('blog/delete', [], true) ?&gt;&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;?= $this-&gt;escapeHtmlAttr($this-&gt;post-&gt;getId()) ?&gt;&quot; /&gt;
+    &lt;input class=&quot;btn btn-default&quot; type=&quot;submit&quot; name=&quot;confirm&quot; value=&quot;Cancel&quot; /&gt;
+    &lt;input class=&quot;btn btn-danger&quot; type=&quot;submit&quot; name=&quot;confirm&quot; value=&quot;Delete&quot; /&gt;
+&lt;/form&gt;</code></pre>
+<p>This time around, we're not using laminas-form; as it consists of just a hidden
+element and cancel/confirm buttons, there's no need to provide an OOP model for it.</p>
+<p>From here, you can now visit one of the existing blog posts, e.g.,
+<code>http://localhost:8080/blog/delete/1</code> to see the form. If you choose <code>Cancel</code>,
+you should be taken back to the list; if you choose <code>Delete</code>, it should delete
+the post and then take you back to the list, and you should see the post is no
+longer present.</p>
+<h2 id="making-the-list-more-useful">Making the list more useful</h2>
+<p>Our blog post list currently lists everything about all of our blog posts;
+additionally, it doesn't link to them, which means we have to manually update
+the URL in our browser in order to test functionality. Let's update the list
+view to be more useful; we'll:</p>
+<ul>
+<li>List just the title of each blog post;</li>
+<li>linking the title to the post display;</li>
+<li>and providing links for editing and deleting the post.</li>
+<li>Add a button to allow users to add a new post.</li>
+</ul>
+<p>In a real-world application, we'd probably use some sort of access controls to
+determine if the edit and delete links will be displayed; we'll leave that for
+another tutorial, however.</p>
+<p>Open your <code>module/Blog/view/blog/list/index.phtml</code> file, and update it to read
+as follows:</p>
+<pre class=codehilite><code class=language-php>&lt;h1&gt;Blog Posts&lt;/h1&gt;
+
+&lt;div class=&quot;list-group&quot;&gt;
+&lt;?php foreach ($this-&gt;posts as $post): ?&gt;
+  &lt;div class=&quot;list-group-item&quot;&gt;
+    &lt;h4 class=&quot;list-group-item-heading&quot;&gt;
+      &lt;a href=&quot;&lt;?= $this-&gt;url('blog/detail', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;
+        &lt;?= $post-&gt;getTitle() ?&gt;
+      &lt;/a&gt;
+    &lt;/h4&gt;
+
+    &lt;div class=&quot;btn-group&quot; role=&quot;group&quot; aria-label=&quot;Post actions&quot;&gt;
+      &lt;a class=&quot;btn btn-xs btn-default&quot; href=&quot;&lt;?= $this-&gt;url('blog/edit', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;Edit&lt;/a&gt;
+      &lt;a class=&quot;btn btn-xs btn-danger&quot; href=&quot;&lt;?= $this-&gt;url('blog/delete', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;Delete&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;    
+&lt;?php endforeach ?&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;btn-group&quot; role=&quot;group&quot; aria-label=&quot;Post actions&quot;&gt;
+  &lt;a class=&quot;btn btn-primary&quot; href=&quot;&lt;?= $this-&gt;url('blog/add') ?&gt;&quot;&gt;Write new post&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+<p>At this point, we have a far more functional blog, as we can move around between
+pages using links and buttons.</p>
+<h2 id="summary">Summary</h2>
+<p>In this chapter we've learned how data binding within the laminas-form component
+works, and used it to provide functionality for our update routine. We also
+learned how this allows us to de-couple our controllers from the details of how
+a form is structured, helping us keep implementation details out of our
+controller.</p>
+<p>We also demonstrated the use of view partials, which allow us to split out
+duplication in our views and re-use them. In particular, we did this with our
+form, to prevent needlessly duplicating the form markup.</p>
+<p>Finally, we looked at two more aspects of the <code>Laminas\Db\Sql</code> subcomponent, and
+learned how to perform <code>Update</code> and <code>Delete</code> operations.</p>
+<p>In the next chapter we'll summarize everything we've done. We'll talk about the
+design patterns we've used, and we'll cover several questions that likely arose
+during the course of this tutorial.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../laminas-form-laminas-form-fieldset/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../review/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/in-depth-guide/data-binding.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

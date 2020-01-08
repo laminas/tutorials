@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/unit-testing/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Unit Testing A laminas-mvc Application - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#installing-laminas-test" class="toc__link">Installing laminas-test</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#running-the-initial-tests" class="toc__link">Running the initial tests</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#setting-up-the-tests-directory" class="toc__link">Setting up the tests directory</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#bootstrapping-your-tests" class="toc__link">Bootstrapping your tests</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#your-first-controller-test" class="toc__link">Your first controller test</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#a-failing-test-case" class="toc__link">A failing test case</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuring-the-service-manager-for-the-tests" class="toc__link">Configuring the service manager for the tests</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#testing-actions-with-post" class="toc__link">Testing actions with POST</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#testing-model-entities" class="toc__link">Testing model entities</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#testing-model-tables" class="toc__link">Testing model tables</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#conclusion" class="toc__link">Conclusion</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Unit Testing A laminas-mvc Application</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">MVC Tutorials</h2>
+    
+
+    <h1 id="unit-testing-a-laminas-mvc-application">Unit Testing a laminas-mvc application</h1>
+<p>A solid unit test suite is essential for ongoing development in large projects,
+especially those with many people involved. Going back and manually testing
+every individual component of an application after every change is impractical.
+Your unit tests will help alleviate that by automatically testing your
+application's components and alerting you when something is not working the same
+way it was when you wrote your tests.</p>
+<p>This tutorial is written in the hopes of showing how to test different parts of
+a laminas-mvc application. As such, this tutorial will use the application written
+in the <a href="../getting-started/overview/">getting started user guide</a>. It is in no way a
+guide to unit testing in general, but is here only to help overcome the initial
+hurdles in writing unit tests for laminas-mvc applications.</p>
+<p>It is recommended to have at least a basic understanding of unit tests,
+assertions and mocks.</p>
+<p><a href="https://docs.laminas.dev/laminas-test/">laminas-test</a>, which provides testing
+integration for laminas-mvc, uses <a href="http://phpunit.de/">PHPUnit</a>; this tutorial will
+cover using that library for testing your applications.</p>
+<h2 id="installing-laminas-test">Installing laminas-test</h2>
+<p><a href="https://docs.laminas.dev/laminas-test/">laminas-test</a> provides PHPUnit
+integration for laminas-mvc, including application scaffolding and custom
+assertions. You will need to install it:</p>
+<pre class=codehilite><code class=language-bash>$ composer require --dev laminas/laminas-test</code></pre>
+<p>The above command will update your <code>composer.json</code> file and perform an update
+for you, which will also setup autoloading rules.</p>
+<h2 id="running-the-initial-tests">Running the initial tests</h2>
+<p>Out-of-the-box, the skeleton application provides several tests for the shipped
+<code>Application\Controller\IndexController</code> class. Now that you have laminas-test
+installed, you can run these:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit</code></pre>
+<blockquote>
+<h3>PHPUnit invocation on Windows</h3>
+<p>On Windows, you need to wrap the command in double quotes:</p>
+<pre class="codehilite"><code class="language-bash">
+$ &quot;vendor/bin/phpunit&quot;
+</code></pre>
+</blockquote>
+<p>You should see output similar to the following:</p>
+<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+...                                                                 3 / 3 (100%)
+
+Time: 116 ms, Memory: 11.00MB
+
+OK (3 tests, 7 assertions)</code></pre>
+<p>There might be 2 failing tests if you followed the getting started guide. This
+is because the <code>Application\IndexController</code> is overridden by the
+<code>AlbumController</code>. This can be ignored for now.</p>
+<p>Now it's time to write our own tests!</p>
+<h2 id="setting-up-the-tests-directory">Setting up the tests directory</h2>
+<p>As laminas-mvc applications are built from modules that should be
+standalone blocks of an application, we don't test the application in it's
+entirety, but module by module.</p>
+<p>We will demonstrate setting up the minimum requirements to test a module, the
+<code>Album</code> module we wrote in the user guide, which then can be used as a base
+for testing any other module.</p>
+<p>Start by creating a directory called <code>test</code> under <code>module/Album/</code> with
+the following subdirectories:</p>
+<pre class=codehilite><code class=language-text>module/
+    Album/
+        test/
+            Controller/</code></pre>
+<p>Additionally, add an <code>autoload-dev</code> rule in your <code>composer.json</code>:</p>
+<pre class=codehilite><code class=language-json>&quot;autoload-dev&quot;: {
+    &quot;psr-4&quot;: {
+        &quot;ApplicationTest\\&quot;: &quot;module/Application/test/&quot;,
+        &quot;AlbumTest\\&quot;: &quot;module/Album/test/&quot;
+    }
+}</code></pre>
+<p>When done, run:</p>
+<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<p>The structure of the <code>test</code> directory matches exactly with that of the module's
+source files, and it will allow you to keep your tests well-organized and easy
+to find.</p>
+<h2 id="bootstrapping-your-tests">Bootstrapping your tests</h2>
+<p>Next, edit the <code>phpunit.xml.dist</code> file at the project root; we'll add a new
+test suite to it. When done, it should read as follows:</p>
+<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;phpunit colors=&quot;true&quot;&gt;
+    &lt;testsuites&gt;
+        &lt;testsuite name=&quot;LaminasSkeletonApplication Test Suite&quot;&gt;
+            &lt;directory&gt;./module/Application/test&lt;/directory&gt;
+        &lt;/testsuite&gt;
+        &lt;testsuite name=&quot;Album&quot;&gt;
+            &lt;directory&gt;./module/Album/test&lt;/directory&gt;
+        &lt;/testsuite&gt;
+    &lt;/testsuites&gt;
+&lt;/phpunit&gt;</code></pre>
+<p>Now run your new Album test suite from the project root:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album</code></pre>
+<blockquote>
+<h3>Windows and PHPUnit</h3>
+<p>On Windows, don't forget to wrap the <code>phpunit</code> command in double quotes:</p>
+<pre class="codehilite"><code class="language-bash">
+$ &quot;vendor/bin/phpunit&quot; --testsuite Album
+</code></pre>
+</blockquote>
+<p>You should get similar output to the following:</p>
+<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+Time: 0 seconds, Memory: 1.75Mb
+
+No tests executed!</code></pre>
+<p>Let's write our first test!</p>
+<h2 id="your-first-controller-test">Your first controller test</h2>
+<p>Testing controllers is never an easy task, but the laminas-test component makes
+testing much less cumbersome.</p>
+<p>First, create <code>AlbumControllerTest.php</code> under <code>module/Album/test/Controller/</code>
+with the following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace AlbumTest\Controller;
+
+use Album\Controller\AlbumController;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+
+class AlbumControllerTest extends AbstractHttpControllerTestCase
+{
+    protected $traceError = false;
+
+    public function setUp()
+    {
+        // The module configuration should still be applicable for tests.
+        // You can override configuration here with test case specific values,
+        // such as sample view templates, path stacks, module_listener_options,
+        // etc.
+        $configOverrides = [];
+
+        $this-&gt;setApplicationConfig(ArrayUtils::merge(
+            // Grabbing the full application configuration:
+            include __DIR__ . '/../../../../config/application.config.php',
+            $configOverrides
+        ));
+        parent::setUp();
+    }
+}</code></pre>
+<p>The <code>AbstractHttpControllerTestCase</code> class we extend here helps us setting up
+the application itself, helps with dispatching and other tasks that happen
+during a request, and offers methods for asserting request params, response
+headers, redirects, and more. See the <a href="https://docs.laminas.dev/laminas-test/phpunit/">laminas-test</a>
+documentation for more information.</p>
+<p>The principal requirement for any laminas-test test case is to set the application
+config with the <code>setApplicationConfig()</code> method. For now, we assume the default
+application configuration will be appropriate; however, we can override values
+locally within the test using the <code>$configOverrides</code> variable.</p>
+<p>Now, add the following method to the <code>AlbumControllerTest</code> class:</p>
+<pre class=codehilite><code class=language-php>public function testIndexActionCanBeAccessed()
+{
+    $this-&gt;dispatch('/album');
+    $this-&gt;assertResponseStatusCode(200);
+    $this-&gt;assertModuleName('Album');
+    $this-&gt;assertControllerName(AlbumController::class);
+    $this-&gt;assertControllerClass('AlbumController');
+    $this-&gt;assertMatchedRouteName('album');
+}</code></pre>
+<p>This test case dispatches the <code>/album</code> URL, asserts that the response code is
+200, and that we ended up in the desired module and controller.</p>
+<blockquote>
+<h3>Assert against controller service names</h3>
+<p>For asserting the <em>controller name</em> we are using the controller name we
+defined in our  routing configuration for the Album module. In our example
+this should be defined on line 16 of the <code>module.config.php</code> file in the Album
+module.</p>
+</blockquote>
+<p>If you run:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album</code></pre>
+<p>again, you should see something like the following:</p>
+<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 124 ms, Memory: 11.50MB
+
+OK (1 test, 5 assertions)</code></pre>
+<p>A successful first test!</p>
+<h2 id="a-failing-test-case">A failing test case</h2>
+<p>We likely don't want to hit the same database during testing as we use for our
+web property. Let's add some configuration to the test case to remove the
+database configuration. In your <code>AlbumControllerTest::setUp()</code> method, add the
+following lines right after the call to <code>parent::setUp();</code>:</p>
+<pre class=codehilite><code class=language-php>$services = $this-&gt;getApplicationServiceLocator();
+$config = $services-&gt;get('config');
+unset($config['db']);
+$services-&gt;setAllowOverride(true);
+$services-&gt;setService('config', $config);
+$services-&gt;setAllowOverride(false);</code></pre>
+<p>The above removes the 'db' configuration entirely; we'll be replacing it with
+something else before long.</p>
+<p>When we run the tests now:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+F
+
+Time: 0 seconds, Memory: 8.50Mb
+
+There was 1 failure:
+
+1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
+Failed asserting response code &quot;200&quot;, actual status code is &quot;500&quot;
+
+{projectPath}/vendor/laminas/laminas-test/src/PHPUnit/Controller/AbstractControllerTestCase.php:{lineNumber}
+{projectPath}/module/Album/test/AlbumTest/Controller/AlbumControllerTest.php:{lineNumber}
+
+FAILURES!
+Tests: 1, Assertions: 0, Failures: 1.</code></pre>
+<p>The failure message doesn't tell us much, apart from that the expected status
+code is not 200, but 500. To get a bit more information when something goes
+wrong in a test case, we set the protected <code>$traceError</code> member to <code>true</code> (which
+is the default; we set it to <code>false</code> to demonstrate this capability). Modify the
+following line from just above the <code>setUp</code> method in our <code>AlbumControllerTest</code> class:</p>
+<pre class=codehilite><code class=language-php>protected $traceError = true;</code></pre>
+<p>Running the <code>phpunit</code> command again and we should see some more information
+about what went wrong in our test. You'll get a list of the exceptions raised,
+along with their messages, the filename, and line number:</p>
+<pre class=codehilite><code class=language-text>1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
+Failed asserting response code &quot;200&quot;, actual status code is &quot;500&quot;
+
+Exceptions raised:
+Exception 'Laminas\ServiceManager\Exception\ServiceNotCreatedException' with message 'Service with name &quot;Laminas\Db\Adapter\AdapterInterface&quot; could not be created. Reason: createDriver expects a &quot;driver&quot; key to be present inside the parameters' in {projectPath}/vendor/laminas/laminas-servicemanager/src/ServiceManager.php:{lineNumber}
+
+Exception 'Laminas\Db\Adapter\Exception\InvalidArgumentException' with message 'createDriver expects a &quot;driver&quot; key to be present inside the parameters' in {projectPath}/vendor/laminas/laminas-db/src/Adapter/Adapter.php:{lineNumber}</code></pre>
+<p>Based on the exception messages, it appears we are unable to create a laminas-db
+adapter instance, due to missing configuration!</p>
+<h2 id="configuring-the-service-manager-for-the-tests">Configuring the service manager for the tests</h2>
+<p>The error says that the service manager can not create an instance of a database
+adapter for us. The database adapter is indirectly used by our
+<code>Album\Model\AlbumTable</code> to fetch the list of albums from the database.</p>
+<p>The first thought would be to create an instance of an adapter, pass it to the
+service manager, and let the code run from there as is. The problem with this
+approach is that we would end up with our test cases actually doing queries
+against the database. To keep our tests fast, and to reduce the number of
+possible failure points in our tests, this should be avoided.</p>
+<p>The second thought would be then to create a mock of the database adapter, and
+prevent the actual database calls by mocking them out. This is a much better
+approach, but creating the adapter mock is tedious (but no doubt we will have to
+create it at some point).</p>
+<p>The best thing to do would be to mock out our <code>Album\Model\AlbumTable</code> class
+which retrieves the list of albums from the database. Remember, we are now
+testing our controller, so we can mock out the actual call to <code>fetchAll</code> and
+replace the return values with dummy values. At this point, we are not
+interested in how <code>fetchAll()</code> retrieves the albums, but only that it gets called
+and that it returns an array of albums; these facts allow us to provide mock
+instances. When we test <code>AlbumTable</code> itself, we can write the actual tests for
+the <code>fetchAll</code> method.</p>
+<p>First, let's do some setup.</p>
+<p>Add import statements to the top of the test class file for each of the
+<code>AlbumTable</code> and <code>ServiceManager</code> classes:</p>
+<pre class=codehilite><code class=language-php>use Album\Model\AlbumTable;
+use Laminas\ServiceManager\ServiceManager;</code></pre>
+<p>Now add the following property to the test class:</p>
+<pre class=codehilite><code class=language-php>protected $albumTable;</code></pre>
+<p>Next, we'll create three new methods that we'll invoke during setup:</p>
+<pre class=codehilite><code class=language-php>protected function configureServiceManager(ServiceManager $services)
+{
+    $services-&gt;setAllowOverride(true);
+
+    $services-&gt;setService('config', $this-&gt;updateConfig($services-&gt;get('config')));
+    $services-&gt;setService(AlbumTable::class, $this-&gt;mockAlbumTable()-&gt;reveal());
+
+    $services-&gt;setAllowOverride(false);
+}
+
+protected function updateConfig($config)
+{
+    $config['db'] = [];
+    return $config;
+}
+
+protected function mockAlbumTable()
+{
+    $this-&gt;albumTable = $this-&gt;prophesize(AlbumTable::class);
+    return $this-&gt;albumTable;
+}</code></pre>
+<p>By default, the <code>ServiceManager</code> does not allow us to replace existing services.
+<code>configureServiceManager()</code> calls a special method on the instance to enable
+overriding services, and then we inject specific overrides we wish to use.
+When done, we disable overrides to ensure that if, during dispatch, any code
+attempts to override a service, an exception will be raised.</p>
+<p>The last method above creates a mock instance of our <code>AlbumTable</code> using
+<a href="https://github.com/phpspec/prophecy">Prophecy</a>, an object mocking framework
+that's bundled and integrated in PHPUnit. The instance returned by
+<code>prophesize()</code> is a scaffold object; calling <code>reveal()</code> on it, as done in the
+<code>configureServiceManager()</code> method above, provides the underlying mock object
+that will then be asserted against.</p>
+<p>With this in place, we can update our <code>setUp()</code> method to read as follows:</p>
+<pre class=codehilite><code class=language-php>public function setUp()
+{
+    // The module configuration should still be applicable for tests.
+    // You can override configuration here with test case specific values,
+    // such as sample view templates, path stacks, module_listener_options,
+    // etc.
+    $configOverrides = [];
+
+    $this-&gt;setApplicationConfig(ArrayUtils::merge(
+        include __DIR__ . '/../../../../config/application.config.php',
+        $configOverrides
+    ));
+
+    parent::setUp();
+
+    $this-&gt;configureServiceManager($this-&gt;getApplicationServiceLocator());
+}</code></pre>
+<p>Now update the <code>testIndexActionCanBeAccessed()</code> method to add a line asserting
+the <code>AlbumTable</code>'s <code>fetchAll()</code> method will be called, and return an array:</p>
+<pre class=codehilite><code class=language-php>public function testIndexActionCanBeAccessed()
+{
+    $this-&gt;albumTable-&gt;fetchAll()-&gt;willReturn([]);
+
+    $this-&gt;dispatch('/album');
+    $this-&gt;assertResponseStatusCode(200);
+    $this-&gt;assertModuleName('Album');
+    $this-&gt;assertControllerName(AlbumController::class);
+    $this-&gt;assertControllerClass('AlbumController');
+    $this-&gt;assertMatchedRouteName('album');
+}</code></pre>
+<p>Running <code>phpunit</code> at this point, we will get the following output as the tests
+now pass:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 105 ms, Memory: 10.75MB
+
+OK (1 test, 5 assertions)</code></pre>
+<h2 id="testing-actions-with-post">Testing actions with POST</h2>
+<p>A common scenario with controllers is processing POST data submitted via a form,
+as we do in the <code>AlbumController::addAction()</code>. Let's write a test for that.</p>
+<pre class=codehilite><code class=language-php>public function testAddActionRedirectsAfterValidPost()
+{
+    $this-&gt;albumTable
+        -&gt;saveAlbum(Argument::type(Album::class))
+        -&gt;shouldBeCalled();
+
+    $postData = [
+        'title'  =&gt; 'Led Zeppelin III',
+        'artist' =&gt; 'Led Zeppelin',
+        'id'     =&gt; '',
+    ];
+    $this-&gt;dispatch('/album/add', 'POST', $postData);
+    $this-&gt;assertResponseStatusCode(302);
+    $this-&gt;assertRedirectTo('/album');
+}</code></pre>
+<p>This test case references two new classes that we need to import; add the
+following import statements at the top of the class file:</p>
+<pre class=codehilite><code class=language-php>use Album\Model\Album;
+use Prophecy\Argument;</code></pre>
+<p><code>Prophecy\Argument</code> allows us to perform assertions against the values passed as
+arguments to mock objects. In this case, we want to assert that we received an
+<code>Album</code> instance. (We could have also done deeper assertions to ensure the
+<code>Album</code> instance contained expected data.)</p>
+<p>When we dispatch the application this time, we use the request method POST, and
+pass data to it. This test case then asserts a 302 response status, and
+introduces a new assertion against the location to which the response redirects.</p>
+<p>Running <code>phpunit</code> gives us the following output:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+..                                                                  2 / 2 (100%)
+
+Time: 1.49 seconds, Memory: 13.25MB
+
+OK (2 tests, 8 assertions)</code></pre>
+<p>Testing the <code>editAction()</code> and <code>deleteAction()</code> methods can be performed
+similarly; however, when testing the <code>editAction()</code> method, you will also need
+to assert against the <code>AlbumTable::getAlbum()</code> method:</p>
+<pre class=codehilite><code class=language-php>$this-&gt;albumTable-&gt;getAlbum($id)-&gt;willReturn(new Album());</code></pre>
+<p>Ideally, you should test all the various paths through each method. For example:</p>
+<ul>
+<li>Test that a non-POST request to <code>addAction()</code> displays an empty form.</li>
+<li>Test that a invalid data provided to <code>addAction()</code> re-displays the form, but
+  with error messages.</li>
+<li>Test that absence of an identifier in the route parameters when invoking
+  either <code>editAction()</code> or <code>deleteAction()</code> will redirect to the appropriate
+  location.</li>
+<li>Test that an invalid identifier passed to <code>editAction()</code> will redirect to the
+  album landing page.</li>
+<li>Test that non-POST requests to <code>editAction()</code> and <code>deleteAction()</code> display
+  forms.</li>
+</ul>
+<p>and so on. Doing so will help you understand the paths through your application
+and controllers, as well as ensure that changes in behavior bubble up as test
+failures.</p>
+<h2 id="testing-model-entities">Testing model entities</h2>
+<p>Now that we know how to test our controllers, let us move to an other important
+part of our application: the model entity.</p>
+<p>Here we want to test that the initial state of the entity is what we expect it
+to be, that we can convert the model's parameters to and from an array, and that
+it has all the input filters we need.</p>
+<p>Create the file <code>AlbumTest.php</code> in <code>module/Album/test/Model</code> directory
+with the following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace AlbumTest\Model;
+
+use Album\Model\Album;
+use PHPUnit\Framework\TestCase;
+
+class AlbumTest extends TestCase
+{
+    public function testInitialAlbumValuesAreNull()
+    {
+        $album = new Album();
+
+        $this-&gt;assertNull($album-&gt;artist, '&quot;artist&quot; should be null by default');
+        $this-&gt;assertNull($album-&gt;id, '&quot;id&quot; should be null by default');
+        $this-&gt;assertNull($album-&gt;title, '&quot;title&quot; should be null by default');
+    }
+
+    public function testExchangeArraySetsPropertiesCorrectly()
+    {
+        $album = new Album();
+        $data  = [
+            'artist' =&gt; 'some artist',
+            'id'     =&gt; 123,
+            'title'  =&gt; 'some title'
+        ];
+
+        $album-&gt;exchangeArray($data);
+
+        $this-&gt;assertSame(
+            $data['artist'],
+            $album-&gt;artist,
+            '&quot;artist&quot; was not set correctly'
+        );
+
+        $this-&gt;assertSame(
+            $data['id'],
+            $album-&gt;id,
+            '&quot;id&quot; was not set correctly'
+        );
+
+        $this-&gt;assertSame(
+            $data['title'],
+            $album-&gt;title,
+            '&quot;title&quot; was not set correctly'
+        );
+    }
+
+    public function testExchangeArraySetsPropertiesToNullIfKeysAreNotPresent()
+    {
+        $album = new Album();
+
+        $album-&gt;exchangeArray([
+            'artist' =&gt; 'some artist',
+            'id'     =&gt; 123,
+            'title'  =&gt; 'some title',
+        ]);
+        $album-&gt;exchangeArray([]);
+
+        $this-&gt;assertNull($album-&gt;artist, '&quot;artist&quot; should default to null');
+        $this-&gt;assertNull($album-&gt;id, '&quot;id&quot; should default to null');
+        $this-&gt;assertNull($album-&gt;title, '&quot;title&quot; should default to null');
+    }
+
+    public function testGetArrayCopyReturnsAnArrayWithPropertyValues()
+    {
+        $album = new Album();
+        $data  = [
+            'artist' =&gt; 'some artist',
+            'id'     =&gt; 123,
+            'title'  =&gt; 'some title'
+        ];
+
+        $album-&gt;exchangeArray($data);
+        $copyArray = $album-&gt;getArrayCopy();
+
+        $this-&gt;assertSame($data['artist'], $copyArray['artist'], '&quot;artist&quot; was not set correctly');
+        $this-&gt;assertSame($data['id'], $copyArray['id'], '&quot;id&quot; was not set correctly');
+        $this-&gt;assertSame($data['title'], $copyArray['title'], '&quot;title&quot; was not set correctly');
+    }
+
+    public function testInputFiltersAreSetCorrectly()
+    {
+        $album = new Album();
+
+        $inputFilter = $album-&gt;getInputFilter();
+
+        $this-&gt;assertSame(3, $inputFilter-&gt;count());
+        $this-&gt;assertTrue($inputFilter-&gt;has('artist'));
+        $this-&gt;assertTrue($inputFilter-&gt;has('id'));
+        $this-&gt;assertTrue($inputFilter-&gt;has('title'));
+    }
+}</code></pre>
+<p>We are testing for 5 things:</p>
+<ol>
+<li>Are all of the <code>Album</code>'s properties initially set to <code>NULL</code>?</li>
+<li>Will the <code>Album</code>'s properties be set correctly when we call <code>exchangeArray()</code>?</li>
+<li>Will a default value of <code>NULL</code> be used for properties whose keys are not present in the <code>$data</code> array?</li>
+<li>Can we get an array copy of our model?</li>
+<li>Do all elements have input filters present?</li>
+</ol>
+<p>If we run <code>phpunit</code> again, we will get the following output, confirming that our
+model is indeed correct:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+.......                                                             7 / 7 (100%)
+
+Time: 186 ms, Memory: 13.75MB
+
+OK (7 tests, 24 assertions)</code></pre>
+<h2 id="testing-model-tables">Testing model tables</h2>
+<p>The final step in this unit testing tutorial for laminas-mvc applications is
+writing tests for our model tables.</p>
+<p>This test assures that we can get a list of albums, or one album by its ID, and
+that we can save and delete albums from the database.</p>
+<p>To avoid actual interaction with the database itself, we will replace certain
+parts with mocks.</p>
+<p>Create a file <code>AlbumTableTest.php</code> in <code>module/Album/test/Model/</code> with the
+following contents:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace AlbumTest\Model;
+
+use Album\Model\AlbumTable;
+use Album\Model\Album;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
+use Laminas\Db\ResultSet\ResultSetInterface;
+use Laminas\Db\TableGateway\TableGatewayInterface;
+
+class AlbumTableTest extends TestCase
+{
+    protected function setUp()
+    {
+        $this-&gt;tableGateway = $this-&gt;prophesize(TableGatewayInterface::class);
+        $this-&gt;albumTable = new AlbumTable($this-&gt;tableGateway-&gt;reveal());
+    }
+
+    public function testFetchAllReturnsAllAlbums()
+    {
+        $resultSet = $this-&gt;prophesize(ResultSetInterface::class)-&gt;reveal();
+        $this-&gt;tableGateway-&gt;select()-&gt;willReturn($resultSet);
+
+        $this-&gt;assertSame($resultSet, $this-&gt;albumTable-&gt;fetchAll());
+    }
+}</code></pre>
+<p>Since we are testing the <code>AlbumTable</code> here and not the <code>TableGateway</code> class
+(which has already been tested in laminas-db), we only want to make sure
+that our <code>AlbumTable</code> class is interacting with the <code>TableGateway</code> class the way
+that we expect it to. Above, we're testing to see if the <code>fetchAll()</code> method of
+<code>AlbumTable</code> will call the <code>select()</code> method of the <code>$tableGateway</code> property
+with no parameters. If it does, it should return a <code>ResultSet</code> instance. Finally,
+we expect that this same <code>ResultSet</code> object will be returned to the calling
+method. This test should run fine, so now we can add the rest of the test
+methods:</p>
+<pre class=codehilite><code class=language-php>public function testCanDeleteAnAlbumByItsId()
+{
+    $this-&gt;tableGateway-&gt;delete(['id' =&gt; 123])-&gt;shouldBeCalled();
+    $this-&gt;albumTable-&gt;deleteAlbum(123);
+}
+
+public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId()
+{
+    $albumData = [
+        'artist' =&gt; 'The Military Wives',
+        'title'  =&gt; 'In My Dreams'
+    ];
+    $album = new Album();
+    $album-&gt;exchangeArray($albumData);
+
+    $this-&gt;tableGateway-&gt;insert($albumData)-&gt;shouldBeCalled();
+    $this-&gt;albumTable-&gt;saveAlbum($album);
+}
+
+public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId()
+{
+    $albumData = [
+        'id'     =&gt; 123,
+        'artist' =&gt; 'The Military Wives',
+        'title'  =&gt; 'In My Dreams',
+    ];
+    $album = new Album();
+    $album-&gt;exchangeArray($albumData);
+
+    $resultSet = $this-&gt;prophesize(ResultSetInterface::class);
+    $resultSet-&gt;current()-&gt;willReturn($album);
+
+    $this-&gt;tableGateway
+        -&gt;select(['id' =&gt; 123])
+        -&gt;willReturn($resultSet-&gt;reveal());
+    $this-&gt;tableGateway
+        -&gt;update(
+            array_filter($albumData, function ($key) {
+                return in_array($key, ['artist', 'title']);
+            }, ARRAY_FILTER_USE_KEY),
+            ['id' =&gt; 123]
+        )-&gt;shouldBeCalled();
+
+    $this-&gt;albumTable-&gt;saveAlbum($album);
+}
+
+public function testExceptionIsThrownWhenGettingNonExistentAlbum()
+{
+    $resultSet = $this-&gt;prophesize(ResultSetInterface::class);
+    $resultSet-&gt;current()-&gt;willReturn(null);
+
+    $this-&gt;tableGateway
+        -&gt;select(['id' =&gt; 123])
+        -&gt;willReturn($resultSet-&gt;reveal());
+
+    $this-&gt;expectException(RuntimeException::class);
+    $this-&gt;expectExceptionMessage('Could not find row with identifier 123');
+    $this-&gt;albumTable-&gt;getAlbum(123);
+}</code></pre>
+<p>These tests are nothing complicated and should be self explanatory. In each
+test, we add assertions to our mock table gateway, and then call and assert
+against methods in our <code>AlbumTable</code>.</p>
+<p>We are testing that:</p>
+<ol>
+<li>We can retrieve an individual album by its ID.</li>
+<li>We can delete albums.</li>
+<li>We can save a new album.</li>
+<li>We can update existing albums.</li>
+<li>We will encounter an exception if we're trying to retrieve an album that
+   doesn't exist.</li>
+</ol>
+<p>Running <code>phpunit</code> one last time, we get the output as follows:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+
+.............                                                     13 / 13 (100%)
+
+Time: 151 ms, Memory: 14.00MB
+
+OK (13 tests, 31 assertions)</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this short tutorial, we gave a few examples how different parts of a laminas-mvc
+application can be tested. We covered setting up the environment for testing,
+how to test controllers and actions, how to approach failing test cases, how to
+configure the service manager, as well as how to test model entities and model
+tables.</p>
+<p>This tutorial is by no means a definitive guide to writing unit tests, just a
+small stepping stone helping you develop applications of higher quality.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../getting-started/conclusion/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../navigation/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/unit-testing.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

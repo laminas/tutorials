@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/getting-started/database-and-models/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Database and Models - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#the-database" class="toc__link">The database</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-model-files" class="toc__link">The model files</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#using-servicemanager-to-configure-the-table-gateway-and-inject-into-the-albumtable" class="toc__link">Using ServiceManager to configure the table gateway and inject into the AlbumTable</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#back-to-the-controller" class="toc__link">Back to the controller</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#listing-albums" class="toc__link">Listing albums</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Getting Started with Laminas</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Database and Models</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Getting Started with Laminas</h2>
+    
+
+    <h1 id="database-and-models">Database and models</h1>
+<h2 id="the-database">The database</h2>
+<p>Now that we have the <code>Album</code> module set up with controller action methods and
+view scripts, it is time to look at the model section of our application.
+Remember that the model is the part that deals with the application's core
+purpose (the so-called “business rules”) and, in our case, deals with the
+database. We will make use of laminas-db's <code>Laminas\Db\TableGateway\TableGateway</code> to
+find, insert, update, and delete rows from a database table.</p>
+<p>We are going to use Sqlite, via PHP's PDO driver. Create a text file
+<code>data/schema.sql</code> with the following contents:</p>
+<pre class=codehilite><code class=language-sql>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
+INSERT INTO album (artist, title) VALUES ('The Military Wives', 'In My Dreams');
+INSERT INTO album (artist, title) VALUES ('Adele', '21');
+INSERT INTO album (artist, title) VALUES ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
+INSERT INTO album (artist, title) VALUES ('Lana Del Rey', 'Born To Die');
+INSERT INTO album (artist, title) VALUES ('Gotye', 'Making Mirrors');</code></pre>
+<p>(The test data chosen happens to be the Bestsellers on Amazon UK at the time of writing!)</p>
+<p>Now create the database using the following:</p>
+<pre class=codehilite><code class=language-bash>$ sqlite data/laminastutorial.db &lt; data/schema.sql</code></pre>
+<p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
+one to use on your system.</p>
+<blockquote>
+<h3>Using PHP to create the database</h3>
+<p>If you do not have Sqlite installed on your system, you can use PHP to load
+the database using the same SQL schema file created earlier. Create the file
+<code>data/load_db.php</code> with the following contents:</p>
+<pre class="codehilite"><code class="language-php">
+&lt;?php
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
+$fh = fopen(__DIR__ . '/schema.sql', 'r');
+while ($line = fread($fh, 4096)) {
+    $db-&gt;exec($line);
+}
+fclose($fh);
+</code></pre>
+<p>Once created, execute it:</p>
+<pre class="codehilite"><code class="language-bash">
+$ php data/load_db.php
+</code></pre>
+</blockquote>
+<p>We now have some data in a database and can write a very simple model for it.</p>
+<h2 id="the-model-files">The model files</h2>
+<p>Laminas does not provide a laminas-model component because the model is your
+business logic, and it's up to you to decide how you want it to work. There are
+many components that you can use for this depending on your needs. One approach
+is to have model classes represent each entity in your application and then use
+mapper objects that load and save entities to the database. Another is to use an
+Object-Relational Mapping (ORM) technology, such as Doctrine or Propel.</p>
+<p>For this tutorial, we are going to create a model by creating an <code>AlbumTable</code>
+class that consumes a <code>Laminas\Db\TableGateway\TableGateway</code>, and in which each
+album will be represented as an <code>Album</code> object (known as an <em>entity</em>). This is
+an implementation of the <a href="http://martinfowler.com/eaaCatalog/tableDataGateway.html">Table Data Gateway</a>
+design pattern to allow for interfacing with data in a database table. Be aware,
+though, that the Table Data Gateway pattern can become limiting in larger
+systems. There is also a temptation to put database access code into controller
+action methods as these are exposed by <code>Laminas\Db\TableGateway\AbstractTableGateway</code>.
+<em>Don't do this</em>!</p>
+<p>Let's start by creating a file called <code>Album.php</code> under
+<code>module/Album/src/Model</code>:</p>
+<pre class=codehilite><code class=language-php>namespace Album\Model;
+
+class Album
+{
+    public $id;
+    public $artist;
+    public $title;
+
+    public function exchangeArray(array $data)
+    {
+        $this-&gt;id     = !empty($data['id']) ? $data['id'] : null;
+        $this-&gt;artist = !empty($data['artist']) ? $data['artist'] : null;
+        $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
+    }
+}</code></pre>
+<p>Our <code>Album</code> entity object is a PHP class. In order to work with laminas-db's
+<code>TableGateway</code> class, we need to implement the <code>exchangeArray()</code> method; this
+method copies the data from the provided array to our entity's properties. We
+will add an input filter later to ensure the values injected are valid.</p>
+<p>Next, we create our <code>AlbumTable.php</code> file in <code>module/Album/src/Model</code> directory like this:</p>
+<pre class=codehilite><code class=language-php>namespace Album\Model;
+
+use RuntimeException;
+use Laminas\Db\TableGateway\TableGatewayInterface;
+
+class AlbumTable
+{
+    private $tableGateway;
+
+    public function __construct(TableGatewayInterface $tableGateway)
+    {
+        $this-&gt;tableGateway = $tableGateway;
+    }
+
+    public function fetchAll()
+    {
+        return $this-&gt;tableGateway-&gt;select();
+    }
+
+    public function getAlbum($id)
+    {
+        $id = (int) $id;
+        $rowset = $this-&gt;tableGateway-&gt;select(['id' =&gt; $id]);
+        $row = $rowset-&gt;current();
+        if (! $row) {
+            throw new RuntimeException(sprintf(
+                'Could not find row with identifier %d',
+                $id
+            ));
+        }
+
+        return $row;
+    }
+
+    public function saveAlbum(Album $album)
+    {
+        $data = [
+            'artist' =&gt; $album-&gt;artist,
+            'title'  =&gt; $album-&gt;title,
+        ];
+
+        $id = (int) $album-&gt;id;
+
+        if ($id === 0) {
+            $this-&gt;tableGateway-&gt;insert($data);
+            return;
+        }
+
+        try {
+            $this-&gt;getAlbum($id);
+        } catch (RuntimeException $e) {
+            throw new RuntimeException(sprintf(
+                'Cannot update album with identifier %d; does not exist',
+                $id
+            ));
+        }
+
+        $this-&gt;tableGateway-&gt;update($data, ['id' =&gt; $id]);
+    }
+
+    public function deleteAlbum($id)
+    {
+        $this-&gt;tableGateway-&gt;delete(['id' =&gt; (int) $id]);
+    }
+}</code></pre>
+<p>There's a lot going on here. Firstly, we set the protected property
+<code>$tableGateway</code> to the <code>TableGateway</code> instance passed in the constructor,
+hinting against the <code>TableGatewayInterface</code> (which allows us to provide
+alternate implementations easily, including mock instances during testing). We
+will use this to perform operations on the database table for our albums.</p>
+<p>We then create some helper methods that our application will use to interface
+with the table gateway. <code>fetchAll()</code> retrieves all albums rows from the database
+as a <code>ResultSet</code>, <code>getAlbum()</code> retrieves a single row as an <code>Album</code> object,
+<code>saveAlbum()</code> either creates a new row in the database or updates a row that
+already exists, and <code>deleteAlbum()</code> removes the row completely. The code for each
+of these methods is, hopefully, self-explanatory.</p>
+<h2 id="using-servicemanager-to-configure-the-table-gateway-and-inject-into-the-albumtable">Using ServiceManager to configure the table gateway and inject into the AlbumTable</h2>
+<p>In order to always use the same instance of our <code>AlbumTable</code>, we will use the
+<code>ServiceManager</code> to define how to create one. This is most easily done in the
+<code>Module</code> class where we create a method called <code>getServiceConfig()</code> which is
+automatically called by the <code>ModuleManager</code> and applied to the <code>ServiceManager</code>.
+We'll then be able to retrieve when we need it.</p>
+<p>To configure the <code>ServiceManager</code>, we can either supply the name of the class to
+be instantiated or a factory (closure, callback, or class name of a factory
+class) that instantiates the object when the <code>ServiceManager</code> needs it. We start
+by implementing <code>getServiceConfig()</code> to provide a factory that creates an
+<code>AlbumTable</code>. Add this method to the bottom of the <code>module/Album/src/Module.php</code>
+file:</p>
+<pre class=codehilite><code class=language-php>namespace Album;
+
+// Add these import statements:
+use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+
+class Module implements ConfigProviderInterface
+{
+    // getConfig() method is here
+
+    // Add this method:
+    public function getServiceConfig()
+    {
+        return [
+            'factories' =&gt; [
+                Model\AlbumTable::class =&gt; function($container) {
+                    $tableGateway = $container-&gt;get(Model\AlbumTableGateway::class);
+                    return new Model\AlbumTable($tableGateway);
+                },
+                Model\AlbumTableGateway::class =&gt; function ($container) {
+                    $dbAdapter = $container-&gt;get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype-&gt;setArrayObjectPrototype(new Model\Album());
+                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
+                },
+            ],
+        ];
+    }
+}</code></pre>
+<p>This method returns an array of <code>factories</code> that are all merged together by the
+<code>ModuleManager</code> before passing them to the <code>ServiceManager</code>. The factory for
+<code>Album\Model\AlbumTable</code> uses the <code>ServiceManager</code> to create an
+<code>Album\Model\AlbumTableGateway</code> service representing a <code>TableGateway</code> to pass to
+its constructor. We also tell the <code>ServiceManager</code> that the <code>AlbumTableGateway</code>
+service is created by fetching a <code>Laminas\Db\Adapter\AdapterInterface</code>
+implementation (also from the <code>ServiceManager</code>) and using it to create a
+<code>TableGateway</code> object. The <code>TableGateway</code> is told to use an <code>Album</code> object
+whenever it creates a new result row. The <code>TableGateway</code> classes use the
+prototype pattern for creation of result sets and entities. This means that
+instead of instantiating when required, the system clones a previously
+instantiated object. See
+<a href="http://ralphschindler.com/2012/03/09/php-constructor-best-practices-and-the-prototype-pattern">PHP Constructor Best Practices and the Prototype Pattern</a>
+for more details.</p>
+<blockquote>
+<h3>Factories</h3>
+<p>The above demonstrates building factories as closures within your module
+class. Another option is to build the factory as a <em>class</em>, and then map the
+class in your module configuration. This approach has a number of benefits:</p>
+<ul>
+<li>The code is not parsed or executed unless the factory is invoked.</li>
+<li>You can easily unit test the factory to ensure it does what it should.</li>
+<li>You can extend the factory if desired.</li>
+<li>You can re-use the factory across multiple instances that have related
+  construction.</li>
+</ul>
+<p>Creating factories is covered in the <a href="https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#factories">laminas-servicemanager documentation</a>.</p>
+</blockquote>
+<p>The <code>Laminas\Db\Adapter\AdapterInterface</code> service is registered by the laminas-db
+component.  You may have noticed earlier that <code>config/modules.config.php</code>
+contains the following entries:</p>
+<pre class=codehilite><code class=language-php>return [
+    'Laminas\Form',
+    'Laminas\Db',
+    'Laminas\Router',
+    'Laminas\Validator',
+    /* ... */
+],</code></pre>
+<p>All Laminas components that provide laminas-servicemanager configuration are
+also exposed as modules themselves; the prompts as to where to register the
+components during our initial installation occurred to ensure that the above
+entries are created for you.</p>
+<p>The end result is that we can already rely on having a factory for the
+<code>Laminas\Db\Adapter\AdapterInterface</code> service; now we need to provide configuration
+so it can create an adapter for us.</p>
+<p>Laminas's <code>ModuleManager</code> merges all the configuration from each module's
+<code>module.config.php</code> file, and then merges in the files in <code>config/autoload/</code>
+(first <code>*.global.php</code> files, and then <code>*.local.php</code> files). We'll add our
+database configuration information to <code>global.php</code>, which you should commit to
+your version control system. You can use <code>local.php</code> (outside of the VCS) to
+store the credentials for your database if you want to. Modify
+<code>config/autoload/global.php</code> (in the project root, not inside the <code>Album</code>
+module) with following code:</p>
+<pre class=codehilite><code class=language-php>return [
+    'db' =&gt; [
+        'driver' =&gt; 'Pdo',
+        'dsn'    =&gt; sprintf('sqlite:%s/data/laminastutorial.db', realpath(getcwd())),
+    ],
+];</code></pre>
+<p>If you were configuring a database that required credentials, you would put the
+general configuration in your <code>config/autoload/global.php</code>, and then the
+configuration for the current environment, including the DSN and credentials, in
+the <code>config/autoload/local.php</code> file. These get merged when the application
+runs, ensuring you have a full definition, but allows you to keep files with
+credentials outside of version control.</p>
+<h2 id="back-to-the-controller">Back to the controller</h2>
+<p>Now that we have a model, we need to inject it into our controller so we can use
+it.</p>
+<p>Firstly, we'll add a constructor to our controller. Open the file
+<code>module/Album/src/Controller/AlbumController.php</code> and add the following property
+and constructor:</p>
+<pre class=codehilite><code class=language-php>namespace Album\Controller;
+
+// Add the following import:
+use Album\Model\AlbumTable;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+
+class AlbumController extends AbstractActionController
+{
+    // Add this property:
+    private $table;
+
+    // Add this constructor:
+    public function __construct(AlbumTable $table)
+    {
+        $this-&gt;table = $table;
+    }
+
+    /* ... */
+}</code></pre>
+<p>Our controller now depends on <code>AlbumTable</code>, so we will need to create a factory
+for the controller.  Similar to how we created factories for the model, we'll
+create it in our <code>Module</code> class, only this time, under a new method,
+<code>Album\Module::getControllerConfig()</code>:</p>
+<pre class=codehilite><code class=language-php>namespace Album;
+
+use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+
+class Module implements ConfigProviderInterface
+{
+    // getConfig() and getServiceConfig() methods are here
+
+    // Add this method:
+    public function getControllerConfig()
+    {
+        return [
+            'factories' =&gt; [
+                Controller\AlbumController::class =&gt; function($container) {
+                    return new Controller\AlbumController(
+                        $container-&gt;get(Model\AlbumTable::class)
+                    );
+                },
+            ],
+        ];
+    }
+}</code></pre>
+<p>Because we're now defining our own factory, we can modify our
+<code>module.config.php</code> to remove the definition. Open
+<code>module/Album/config/module.config.php</code> and remove the following lines:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+namespace Album;
+
+// Remove this:
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    // And remove the entire &quot;controllers&quot; section here:
+    'controllers' =&gt; [
+        'factories' =&gt; [
+            Controller\AlbumController::class =&gt; InvokableFactory::class,
+        ],
+    ],
+
+    /* ... */
+];</code></pre>
+<p>We can now access the property <code>$table</code> from within our controller whenever we
+need to interact with our model.</p>
+<h2 id="listing-albums">Listing albums</h2>
+<p>In order to list the albums, we need to retrieve them from the model and pass
+them to the view. To do this, we fill in <code>indexAction()</code> within
+<code>AlbumController</code>. Update the <code>AlbumController::indexAction()</code> as follows:</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Controller/AlbumController.php:
+// ...
+    public function indexAction()
+    {
+        return new ViewModel([
+            'albums' =&gt; $this-&gt;table-&gt;fetchAll(),
+        ]);
+    }
+// ...</code></pre>
+<p>With Laminas, in order to set variables in the view, we return a
+<code>ViewModel</code> instance where the first parameter of the constructor is an array
+containing data we wish to represent. These are then automatically passed to the
+view script. The <code>ViewModel</code> object also allows us to change the view script
+that is used, but the default is to use <code>{module name}/{controller name}/{action
+name}</code>. We can now fill in the <code>index.phtml</code> view script:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'My albums';
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
+&lt;p&gt;
+    &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'add']) ?&gt;&quot;&gt;Add new album&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+&lt;tr&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+    &lt;th&gt;Artist&lt;/th&gt;
+    &lt;th&gt;&amp;nbsp;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;?php foreach ($albums as $album) : ?&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;title) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;artist) ?&gt;&lt;/td&gt;
+        &lt;td&gt;
+            &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Edit&lt;/a&gt;
+            &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Delete&lt;/a&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;?php endforeach; ?&gt;
+&lt;/table&gt;</code></pre>
+<p>The first thing we do is to set the title for the page (used in the layout) and
+also set the title for the <code>&lt;head&gt;</code> section using the <code>headTitle()</code> view helper
+which will display in the browser's title bar. We then create a link to add a
+new album.</p>
+<p>The <code>url()</code> view helper is provided by laminas-mvc and laminas-view, and is used to create
+the links we need. The first parameter to <code>url()</code> is the route name we wish to
+use for construction of the URL, and the second parameter is an array of
+variables to substitute into route placeholders. In this case we use our <code>album</code>
+route which is set up to accept two placeholder variables: <code>action</code> and <code>id</code>.</p>
+<p>We iterate over the <code>$albums</code> that we assigned from the controller action.
+laminas-view automatically ensures that these variables are extracted into the
+scope of the view script; you may also access them using <code>$this-&gt;{variable
+name}</code> in order to differentiate between variables provided to the view script
+and those created inside it.</p>
+<p>We then create a table to display each album's title and artist, and provide
+links to allow for editing and deleting the record. A standard <code>foreach:</code> loop
+is used to iterate over the list of albums, and we use the alternate form using
+a colon and <code>endforeach;</code> as it is easier to scan than to try and match up
+braces. Again, the <code>url()</code> view helper is used to create the edit and delete
+links.</p>
+<blockquote>
+<h3>Escaping</h3>
+<p>We always use the <code>escapeHtml()</code> view helper to help protect ourselves from
+<a href="http://en.wikipedia.org/wiki/Cross-site_scripting">Cross Site Scripting (XSS) vulnerabilities</a>.</p>
+</blockquote>
+<p>If you open <code>http://localhost:8080/album</code> (or <code>http://laminas-mvc-tutorial.localhost/album</code> 
+if you are using self-hosted Apache) you should see this:</p>
+<p><img alt="Initial album listing" src="../../images/user-guide.database-and-models.album-list.png" class="img-responsive"/></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../routing-and-controllers/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../forms-and-actions/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/getting-started/database-and-models.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

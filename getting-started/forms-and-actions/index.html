@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/getting-started/forms-and-actions/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Forms and Actions - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#adding-new-albums" class="toc__link">Adding new albums</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#editing-an-album" class="toc__link">Editing an album</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#deleting-an-album" class="toc__link">Deleting an album</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#ensuring-that-the-home-page-displays-the-list-of-albums" class="toc__link">Ensuring that the home page displays the list of albums</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Getting Started with Laminas</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Forms and Actions</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Getting Started with Laminas</h2>
+    
+
+    <h1 id="forms-and-actions">Forms and actions</h1>
+<h2 id="adding-new-albums">Adding new albums</h2>
+<p>We can now code up the functionality to add new albums. There are two bits to this part:</p>
+<ul>
+<li>Display a form for user to provide details.</li>
+<li>Process the form submission and store to database.</li>
+</ul>
+<p>We will use laminas-form to do this. laminas-form manages the various form inputs as
+well as their validation, the latter of which is handled by the laminas-inputfilter
+component. We'll start by creating a new class, <code>Album\Form\AlbumForm</code>,
+extending from <code>Laminas\Form\Form</code>. Create the file
+<code>module/Album/src/Form/AlbumForm.php</code> with the following contents:</p>
+<pre class=codehilite><code class=language-php>namespace Album\Form;
+
+use Laminas\Form\Form;
+
+class AlbumForm extends Form
+{
+    public function __construct($name = null)
+    {
+        // We will ignore the name provided to the constructor
+        parent::__construct('album');
+
+        $this-&gt;add([
+            'name' =&gt; 'id',
+            'type' =&gt; 'hidden',
+        ]);
+        $this-&gt;add([
+            'name' =&gt; 'title',
+            'type' =&gt; 'text',
+            'options' =&gt; [
+                'label' =&gt; 'Title',
+            ],
+        ]);
+        $this-&gt;add([
+            'name' =&gt; 'artist',
+            'type' =&gt; 'text',
+            'options' =&gt; [
+                'label' =&gt; 'Artist',
+            ],
+        ]);
+        $this-&gt;add([
+            'name' =&gt; 'submit',
+            'type' =&gt; 'submit',
+            'attributes' =&gt; [
+                'value' =&gt; 'Go',
+                'id'    =&gt; 'submitbutton',
+            ],
+        ]);
+    }
+}</code></pre>
+<p>Within the constructor of <code>AlbumForm</code> we do several things. First, we set the
+name of the form as we call the parent's constructor. Then, we create four form
+elements: the id, title, artist, and submit button. For each item we set various
+attributes and options, including the label to be displayed.</p>
+<blockquote>
+<h3>Form method</h3>
+<p>HTML forms can be sent using <code>POST</code> and <code>GET</code>. laminas-form defaults to <code>POST</code>;
+therefore you don't have to be explicit in setting this option. If you want to
+change it to <code>GET</code> however, set the method attribute in the constructor:</p>
+<pre class="codehilite"><code class="language-php">
+$this-&gt;setAttribute('method', 'GET');
+</code></pre>
+</blockquote>
+<p>We also need to set up validation for this form.  <a href="https://docs.laminas.dev/laminas-inputfilter">laminas-inputfilter</a>
+provides a general purpose mechanism for input validation. It also provides an
+interface, <code>InputFilterAwareInterface</code>, which laminas-form will use in order to
+bind an input filter to a given form. We'll add this capability now to our
+<code>Album</code> class.</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Model/Album.php:
+namespace Album\Model;
+
+// Add the following import statements:
+use DomainException;
+use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
+use Laminas\Filter\ToInt;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Validator\StringLength;
+
+class Album implements InputFilterAwareInterface
+{
+    public $id;
+    public $artist;
+    public $title;
+
+    // Add this property:
+    private $inputFilter;
+
+    public function exchangeArray(array $data)
+    {
+        $this-&gt;id     = !empty($data['id']) ? $data['id'] : null;
+        $this-&gt;artist = !empty($data['artist']) ? $data['artist'] : null;
+        $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
+    }
+
+    /* Add the following methods: */
+
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new DomainException(sprintf(
+            '%s does not allow injection of an alternate input filter',
+            __CLASS__
+        ));
+    }
+
+    public function getInputFilter()
+    {
+        if ($this-&gt;inputFilter) {
+            return $this-&gt;inputFilter;
+        }
+
+        $inputFilter = new InputFilter();
+
+        $inputFilter-&gt;add([
+            'name' =&gt; 'id',
+            'required' =&gt; true,
+            'filters' =&gt; [
+                ['name' =&gt; ToInt::class],
+            ],
+        ]);
+
+        $inputFilter-&gt;add([
+            'name' =&gt; 'artist',
+            'required' =&gt; true,
+            'filters' =&gt; [
+                ['name' =&gt; StripTags::class],
+                ['name' =&gt; StringTrim::class],
+            ],
+            'validators' =&gt; [
+                [
+                    'name' =&gt; StringLength::class,
+                    'options' =&gt; [
+                        'encoding' =&gt; 'UTF-8',
+                        'min' =&gt; 1,
+                        'max' =&gt; 100,
+                    ],
+                ],
+            ],
+        ]);
+
+        $inputFilter-&gt;add([
+            'name' =&gt; 'title',
+            'required' =&gt; true,
+            'filters' =&gt; [
+                ['name' =&gt; StripTags::class],
+                ['name' =&gt; StringTrim::class],
+            ],
+            'validators' =&gt; [
+                [
+                    'name' =&gt; StringLength::class,
+                    'options' =&gt; [
+                        'encoding' =&gt; 'UTF-8',
+                        'min' =&gt; 1,
+                        'max' =&gt; 100,
+                    ],
+                ],
+            ],
+        ]);
+
+        $this-&gt;inputFilter = $inputFilter;
+        return $this-&gt;inputFilter;
+    }
+}</code></pre>
+<p>The <code>InputFilterAwareInterface</code> defines two methods: <code>setInputFilter()</code> and
+<code>getInputFilter()</code>. We only need to implement <code>getInputFilter()</code> so we
+throw an exception from <code>setInputFilter()</code>.</p>
+<p>Within <code>getInputFilter()</code>, we instantiate an <code>InputFilter</code> and then add the
+inputs that we require. We add one input for each property that we wish to
+filter or validate. For the <code>id</code> field we add an <code>int</code> filter as we only need
+integers. For the text elements, we add two filters, <code>StripTags</code> and
+<code>StringTrim</code>, to remove unwanted HTML and unnecessary white space. We also set
+them to be <em>required</em> and add a <code>StringLength</code> validator to ensure that the user
+doesn't enter more characters than we can store into the database.</p>
+<p>We now need to get the form to display and then process it on submission. This
+is done within the <code>AlbumController::addAction()</code>:</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Controller/AlbumController.php:
+
+// Add the following import statements at the top of the file:
+use Album\Form\AlbumForm;
+use Album\Model\Album;
+
+class AlbumController extends AbstractActionController
+{
+    /* ... */
+
+    /* Update the following method to read as follows: */
+    public function addAction()
+    {
+        $form = new AlbumForm();
+        $form-&gt;get('submit')-&gt;setValue('Add');
+
+        $request = $this-&gt;getRequest();
+
+        if (! $request-&gt;isPost()) {
+            return ['form' =&gt; $form];
+        }
+
+        $album = new Album();
+        $form-&gt;setInputFilter($album-&gt;getInputFilter());
+        $form-&gt;setData($request-&gt;getPost());
+
+        if (! $form-&gt;isValid()) {
+            return ['form' =&gt; $form];
+        }
+
+        $album-&gt;exchangeArray($form-&gt;getData());
+        $this-&gt;table-&gt;saveAlbum($album);
+        return $this-&gt;redirect()-&gt;toRoute('album');
+    }
+
+    /* ... */
+}</code></pre>
+<p>After adding the <code>Album</code> and <code>AlbumForm</code> classes to the import list, we
+implement <code>addAction()</code>. Let's look at the <code>addAction()</code> code in a little more
+detail:</p>
+<pre class=codehilite><code class=language-php>$form = new AlbumForm();
+$form-&gt;get('submit')-&gt;setValue('Add');</code></pre>
+<p>We instantiate <code>AlbumForm</code> and set the label on the submit button to "Add". We
+do this here as we'll want to re-use the form when editing an album and will use
+a different label.</p>
+<pre class=codehilite><code class=language-php>$request = $this-&gt;getRequest();
+
+if (! $request-&gt;isPost()) {
+    return ['form' =&gt; $form];
+}</code></pre>
+<p>If the request is not a <code>POST</code> request, then no form data has been submitted,
+and we need to display the form. laminas-mvc allows you to return an array of data
+instead of a view model if desired; if you do, the array will be used to create
+a view model.</p>
+<pre class=codehilite><code class=language-php>$album = new Album();
+$form-&gt;setInputFilter($album-&gt;getInputFilter());
+$form-&gt;setData($request-&gt;getPost());</code></pre>
+<p>At this point, we know we have a form submission. We create an <code>Album</code> instance,
+and pass its input filter on to the form; additionally, we pass the submitted
+data from the request instance to the form.</p>
+<pre class=codehilite><code class=language-php>if (! $form-&gt;isValid()) {
+    return ['form' =&gt; $form];
+}</code></pre>
+<p>If form validation fails, we want to redisplay the form. At this point, the form
+contains information about what fields failed validation, and why, and this
+information will be communicated to the view layer.</p>
+<pre class=codehilite><code class=language-php>$album-&gt;exchangeArray($form-&gt;getData());
+$this-&gt;table-&gt;saveAlbum($album);</code></pre>
+<p>If the form is valid, then we grab the data from the form and store to the model
+using <code>saveAlbum()</code>.</p>
+<pre class=codehilite><code class=language-php>return $this-&gt;redirect()-&gt;toRoute('album');</code></pre>
+<p>After we have saved the new album row, we redirect back to the list of albums
+using the <code>Redirect</code> controller plugin.</p>
+<p>We now need to render the form in the <code>add.phtml</code> view script:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// module/Album/view/album/album/add.phtml:
+
+$title = 'Add new album';
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
+&lt;?php
+$form-&gt;setAttribute('action', $this-&gt;url('album', ['action' =&gt; 'add']));
+$form-&gt;prepare();
+
+echo $this-&gt;form()-&gt;openTag($form);
+echo $this-&gt;formHidden($form-&gt;get('id'));
+echo $this-&gt;formRow($form-&gt;get('title'));
+echo $this-&gt;formRow($form-&gt;get('artist'));
+echo $this-&gt;formSubmit($form-&gt;get('submit'));
+echo $this-&gt;form()-&gt;closeTag();</code></pre>
+<p>We display a title as before, and then we render the form. laminas-form provides
+several view helpers to make this a little easier. The <code>form()</code> view helper has
+an <code>openTag()</code> and <code>closeTag()</code> method which we use to open and close the form.
+Then for each element with a label, we can use <code>formRow()</code> to render the label,
+input, and any validation error messages; for the two elements that are
+standalone and have no validation rules, we use <code>formHidden()</code> and
+<code>formSubmit()</code>.</p>
+<p>Alternatively, the process of rendering the form can be simplified by using the
+bundled <code>formCollection</code> view helper. For example, in the view script above
+replace all the form-rendering echo statements with:</p>
+<pre class=codehilite><code class=language-php>echo $this-&gt;formCollection($form);</code></pre>
+<p>This will iterate over the form structure, calling the appropriate label,
+element, and error view helpers for each element, but you still have to wrap
+<code>formCollection($form)</code> with the open and close form tags. This helps reduce the
+complexity of your view script in situations where the default HTML rendering of
+the form is acceptable.</p>
+<p>You should now be able to use the "Add new album" link on the home page of the
+application to add a new album record, resulting in something like the
+following:</p>
+<p><img alt="Add Album Form" src="../../images/user-guide.forms-and-actions.album-form-add-original.png" class="img-responsive"/></p>
+<p>This doesn't look all that great! The reason is because Bootstrap, the CSS
+foundation used in the skeleton, has specialized markup for displaying forms! We
+can address that in our view script by:</p>
+<ul>
+<li>Adding markup around the elements.</li>
+<li>Rendering labels, elements, and error messages separately.</li>
+<li>Adding attributes to elements.</li>
+</ul>
+<p>Update your <code>add.phtml</code> view script to read as follows:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$title = 'Add new album';
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
+&lt;?php
+// This provides a default CSS class and placeholder text for the title element:
+$album = $form-&gt;get('title');
+$album-&gt;setAttribute('class', 'form-control');
+$album-&gt;setAttribute('placeholder', 'Album title');
+
+// This provides a default CSS class and placeholder text for the artist element:
+$artist = $form-&gt;get('artist');
+$artist-&gt;setAttribute('class', 'form-control');
+$artist-&gt;setAttribute('placeholder', 'Artist');
+
+// This provides CSS classes for the submit button:
+$submit = $form-&gt;get('submit');
+$submit-&gt;setAttribute('class', 'btn btn-primary');
+
+$form-&gt;setAttribute('action', $this-&gt;url('album', ['action' =&gt; 'add']));
+$form-&gt;prepare();
+
+echo $this-&gt;form()-&gt;openTag($form);
+?&gt;
+&lt;?php // Wrap the elements in divs marked as form groups, and render the
+      // label, element, and errors separately within ?&gt;
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($album) ?&gt;
+    &lt;?= $this-&gt;formElement($album) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($album, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($artist) ?&gt;
+    &lt;?= $this-&gt;formElement($artist) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($artist, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+
+&lt;?php
+echo $this-&gt;formSubmit($submit);
+echo $this-&gt;formHidden($form-&gt;get('id'));
+echo $this-&gt;form()-&gt;closeTag();</code></pre>
+<p>The results we get are much better:</p>
+<p><img alt="Add Album Form" src="../../images/user-guide.forms-and-actions.add-album-form.png" class="img-responsive"/></p>
+<p>The above is meant to demonstrate both the ease of use of the default form
+features, as well as some of the customizations possible when rendering forms.
+You should be able to generate any markup necessary for your site.</p>
+<h2 id="editing-an-album">Editing an album</h2>
+<p>Editing an album is almost identical to adding one, so the code is very similar.
+This time we use <code>editAction()</code> in the <code>AlbumController</code>:</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Controller/AlbumController.php:
+// ...
+
+    public function editAction()
+    {
+        $id = (int) $this-&gt;params()-&gt;fromRoute('id', 0);
+
+        if (0 === $id) {
+            return $this-&gt;redirect()-&gt;toRoute('album', ['action' =&gt; 'add']);
+        }
+
+        // Retrieve the album with the specified id. Doing so raises
+        // an exception if the album is not found, which should result
+        // in redirecting to the landing page.
+        try {
+            $album = $this-&gt;table-&gt;getAlbum($id);
+        } catch (\Exception $e) {
+            return $this-&gt;redirect()-&gt;toRoute('album', ['action' =&gt; 'index']);
+        }
+
+        $form = new AlbumForm();
+        $form-&gt;bind($album);
+        $form-&gt;get('submit')-&gt;setAttribute('value', 'Edit');
+
+        $request = $this-&gt;getRequest();
+        $viewData = ['id' =&gt; $id, 'form' =&gt; $form];
+
+        if (! $request-&gt;isPost()) {
+            return $viewData;
+        }
+
+        $form-&gt;setInputFilter($album-&gt;getInputFilter());
+        $form-&gt;setData($request-&gt;getPost());
+
+        if (! $form-&gt;isValid()) {
+            return $viewData;
+        }
+
+        $this-&gt;table-&gt;saveAlbum($album);
+
+        // Redirect to album list
+        return $this-&gt;redirect()-&gt;toRoute('album', ['action' =&gt; 'index']);
+    }</code></pre>
+<p>This code should look comfortably familiar. Let's look at the differences from
+adding an album. Firstly, we look for the <code>id</code> that is in the matched route and
+use it to load the album to be edited:</p>
+<pre class=codehilite><code class=language-php>$id = (int) $this-&gt;params()-&gt;fromRoute('id', 0);
+
+if (0 === $id) {
+    return $this-&gt;redirect()-&gt;toRoute('album', ['action' =&gt; 'add']);
+}
+
+// Retrieve the album with the specified id. Doing so raises
+// an exception if the album is not found, which should result
+// in redirecting to the landing page.
+try {
+    $album = $this-&gt;table-&gt;getAlbum($id);
+} catch (\Exception $e) {
+    return $this-&gt;redirect()-&gt;toRoute('album', ['action' =&gt; 'index']);
+}</code></pre>
+<p><code>params</code> is a controller plugin that provides a convenient way to retrieve
+parameters from the matched route. We use it to retrieve the <code>id</code> from the route
+we created within the Album module's <code>module.config.php</code>. If the <code>id</code> is zero,
+then we redirect to the add action, otherwise, we continue by getting the album
+entity from the database.</p>
+<p>We have to check to make sure that the album with the specified <code>id</code> can
+actually be found. If it cannot, then the data access method throws an
+exception. We catch that exception and re-route the user to the index page.</p>
+<pre class=codehilite><code class=language-php>$form = new AlbumForm();
+$form-&gt;bind($album);
+$form-&gt;get('submit')-&gt;setAttribute('value', 'Edit');</code></pre>
+<p>The form's <code>bind()</code> method attaches the model to the form. This is used in two ways:</p>
+<ul>
+<li>When displaying the form, the initial values for each element are extracted
+  from the model.</li>
+<li>After successful validation in <code>isValid()</code>, the data from the form is put back
+  into the model.</li>
+</ul>
+<p>These operations are done using a <em>hydrator</em> object. There are a number of
+hydrators, but the default one is <code>Laminas\Hydrator\ArraySerializable</code> which
+expects to find two methods in the model: <code>getArrayCopy()</code> and
+<code>exchangeArray()</code>. We have already written <code>exchangeArray()</code> in our <code>Album</code>
+entity, so we now need to write <code>getArrayCopy()</code>:</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Model/Album.php:
+// ...
+
+    public function exchangeArray($data)
+    {
+        $this-&gt;id     = isset($data['id']) ? $data['id'] : null;
+        $this-&gt;artist = isset($data['artist']) ? $data['artist'] : null;
+        $this-&gt;title  = isset($data['title']) ? $data['title'] : null;
+    }
+
+    // Add the following method:
+    public function getArrayCopy()
+    {
+        return [
+            'id'     =&gt; $this-&gt;id,
+            'artist' =&gt; $this-&gt;artist,
+            'title'  =&gt; $this-&gt;title,
+        ];
+    }
+
+// ...</code></pre>
+<p>As a result of using <code>bind()</code> with its hydrator, we do not need to populate the
+form's data back into the <code>$album</code> as that's already been done, so we can just
+call the mapper's <code>saveAlbum()</code> method to store the changes back to the
+database.</p>
+<p>The view template, <code>edit.phtml</code>, looks very similar to the one for adding an album:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// module/Album/view/album/album/edit.phtml:
+
+$title = 'Edit album';
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
+&lt;?php
+$album = $form-&gt;get('title');
+$album-&gt;setAttribute('class', 'form-control');
+$album-&gt;setAttribute('placeholder', 'Album title');
+
+$artist = $form-&gt;get('artist');
+$artist-&gt;setAttribute('class', 'form-control');
+$artist-&gt;setAttribute('placeholder', 'Artist');
+
+$submit = $form-&gt;get('submit');
+$submit-&gt;setAttribute('class', 'btn btn-primary');
+
+$form-&gt;setAttribute('action', $this-&gt;url('album', [
+    'action' =&gt; 'edit',
+    'id'     =&gt; $id,
+]));
+$form-&gt;prepare();
+
+echo $this-&gt;form()-&gt;openTag($form);
+?&gt;
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($album) ?&gt;
+    &lt;?= $this-&gt;formElement($album) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($album, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;?= $this-&gt;formLabel($artist) ?&gt;
+    &lt;?= $this-&gt;formElement($artist) ?&gt;
+    &lt;?= $this-&gt;formElementErrors()-&gt;render($artist, ['class' =&gt; 'help-block']) ?&gt;
+&lt;/div&gt;
+
+&lt;?php
+echo $this-&gt;formSubmit($submit);
+echo $this-&gt;formHidden($form-&gt;get('id'));
+echo $this-&gt;form()-&gt;closeTag();</code></pre>
+<p>The only changes are to use the ‘Edit Album' title and set the form's action to
+the 'edit' action too, using the current album identifier.</p>
+<p>You should now be able to edit albums.</p>
+<h2 id="deleting-an-album">Deleting an album</h2>
+<p>To round out our application, we need to add deletion. We have a "Delete" link
+next to each album on our list page, and the naive approach would be to do a
+delete when it's clicked. This would be wrong. Remembering our HTTP spec, we
+recall that you shouldn't do an irreversible action using GET and should use
+POST instead.</p>
+<p>We shall show a confirmation form when the user clicks delete, and if they then
+click "yes", we will do the deletion. As the form is trivial, we'll code it
+directly into our view (laminas-form is, after all, optional!).</p>
+<p>Let's start with the action code in <code>AlbumController::deleteAction()</code>:</p>
+<pre class=codehilite><code class=language-php>// module/Album/src/Album/Controller/AlbumController.php:
+//...
+    // Add content to the following method:
+    public function deleteAction()
+    {
+        $id = (int) $this-&gt;params()-&gt;fromRoute('id', 0);
+        if (!$id) {
+            return $this-&gt;redirect()-&gt;toRoute('album');
+        }
+
+        $request = $this-&gt;getRequest();
+        if ($request-&gt;isPost()) {
+            $del = $request-&gt;getPost('del', 'No');
+
+            if ($del == 'Yes') {
+                $id = (int) $request-&gt;getPost('id');
+                $this-&gt;table-&gt;deleteAlbum($id);
+            }
+
+            // Redirect to list of albums
+            return $this-&gt;redirect()-&gt;toRoute('album');
+        }
+
+        return [
+            'id'    =&gt; $id,
+            'album' =&gt; $this-&gt;table-&gt;getAlbum($id),
+        ];
+    }
+//...</code></pre>
+<p>As before, we get the <code>id</code> from the matched route, and check the request object's <code>isPost()</code> to determine whether to show the confirmation page or to delete the album. We use the table object to delete the row using the <code>deleteAlbum()</code> method and then redirect back the list of albums. If the request is not a POST, then we retrieve the correct database record and assign to the view, along with the <code>id</code>.</p>
+<p>The view script is a simple form:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// module/Album/view/album/album/delete.phtml:
+
+$title = 'Delete album';
+$url   = $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $id]);
+
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
+
+&lt;p&gt;
+    Are you sure that you want to delete
+    &quot;&lt;?= $this-&gt;escapeHtml($album-&gt;title) ?&gt;&quot; by
+    &quot;&lt;?= $this-&gt;escapeHtml($album-&gt;artist) ?&gt;&quot;?
+&lt;/p&gt;
+
+&lt;form action=&quot;&lt;?= $url ?&gt;&quot; method=&quot;post&quot;&gt;
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;?= (int) $album-&gt;id ?&gt;&quot; /&gt;
+    &lt;input type=&quot;submit&quot; class=&quot;btn btn-danger&quot; name=&quot;del&quot; value=&quot;Yes&quot; /&gt;
+    &lt;input type=&quot;submit&quot; class=&quot;btn btn-success&quot; name=&quot;del&quot; value=&quot;No&quot; /&gt;
+&lt;/div&gt;
+&lt;/form&gt;</code></pre>
+<p>In this script, we display a confirmation message to the user and then a form
+with "Yes" and "No" buttons. In the action, we checked specifically for the
+"Yes" value when doing the deletion.</p>
+<h2 id="ensuring-that-the-home-page-displays-the-list-of-albums">Ensuring that the home page displays the list of albums</h2>
+<p>One final point. At the moment, the home page, <code>http://laminas-mvc-tutorial.localhost/</code>
+doesn't display the list of albums.</p>
+<p>This is due to a route set up in the <code>Application</code> module's <code>module.config.php</code>.
+To change it, open <code>module/Application/config/module.config.php</code> and find the
+home route:</p>
+<pre class=codehilite><code class=language-php>'home' =&gt; [
+    'type' =&gt; \Laminas\Router\Http\Literal::class,
+    'options' =&gt; [
+        'route'    =&gt; '/',
+        'defaults' =&gt; [
+            'controller' =&gt; Controller\IndexController::class,
+            'action'     =&gt; 'index',
+        ],
+    ],
+],</code></pre>
+<p>Import <code>Album\Controller\AlbumController</code> at the top of the file:</p>
+<pre class=codehilite><code class=language-php>use Album\Controller\AlbumController;</code></pre>
+<p>and change the <code>controller</code> from <code>Controller\IndexController::class</code> to <code>AlbumController::class</code>:</p>
+<pre class=codehilite><code class=language-php>'home' =&gt; [
+    'type' =&gt; \Laminas\Router\Http\Literal::class,
+    'options' =&gt; [
+        'route'    =&gt; '/',
+        'defaults' =&gt; [
+            'controller' =&gt; AlbumController::class, // &lt;-- change here
+            'action'     =&gt; 'index',
+        ],
+    ],
+],</code></pre>
+<p>That's it &mdash; you now have a fully working application!</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../database-and-models/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../conclusion/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/getting-started/forms-and-actions.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

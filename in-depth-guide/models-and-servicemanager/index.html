@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/in-depth-guide/models-and-servicemanager/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Models and the ServiceManager - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#what-is-a-model" class="toc__link">What is a Model?</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#writing-the-postrepository" class="toc__link">Writing the PostRepository</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#create-an-entity" class="toc__link">Create an entity</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#bringing-life-into-our-postrepository" class="toc__link">Bringing Life into our PostRepository</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#bringing-the-service-into-the-controller" class="toc__link">Bringing the Service into the Controller</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#writing-a-factory-class" class="toc__link">Writing a Factory Class</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#registering-services" class="toc__link">Registering Services</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#using-the-repository-in-our-controller" class="toc__link">Using the repository in our controller</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#accessing-view-variables" class="toc__link">Accessing View Variables</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#summary" class="toc__link">Summary</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">In-Depth Tutorial</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Models and the ServiceManager</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">In-Depth Tutorial</h2>
+    
+
+    <h1 id="models-and-the-servicemanager">Models and the ServiceManager</h1>
+<p>In the previous chapter we've learned how to create a "Hello World" Application
+using laminas-mvc. This is a good start, but the application itself doesn't really
+do anything. In this chapter we will introduce you into the concept of models,
+and with this, introduce laminas-servicemanager.</p>
+<h2 id="what-is-a-model">What is a Model?</h2>
+<p>A model encapsulates application logic. This often entails <em>entity</em> or <em>value</em>
+objects representing specific <em>things</em> in our model, and <em>repositories</em> for
+retrieving and updating these objects.</p>
+<p>For what we're trying to accomplish with our <code>Blog</code> module, this means that we
+need functionality for retrieving and saving blog posts. The posts themselves
+are our entities, and the repository will be what we retrieve them from and save
+them with. The model will get its data from some source; when writing the model,
+we don't really care about what the source actually is. The model will be
+written against an interface that we define and that future data providers must
+implement.</p>
+<h2 id="writing-the-postrepository">Writing the PostRepository</h2>
+<p>When writing a repository, it is a common best-practice to define an interface
+first. Interfaces are a good way to ensure that other programmers can easily
+build their own implementations. In other words, they can write classes with
+identical function names, but which internally do completely different things,
+while producing the same expected results.</p>
+<p>In our case, we want to create a <code>PostRepository</code>. This means first we are going to
+define a <code>PostRepositoryInterface</code>. The task of our repository is to provide us with
+data from our blog posts. For now, we are going to focus on the read-only side of
+things: we will define a method that will give us all posts, and another method
+that will give us a single post.</p>
+<p>Let's start by creating the interface at
+<code>module/Blog/src/Model/PostRepositoryInterface.php</code></p>
+<pre class=codehilite><code class=language-php>namespace Blog\Model;
+
+interface PostRepositoryInterface
+{
+    /**
+     * Return a set of all blog posts that we can iterate over.
+     *
+     * Each entry should be a Post instance.
+     *
+     * @return Post[]
+     */
+    public function findAllPosts();
+
+    /**
+     * Return a single blog post.
+     *
+     * @param  int $id Identifier of the post to return.
+     * @return Post
+     */
+    public function findPost($id);
+}</code></pre>
+<p>The first method, <code>findAllPosts()</code>, will return all posts, and the second
+method, <code>findPost($id)</code>, will return the post matching the given identifier
+<code>$id</code>. What's new in here is the fact that we actually define a return value -
+<code>Post</code> - that doesn't exist yet. We will define this <code>Post</code> class at a later
+point; for now, we will create the <code>PostRepository</code> class.</p>
+<p>Create the class <code>PostRepository</code> at <code>module/Blog/src/Model/PostRepository.php</code>;
+be sure to implement the <code>PostRepositoryInterface</code> and its required method (we
+will fill these in later). You then should have a class that looks like the
+following:</p>
+<pre class=codehilite><code class=language-php>namespace Blog\Model;
+
+class PostRepository implements PostRepositoryInterface
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllPosts()
+    {
+        // TODO: Implement findAllPosts() method.
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findPost($id)
+    {
+        // TODO: Implement findPost() method.
+    }
+}</code></pre>
+<h2 id="create-an-entity">Create an entity</h2>
+<p>Since our <code>PostRepository</code> will return <code>Post</code> instances, we must create that
+class, too. Let's create <code>module/Blog/src/Model/Post.php</code>:</p>
+<pre class=codehilite><code class=language-php>namespace Blog\Model;
+
+class Post
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $text;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @param string $title
+     * @param string $text
+     * @param int|null $id
+     */
+    public function __construct($title, $text, $id = null)
+    {
+        $this-&gt;title = $title;
+        $this-&gt;text = $text;
+        $this-&gt;id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this-&gt;id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this-&gt;text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this-&gt;title;
+    }
+}</code></pre>
+<p>Notice that we only created getter methods; this is because each instance should
+be unchangeable, allowing us to cache instances in the repository as necessary.</p>
+<h2 id="bringing-life-into-our-postrepository">Bringing Life into our PostRepository</h2>
+<p>Now that we have our entity in place, we can bring life into our
+<code>PostRepository</code> class. To keep the repository easy to understand, for now we
+will only return some hard-coded content from our <code>PostRepository</code> class directly.
+Create a property inside the <code>PostRepository</code> class called <code>$data</code> and make this an array
+of our <code>Post</code> type. Edit <code>PostRepository</code> as follows:</p>
+<pre class=codehilite><code class=language-php>namespace Blog\Model;
+
+class PostRepository implements PostRepositoryInterface
+{
+    private $data = [
+        1 =&gt; [
+            'id'    =&gt; 1,
+            'title' =&gt; 'Hello World #1',
+            'text'  =&gt; 'This is our first blog post!',
+        ],
+        2 =&gt; [
+            'id'    =&gt; 2,
+            'title' =&gt; 'Hello World #2',
+            'text'  =&gt; 'This is our second blog post!',
+        ],
+        3 =&gt; [
+            'id'    =&gt; 3,
+            'title' =&gt; 'Hello World #3',
+            'text'  =&gt; 'This is our third blog post!',
+        ],
+        4 =&gt; [
+            'id'    =&gt; 4,
+            'title' =&gt; 'Hello World #4',
+            'text'  =&gt; 'This is our fourth blog post!',
+        ],
+        5 =&gt; [
+            'id'    =&gt; 5,
+            'title' =&gt; 'Hello World #5',
+            'text'  =&gt; 'This is our fifth blog post!',
+        ],
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllPosts()
+    {
+        // TODO: Implement findAllPosts() method.
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findPost($id)
+    {
+        // TODO: Implement findPost() method.
+    }
+}</code></pre>
+<p>Now that we have some data, let's modify our <code>find*()</code> functions to return the
+appropriate entities:</p>
+<pre class=codehilite><code class=language-php>namespace Blog\Model;
+
+use DomainException;
+
+class PostRepository implements PostRepositoryInterface
+{
+    private $data = [
+        1 =&gt; [
+            'id'    =&gt; 1,
+            'title' =&gt; 'Hello World #1',
+            'text'  =&gt; 'This is our first blog post!',
+        ],
+        2 =&gt; [
+            'id'    =&gt; 2,
+            'title' =&gt; 'Hello World #2',
+            'text'  =&gt; 'This is our second blog post!',
+        ],
+        3 =&gt; [
+            'id'    =&gt; 3,
+            'title' =&gt; 'Hello World #3',
+            'text'  =&gt; 'This is our third blog post!',
+        ],
+        4 =&gt; [
+            'id'    =&gt; 4,
+            'title' =&gt; 'Hello World #4',
+            'text'  =&gt; 'This is our fourth blog post!',
+        ],
+        5 =&gt; [
+            'id'    =&gt; 5,
+            'title' =&gt; 'Hello World #5',
+            'text'  =&gt; 'This is our fifth blog post!',
+        ],
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllPosts()
+    {
+        return array_map(function ($post) {
+            return new Post(
+                $post['title'],
+                $post['text'],
+                $post['id']
+            );
+        }, $this-&gt;data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findPost($id)
+    {
+        if (! isset($this-&gt;data[$id])) {
+            throw new DomainException(sprintf('Post by id &quot;%s&quot; not found', $id));
+        }
+
+        return new Post(
+            $this-&gt;data[$id]['title'],
+            $this-&gt;data[$id]['text'],
+            $this-&gt;data[$id]['id']
+        );
+    }
+}</code></pre>
+<p>Both methods now have appropriate return values. Please note that from a
+technical point of view, the current implementation is far from perfect. We will
+improve this repository in the future, but for now we have a working repository
+that is able to give us some data in a way that is defined by our
+<code>PostRepositoryInterface</code>.</p>
+<h2 id="bringing-the-service-into-the-controller">Bringing the Service into the Controller</h2>
+<p>Now that we have our <code>PostRepository</code> written, we want to get access to this
+repository in our controllers. For this task, we will step into a new topic
+called "Dependency Injection" (DI).</p>
+<p>When we're talking about dependency injection, we're talking about a way to get
+dependencies into our classes. The most common form, "Constructor Injection", is
+used for all dependencies that are required by a class at all times.</p>
+<p>In our case, we want to have our <code>ListController</code> somehow interact with our
+<code>PostRepository</code>. This means that the class <code>PostRepository</code> is a dependency of
+the class <code>ListController</code>; without the <code>PostRepository</code>, our <code>ListController</code>
+will not be able to function properly. To make sure that our <code>ListController</code>
+will always get the appropriate dependency, we will first define the dependency
+inside the <code>ListController</code> constructor. Modify <code>ListController</code> as follows:</p>
+<pre class=codehilite><code class=language-php>namespace Blog\Controller;
+
+use Blog\Model\PostRepositoryInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+
+class ListController extends AbstractActionController
+{
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $postRepository;
+
+    public function __construct(PostRepositoryInterface $postRepository)
+    {
+        $this-&gt;postRepository = $postRepository;
+    }
+}</code></pre>
+<p>The constructor now has a required argument; we will not be able to create
+instances of this class anymore without providing a <code>PostRepositoryInterface</code>
+implementation. If you were to go back to your browser and reload your project
+with the url <code>localhost:8080/blog</code>, you'd see the following error message:</p>
+<pre class=codehilite><code class=language-text>Catchable fatal error: Argument 1 passed to Blog\Controller\ListController::__construct()
+must be an instance of Blog\Model\PostRepositoryInterface, none given,
+called in {projectPath}/vendor/laminas/src/Factory/InvokableFactory.php on line {lineNumber}
+and defined in {projectPath}/module/Blog/src/Controller/ListController.php on line {lineNumber}</code></pre>
+<p>And this error message is expected. It tells you exactly that our
+<code>ListController</code> expects to be passed an implementation of the
+<code>PostRepositoryInterface</code>. So how do we make sure that our <code>ListController</code> will
+receive such an implementation? To solve this, we need to tell the application
+how to create instances of the <code>Blog\Controller\ListController</code>. If you remember
+back to when we created the controller, we mapped it to the <code>InvokableFactory</code>
+in the module configuration:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+namespace Blog;
+
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'controllers'  =&gt; [
+        'factories' =&gt; [
+            Controller\ListController::class =&gt; InvokableFactory::class,
+        ],
+    ],
+    'router' =&gt; [ /** Router Config */ ]
+    'view_manager' =&gt; [ /** ViewManager Config */ ],
+);</code></pre>
+<p>The <code>InvokableFactory</code> instantiates the mapped class using no constructor
+arguments.  Since our <code>ListController</code> now has a required argument, we need to
+change this. We will now create a custom factory for our <code>ListController</code>.
+First, update the configuration as follows:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+namespace Blog;
+
+// Remove the InvokableFactory import statement
+
+return [
+    'controllers' =&gt; [
+        'factories' =&gt; [
+            // Update the following line:
+            Controller\ListController::class =&gt; Factory\ListControllerFactory::class,
+        ],
+    ],
+    'router' =&gt; [ /** Router Config */ ]
+    'view_manager' =&gt; [ /** ViewManager Config */ ],
+);</code></pre>
+<p>The above changes the mapping for the <code>ListController</code> to use a new factory
+class we'll be creating, <code>Blog\Factory\ListControllerFactory</code>.  If you refresh
+your browser you'll see a different error message:</p>
+<pre class=codehilite><code class=language-html>An error occurred
+
+An error occurred during execution; please try again later.
+
+Additional information:
+
+Laminas\ServiceManager\Exception\ServiceNotFoundException
+
+File:
+{projectPath}/laminas/laminas-servicemanager/src/ServiceManager.php:{lineNumber}
+
+Message:
+
+Unable to resolve service &quot;Blog\Controller\ListController&quot; to a factory; are you
+certain you provided it during configuration?</code></pre>
+<p>This exception message indicates that the service container could not resolve
+the service to a factory, and asks if we provided it during configuration. We
+did, so the end result is that the factory must not exist. Let's write the
+factory now.</p>
+<h2 id="writing-a-factory-class">Writing a Factory Class</h2>
+<p>Factory classes for laminas-servicemanager may implement either
+<code>Laminas\ServiceManager\Factory\FactoryInterface</code>, or be callable classes (classes
+that implement the <code>__invoke()</code> method); <code>FactoryInterface</code> itself defines the
+<code>__invoke()</code> method. The first argument is the application container, and is
+required; if you implement the <code>FactoryInterface</code>, you must also define a second
+argument, <code>$requestedName</code>, which is the service name mapping to the factory,
+and an optional third argument, <code>$options</code>, which will be any options provided
+by the controller manager at instantiation. In most situations, the last
+argument can be ignored; however, you can create re-usable factories by
+implementing the second argument, so this is a good one to consider when writing
+your factories! For our purposes, this is a one-off factory, so we'll only use
+the first argument. Let's implement our factory class:</p>
+<pre class=codehilite><code class=language-php>// In /module/Blog/src/Factory/ListControllerFactory.php:
+namespace Blog\Factory;
+
+use Blog\Controller\ListController;
+use Blog\Model\PostRepositoryInterface;
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+
+class ListControllerFactory implements FactoryInterface
+{
+    /**
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return ListController
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return new ListController($container-&gt;get(PostRepositoryInterface::class));
+    }
+}</code></pre>
+<p>The factory receives an instance of the application container, which, in our
+case, is a <code>Laminas\ServiceManager\ServiceManager</code> instance. The container also
+conforms to <code>Interop\Container\ContainerInterface</code>, allowing re-use in other
+dependency injection systems if desired. We pull a service matching the
+<code>PostRepositoryInterface</code> fully qualified class name and pass it directly to the
+controller's constructor.</p>
+<p>There's no magic happening; it's just PHP code. </p>
+<p>Refresh your browser and you will see this error message:</p>
+<pre class=codehilite><code class=language-text>An error occurred
+
+An error occurred during execution; please try again later.
+
+Additional information:
+
+Laminas\ServiceManager\Exception\ServiceNotFoundException
+
+File:
+{projectPath}/vendor/laminas/laminas-servicemanager/src/ServiceManager.php:{lineNumber}
+
+Message:
+
+Unable to resolve service &quot;Blog\Model\PostRepositoryInterface&quot; to a factory; are
+you certain you provided it during configuration?</code></pre>
+<p>Exactly what we expected. Within our factory, the service
+<code>Blog\Model\PostRepositoryInterface</code> is requested but the <code>ServiceManager</code>
+doesn't know about it yet. Therefore it isn't able to create an instance for the
+requested name.</p>
+<h2 id="registering-services">Registering Services</h2>
+<p>Registering other services follows the same pattern as registering a controller.
+We will modify our <code>module.config.php</code> and add a new key
+called <code>service_manager</code>; the configuration of this key is the same as that for
+the <code>controllers</code> key. We will add two entries, one for <code>aliases</code> and one for
+<code>factories</code>, as follows:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php
+namespace Blog;
+
+// Re-add the following import:
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    // Add this section:
+    'service_manager' =&gt; [
+        'aliases' =&gt; [
+            Model\PostRepositoryInterface::class =&gt; Model\PostRepository::class,
+        ],
+        'factories' =&gt; [
+            Model\PostRepository::class =&gt; InvokableFactory::class,
+        ],
+    ],
+    'controllers'  =&gt; [ /** Controller Config */ ],
+    'router'       =&gt; [ /** Router Config */ ],
+    'view_manager' =&gt; [ /** View Manager Config */ ],
+];</code></pre>
+<p>This aliases <code>PostRepositoryInterface</code> to our <code>PostRepository</code> implementation,
+and then creates a factory for the <code>PostRepository</code> class by mapping it to the
+<code>InvokableFactory</code> (like we originally did for the <code>ListController</code>); we can do
+this as our <code>PostRepository</code> implementation has no dependencies of its own.</p>
+<blockquote>
+<h4>Aliasing services</h4>
+<p>In laminas-servicemanager, when you request a service by an alias you get the service
+it is mapped to. So when you request <code>Model\PostRepositoryInterface::class</code> you get
+the PostRepository class using its fully qualified class name (FQCN). We often
+alias an interface to an implementation service, as that allows the user to
+indicate they want an implementation of the interface, but do not care which
+implementation. For more information see
+<a href="https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#aliases">the laminas-servicemanager Aliases documentation</a>.</p>
+</blockquote>
+<p>Try refreshing your browser. You should see no more error messages, but rather
+exactly the page that we have created in the previous chapter of the tutorial.</p>
+<h2 id="using-the-repository-in-our-controller">Using the repository in our controller</h2>
+<p>Let's now use the <code>PostRepository</code> within our <code>ListController</code>. For this we will
+need to overwrite the default <code>indexAction()</code> and return a view with the results
+from the <code>PostRepository</code>. Modify <code>ListController</code> as follows:</p>
+<pre class=codehilite><code class=language-php>// In module/Blog/src/Controller/ListController.php:
+namespace Blog\Controller;
+
+use Blog\Model\PostRepositoryInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+// Add the following import statement:
+use Laminas\View\Model\ViewModel;
+
+class ListController extends AbstractActionController
+{
+    /**
+     * @var PostRepositoryInterface
+     */
+    private $postRepository;
+
+    public function __construct(PostRepositoryInterface $postRepository)
+    {
+        $this-&gt;postRepository = $postRepository;
+    }
+
+    // Add the following method:
+    public function indexAction()
+    {
+        return new ViewModel([
+            'posts' =&gt; $this-&gt;postRepository-&gt;findAllPosts(),
+        ]);
+    }
+}</code></pre>
+<p>First, please note that our controller imported another class,
+<code>Laminas\View\Model\ViewModel</code>; this is what controllers will usually return within
+laminas-mvc applications. <code>ViewModel</code> instances allow you to provide variables to
+render within your template, as well as indicate which template to use.  In this
+case we have assigned a variable called <code>$posts</code> with the value of whatever the
+repository method <code>findAllPosts()</code> returns (an array of <code>Post</code> instances).
+Refreshing the browser won't change anything yet because we haven't updated our
+template to display the data.</p>
+<blockquote>
+<h3>ViewModels are not required</h3>
+<p>You do not actually need to return an instance of <code>ViewModel</code>; when you return
+a normal PHP array, laminas-mvc internally converts it into a <code>ViewModel</code>. The
+following are equivalent:</p>
+<pre class="codehilite"><code class="language-php">
+// Explicit ViewModel:
+return new ViewModel(['foo' =&gt; 'bar']);
+
+// Implicit ViewModel:
+return ['foo' =&gt; 'bar'];
+</code></pre>
+</blockquote>
+<h2 id="accessing-view-variables">Accessing View Variables</h2>
+<p>Let's modify our view to display a table of all blog posts that our repository
+returns:</p>
+<pre class=codehilite><code class=language-php>&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
+&lt;h1&gt;Blog&lt;/h1&gt;
+
+&lt;?php foreach ($this-&gt;posts as $post): ?&gt;
+&lt;article&gt;
+  &lt;h1 id=&quot;post&lt;?= $post-&gt;getId() ?&gt;&quot;&gt;&lt;?= $post-&gt;getTitle() ?&gt;&lt;/h1&gt;
+
+  &lt;p&gt;&lt;?= $post-&gt;getText() ?&gt;&lt;/p&gt;
+&lt;/article&gt;
+&lt;?php endforeach ?&gt;</code></pre>
+<p>In the view script, we iterate over the posts passed to the view model.  Since
+every single entry of our array is of type <code>Blog\Model\Post</code>, we can use its
+getter methods and render it.</p>
+<h4>Instance Variables Vs Script Variables</h4>
+<blockquote>
+<p>By default, all variables passed via a view model to the renderer are imported
+directly into the view script, and can therefore be referenced as either
+instance or script variables (i.e., <code>$this-&gt;posts</code> is the same as <code>$posts</code>).
+However, we recommend to reference any variables defined as part of the
+original view model using <em>instance variable</em> notation (<code>$this-&gt;posts</code>), to
+make it clear where they originate, and to only use <em>script variable</em> notation
+(<code>$posts</code>) for variables defined in the script itself.</p>
+</blockquote>
+<p>After saving this file, refresh your browser, and you should now see a list of
+blog entries!</p>
+<h2 id="summary">Summary</h2>
+<p>In this chapter, we learned:</p>
+<ul>
+<li>An approach to building the models for an application.</li>
+<li>A little bit about dependency injection.</li>
+<li>How to use laminas-servicemanager to implement dependency injection in laminas-mvc
+  applications.</li>
+<li>How to pass variables to view scripts from the controller.</li>
+</ul>
+<p>In the next chapter, we will take a first look at the things we should do when
+we want to get data from a database.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../first-module/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../preparing-databases/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/in-depth-guide/models-and-servicemanager.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

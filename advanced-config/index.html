@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/advanced-config/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Advanced Configuration - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#system-configuration" class="toc__link">System configuration</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#module-configuration" class="toc__link">Module Configuration</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuration-mapping-table" class="toc__link">Configuration mapping table</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuration-priority" class="toc__link">Configuration Priority</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#manipulating-merged-configuration" class="toc__link">Manipulating merged configuration</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuration-merging-workflow" class="toc__link">Configuration merging workflow</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Advanced Configuration</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">MVC Tutorials</h2>
+    
+
+    <h1 id="advanced-configuration-tricks">Advanced Configuration Tricks</h1>
+<p>Configuration of laminas-mvc applications happens in several steps:</p>
+<ul>
+<li>Initial configuration is passed to the <code>Application</code> instance and used to seed
+  the <code>ModuleManager</code> and <code>ServiceManager</code>. In this tutorial, we will call this
+  configuration <strong>system configuration</strong>.</li>
+<li>The <code>ModuleManager</code>'s <code>ConfigListener</code> aggregates configuration and merges it
+  while modules are being loaded. In this tutorial, we will call this
+  configuration <strong>application configuration</strong>.</li>
+<li>Once configuration is aggregated from all modules, the <code>ConfigListener</code> will
+  also merge application configuration globbed in specified directories
+  (typically <code>config/autoload/</code>).</li>
+<li>Finally, immediately prior to the merged application configuration being
+  passed to the <code>ServiceManager</code>, it is passed to a special <code>EVENT_MERGE_CONFIG</code>
+  event to allow further modification.</li>
+</ul>
+<p>In this tutorial, we'll look at the exact sequence, and how you can tie into it.</p>
+<h2 id="system-configuration">System configuration</h2>
+<p>To begin module loading, we have to tell the <code>Application</code> instance about the
+available modules and where they live, optionally provide some information to
+the default module listeners (e.g., where application configuration lives, and
+what files to load; whether to cache merged configuration, and where; etc.), and
+optionally seed the <code>ServiceManager</code>. For purposes of this tutorial we will call
+this the <strong>system configuration</strong>.</p>
+<p>When using the skeleton application, the <strong>system configuration</strong> is by default
+in <code>config/application.config.php</code>. The defaults look like this:</p>
+<pre class=codehilite><code class=language-php>return [
+    // Retrieve list of modules used in this application.
+    'modules' =&gt; require __DIR__ . '/modules.config.php',
+
+    // These are various options for the listeners attached to the ModuleManager
+    'module_listener_options' =&gt; [
+        // This should be an array of paths in which modules reside.
+        // If a string key is provided, the listener will consider that a module
+        // namespace, the value of that key the specific path to that module's
+        // Module class.
+        'module_paths' =&gt; [
+            './module',
+            './vendor',
+        ],
+
+        // An array of paths from which to glob configuration files after
+        // modules are loaded. These effectively override configuration
+        // provided by modules themselves. Paths may use GLOB_BRACE notation.
+        'config_glob_paths' =&gt; [
+            realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php',
+        ],
+
+        // Whether or not to enable a configuration cache.
+        // If enabled, the merged configuration will be cached and used in
+        // subsequent requests.
+        'config_cache_enabled' =&gt; true,
+
+        // The key used to create the configuration cache file name.
+        'config_cache_key' =&gt; 'application.config.cache',
+
+        // Whether or not to enable a module class map cache.
+        // If enabled, creates a module class map cache which will be used
+        // by in future requests, to reduce the autoloading process.
+        'module_map_cache_enabled' =&gt; true,
+
+        // The key used to create the class map cache file name.
+        'module_map_cache_key' =&gt; 'application.module.cache',
+
+        // The path in which to cache merged configuration.
+        'cache_dir' =&gt; 'data/cache/',
+
+        // Whether or not to enable modules dependency checking.
+        // Enabled by default, prevents usage of modules that depend on other modules
+        // that weren't loaded.
+        // 'check_dependencies' =&gt; true,
+    ],
+
+    // Used to create an own service manager. May contain one or more child arrays.
+    // 'service_listener_options' =&gt; [
+    //     [
+    //         'service_manager' =&gt; $stringServiceManagerName,
+    //         'config_key'      =&gt; $stringConfigKey,
+    //         'interface'       =&gt; $stringOptionalInterface,
+    //         'method'          =&gt; $stringRequiredMethodName,
+    //     ],
+    // ],
+
+    // Initial configuration with which to seed the ServiceManager.
+    // Should be compatible with Laminas\ServiceManager\Config.
+    // 'service_manager' =&gt; [],
+];</code></pre>
+<p>The system configuration is for the bits and pieces related to the MVC that run
+before your application is ready. The configuration is usually brief, and quite
+minimal.</p>
+<p>Also, system configuration is used <em>immediately</em>, and is not merged with any
+other configuration &mdash; which means, with the exception of the values under
+the <code>service_manager</code> key, it cannot be overridden by a module.</p>
+<p>This leads us to our first trick: how do you provide environment-specific system
+configuration?</p>
+<h3>Environment-specific system configuration</h3>
+<p>What happens when you want to change the set of modules you use based on the
+environment? Or if the configuration caching should be enabled based on
+environment?</p>
+<p>It is for this reason that the default system configuration we provide in the
+skeleton application is in PHP; providing it in PHP means you can
+programmatically manipulate it.</p>
+<p>As an example, let's make the following requirements:</p>
+<ul>
+<li>We want to use the <code>Laminas\\DeveloperTools</code> module in development only.</li>
+<li>We want to have configuration caching on in production only.</li>
+</ul>
+<p><a href="https://github.com/laminas/laminas-development-mode">laminas/laminas-development-mode</a>
+provides a concise and conventions-based approach to switching between
+specifically production and development.  The package is installed by default
+with version 3+ skeletons, and can be installed with existing v2 skeletons
+using the following:</p>
+<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-development-mode</code></pre>
+<p>The approach it takes is as follows:</p>
+<ul>
+<li>The user provides production settings in <code>config/application.config.php</code>.</li>
+<li>The user provides development settings in
+  <code>config/development.config.php.dist</code> to override bootstrap-level settings
+  such as modules and configuration caching, and optionally also in
+  <code>config/autoload/development.local.php.dist</code> (to override application
+  settings).</li>
+<li>The bootstrap script (<code>public/index.php</code>) checks for
+  <code>config/development.config.php</code>, and, if found, merges its configuration with
+  the application configuration prior to configuring the <code>Application</code> instance.</li>
+</ul>
+<p>When you execute:</p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/laminas-development-mode enable</code></pre>
+<p>The <code>.dist</code> files are copied to versions removing the suffix; doing so ensures
+they will then be used when invoking the application.</p>
+<p>As such, to accomplish our goals, we will do the following:</p>
+<ul>
+<li>In <code>config/development.config.php.dist</code>, add <code>Laminas\\DeveloperTools</code> to the list
+  of modules:</li>
+</ul>
+<p><code>php
+  'modules' =&gt; [
+      'LaminasDeveloperTools',
+  ],</code></p>
+<ul>
+<li>Also in <code>config/development.config.php.dist</code>, we will disable config caching:</li>
+</ul>
+<p><code>php
+  'config_cache_enable' =&gt; false,</code></p>
+<ul>
+<li>In <code>config/application.config.php</code>, we will enable config caching:</li>
+</ul>
+<p><code>php
+  'config_cache_enable' =&gt; true,</code></p>
+<p>Enabling development mode now enables the selected module, and disables
+configuration caching; disabling development mode enables configuration
+caching. (Also, either operation clears the configuration cache.)</p>
+<p>If you require additional environments, you can extend laminas-development-mode to
+address them using the same workflow.</p>
+<h3>Environment-specific application configuration</h3>
+<p>Sometimes you want to change application configuration to load things such as
+database adapters, log writers, cache adapters, and more based on the
+environment. These are typically managed in the service manager, and may be
+defined by modules. You can override them at the application level via
+<code>Laminas\ModuleManager\Listener\ConfigListener</code>, by specifying a glob path in the
+<strong>system configuration</strong> &mdash; the <code>module_listener_options.config_glob_paths</code>
+key from the previous examples.</p>
+<p>The default value for this is <code>config/autoload/{{,*.}global,{,*.}local}.php</code>.
+What this means is that it will look for <strong>application configuration</strong> files in
+the <code>config/autoload</code> directory, in the following order:</p>
+<ul>
+<li><code>global.php</code></li>
+<li><code>*.global.php</code></li>
+<li><code>local.php</code></li>
+<li><code>*.local.php</code></li>
+</ul>
+<p>This allows you to define application-level defaults in "global" configuration
+files, which you would then commit to your version control system, and
+environment-specific overrides in your "local" configuration files, which you
+would <em>omit</em> from version control.</p>
+<blockquote>
+<h3>Additional glob patterns for development mode</h3>
+<p>When using laminas-development-mode, as detailed in the previous section, the
+shipped <code>config/development.config.php.dist</code> file provides an additional
+glob pattern for specifying development configuration:</p>
+<ul>
+<li><code>config/autoload/{,*.}{global,local}-development.php</code></li>
+</ul>
+<p>This will match files such as:</p>
+<ul>
+<li>database.global-development.php</li>
+<li>database.local-development.php</li>
+</ul>
+<p>These will only be considered when development mode is enabled!</p>
+</blockquote>
+<p>This is a great solution for development, as it allows you to specify alternate
+configuration that's specific to your development environment without worrying
+about accidently deploying it. However, what if you have more environments
+&mdash; such as a "testing" or "staging" environment &mdash; and they each have
+their own specific overrides?</p>
+<p>To accomplish this, we'll provide an <em>environment variable</em> via our web server
+configuration, <code>APP_ENV</code>. In Apache, you'd put a directive like the following
+in either your system-wide apache.conf or httpd.conf, or in the definition for
+your virtual host; alternately, it can be placed in an .htaccess file.</p>
+<pre class=codehilite><code class=language-apacheconf>SetEnv &quot;APP_ENV&quot; &quot;development&quot;</code></pre>
+<p>For other web servers, consult the web server documentation to determine how to
+set environment variables.</p>
+<p>To simplify matters, we'll assume the environment is "production" if no
+environment variable is present.</p>
+<p>With that in place, We can alter the glob path in the system configuration
+slightly:</p>
+<pre class=codehilite><code class=language-php>'config_glob_paths' =&gt; [
+    realpath(__DIR__) . sprintf('config/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
+],</code></pre>
+<p>The above will allow you to define an additional set of application
+configuration files per environment; furthermore, these will be loaded <em>only</em> if
+that environment is detected!</p>
+<p>As an example, consider the following tree of configuration files:</p>
+<pre class=codehilite><code class=language-text>config/
+    autoload/
+        global.php
+        local.php
+        users.development.php
+        users.testing.php
+        users.local.php</code></pre>
+<p>If <code>$env</code> evaluates to <code>testing</code>, then the following files will be merged, in
+the following order:</p>
+<pre class=codehilite><code class=language-text>global.php
+users.testing.php
+local.php
+users.local.php</code></pre>
+<p>Note that <code>users.development.php</code> is not loaded &mdash; this is because it will
+not match the glob pattern!</p>
+<p>Also, because of the order in which they are loaded, you can predict which
+values will overwrite the others, allowing you to both selectively overwrite as
+well as debug later.</p>
+<blockquote>
+<h4>Order of config merging</h4>
+<p>The files under <code>config/autoload/</code> are merged <em>after</em> your module
+configuration, detailed in next section. We have detailed it here, however, as
+setting up the <strong>application configuration</strong> glob path happens within the
+<strong>system configuration</strong> (<code>config/application.config.php</code>).</p>
+</blockquote>
+<h2 id="module-configuration">Module Configuration</h2>
+<p>One responsibility of modules is to provide their own configuration to the
+application. Modules have two general mechanisms for doing this.</p>
+<p><strong>First</strong>, modules that either implement
+<code>Laminas\ModuleManager\Feature\ConfigProviderInterface</code> and/or a <code>getConfig()</code>
+method can return their configuration. The default, recommended implementation
+of the <code>getConfig()</code> method is:</p>
+<pre class=codehilite><code class=language-php>public function getConfig()
+{
+    return include __DIR__ . '/config/module.config.php';
+}</code></pre>
+<p>where <code>module.config.php</code> returns a PHP array. From that PHP array you can
+provide general configuration as well as configuration for all the available
+<code>Manager</code> classes provided by the ServiceManager. Please refer to the
+<a href="#configuration-mapping-table">Configuration mapping table</a> to see which
+configuration key is used for each specific <code>Manager</code>.</p>
+<p><strong>Second</strong>, modules can implement a number of interfaces and/or methods related
+to specific service manager or plugin manager configuration. You will find an
+overview of all interfaces and their matching Module Configuration functions
+inside the <a href="#configuration-mapping-table">Configuration mapping table</a>.</p>
+<p>Most interfaces are in the <code>Laminas\ModuleManager\Feature</code> namespace (some have
+moved to the individual components), and each is expected to return an array of
+configuration for a service manager, as denoted in the section on
+<a href="http://docs.laminas.dev/laminas-mvc/services/#servicemanager">default service configuration</a>.</p>
+<h2 id="configuration-mapping-table">Configuration mapping table</h2>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Manager name</th>
+<th>Interface name</th>
+<th>Module method name</th>
+<th>Config key name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ControllerPluginManager</code></td>
+<td><code>ControllerPluginProviderInterface</code></td>
+<td><code>getControllerPluginConfig()</code></td>
+<td><code>controller_plugins</code></td>
+</tr>
+<tr>
+<td><code>ControllerManager</code></td>
+<td><code>ControllerProviderInterface</code></td>
+<td><code>getControllerConfig()</code></td>
+<td><code>controllers</code></td>
+</tr>
+<tr>
+<td><code>FilterManager</code></td>
+<td><code>FilterProviderInterface</code></td>
+<td><code>getFilterConfig()</code></td>
+<td><code>filters</code></td>
+</tr>
+<tr>
+<td><code>FormElementManager</code></td>
+<td><code>FormElementProviderInterface</code></td>
+<td><code>getFormElementConfig()</code></td>
+<td><code>form_elements</code></td>
+</tr>
+<tr>
+<td><code>HydratorManager</code></td>
+<td><code>HydratorProviderInterface</code></td>
+<td><code>getHydratorConfig()</code></td>
+<td><code>hydrators</code></td>
+</tr>
+<tr>
+<td><code>InputFilterManager</code></td>
+<td><code>InputFilterProviderInterface</code></td>
+<td><code>getInputFilterConfig()</code></td>
+<td><code>input_filters</code></td>
+</tr>
+<tr>
+<td><code>RoutePluginManager</code></td>
+<td><code>RouteProviderInterface</code></td>
+<td><code>getRouteConfig()</code></td>
+<td><code>route_manager</code></td>
+</tr>
+<tr>
+<td><code>SerializerAdapterManager</code></td>
+<td><code>SerializerProviderInterface</code></td>
+<td><code>getSerializerConfig()</code></td>
+<td><code>serializers</code></td>
+</tr>
+<tr>
+<td><code>ServiceLocator</code></td>
+<td><code>ServiceProviderInterface</code></td>
+<td><code>getServiceConfig()</code></td>
+<td><code>service_manager</code></td>
+</tr>
+<tr>
+<td><code>ValidatorManager</code></td>
+<td><code>ValidatorProviderInterface</code></td>
+<td><code>getValidatorConfig()</code></td>
+<td><code>validators</code></td>
+</tr>
+<tr>
+<td><code>ViewHelperManager</code></td>
+<td><code>ViewHelperProviderInterface</code></td>
+<td><code>getViewHelperConfig()</code></td>
+<td><code>view_helpers</code></td>
+</tr>
+<tr>
+<td><code>LogProcessorManager</code></td>
+<td><code>LogProcessorProviderInterface</code></td>
+<td><code>getLogProcessorConfig</code></td>
+<td><code>log_processors</code></td>
+</tr>
+<tr>
+<td><code>LogWriterManager</code></td>
+<td><code>LogWriterProviderInterface</code></td>
+<td><code>getLogWriterConfig</code></td>
+<td><code>log_writers</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="configuration-priority">Configuration Priority</h2>
+<p>Considering that you may have service configuration in your module configuration file, what has precedence?</p>
+<p>The order in which they are merged is:</p>
+<ul>
+<li>configuration returned by the various service configuration methods in a module class</li>
+<li>configuration returned by <code>getConfig()</code></li>
+</ul>
+<p>In other words, your <code>getConfig()</code> wins over the various service configuration
+methods. Additionally, and of particular note: the configuration returned from
+those methods will <em>not</em> be cached.</p>
+<blockquote>
+<h3>Use cases for service configuration methods</h3>
+<p>Use the various service configuration methods when you need to define closures
+or instance callbacks for factories, abstract factories, and initializers.
+This prevents caching problems, and also allows you to write your
+configuration files in other markup formats.</p>
+</blockquote>
+<h2 id="manipulating-merged-configuration">Manipulating merged configuration</h2>
+<p>Occasionally you will want to not just override an application configuration
+key, but actually remove it. Since merging will not remove keys, how can you
+handle this?</p>
+<p><code>Laminas\ModuleManager\Listener\ConfigListener</code> triggers a special event,
+<code>Laminas\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG</code>, after merging all
+configuration, but prior to it being passed to the <code>ServiceManager</code>. By
+listening to this event, you can inspect the merged configuration and manipulate
+it.</p>
+<p>The <code>ConfigListener</code> itself listens to the event at priority 1000 (i.e., very
+high), which is when the configuration is merged. You can tie into this to
+modify the merged configuration from your module, via the <code>init()</code> method.</p>
+<pre class=codehilite><code class=language-php>namespace Foo;
+
+use Laminas\ModuleManager\ModuleEvent;
+use Laminas\ModuleManager\ModuleManager;
+
+class Module
+{
+    public function init(ModuleManager $moduleManager)
+    {
+        $events = $moduleManager-&gt;getEventManager();
+
+        // Registering a listener at default priority, 1, which will trigger
+        // after the ConfigListener merges config.
+        $events-&gt;attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this, 'onMergeConfig']);
+    }
+
+    public function onMergeConfig(ModuleEvent $e)
+    {
+        $configListener = $e-&gt;getConfigListener();
+        $config         = $configListener-&gt;getMergedConfig(false);
+
+        // Modify the configuration; here, we'll remove a specific key:
+        if (isset($config['some_key'])) {
+            unset($config['some_key']);
+        }
+
+        // Pass the changed configuration back to the listener:
+        $configListener-&gt;setMergedConfig($config);
+    }
+}</code></pre>
+<p>At this point, the merged application configuration will no longer contain the
+key <code>some_key</code>.</p>
+<blockquote>
+<h3>Cached configuration and merging</h3>
+<p>If a cached config is used by the <code>ModuleManager</code>, the <code>EVENT_MERGE_CONFIG</code>
+event will not be triggered. However, typically that means that what is cached
+will be what was originally manipulated by your listener.</p>
+</blockquote>
+<h2 id="configuration-merging-workflow">Configuration merging workflow</h2>
+<p>To cap off the tutorial, let's review how and when configuration is defined and
+merged.</p>
+<ul>
+<li><strong>System configuration</strong></li>
+<li>Defined in <code>config/application.config.php</code></li>
+<li>No merging occurs</li>
+<li>Allows manipulation programmatically, which allows the ability to:<ul>
+<li>Alter flags based on computed values</li>
+<li>Alter the configuration glob path based on computed values</li>
+<li>Configuration is passed to the <code>Application</code> instance, and then the
+  <code>ModuleManager</code> in order to initialize the system.</li>
+</ul>
+</li>
+<li><strong>Application configuration</strong></li>
+<li>The <code>ModuleManager</code> loops through each module class in the order defined in the <strong>system configuration</strong><ul>
+<li>Service configuration defined in <code>Module</code> class methods is aggregated</li>
+<li>Configuration returned by <code>Module::getConfig()</code> is aggregated</li>
+<li>Files detected from the <strong>service configuration</strong> <code>config_glob_paths</code>
+  setting are merged, based on the order they resolve in the glob path.</li>
+<li><code>ConfigListener</code> triggers <code>EVENT_MERGE_CONFIG</code>:</li>
+<li><code>ConfigListener</code> merges configuration</li>
+<li>Any other event listeners manipulate the configuration</li>
+<li>Merged configuration is finally passed to the <code>ServiceManager</code></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../in-depth-guide/review/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../i18n/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/advanced-config.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

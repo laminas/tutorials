@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/pagination/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Adding laminas-paginator to the Album Module - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#preparation" class="toc__link">Preparation</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#install-laminas-paginator" class="toc__link">Install laminas-paginator</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#modifying-the-albumtable" class="toc__link">Modifying the AlbumTable</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#modifying-the-albumcontroller" class="toc__link">Modifying the AlbumController</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#updating-the-view-script" class="toc__link">Updating the View Script</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#creating-the-pagination-control-partial" class="toc__link">Creating the Pagination Control Partial</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">MVC Tutorials</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Adding laminas-paginator to the Album Module</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">MVC Tutorials</h2>
+    
+
+    <h1 id="using-laminas-paginator-in-your-album-module">Using laminas-paginator in your Album Module</h1>
+<p>In this tutorial, we will use the <a href="https://docs.laminas.dev/laminas-paginator/intro/">laminas-paginator component</a>
+to add a handy pagination controller to the bottom of the album list.</p>
+<p>Currently, we only have a handful of albums to display, so showing everything on
+one page is not a problem. However, how will the album list look when we have
+100 albums or more in our database? The standard solution to this problem is to
+split the data up into a number of pages, and allow the user to navigate around
+these pages using a pagination control. Just type "Laminas" into Google,
+and you can see their pagination control at the bottom of the page:</p>
+<p><img alt="Example pagination control" src="../images/pagination.sample.png" class="img-responsive"/></p>
+<h2 id="preparation">Preparation</h2>
+<p>As before, we are going to use sqlite, via PHP's PDO driver. Create a text file
+<code>data/album-fixtures.sql</code> with the following contents:</p>
+<pre class=codehilite><code class=language-sql>INSERT INTO &quot;album&quot; (&quot;artist&quot;, &quot;title&quot;)
+VALUES
+    (&quot;David Bowie&quot;, &quot;The Next Day (Deluxe Version)&quot;),
+    (&quot;Bastille&quot;, &quot;Bad Blood&quot;),
+    (&quot;Bruno Mars&quot;, &quot;Unorthodox Jukebox&quot;),
+    (&quot;Emeli Sandé&quot;, &quot;Our Version of Events (Special Edition)&quot;),
+    (&quot;Bon Jovi&quot;, &quot;What About Now (Deluxe Version)&quot;),
+    (&quot;Justin Timberlake&quot;, &quot;The 20/20 Experience (Deluxe Version)&quot;),
+    (&quot;Bastille&quot;, &quot;Bad Blood (The Extended Cut)&quot;),
+    (&quot;P!nk&quot;, &quot;The Truth About Love&quot;),
+    (&quot;Sound City - Real to Reel&quot;, &quot;Sound City - Real to Reel&quot;),
+    (&quot;Jake Bugg&quot;, &quot;Jake Bugg&quot;),
+    (&quot;Various Artists&quot;, &quot;The Trevor Nelson Collection&quot;),
+    (&quot;David Bowie&quot;, &quot;The Next Day&quot;),
+    (&quot;Mumford &amp; Sons&quot;, &quot;Babel&quot;),
+    (&quot;The Lumineers&quot;, &quot;The Lumineers&quot;),
+    (&quot;Various Artists&quot;, &quot;Get Ur Freak On - R&amp;B Anthems&quot;),
+    (&quot;The 1975&quot;, &quot;Music For Cars EP&quot;),
+    (&quot;Various Artists&quot;, &quot;Saturday Night Club Classics - Ministry of Sound&quot;),
+    (&quot;Hurts&quot;, &quot;Exile (Deluxe)&quot;),
+    (&quot;Various Artists&quot;, &quot;Mixmag - The Greatest Dance Tracks of All Time&quot;),
+    (&quot;Ben Howard&quot;, &quot;Every Kingdom&quot;),
+    (&quot;Stereophonics&quot;, &quot;Graffiti On the Train&quot;),
+    (&quot;The Script&quot;, &quot;#3&quot;),
+    (&quot;Stornoway&quot;, &quot;Tales from Terra Firma&quot;),
+    (&quot;David Bowie&quot;, &quot;Hunky Dory (Remastered)&quot;),
+    (&quot;Worship Central&quot;, &quot;Let It Be Known (Live)&quot;),
+    (&quot;Ellie Goulding&quot;, &quot;Halcyon&quot;),
+    (&quot;Various Artists&quot;, &quot;Dermot O'Leary Presents the Saturday Sessions 2013&quot;),
+    (&quot;Stereophonics&quot;, &quot;Graffiti On the Train (Deluxe Version)&quot;),
+    (&quot;Dido&quot;, &quot;Girl Who Got Away (Deluxe)&quot;),
+    (&quot;Hurts&quot;, &quot;Exile&quot;),
+    (&quot;Bruno Mars&quot;, &quot;Doo-Wops &amp; Hooligans&quot;),
+    (&quot;Calvin Harris&quot;, &quot;18 Months&quot;),
+    (&quot;Olly Murs&quot;, &quot;Right Place Right Time&quot;),
+    (&quot;Alt-J (?)&quot;, &quot;An Awesome Wave&quot;),
+    (&quot;One Direction&quot;, &quot;Take Me Home&quot;),
+    (&quot;Various Artists&quot;, &quot;Pop Stars&quot;),
+    (&quot;Various Artists&quot;, &quot;Now That's What I Call Music! 83&quot;),
+    (&quot;John Grant&quot;, &quot;Pale Green Ghosts&quot;),
+    (&quot;Paloma Faith&quot;, &quot;Fall to Grace&quot;),
+    (&quot;Laura Mvula&quot;, &quot;Sing To the Moon (Deluxe)&quot;),
+    (&quot;Duke Dumont&quot;, &quot;Need U (100%) [feat. A*M*E] - EP&quot;),
+    (&quot;Watsky&quot;, &quot;Cardboard Castles&quot;),
+    (&quot;Blondie&quot;, &quot;Blondie: Greatest Hits&quot;),
+    (&quot;Foals&quot;, &quot;Holy Fire&quot;),
+    (&quot;Maroon 5&quot;, &quot;Overexposed&quot;),
+    (&quot;Bastille&quot;, &quot;Pompeii (Remixes) - EP&quot;),
+    (&quot;Imagine Dragons&quot;, &quot;Hear Me - EP&quot;),
+    (&quot;Various Artists&quot;, &quot;100 Hits: 80s Classics&quot;),
+    (&quot;Various Artists&quot;, &quot;Les Misérables (Highlights From the Motion Picture Soundtrack)&quot;),
+    (&quot;Mumford &amp; Sons&quot;, &quot;Sigh No More&quot;),
+    (&quot;Frank Ocean&quot;, &quot;Channel ORANGE&quot;),
+    (&quot;Bon Jovi&quot;, &quot;What About Now&quot;),
+    (&quot;Various Artists&quot;, &quot;BRIT Awards 2013&quot;),
+    (&quot;Taylor Swift&quot;, &quot;Red&quot;),
+    (&quot;Fleetwood Mac&quot;, &quot;Fleetwood Mac: Greatest Hits&quot;),
+    (&quot;David Guetta&quot;, &quot;Nothing But the Beat Ultimate&quot;),
+    (&quot;Various Artists&quot;, &quot;Clubbers Guide 2013 (Mixed By Danny Howard) - Ministry of Sound&quot;),
+    (&quot;David Bowie&quot;, &quot;Best of Bowie&quot;),
+    (&quot;Laura Mvula&quot;, &quot;Sing To the Moon&quot;),
+    (&quot;ADELE&quot;, &quot;21&quot;),
+    (&quot;Of Monsters and Men&quot;, &quot;My Head Is an Animal&quot;),
+    (&quot;Rihanna&quot;, &quot;Unapologetic&quot;),
+    (&quot;Various Artists&quot;, &quot;BBC Radio 1's Live Lounge - 2012&quot;),
+    (&quot;Avicii &amp; Nicky Romero&quot;, &quot;I Could Be the One (Avicii vs. Nicky Romero)&quot;),
+    (&quot;The Streets&quot;, &quot;A Grand Don't Come for Free&quot;),
+    (&quot;Tim McGraw&quot;, &quot;Two Lanes of Freedom&quot;),
+    (&quot;Foo Fighters&quot;, &quot;Foo Fighters: Greatest Hits&quot;),
+    (&quot;Various Artists&quot;, &quot;Now That's What I Call Running!&quot;),
+    (&quot;Swedish House Mafia&quot;, &quot;Until Now&quot;),
+    (&quot;The xx&quot;, &quot;Coexist&quot;),
+    (&quot;Five&quot;, &quot;Five: Greatest Hits&quot;),
+    (&quot;Jimi Hendrix&quot;, &quot;People, Hell &amp; Angels&quot;),
+    (&quot;Biffy Clyro&quot;, &quot;Opposites (Deluxe)&quot;),
+    (&quot;The Smiths&quot;, &quot;The Sound of the Smiths&quot;),
+    (&quot;The Saturdays&quot;, &quot;What About Us - EP&quot;),
+    (&quot;Fleetwood Mac&quot;, &quot;Rumours&quot;),
+    (&quot;Various Artists&quot;, &quot;The Big Reunion&quot;),
+    (&quot;Various Artists&quot;, &quot;Anthems 90s - Ministry of Sound&quot;),
+    (&quot;The Vaccines&quot;, &quot;Come of Age&quot;),
+    (&quot;Nicole Scherzinger&quot;, &quot;Boomerang (Remixes) - EP&quot;),
+    (&quot;Bob Marley&quot;, &quot;Legend (Bonus Track Version)&quot;),
+    (&quot;Josh Groban&quot;, &quot;All That Echoes&quot;),
+    (&quot;Blue&quot;, &quot;Best of Blue&quot;),
+    (&quot;Ed Sheeran&quot;, &quot;+&quot;),
+    (&quot;Olly Murs&quot;, &quot;In Case You Didn't Know (Deluxe Edition)&quot;),
+    (&quot;Macklemore &amp; Ryan Lewis&quot;, &quot;The Heist (Deluxe Edition)&quot;),
+    (&quot;Various Artists&quot;, &quot;Defected Presents Most Rated Miami 2013&quot;),
+    (&quot;Gorgon City&quot;, &quot;Real EP&quot;),
+    (&quot;Mumford &amp; Sons&quot;, &quot;Babel (Deluxe Version)&quot;),
+    (&quot;Various Artists&quot;, &quot;The Music of Nashville: Season 1, Vol. 1 (Original Soundtrack)&quot;),
+    (&quot;Various Artists&quot;, &quot;The Twilight Saga: Breaking Dawn, Pt. 2 (Original Motion Picture Soundtrack)&quot;),
+    (&quot;Various Artists&quot;, &quot;Mum - The Ultimate Mothers Day Collection&quot;),
+    (&quot;One Direction&quot;, &quot;Up All Night&quot;),
+    (&quot;Bon Jovi&quot;, &quot;Bon Jovi Greatest Hits&quot;),
+    (&quot;Agnetha Fältskog&quot;, &quot;A&quot;),
+    (&quot;Fun.&quot;, &quot;Some Nights&quot;),
+    (&quot;Justin Bieber&quot;, &quot;Believe Acoustic&quot;),
+    (&quot;Atoms for Peace&quot;, &quot;Amok&quot;),
+    (&quot;Justin Timberlake&quot;, &quot;Justified&quot;),
+    (&quot;Passenger&quot;, &quot;All the Little Lights&quot;),
+    (&quot;Kodaline&quot;, &quot;The High Hopes EP&quot;),
+    (&quot;Lana Del Rey&quot;, &quot;Born to Die&quot;),
+    (&quot;JAY Z &amp; Kanye West&quot;, &quot;Watch the Throne (Deluxe Version)&quot;),
+    (&quot;Biffy Clyro&quot;, &quot;Opposites&quot;),
+    (&quot;Various Artists&quot;, &quot;Return of the 90s&quot;),
+    (&quot;Gabrielle Aplin&quot;, &quot;Please Don't Say You Love Me - EP&quot;),
+    (&quot;Various Artists&quot;, &quot;100 Hits - Driving Rock&quot;),
+    (&quot;Jimi Hendrix&quot;, &quot;Experience Hendrix - The Best of Jimi Hendrix&quot;),
+    (&quot;Various Artists&quot;, &quot;The Workout Mix 2013&quot;),
+    (&quot;The 1975&quot;, &quot;Sex&quot;),
+    (&quot;Chase &amp; Status&quot;, &quot;No More Idols&quot;),
+    (&quot;Rihanna&quot;, &quot;Unapologetic (Deluxe Version)&quot;),
+    (&quot;The Killers&quot;, &quot;Battle Born&quot;),
+    (&quot;Olly Murs&quot;, &quot;Right Place Right Time (Deluxe Edition)&quot;),
+    (&quot;A$AP Rocky&quot;, &quot;LONG.LIVE.A$AP (Deluxe Version)&quot;),
+    (&quot;Various Artists&quot;, &quot;Cooking Songs&quot;),
+    (&quot;Haim&quot;, &quot;Forever - EP&quot;),
+    (&quot;Lianne La Havas&quot;, &quot;Is Your Love Big Enough?&quot;),
+    (&quot;Michael Bublé&quot;, &quot;To Be Loved&quot;),
+    (&quot;Daughter&quot;, &quot;If You Leave&quot;),
+    (&quot;The xx&quot;, &quot;xx&quot;),
+    (&quot;Eminem&quot;, &quot;Curtain Call&quot;),
+    (&quot;Kendrick Lamar&quot;, &quot;good kid, m.A.A.d city (Deluxe)&quot;),
+    (&quot;Disclosure&quot;, &quot;The Face - EP&quot;),
+    (&quot;Palma Violets&quot;, &quot;180&quot;),
+    (&quot;Cody Simpson&quot;, &quot;Paradise&quot;),
+    (&quot;Ed Sheeran&quot;, &quot;+ (Deluxe Version)&quot;),
+    (&quot;Michael Bublé&quot;, &quot;Crazy Love (Hollywood Edition)&quot;),
+    (&quot;Bon Jovi&quot;, &quot;Bon Jovi Greatest Hits - The Ultimate Collection&quot;),
+    (&quot;Rita Ora&quot;, &quot;Ora&quot;),
+    (&quot;g33k&quot;, &quot;Spabby&quot;),
+    (&quot;Various Artists&quot;, &quot;Annie Mac Presents 2012&quot;),
+    (&quot;David Bowie&quot;, &quot;The Platinum Collection&quot;),
+    (&quot;Bridgit Mendler&quot;, &quot;Ready or Not (Remixes) - EP&quot;),
+    (&quot;Dido&quot;, &quot;Girl Who Got Away&quot;),
+    (&quot;Various Artists&quot;, &quot;Now That's What I Call Disney&quot;),
+    (&quot;The 1975&quot;, &quot;Facedown - EP&quot;),
+    (&quot;Kodaline&quot;, &quot;The Kodaline - EP&quot;),
+    (&quot;Various Artists&quot;, &quot;100 Hits: Super 70s&quot;),
+    (&quot;Fred V &amp; Grafix&quot;, &quot;Goggles - EP&quot;),
+    (&quot;Biffy Clyro&quot;, &quot;Only Revolutions (Deluxe Version)&quot;),
+    (&quot;Train&quot;, &quot;California 37&quot;),
+    (&quot;Ben Howard&quot;, &quot;Every Kingdom (Deluxe Edition)&quot;),
+    (&quot;Various Artists&quot;, &quot;Motown Anthems&quot;),
+    (&quot;Courteeners&quot;, &quot;ANNA&quot;),
+    (&quot;Johnny Marr&quot;, &quot;The Messenger&quot;),
+    (&quot;Rodriguez&quot;, &quot;Searching for Sugar Man&quot;),
+    (&quot;Jessie Ware&quot;, &quot;Devotion&quot;),
+    (&quot;Bruno Mars&quot;, &quot;Unorthodox Jukebox&quot;),
+    (&quot;Various Artists&quot;, &quot;Call the Midwife (Music From the TV Series)&quot;
+);</code></pre>
+<p>(The test data chosen happens to be the current 150 top iTunes albums at the
+time of writing!)</p>
+<p>Now create the database using the following:</p>
+<pre class=codehilite><code class=language-bash>$ sqlite data/laminastutorial.db &lt; data/album-fixtures.sql</code></pre>
+<p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
+one to use on your system.</p>
+<blockquote>
+<h3>Using PHP to create the database</h3>
+<p>If you do not have Sqlite installed on your system, you can use PHP to load
+the database using the same SQL schema file created earlier. Create the file
+<code>data/load_album_fixtures.php</code> with the following contents:</p>
+<pre class="codehilite"><code class="language-php">
+&lt;?php
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
+$fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
+while ($line = fread($fh, 4096)) {
+    $db-&gt;exec($line);
+}
+fclose($fh);
+</code></pre>
+<p>Once created, execute it:</p>
+<pre class="codehilite"><code class="language-bash">
+$ php data/load_album_fixtures.php
+</code></pre>
+</blockquote>
+<p>This gives us a handy extra 150 rows to play with. If you now visit your album
+list at <code>/album</code>, you'll see a huge long list of 150+ albums; it's ugly.</p>
+<h2 id="install-laminas-paginator">Install laminas-paginator</h2>
+<p>laminas-paginator is not installed or configured by default, so we will need to do
+that. Run the following from the application root:</p>
+<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-paginator</code></pre>
+<p>Assuming you followed the <a href="../getting-started/overview/">Getting Started tutorial</a>,
+you will be prompted by the <a href="https://docs.laminas.dev/laminas-component-installer">laminas-component-installer</a>
+plugin to inject <code>Laminas\Paginator</code>; be sure to select the option for either
+<code>config/application.config.php</code> or <code>config/modules.config.php</code>; since it is the
+only package you are installing, you can answer either "y" or "n" to the "Remember this
+option for other packages of the same type" prompt.</p>
+<blockquote>
+<h3>Manual configuration</h3>
+<p>If you are not using laminas-component-installer, you will need to setup
+configuration manually. You can do this in one of two ways:</p>
+<ul>
+<li>Register the <code>Laminas\Paginator</code> module in either
+  <code>config/application.config.php</code> or <code>config/modules.config.php</code>. Make sure
+  you put it towards the top of the module list, before any modules you have
+  defined or third party modules you are using.</li>
+<li>Alternately, add a new file, <code>config/autoload/paginator.global.php</code>, with
+  the following contents:</li>
+</ul>
+<pre class="codehilite"><code class="language-php">
+&lt;?php
+use Laminas\Paginator\ConfigProvider;
+
+return [
+    'service_manager' =&gt; (new ConfigProvider())-&gt;getDependencyConfig(),
+];
+</code></pre>
+</blockquote>
+<p>Once installed, our application is now aware of laminas-paginator, and even has
+some default factories in place, which we will now make use of.</p>
+<h2 id="modifying-the-albumtable">Modifying the AlbumTable</h2>
+<p>In order to let laminas-paginator handle our database queries automatically for us,
+we will be using the <a href="https://docs.laminas.dev/laminas-paginator/usage/#the-dbselect-adapter">DbSelect pagination adapter</a>
+This will automatically manipulate and run a <code>Laminas\Db\Sql\Select</code> object to
+include the correct <code>LIMIT</code> and <code>WHERE</code> clauses so that it returns only the
+configured amount of data for the given page. Let's modify the <code>fetchAll</code> method
+of the <code>AlbumTable</code> model, so that it can optionally return a paginator object:</p>
+<pre class=codehilite><code class=language-php>// in module/Album/src/Model/AlbumTable.php:
+namespace Album\Model;
+
+use RuntimeException;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\Sql\Select;
+use Laminas\Db\TableGateway\TableGatewayInterface;
+use Laminas\Paginator\Adapter\DbSelect;
+use Laminas\Paginator\Paginator;
+
+class AlbumTable
+{
+    /* ... */
+
+    public function fetchAll($paginated = false)
+    {
+        if ($paginated) {
+            return $this-&gt;fetchPaginatedResults();
+        }
+
+        return $this-&gt;tableGateway-&gt;select();
+    }
+
+    private function fetchPaginatedResults()
+    {
+        // Create a new Select object for the table:
+        $select = new Select($this-&gt;tableGateway-&gt;getTable());
+
+        // Create a new result set based on the Album entity:
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype-&gt;setArrayObjectPrototype(new Album());
+
+        // Create a new pagination adapter object:
+        $paginatorAdapter = new DbSelect(
+            // our configured select object:
+            $select,
+            // the adapter to run it against:
+            $this-&gt;tableGateway-&gt;getAdapter(),
+            // the result set to hydrate:
+            $resultSetPrototype
+        );
+
+        $paginator = new Paginator($paginatorAdapter);
+        return $paginator;
+    }
+
+    /* ... */
+}</code></pre>
+<p>This will return a fully configured <code>Paginator</code> instance. We've already told the
+<code>DbSelect</code> adapter to use our created <code>Select</code> object, to use the adapter that
+the <code>TableGateway</code> object uses, and also how to hydrate the result into a
+<code>Album</code> entity in the same fashion as the <code>TableGateway</code> does. This means that
+our executed and returned paginator results will return <code>Album</code> objects in
+exactly the same fashion as the non-paginated results.</p>
+<h2 id="modifying-the-albumcontroller">Modifying the AlbumController</h2>
+<p>Next, we need to tell the album controller to provide the view with a
+<code>Pagination</code> object instead of a <code>ResultSet</code>. Both these objects can by iterated
+over to return hydrated <code>Album</code> objects, so we won't need to make many changes
+to the view script:</p>
+<pre class=codehilite><code class=language-php>// in module/Album/src/Controller/AlbumController.php:
+
+/* ... */
+
+public function indexAction()
+{
+    // Grab the paginator from the AlbumTable:
+    $paginator = $this-&gt;table-&gt;fetchAll(true);
+
+    // Set the current page to what has been passed in query string,
+    // or to 1 if none is set, or the page is invalid:
+    $page = (int) $this-&gt;params()-&gt;fromQuery('page', 1);
+    $page = ($page &lt; 1) ? 1 : $page;
+    $paginator-&gt;setCurrentPageNumber($page);
+
+    // Set the number of items per page to 10:
+    $paginator-&gt;setItemCountPerPage(10);
+
+    return new ViewModel(['paginator' =&gt; $paginator]);
+}
+
+/* ... */</code></pre>
+<p>Here we are getting the configured <code>Paginator</code> object from the <code>AlbumTable</code>, and
+then telling it to use the page that is optionally passed in the querystring
+<code>page</code> parameter (after first validating it). We are also telling the paginator
+we want to display 10 albums per page.</p>
+<h2 id="updating-the-view-script">Updating the View Script</h2>
+<p>Now, tell the view script to iterate over the <code>pagination</code> view variable, rather
+than the <code>albums</code> variable:</p>
+<pre class=codehilite><code class=language-php>&lt;?php // in module/Album/view/album/album/index.phtml:
+$title = 'My albums';
+$this-&gt;headTitle($title);
+?&gt;
+&lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title); ?&gt;&lt;/h1&gt;
+&lt;p&gt;
+    &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'add']) ?&gt;&quot;&gt;Add new album&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Artist&lt;/th&gt;
+        &lt;th&gt;&amp;nbsp;&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;?php foreach ($this-&gt;paginator as $album) : // &lt;-- change here! ?&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;title) ?&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;artist) ?&gt;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Edit&lt;/a&gt;
+                &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Delete&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;?php endforeach; ?&gt;
+&lt;/table&gt;</code></pre>
+<p>Checking the <code>/album</code> route on your website should now give you a list of just
+10 albums, but with no method to navigate through the pages. Let's correct that
+now.</p>
+<h2 id="creating-the-pagination-control-partial">Creating the Pagination Control Partial</h2>
+<p>Much like we created a custom breadcrumbs partial to render our breadcrumb in
+the <a href="../navigation/#adding-breadcrumbs">navigation tutorial</a>, we need to create a
+custom pagination control partial to render our pagination control just the way
+we want it. Again, because we are using Bootstrap, this will primarily involve
+outputting correctly formatted HTML. Let's create the partial in the
+<code>module/Application/view/partial/</code> folder, so that we can use the control in all
+our modules:</p>
+<pre class=codehilite><code class=language-php>&lt;?php // in module/Application/view/partial/paginator.phtml: ?&gt;
+&lt;?php if ($this-&gt;pageCount): ?&gt;
+&lt;div&gt;
+  &lt;ul class=&quot;pagination&quot;&gt;
+  &lt;!-- Previous page link --&gt;
+  &lt;?php if (isset($this-&gt;previous)): ?&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;previous]]) ?&gt;&quot;&gt;
+        &amp;lt;&amp;lt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;?php else: ?&gt;
+    &lt;li class=&quot;disabled&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &amp;lt;&amp;lt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;?php endif ?&gt;
+
+  &lt;!-- Numbered page links --&gt;
+  &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
+    &lt;?php if ($page !== $this-&gt;current): ?&gt;
+      &lt;li&gt;
+        &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $page]]) ?&gt;&quot;&gt;
+          &lt;?= $page ?&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;?php else: ?&gt;
+      &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;&lt;?= $page ?&gt;&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;?php endif ?&gt;
+  &lt;?php endforeach ?&gt;
+
+  &lt;!-- Next page link --&gt;
+  &lt;?php if (isset($this-&gt;next)): ?&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;next]]) ?&gt;&quot;&gt;
+        &amp;gt;&amp;gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;?php else: ?&gt;
+    &lt;li class=&quot;disabled&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &amp;gt;&amp;gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;?php endif ?&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;?php endif ?&gt;</code></pre>
+<p>This partial creates a pagination control with links to the correct pages (if
+there is more than one page in the pagination object). It will render a previous
+page link (and mark it disabled if you are at the first page), then render a
+list of intermediate pages (that are passed to the partial based on the
+rendering style; we'll pass that to the view helper in the next step). Finally,
+it will create a next page link (and disable it if you're at the end). Notice
+how we pass the page number via the <code>page</code> querystring parameter which we have
+already told our controller to use to display the current page.</p>
+<h3>Using the PaginationControl View Helper</h3>
+<p>To page through the albums, we need to invoke the
+<a href="https://docs.laminas.dev/laminas-paginator/usage/#rendering-pages-with-view-scripts">paginationControl view helper</a>
+to display our pagination control:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// In module/Album/view/album/album/index.phtml:
+// Add at the end of the file after the table:
+?&gt;
+&lt;?= $this-&gt;paginationControl(
+    // The paginator object:
+    $this-&gt;paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' =&gt; 'album']
+) ?&gt;</code></pre>
+<p>The above echoes the <code>paginationControl</code> helper, and tells it to use our
+paginator instance, the <a href="https://docs.laminas.dev/laminas-paginator/advanced/#custom-scrolling-styles">sliding scrolling style</a>,
+our paginator partial, and which route to use for generating links. Refreshing
+your application now should give you Bootstrap-styled pagination controls!</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../navigation/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../in-depth-guide/first-module/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/pagination.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/application/" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

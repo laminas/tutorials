@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!">  
+    <link rel="canonical" href="https://docs.laminas.dev/migration/to-v3/application/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Applications - Tutorials - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">Tutorials</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/tutorials/" class="header__link header__link--github" title="Go to repository of Tutorials">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#upgrading-laminas" class="toc__link">Upgrading Laminas</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#integration-packages" class="toc__link">Integration packages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#autoloading" class="toc__link">Autoloading</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#bootstrap" class="toc__link">Bootstrap</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#scripts" class="toc__link">Scripts</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#development-mode" class="toc__link">Development mode</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../../..">Tutorials</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Migration</li>
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">To Version 3</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Applications</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">To Version 3</h2>
+    
+
+    <h1 id="upgrading-applications">Upgrading Applications</h1>
+<p>If you have an existing Laminas v2 application, and want to update it to
+the latest versions, you will have some special considerations.</p>
+<h2 id="upgrading-laminas">Upgrading Laminas</h2>
+<p>Since the 2.5 release, the laminas package has been essentially a
+"metapackage", defining no code, and only dependencies on the various component
+packages. This means that when you install <code>laminas/laminas</code>, you
+get the full set of components, at the latest 2.* versions.</p>
+<p>With the release of version 3, we recommend:</p>
+<ul>
+<li>Removing the laminas/laminas package.</li>
+<li>Installing the laminas/laminas-component-installer package.</li>
+<li>Installing the laminas/laminas-mvc package.</li>
+<li>Installing each Laminas component package you actually use in your application.</li>
+</ul>
+<p>The process would look like this:</p>
+<pre class=codehilite><code class=language-bash>$ composer remove laminas/laminas
+$ composer require laminas/laminas-component-installer
+$ composer require laminas/laminas-mvc
+# Repeat as necessary for components you use if not already installed</code></pre>
+<p>When you install laminas-mvc, it will prompt you to add configuration for
+components; choose either <code>application.config.php</code> or <code>modules.config.php</code>, and
+re-use your selection for all other packages. This step ensures that the various
+components installed, and any news ones you add later, are configured in your
+application correctly.</p>
+<p>This approach will ensure you are only installing what you actually need. As an
+example, if you are not using laminas-barcode, or laminas-permissions-acl, or
+laminas-mail, there's no reason to install them.</p>
+<blockquote>
+<h3>Keeping the laminas package</h3>
+<p>If you want to upgrade quickly, and cannot easily determine which components you
+use in your application, you can upgrade your laminas requirement. When
+you do, you should also install the laminas-component-installer, to ensure that
+component configuration is properly injected in your application.</p>
+<pre class="codehilite"><code class="language-bash">
+$ composer require laminas/laminas-component-installer &quot;laminas/laminas:^3.0&quot;
+</code></pre>
+<p>During installation, it will prompt you to add configuration for
+components; choose either <code>application.config.php</code> or <code>modules.config.php</code>, and
+re-use your selection for all other packages. This step ensures that the various
+components installed, and any news ones you add later, are configured in your
+application correctly.</p>
+<p>This will upgrade you to the latest releases of all Laminas components at
+once; it will also install new components developed as part of the version 3
+initiative.</p>
+<p>We still recommend reducing your dependencies at a later date, however.</p>
+</blockquote>
+<h2 id="integration-packages">Integration packages</h2>
+<p>During the Laminas initiative, one goal was to reduce the number of
+dependencies for each package. This affected the MVC in particular, as a number
+of features were optional or presented deep integrations between the MVC and
+other components. These include the following:</p>
+<h3>Console tooling</h3>
+<p>If you were using the MVC console tooling, and are doing a partial update per
+the recommendations, you will need to install
+<a href="https://docs.laminas.dev/laminas-mvc-console/">laminas-mvc-console</a>.</p>
+<h3>Forms integration</h3>
+<p>If you were using the forms in your MVC application, and are doing a partial
+update per the recommendations, you will need to install
+<a href="https://docs.laminas.dev/laminas-mvc-form/">laminas-mvc-form</a>.</p>
+<h3>i18n integration</h3>
+<p>If you were using i18n features in your MVC application, and are doing a partial
+update per the recommendations, you will need to install
+<a href="https://docs.laminas.dev/laminas-mvc-i18n/">laminas-mvc-i18n</a>.</p>
+<h3>Plugins</h3>
+<p>If you were using any of the <code>prg()</code>, <code>fileprg()</code>, <code>identity()</code>, or
+<code>flashMessenger()</code> MVC controller plugins, and are doing a partial update per
+the recommendations, you will need to install
+<a href="https://docs.laminas.dev/laminas-mvc-plugins/">laminas-mvc-plugins</a>.</p>
+<h3>laminas-di integration</h3>
+<p>If you were using the laminas-servicemanager &lt;-&gt; laminas-di integration within
+your application, you will need to install
+<a href="https://docs.laminas.dev/laminas-servicemanager-di/">laminas-servicemanager-di</a>.</p>
+<h2 id="autoloading">Autoloading</h2>
+<p>If you are doing a partial upgrade per the above recommendations (vs. upgrading
+the full laminas package), one change is that laminas-loader is no longer
+installed by default, nor recommended. Instead, we recommend using
+<a href="https://getcomposer.org/doc/04-schema.md#autoload">Composer for autoloading</a>.</p>
+<p>As such, you will need to setup autoloading rules for each module specific to
+your application.</p>
+<p>As an example, if you are still defining the default <code>Application</code> module, you
+can add autoloading for it as follows in your project's <code>composer.json</code>:</p>
+<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
+    &quot;psr-4&quot;: {
+        &quot;Application\\&quot;: &quot;module/Application/src/Application/&quot;
+    },
+    &quot;files&quot;:  [
+        &quot;module/Application/Module.php&quot;
+    ]
+}</code></pre>
+<p>The above creates a <a href="http://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloading rule
+for the <code>Application</code> module, telling it to look in the
+<code>module/Application/src/Application/</code> directory. Since the <code>Application\Module</code>
+class is defined at the module root, we specify it in the <code>files</code> configuration.</p>
+<p>To improve on this, and simplify autoloading, we recommend adopting a complete
+PSR-4 directory structure for your module class files. As an example, to change
+the existing <code>Application</code> module to PSR-4, you can do the following:</p>
+<pre class=codehilite><code class=language-bash>$ cd module/Application
+$ mv src temp
+$ mv temp/Application src
+$ rm -Rf ./temp
+$ mv Module.php src/</code></pre>
+<p>Update your <code>Module.php</code> file to do the following:</p>
+<ul>
+<li>Remove the <code>getAutoloaderConfig()</code> method entirely, if defined.</li>
+<li>Update the <code>getConfig()</code> method from <code>include __DIR__ .
+  '/config/module.config.php</code> to <code>include _DIR__ .
+  '/../config/module.config.php</code>.</li>
+</ul>
+<p>You can then update the <code>autoload</code> configuration to:</p>
+<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
+    &quot;psr-4&quot;: {
+        &quot;Application\\&quot;: &quot;module/Application/src/&quot;
+    }
+}</code></pre>
+<p>Afterwards, run the following to update the generated autoloader:</p>
+<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<p>The updated application skeleton already takes this approach.</p>
+<h2 id="bootstrap">Bootstrap</h2>
+<p>Because version 3 requires usage of Composer for autoloading, you can simplify
+your application bootstrap.</p>
+<p>First, if you were using an <code>init_autoloader.php</code> file, you can now remove it.</p>
+<p>Second, update your <code>public/index.php</code> to read as follows:</p>
+<pre class=codehilite><code class=language-php>&lt;?php
+
+use Laminas\Mvc\Application;
+
+/**
+ * This makes our life easier when dealing with paths. Everything is relative
+ * to the application root now.
+ */
+chdir(dirname(__DIR__));
+
+// Decline static file requests back to the PHP built-in webserver
+if (php_sapi_name() === 'cli-server') {
+    $path = realpath(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    if (__FILE__ !== $path &amp;&amp; is_file($path)) {
+        return false;
+    }
+    unset($path);
+}
+
+// Composer autoloading
+include __DIR__ . '/../vendor/autoload.php';
+
+if (! class_exists(Application::class)) {
+    throw new RuntimeException(
+        &quot;Unable to load application.\n&quot;
+        . &quot;- Type `composer install` if you are developing locally.\n&quot;
+    );
+}
+
+// Run the application!
+Application::init(require __DIR__ . '/../config/application.config.php')-&gt;run();</code></pre>
+<h2 id="scripts">Scripts</h2>
+<p>The skeleton application for version 2 shipped three scripts with it:</p>
+<ul>
+<li><code>bin/classmap_generator.php</code></li>
+<li><code>bin/pluginmap_generator.php</code></li>
+<li><code>bin/templatemap_generator.php</code></li>
+</ul>
+<p>If you are upgrading an existing application, these will still be present.
+However, if you are starting a new application, and used these previously, they
+are no longer present.</p>
+<ul>
+<li><code>classmap_generator.php</code> was removed as it's unnecessary when using Composer
+  for autoloading. When preparing a production installation, run <code>composer
+  dump-autoload -o</code> and/or <code>composer dump-autoload -a</code>; both will generate
+  optimized class map autoloading rules for you.</li>
+<li><code>pluginmap_generator.php</code> was essentially obsolete due to the presence of
+  <code>classmap_generator.php</code> anyways.</li>
+<li><code>templatemap_generator.php</code> was moved to the laminas-view component with the
+  2.8.0 release of that component, and is now available via
+  <code>./vendor/bin/templatemap_generator.php</code>. Additionally, its usage signature
+  has changed; please use the <code>--help</code> or <code>-h</code> switches on first invocation to
+  discover how to use it.</li>
+</ul>
+<h2 id="development-mode">Development mode</h2>
+<p>Version 3 of the skeleton application adds a requirement on
+<a href="https://github.com/laminas/laminas-development-mode">laminas/laminas-development-mode</a>,
+which provides a way to store common development-specific settings in your
+repository and then selectively enable/disable them during development.</p>
+<p>If you are upgrading from an existing application, you can install this feature:</p>
+<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-development-mode</code></pre>
+<p>Please refer to the <a href="https://github.com/laminas/laminas-development-mode">package documentation</a>
+for details on how to setup your application configuration to make use of this
+feature.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../components/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/migration/to-v3/application.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">Tutorials</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">MVC Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Getting Started with Laminas</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/skeleton-application/" class="subnavigation__link">The Skeleton Application</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/modules/" class="subnavigation__link">Modules</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/routing-and-controllers/" class="subnavigation__link">Routing and Controllers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/database-and-models/" class="subnavigation__link">Database and Models</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/forms-and-actions/" class="subnavigation__link">Forms and Actions</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../getting-started/conclusion/" class="subnavigation__link">Conclusion</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../unit-testing/" class="subnavigation__link">Unit Testing A laminas-mvc Application</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../navigation/" class="subnavigation__link">Adding laminas-navigation to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../pagination/" class="subnavigation__link">Adding laminas-paginator to the Album Module</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">In-Depth Tutorial</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/first-module/" class="subnavigation__link">Introducing the Blog Module</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/models-and-servicemanager/" class="subnavigation__link">Models and the ServiceManager</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/preparing-databases/" class="subnavigation__link">Preparing for Different Databases</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/laminas-db-sql-laminas-hydrator/" class="subnavigation__link">SQL Abstraction and Object Hydration</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/understanding-routing/" class="subnavigation__link">Understanding the Router</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/laminas-form-laminas-form-fieldset/" class="subnavigation__link">Making Use of Forms and Fieldsets</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/data-binding/" class="subnavigation__link">Editing and Deleting Data</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../../in-depth-guide/review/" class="subnavigation__link">Reviewing the Blog Module</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../advanced-config/" class="subnavigation__link">Advanced Configuration</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../i18n/" class="subnavigation__link">Internationalization</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Component Tutorials</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../db-adapter/" class="subnavigation__link">Setting Up A Database Adapter</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../../event-manager/" class="subnavigation__link">Using the EventManager</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Migration</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">To Version 3</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../overview/" class="subnavigation__link">Overview</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../components/" class="subnavigation__link">Components</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Applications</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/tutorials/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../../..',
+            project  = "components",
+            siteName = 'Tutorials';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in Tutorials" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
