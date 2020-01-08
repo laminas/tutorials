@@ -1,9 +1,9 @@
-docs_dir: doc/book
-site_dir: doc/html
+docs_dir: docs/book
+site_dir: docs/html
 nav:
     - Home: index.md
     - "MVC Tutorials":
-      - "Getting Started with Zend Framework":
+      - "Getting Started with Laminas":
           - Overview: getting-started/overview.md
           - "The Skeleton Application": getting-started/skeleton-application.md
           - Modules: getting-started/modules.md
@@ -11,16 +11,16 @@ nav:
           - "Database and Models": getting-started/database-and-models.md
           - "Forms and Actions": getting-started/forms-and-actions.md
           - Conclusion: getting-started/conclusion.md
-      - "Unit Testing A zend-mvc Application": unit-testing.md
-      - "Adding zend-navigation to the Album Module": navigation.md
-      - "Adding zend-paginator to the Album Module": pagination.md
+      - "Unit Testing A laminas-mvc Application": unit-testing.md
+      - "Adding laminas-navigation to the Album Module": navigation.md
+      - "Adding laminas-paginator to the Album Module": pagination.md
       - "In-Depth Tutorial":
           - "Introducing the Blog Module": in-depth-guide/first-module.md
           - "Models and the ServiceManager": in-depth-guide/models-and-servicemanager.md
           - "Preparing for Different Databases": in-depth-guide/preparing-databases.md
-          - "SQL Abstraction and Object Hydration": in-depth-guide/zend-db-sql-zend-hydrator.md
+          - "SQL Abstraction and Object Hydration": in-depth-guide/laminas-db-sql-laminas-hydrator.md
           - "Understanding the Router": in-depth-guide/understanding-routing.md
-          - "Making Use of Forms and Fieldsets": in-depth-guide/zend-form-zend-form-fieldset.md
+          - "Making Use of Forms and Fieldsets": in-depth-guide/laminas-form-laminas-form-fieldset.md
           - "Editing and Deleting Data": in-depth-guide/data-binding.md
           - "Reviewing the Blog Module": in-depth-guide/review.md
       - "Advanced Configuration": advanced-config.md
@@ -34,7 +34,8 @@ nav:
             - Components: migration/to-v3/components.md
             - Applications: migration/to-v3/application.md
 site_name: Tutorials
-site_description: 'Learn how to create zend-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
-repo_url: 'https://github.com/zendframework/tutorials'
+site_description: 'Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
+repo_url: 'https://github.com/laminas/tutorials'
 extra:
     show_special_homepage : true
+    project: Components

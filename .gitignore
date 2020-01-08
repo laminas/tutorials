@@ -1,2 +1,4 @@
-doc/html/
-zf-mkdoc-theme/
+/composer.lock
+/doc/html/
+/laminas-mkdoc-theme.tgz
+/laminas-mkdoc-theme/

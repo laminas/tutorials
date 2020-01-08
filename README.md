@@ -1,6 +1,6 @@
-# Tutorials for Zend Framework
+# Tutorials for Laminas
 
-This repository contains tutorials for learning Zend Framework, particularly
-around building zend-mvc applications.
+This repository contains tutorials for learning Laminas, particularly
+around building laminas-mvc applications.
 
-Please see the [generated documentation](https://docs.zendframework.com/tutorials/).
+Please see the [generated documentation](https://docs.laminas.dev/tutorials/).

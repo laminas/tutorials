@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 branches:
@@ -7,9 +5,10 @@ branches:
         - master
 
 matrix:
+  fast_finish: true
     include:
         - php: 7.1
 
 script:
   - if [[ ! -e mkdocs.yml ]]; then echo "Missing mkdocs.yml!" && return 1; fi
-  - if [[ ! -d doc/book ]]; then echo "Missing doc/book/ sub-directory" && return 1; fi
+  - if [[ ! -d docs/book ]]; then echo "Missing docs/book/ sub-directory" && return 1; fi
