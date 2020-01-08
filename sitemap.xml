@@ -6,6 +6,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://docs.laminas.dev/migration-from-zendframework/</loc>
+     <lastmod>2020-01-08</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://docs.laminas.dev/getting-started/overview/</loc>
      <lastmod>2020-01-08</lastmod>
      <changefreq>daily</changefreq>
