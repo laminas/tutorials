@@ -2,7 +2,7 @@
 
 In order to build our application, we will start with the
 [Laminas MVC Skeleton Application](https://github.com/laminas/laminas-mvc-skeleton)
-available on [github](https://github.com/). Use [Composer](https://getcomposer.org)
+available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.org)
 to create a new project from scratch:
 
 ```bash
