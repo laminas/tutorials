@@ -1,4 +1,4 @@
-# Unit Testing a laminas-mvc application
+# Unit Testing a Laminas MVC application
 
 A solid unit test suite is essential for ongoing development in large projects,
 especially those with many people involved. Going back and manually testing
@@ -119,7 +119,7 @@ test suite to it. When done, it should read as follows:
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="LaminasSkeletonApplication Test Suite">
+        <testsuite name="Laminas MVC Application Test Suite">
             <directory>./module/Application/test</directory>
         </testsuite>
         <testsuite name="Album">

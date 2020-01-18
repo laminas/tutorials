@@ -2,7 +2,7 @@
 
 In order to build our application, we will start with the
 [Laminas MVC Skeleton Application](https://github.com/laminas/laminas-mvc-skeleton)
-available on [github](https://github.com/). Use [Composer](<http://getcomposer.org>)
+available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.org)
 to create a new project from scratch:
 
 ```bash
@@ -120,7 +120,7 @@ new application is ready to start!
 
 > ### Downloading the skeleton
 >
-> Another way to install the LaminasSkeletonApplication is to use github to
+> Another way to install the Laminas MVC Skeleton Application is to use github to
 > download a compressed archive. Go to
 > https://github.com/laminas/laminas-mvc-skeleton, click the "Clone or
 > download" button, and select "Download ZIP". This will download a file with a
@@ -129,7 +129,7 @@ new application is ready to start!
 > Unzip this file into the directory where you keep all your vhosts and rename
 > the resultant directory to `laminas-mvc-tutorial`.
 >
-> laminas-mvc-skeleton is set up to use [Composer](http://getcomposer.org)
+> laminas-mvc-skeleton is set up to use [Composer](https://getcomposer.org)
 > to resolve its dependencies. Run the following from within your new
 > laminas-mvc-tutorial folder to install them:
 >
@@ -142,7 +142,7 @@ new application is ready to start!
 >
 > ```text
 > Installing dependencies from lock file
-> - Installing laminas/laminas-component-installer (0.2.0)
+> - Installing laminas/laminas-component-installer (2.1.2)
 >   
 > ...
 >
