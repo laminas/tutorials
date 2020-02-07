@@ -59,7 +59,7 @@ Handled event "do", with parameters {"foo":"bar","baz":"bat"}
 ### Event instances
 
 `trigger()` is useful as it will create a `Laminas\EventManager\Event` instance for
-you. You may want to create such an instance manually for instance, you may
+you. You may want to create such an instance manually; for instance, you may
 want to re-use the same event instance to trigger multiple events, or you may
 want to use a custom instance.
 
