@@ -239,7 +239,7 @@ slightly:
 
 ```php
 'config_glob_paths' => [
-    realpath(__DIR__) . sprintf('config/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
+    realpath(__DIR__) . sprintf('/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
 ],
 ```
 
