@@ -30,7 +30,7 @@ supported mechanism currently.)
 
 ### Make sure your code is under version control
 
-The migration tool changes source code, updates tempaltes, modifies your
+The migration tool changes source code, updates templates, modifies your
 `composer.json` and removes your `composer.lock` and `vendor/` subdirectory,
 among other things. If you want to be able to roll back in the case of a
 problem, please make certain your code is under version control!
