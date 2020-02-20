@@ -141,8 +141,33 @@ few more tasks left:
 
 While we could re-use our existing controller, it has a different
 responsibility: it will be *writing* new blog posts. As such, it will need to
-emit *commands*, and thus use the `PostCommandInterface` that we have defined
-previously.
+emit *commands*, and thus use the `PostCommandInterface`:
+
+```php
+// In /module/Blog/src/Model/PostCommandInterface.php :
+
+namespace Blog\Model;
+
+use DomainException;
+
+interface PostCommandInterface
+{
+    /**
+     * Insert a new blog post.
+     */
+    public function insertPost(Post $post);
+
+    /**
+     * Update post.
+     */
+    public function updatePost(Post $post);
+    
+    /**
+     * Update post.
+     */
+     public function deletePost(Post $post);
+}
+```
 
 To do that, it needs to accept and process user input, which we have modeled
 in our `PostForm` in a previous section of this chapter.
