@@ -2,7 +2,6 @@ docs_dir: docs/book
 site_dir: docs/html
 nav:
     - Home: index.md
-    - "Migration from Zend Framework": migration-from-zendframework.md
     - "MVC Tutorials":
       - "Getting Started with Laminas":
           - Overview: getting-started/overview.md
@@ -34,6 +33,9 @@ nav:
             - Overview: migration/to-v3/overview.md
             - Components: migration/to-v3/components.md
             - Applications: migration/to-v3/application.md
+    - "_hidden":
+        - "_migration-from-zendframework": migration-from-zendframework.md
+
 site_name: Tutorials
 site_description: 'Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
 repo_url: 'https://github.com/laminas/tutorials'
