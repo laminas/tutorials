@@ -4,10 +4,6 @@
      <lastmod>2020-03-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://docs.laminas.dev/tutorials/migration-from-zendframework/</loc>
-     <lastmod>2020-03-02</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/overview/</loc>
      <lastmod>2020-03-02</lastmod>
      <changefreq>daily</changefreq>
@@ -105,6 +101,10 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/migration/to-v3/application/</loc>
+     <lastmod>2020-03-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://docs.laminas.dev/tutorials/migration-from-zendframework/</loc>
      <lastmod>2020-03-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
