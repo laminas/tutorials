@@ -1,13 +1,13 @@
 language: php
 
 branches:
-    only:
-        - master
+  only:
+    - master
 
 matrix:
   fast_finish: true
-    include:
-        - php: 7.1
+  include:
+    - php: 7.1
 
 script:
   - if [[ ! -e mkdocs.yml ]]; then echo "Missing mkdocs.yml!" && return 1; fi
