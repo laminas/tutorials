@@ -604,7 +604,7 @@ directly into our view (laminas-form is, after all, optional!).
 Let's start with the action code in `AlbumController::deleteAction()`:
 
 ```php
-// module/Album/src/Album/Controller/AlbumController.php:
+// module/Album/src/Controller/AlbumController.php:
 //...
     // Add content to the following method:
     public function deleteAction()
