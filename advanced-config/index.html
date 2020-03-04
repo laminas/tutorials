@@ -684,7 +684,7 @@ environment variable is present.</p>
 <p>With that in place, We can alter the glob path in the system configuration
 slightly:</p>
 <pre class=codehilite><code class=language-php>'config_glob_paths' =&gt; [
-    realpath(__DIR__) . sprintf('config/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
+    realpath(__DIR__) . sprintf('/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
 ],</code></pre>
 <p>The above will allow you to define an additional set of application
 configuration files per environment; furthermore, these will be loaded <em>only</em> if
