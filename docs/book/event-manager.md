@@ -53,7 +53,7 @@ Handled event "do", with parameters {"foo":"bar","baz":"bat"}
 >
 > Throughout this tutorial, we use closures as listeners. However, any valid PHP
 > callback can be attached as a listeners: PHP function names, static class
-> methods, object instance methods, functors, or closures. We use closures
+> methods, object instance methods, function, or closures. We use closures
 > within this post for illustration only.
 
 ### Event instances
