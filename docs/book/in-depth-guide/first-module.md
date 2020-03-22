@@ -52,7 +52,6 @@ Next, we will create a `Module` class under the `Blog` namespace. Create the
 file `module/Blog/src/Module.php` with the following contents:
 
 ```php
-<?php
 namespace Blog;
 
 class Module
@@ -68,7 +67,6 @@ ModuleManager.  To do this, add an entry for `Blog` to the modules array inside
 `config/modules.config.php`:
 
 ```php
-<?php
 // In config/modules.config.php:
 
 return [
@@ -108,7 +106,7 @@ module class is optional.) This method should return either an `array` or a
 // In /module/Blog/src/Module.php:
 class Module
 {
-    public function getConfig()
+    public function getConfig() : array
     {
         return [];
     }
@@ -122,7 +120,6 @@ array configuration in a separate file. Go ahead and create this file at
 `module/Blog/config/module.config.php`:
 
 ```php
-<?php
 return [];
 ```
 
@@ -130,10 +127,9 @@ Now rewrite the `getConfig()` function to include this newly created
 file instead of directly returning the array:
 
 ```php
-<?php
 // In /module/Blog/src/Module.php:
 
-public function getConfig()
+public function getConfig() : array
 {
     return include __DIR__ . '/../config/module.config.php';
 }
@@ -227,7 +223,6 @@ Create the file `module/Blog/src/Controller/ListController.php` with the
 following contents:
 
 ```php
-<?php
 namespace Blog\Controller;
 
 class ListController
@@ -322,7 +317,7 @@ to look for view files. We do this within our module's configuration file,
 
 return [
     'controllers' => [ /** Controller Configuration */ ],
-    'router'      => [ /** Route Configuration */ ]
+    'router'      => [ /** Route Configuration */ ],
     'view_manager' => [
         'template_path_stack' => [
             __DIR__ . '/../view',
