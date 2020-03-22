@@ -512,8 +512,7 @@ project root, and edit the <code>autoload</code> section to add a new PSR-4 entr
 <pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
 <p>Next, we will create a <code>Module</code> class under the <code>Blog</code> namespace. Create the
 file <code>module/Blog/src/Module.php</code> with the following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
-namespace Blog;
+<pre class=codehilite><code class=language-php>namespace Blog;
 
 class Module
 {
@@ -524,8 +523,7 @@ Let's add this module to our application. Although our module doesn't do
 anything yet, just having the <code>Module.php</code> class allows it to be loaded by the
 ModuleManager.  To do this, add an entry for <code>Blog</code> to the modules array inside
 <code>config/modules.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
-// In config/modules.config.php:
+<pre class=codehilite><code class=language-php>// In config/modules.config.php:
 
 return [
     /* ... */
@@ -555,7 +553,7 @@ module class is optional.) This method should return either an <code>array</code
 <pre class=codehilite><code class=language-php>// In /module/Blog/src/Module.php:
 class Module
 {
-    public function getConfig()
+    public function getConfig() : array
     {
         return [];
     }
@@ -565,14 +563,12 @@ become quite big, though, and keeping everything inside the <code>getConfig()</c
 won't be optimal. To help keep our project organized, we're going to put our
 array configuration in a separate file. Go ahead and create this file at
 <code>module/Blog/config/module.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
-return [];</code></pre>
+<pre class=codehilite><code class=language-php>return [];</code></pre>
 <p>Now rewrite the <code>getConfig()</code> function to include this newly created
 file instead of directly returning the array:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
-// In /module/Blog/src/Module.php:
+<pre class=codehilite><code class=language-php>// In /module/Blog/src/Module.php:
 
-public function getConfig()
+public function getConfig() : array
 {
     return include __DIR__ . '/../config/module.config.php';
 }</code></pre>
@@ -645,8 +641,7 @@ able to autoload it. In our case, we've already setup autoloading, but have not
 yet defined the controller class!</p>
 <p>Create the file <code>module/Blog/src/Controller/ListController.php</code> with the
 following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
-namespace Blog\Controller;
+<pre class=codehilite><code class=language-php>namespace Blog\Controller;
 
 class ListController
 {
@@ -719,7 +714,7 @@ to look for view files. We do this within our module's configuration file,
 
 return [
     'controllers' =&gt; [ /** Controller Configuration */ ],
-    'router'      =&gt; [ /** Route Configuration */ ]
+    'router'      =&gt; [ /** Route Configuration */ ],
     'view_manager' =&gt; [
         'template_path_stack' =&gt; [
             __DIR__ . '/../view',
