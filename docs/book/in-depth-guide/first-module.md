@@ -258,7 +258,7 @@ controller implementation of it with
 which we are going to use. Let's modify our controller now:
 
 ```php
-// In /module/Blog/src/Blog/Controller/ListController.php:
+// In /module/Blog/src/Controller/ListController.php:
 
 namespace Blog\Controller;
 
