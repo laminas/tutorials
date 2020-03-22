@@ -105,7 +105,7 @@ module class is optional.) This method should return either an `array` or a
 `Traversable` object. Continue by editing `module/Blog/src/Module.php`:
 
 ```php
-// In /module/Blog/Module.php:
+// In /module/Blog/src/Module.php:
 class Module
 {
     public function getConfig()
@@ -131,7 +131,7 @@ file instead of directly returning the array:
 
 ```php
 <?php
-// In /module/Blog/Module.php:
+// In /module/Blog/src/Module.php:
 
 public function getConfig()
 {
