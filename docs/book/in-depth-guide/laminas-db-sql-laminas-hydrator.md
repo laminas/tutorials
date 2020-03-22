@@ -364,7 +364,7 @@ Laminas\Db\ResultSet\ResultSet::__set_state(array(
             'fetchMode'       => 2,
             'resource'        =>
                 PDOStatement::__set_state(array(
-                    'queryString' => 'SELECT "album".* FROM "album"',
+                    'queryString' => 'SELECT "posts".* FROM "posts"',
                 )),
             'options'         => null,
             'currentComplete' => false,
