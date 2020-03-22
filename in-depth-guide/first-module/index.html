@@ -552,7 +552,7 @@ returns the configuration. (This method is defined in the
 <code>ConfigProviderInterface</code>, although explicitly implementing this interface in the
 module class is optional.) This method should return either an <code>array</code> or a
 <code>Traversable</code> object. Continue by editing <code>module/Blog/src/Module.php</code>:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/Module.php:
+<pre class=codehilite><code class=language-php>// In /module/Blog/src/Module.php:
 class Module
 {
     public function getConfig()
@@ -570,7 +570,7 @@ return [];</code></pre>
 <p>Now rewrite the <code>getConfig()</code> function to include this newly created
 file instead of directly returning the array:</p>
 <pre class=codehilite><code class=language-php>&lt;?php
-// In /module/Blog/Module.php:
+// In /module/Blog/src/Module.php:
 
 public function getConfig()
 {
