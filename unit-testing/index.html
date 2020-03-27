@@ -541,7 +541,7 @@ $ &quot;vendor/bin/phpunit&quot;
 </code></pre>
 </blockquote>
 <p>You should see output similar to the following:</p>
-<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+<pre class=codehilite><code class=language-text>PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 ...                                                                 3 / 3 (100%)
 
@@ -601,7 +601,7 @@ $ &quot;vendor/bin/phpunit&quot; --testsuite Album
 </code></pre>
 </blockquote>
 <p>You should get similar output to the following:</p>
-<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+<pre class=codehilite><code class=language-text>PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 Time: 0 seconds, Memory: 1.75Mb
 
@@ -623,7 +623,7 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = false;
 
-    public function setUp()
+    protected function setUp() : void
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,
@@ -670,7 +670,7 @@ module.</p>
 <p>If you run:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album</code></pre>
 <p>again, you should see something like the following:</p>
-<pre class=codehilite><code class=language-text>PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+<pre class=codehilite><code class=language-text>PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -693,7 +693,7 @@ $services-&gt;setAllowOverride(false);</code></pre>
 something else before long.</p>
 <p>When we run the tests now:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 F
 
@@ -789,7 +789,7 @@ that's bundled and integrated in PHPUnit. The instance returned by
 <code>configureServiceManager()</code> method above, provides the underlying mock object
 that will then be asserted against.</p>
 <p>With this in place, we can update our <code>setUp()</code> method to read as follows:</p>
-<pre class=codehilite><code class=language-php>public function setUp()
+<pre class=codehilite><code class=language-php>protected function setUp() : void
 {
     // The module configuration should still be applicable for tests.
     // You can override configuration here with test case specific values,
@@ -822,7 +822,7 @@ the <code>AlbumTable</code>'s <code>fetchAll()</code> method will be called, and
 <p>Running <code>phpunit</code> at this point, we will get the following output as the tests
 now pass:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -860,7 +860,7 @@ pass data to it. This test case then asserts a 302 response status, and
 introduces a new assertion against the location to which the response redirects.</p>
 <p>Running <code>phpunit</code> gives us the following output:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 ..                                                                  2 / 2 (100%)
 
@@ -998,7 +998,7 @@ class AlbumTest extends TestCase
 <p>If we run <code>phpunit</code> again, we will get the following output, confirming that our
 model is indeed correct:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .......                                                             7 / 7 (100%)
 
@@ -1026,7 +1026,7 @@ use Laminas\Db\TableGateway\TableGatewayInterface;
 
 class AlbumTableTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         $this-&gt;tableGateway = $this-&gt;prophesize(TableGatewayInterface::class);
         $this-&gt;albumTable = new AlbumTable($this-&gt;tableGateway-&gt;reveal());
@@ -1122,7 +1122,7 @@ against methods in our <code>AlbumTable</code>.</p>
 </ol>
 <p>Running <code>phpunit</code> one last time, we get the output as follows:</p>
 <pre class=codehilite><code class=language-bash>$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .............                                                     13 / 13 (100%)
 
