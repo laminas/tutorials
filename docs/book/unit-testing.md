@@ -54,7 +54,7 @@ $ ./vendor/bin/phpunit
 You should see output similar to the following:
 
 ```text
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 ...                                                                 3 / 3 (100%)
 
@@ -146,7 +146,7 @@ $ ./vendor/bin/phpunit --testsuite Album
 You should get similar output to the following:
 
 ```text
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 Time: 0 seconds, Memory: 1.75Mb
 
@@ -175,7 +175,7 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = false;
 
-    public function setUp()
+    protected function setUp() : void
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,
@@ -237,7 +237,7 @@ $ ./vendor/bin/phpunit --testsuite Album
 again, you should see something like the following:
 
 ```text
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -271,7 +271,7 @@ When we run the tests now:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 F
 
@@ -400,7 +400,7 @@ that will then be asserted against.
 With this in place, we can update our `setUp()` method to read as follows:
 
 ```php
-public function setUp()
+protected function setUp() : void
 {
     // The module configuration should still be applicable for tests.
     // You can override configuration here with test case specific values,
@@ -441,7 +441,7 @@ now pass:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
@@ -494,7 +494,7 @@ Running `phpunit` gives us the following output:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 ..                                                                  2 / 2 (100%)
 
@@ -648,7 +648,7 @@ model is indeed correct:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .......                                                             7 / 7 (100%)
 
@@ -684,7 +684,7 @@ use Laminas\Db\TableGateway\TableGatewayInterface;
 
 class AlbumTableTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->tableGateway = $this->prophesize(TableGatewayInterface::class);
         $this->albumTable = new AlbumTable($this->tableGateway->reveal());
@@ -789,7 +789,7 @@ Running `phpunit` one last time, we get the output as follows:
 
 ```bash
 $ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 5.4.6 by Sebastian Bergmann and contributors.
+PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
 
 .............                                                     13 / 13 (100%)
 
