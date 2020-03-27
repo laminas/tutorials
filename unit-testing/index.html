@@ -525,7 +525,9 @@ cover using that library for testing your applications.</p>
 <p><a href="https://docs.laminas.dev/laminas-test/">laminas-test</a> provides PHPUnit
 integration for laminas-mvc, including application scaffolding and custom
 assertions. You will need to install it:</p>
-<pre class=codehilite><code class=language-bash>$ composer require --dev laminas/laminas-test</code></pre>
+<pre class=codehilite><code class=language-bash>$ composer require --dev laminas/laminas-test phpunit/phpunit</code></pre>
+<p>laminas-test package supports very wide range of PHPUnit versions, make sure to
+always explicitly require phpunit/phpunit versions that are compatible with your tests.</p>
 <p>The above command will update your <code>composer.json</code> file and perform an update
 for you, which will also setup autoloading rules.</p>
 <h2 id="running-the-initial-tests">Running the initial tests</h2>
