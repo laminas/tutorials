@@ -27,8 +27,11 @@ integration for laminas-mvc, including application scaffolding and custom
 assertions. You will need to install it:
 
 ```bash
-$ composer require --dev laminas/laminas-test
+$ composer require --dev laminas/laminas-test phpunit/phpunit
 ```
+
+laminas-test package supports very wide range of PHPUnit versions, make sure to
+always explicitly require phpunit/phpunit versions that are compatible with your tests.
 
 The above command will update your `composer.json` file and perform an update
 for you, which will also setup autoloading rules.
