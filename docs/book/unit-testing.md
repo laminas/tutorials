@@ -175,7 +175,7 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = false;
 
-    public function setUp()
+    protected function setUp() : void
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,
@@ -400,7 +400,7 @@ that will then be asserted against.
 With this in place, we can update our `setUp()` method to read as follows:
 
 ```php
-public function setUp()
+protected function setUp() : void
 {
     // The module configuration should still be applicable for tests.
     // You can override configuration here with test case specific values,
@@ -684,7 +684,7 @@ use Laminas\Db\TableGateway\TableGatewayInterface;
 
 class AlbumTableTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->tableGateway = $this->prophesize(TableGatewayInterface::class);
         $this->albumTable = new AlbumTable($this->tableGateway->reveal());
