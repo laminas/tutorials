@@ -497,15 +497,17 @@ database. We will make use of laminas-db's <code>Laminas\Db\TableGateway\TableGa
 find, insert, update, and delete rows from a database table.</p>
 <p>We are going to use Sqlite, via PHP's PDO driver. Create a text file
 <code>data/schema.sql</code> with the following contents:</p>
-<pre class=codehilite><code class=language-sql>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
+<pre class="highlight"><code class="language-sql">CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
 INSERT INTO album (artist, title) VALUES ('The Military Wives', 'In My Dreams');
 INSERT INTO album (artist, title) VALUES ('Adele', '21');
 INSERT INTO album (artist, title) VALUES ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
 INSERT INTO album (artist, title) VALUES ('Lana Del Rey', 'Born To Die');
 INSERT INTO album (artist, title) VALUES ('Gotye', 'Making Mirrors');</code></pre>
+
 <p>(The test data chosen happens to be the Bestsellers on Amazon UK at the time of writing!)</p>
 <p>Now create the database using the following:</p>
-<pre class=codehilite><code class=language-bash>$ sqlite data/laminastutorial.db &lt; data/schema.sql</code></pre>
+<pre class="highlight"><code class="language-bash">$ sqlite data/laminastutorial.db &lt; data/schema.sql</code></pre>
+
 <p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
 one to use on your system.</p>
 <blockquote>
@@ -513,19 +515,17 @@ one to use on your system.</p>
 <p>If you do not have Sqlite installed on your system, you can use PHP to load
 the database using the same SQL schema file created earlier. Create the file
 <code>data/load_db.php</code> with the following contents:</p>
-<pre class="codehilite"><code class="language-php">
-&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 $db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
 $fh = fopen(__DIR__ . '/schema.sql', 'r');
 while ($line = fread($fh, 4096)) {
     $db-&gt;exec($line);
 }
-fclose($fh);
-</code></pre>
+fclose($fh);</code></pre>
+
 <p>Once created, execute it:</p>
-<pre class="codehilite"><code class="language-bash">
-$ php data/load_db.php
-</code></pre>
+<pre class="highlight"><code class="language-bash">$ php data/load_db.php</code></pre>
+
 </blockquote>
 <p>We now have some data in a database and can write a very simple model for it.</p>
 <h2 id="the-model-files">The model files</h2>
@@ -546,7 +546,7 @@ action methods as these are exposed by <code>Laminas\Db\TableGateway\AbstractTab
 <em>Don't do this</em>!</p>
 <p>Let's start by creating a file called <code>Album.php</code> under
 <code>module/Album/src/Model</code>:</p>
-<pre class=codehilite><code class=language-php>namespace Album\Model;
+<pre class="highlight"><code class="language-php">namespace Album\Model;
 
 class Album
 {
@@ -561,12 +561,13 @@ class Album
         $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
     }
 }</code></pre>
+
 <p>Our <code>Album</code> entity object is a PHP class. In order to work with laminas-db's
 <code>TableGateway</code> class, we need to implement the <code>exchangeArray()</code> method; this
 method copies the data from the provided array to our entity's properties. We
 will add an input filter later to ensure the values injected are valid.</p>
 <p>Next, we create our <code>AlbumTable.php</code> file in <code>module/Album/src/Model</code> directory like this:</p>
-<pre class=codehilite><code class=language-php>namespace Album\Model;
+<pre class="highlight"><code class="language-php">namespace Album\Model;
 
 use RuntimeException;
 use Laminas\Db\TableGateway\TableGatewayInterface;
@@ -630,7 +631,9 @@ class AlbumTable
     {
         $this-&gt;tableGateway-&gt;delete(['id' =&gt; (int) $id]);
     }
-}</code></pre>
+}
+</code></pre>
+
 <p>There's a lot going on here. Firstly, we set the protected property
 <code>$tableGateway</code> to the <code>TableGateway</code> instance passed in the constructor,
 hinting against the <code>TableGatewayInterface</code> (which allows us to provide
@@ -654,7 +657,7 @@ class) that instantiates the object when the <code>ServiceManager</code> needs i
 by implementing <code>getServiceConfig()</code> to provide a factory that creates an
 <code>AlbumTable</code>. Add this method to the bottom of the <code>module/Album/src/Module.php</code>
 file:</p>
-<pre class=codehilite><code class=language-php>namespace Album;
+<pre class="highlight"><code class="language-php">namespace Album;
 
 // Add these import statements:
 use Laminas\Db\Adapter\AdapterInterface;
@@ -685,6 +688,7 @@ class Module implements ConfigProviderInterface
         ];
     }
 }</code></pre>
+
 <p>This method returns an array of <code>factories</code> that are all merged together by the
 <code>ModuleManager</code> before passing them to the <code>ServiceManager</code>. The factory for
 <code>Album\Model\AlbumTable</code> uses the <code>ServiceManager</code> to create an
@@ -716,13 +720,14 @@ class in your module configuration. This approach has a number of benefits:</p>
 <p>The <code>Laminas\Db\Adapter\AdapterInterface</code> service is registered by the laminas-db
 component.  You may have noticed earlier that <code>config/modules.config.php</code>
 contains the following entries:</p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     'Laminas\Form',
     'Laminas\Db',
     'Laminas\Router',
     'Laminas\Validator',
     /* ... */
 ],</code></pre>
+
 <p>All Laminas components that provide laminas-servicemanager configuration are
 also exposed as modules themselves; the prompts as to where to register the
 components during our initial installation occurred to ensure that the above
@@ -738,12 +743,13 @@ your version control system. You can use <code>local.php</code> (outside of the 
 store the credentials for your database if you want to. Modify
 <code>config/autoload/global.php</code> (in the project root, not inside the <code>Album</code>
 module) with following code:</p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     'db' =&gt; [
         'driver' =&gt; 'Pdo',
         'dsn'    =&gt; sprintf('sqlite:%s/data/laminastutorial.db', realpath(getcwd())),
     ],
 ];</code></pre>
+
 <p>If you were configuring a database that required credentials, you would put the
 general configuration in your <code>config/autoload/global.php</code>, and then the
 configuration for the current environment, including the DSN and credentials, in
@@ -756,7 +762,7 @@ it.</p>
 <p>Firstly, we'll add a constructor to our controller. Open the file
 <code>module/Album/src/Controller/AlbumController.php</code> and add the following property
 and constructor:</p>
-<pre class=codehilite><code class=language-php>namespace Album\Controller;
+<pre class="highlight"><code class="language-php">namespace Album\Controller;
 
 // Add the following import:
 use Album\Model\AlbumTable;
@@ -776,11 +782,12 @@ class AlbumController extends AbstractActionController
 
     /* ... */
 }</code></pre>
+
 <p>Our controller now depends on <code>AlbumTable</code>, so we will need to create a factory
 for the controller.  Similar to how we created factories for the model, we'll
 create it in our <code>Module</code> class, only this time, under a new method,
 <code>Album\Module::getControllerConfig()</code>:</p>
-<pre class=codehilite><code class=language-php>namespace Album;
+<pre class="highlight"><code class="language-php">namespace Album;
 
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
@@ -805,17 +812,18 @@ class Module implements ConfigProviderInterface
         ];
     }
 }</code></pre>
+
 <p>Because we're now defining our own factory, we can modify our
 <code>module.config.php</code> to remove the definition. Open
 <code>module/Album/config/module.config.php</code> and remove the following lines:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Album;
 
 // Remove this:
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    // And remove the entire &quot;controllers&quot; section here:
+    // And remove the entire "controllers" section here:
     'controllers' =&gt; [
         'factories' =&gt; [
             Controller\AlbumController::class =&gt; InvokableFactory::class,
@@ -824,13 +832,14 @@ return [
 
     /* ... */
 ];</code></pre>
+
 <p>We can now access the property <code>$table</code> from within our controller whenever we
 need to interact with our model.</p>
 <h2 id="listing-albums">Listing albums</h2>
 <p>In order to list the albums, we need to retrieve them from the model and pass
 them to the view. To do this, we fill in <code>indexAction()</code> within
 <code>AlbumController</code>. Update the <code>AlbumController::indexAction()</code> as follows:</p>
-<pre class=codehilite><code class=language-php>// module/Album/src/Controller/AlbumController.php:
+<pre class="highlight"><code class="language-php">// module/Album/src/Controller/AlbumController.php:
 // ...
     public function indexAction()
     {
@@ -839,13 +848,14 @@ them to the view. To do this, we fill in <code>indexAction()</code> within
         ]);
     }
 // ...</code></pre>
+
 <p>With Laminas, in order to set variables in the view, we return a
 <code>ViewModel</code> instance where the first parameter of the constructor is an array
 containing data we wish to represent. These are then automatically passed to the
 view script. The <code>ViewModel</code> object also allows us to change the view script
 that is used, but the default is to use <code>{module name}/{controller name}/{action
 name}</code>. We can now fill in the <code>index.phtml</code> view script:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 // module/Album/view/album/album/index.phtml:
 
 $title = 'My albums';
@@ -853,10 +863,10 @@ $this-&gt;headTitle($title);
 ?&gt;
 &lt;h1&gt;&lt;?= $this-&gt;escapeHtml($title) ?&gt;&lt;/h1&gt;
 &lt;p&gt;
-    &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'add']) ?&gt;&quot;&gt;Add new album&lt;/a&gt;
+    &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'add']) ?&gt;"&gt;Add new album&lt;/a&gt;
 &lt;/p&gt;
 
-&lt;table class=&quot;table&quot;&gt;
+&lt;table class="table"&gt;
 &lt;tr&gt;
     &lt;th&gt;Title&lt;/th&gt;
     &lt;th&gt;Artist&lt;/th&gt;
@@ -867,12 +877,13 @@ $this-&gt;headTitle($title);
         &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;title) ?&gt;&lt;/td&gt;
         &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;artist) ?&gt;&lt;/td&gt;
         &lt;td&gt;
-            &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Edit&lt;/a&gt;
-            &lt;a href=&quot;&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;&quot;&gt;Delete&lt;/a&gt;
+            &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;Edit&lt;/a&gt;
+            &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;Delete&lt;/a&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
 &lt;?php endforeach; ?&gt;
 &lt;/table&gt;</code></pre>
+
 <p>The first thing we do is to set the title for the page (used in the layout) and
 also set the title for the <code>&lt;head&gt;</code> section using the <code>headTitle()</code> view helper
 which will display in the browser's title bar. We then create a link to add a

@@ -487,7 +487,8 @@ integration with laminas-mvc via the <a href="https://docs.laminas.dev/laminas-m
 component.</p>
 <h2 id="installation">Installation</h2>
 <p>Install laminas-mvc-i18n via Composer:</p>
-<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-mvc-i18n</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-mvc-i18n</code></pre>
+
 <p>Assuming you are using <a href="https://docs.laminas.dev/laminas-component-installer">laminas-component-installer</a>
 (which is installed by default with the skeleton application), this will prompt
 you to install the component as a module in your application; make sure you
@@ -529,7 +530,7 @@ that provides:</p>
 <li>a file pattern for identifying the files to use</li>
 </ul>
 <p>As examples:</p>
-<pre class=codehilite><code class=language-php>// in a module's module.config.php:
+<pre class="highlight"><code class="language-php">// in a module's module.config.php:
 'translator' =&gt; [
     'locale' =&gt; 'en_US',
     'translation_file_patterns' =&gt; [
@@ -552,6 +553,7 @@ that provides:</p>
         ],
     ],
 ],</code></pre>
+
 <p>Once the above configuration is in place, the translator will be active in your
 application, allowing you to use it.</p>
 <h2 id="translating-strings-in-templates">Translating strings in templates</h2>
@@ -561,7 +563,8 @@ and <a href="https://docs.laminas.dev/laminas-i18n/view-helpers/#translateplural
 view helpers allow you to provide translations within your view scripts.</p>
 <p>As an example, you might want to translate the string "All rights reserved" in
 your footer. You could do the following in your layout script:</p>
-<pre class=codehilite><code class=language-php>&lt;p&gt;&amp;copy; 2016 by Examples Ltd. &lt;?= $this-&gt;translate('All rights reserved') ?&gt;&lt;/p&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;p&gt;&amp;copy; 2016 by Examples Ltd. &lt;?= $this-&gt;translate('All rights reserved') ?&gt;&lt;/p&gt;</code></pre>
+
 <h2 id="translating-route-segments">Translating route segments</h2>
 <p>In order to enable route translation, you need to do two things:</p>
 <ul>
@@ -571,16 +574,17 @@ your footer. You could do the following in your layout script:</p>
 <p>To tell the application to use the translation-aware route class, we can update
 our routing configuration. Underneath the top-level <code>router</code> key, we'll add the
 <code>router_class</code> key:</p>
-<pre class=codehilite><code class=language-php>// In a module.config.php file, or config/autoload/global.php:
+<pre class="highlight"><code class="language-php">// In a module.config.php file, or config/autoload/global.php:
 'router' =&gt; [
     'router_class' =&gt; Laminas\Mvc\I18n\Router\TranslatorAwareTreeRouteStack::class,
     'routes' =&gt; [
         /* ... */
     ],
 ],</code></pre>
+
 <p>If you want to use an alternate text domain, you can do so via the
 <code>translator_text_domain</code> key, also directly below the <code>router</code> key:</p>
-<pre class=codehilite><code class=language-php>// In a module.config.php file, or config/autoload/global.php:
+<pre class="highlight"><code class="language-php">// In a module.config.php file, or config/autoload/global.php:
 'router' =&gt; [
     'router_class' =&gt; Laminas\Mvc\I18n\Router\TranslatorAwareTreeRouteStack::class,
     'translator_text_domain' =&gt; 'router',
@@ -588,10 +592,12 @@ our routing configuration. Underneath the top-level <code>router</code> key, we'
         /* ... */
     ],
 ],</code></pre>
+
 <p>Now that the router is aware of translations, we can use translatable strings in
 our routes. To do so, surround the string capable of translation with braces
 (<code>{}</code>). As an example:</p>
-<pre class=codehilite><code class=language-php>'route' =&gt; '/{login}',</code></pre>
+<pre class="highlight"><code class="language-php">'route' =&gt; '/{login}',</code></pre>
+
 <p>specifies the word "login" as translatable.</p>
 
 

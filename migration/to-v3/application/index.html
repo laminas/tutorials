@@ -507,10 +507,11 @@ get the full set of components, at the latest 2.* versions.</p>
 <li>Installing each Laminas component package you actually use in your application.</li>
 </ul>
 <p>The process would look like this:</p>
-<pre class=codehilite><code class=language-bash>$ composer remove laminas/laminas
+<pre class="highlight"><code class="language-bash">$ composer remove laminas/laminas
 $ composer require laminas/laminas-component-installer
 $ composer require laminas/laminas-mvc
 # Repeat as necessary for components you use if not already installed</code></pre>
+
 <p>When you install laminas-mvc, it will prompt you to add configuration for
 components; choose either <code>application.config.php</code> or <code>modules.config.php</code>, and
 re-use your selection for all other packages. This step ensures that the various
@@ -525,9 +526,8 @@ laminas-mail, there's no reason to install them.</p>
 use in your application, you can upgrade your laminas requirement. When
 you do, you should also install the laminas-component-installer, to ensure that
 component configuration is properly injected in your application.</p>
-<pre class="codehilite"><code class="language-bash">
-$ composer require laminas/laminas-component-installer &quot;laminas/laminas:^3.0&quot;
-</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-component-installer "laminas/laminas:^3.0"</code></pre>
+
 <p>During installation, it will prompt you to add configuration for
 components; choose either <code>application.config.php</code> or <code>modules.config.php</code>, and
 re-use your selection for all other packages. This step ensures that the various
@@ -573,14 +573,15 @@ installed by default, nor recommended. Instead, we recommend using
 your application.</p>
 <p>As an example, if you are still defining the default <code>Application</code> module, you
 can add autoloading for it as follows in your project's <code>composer.json</code>:</p>
-<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
-    &quot;psr-4&quot;: {
-        &quot;Application\\&quot;: &quot;module/Application/src/Application/&quot;
+<pre class="highlight"><code class="language-json">"autoload": {
+    "psr-4": {
+        "Application\\": "module/Application/src/Application/"
     },
-    &quot;files&quot;:  [
-        &quot;module/Application/Module.php&quot;
+    "files":  [
+        "module/Application/Module.php"
     ]
 }</code></pre>
+
 <p>The above creates a <a href="http://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloading rule
 for the <code>Application</code> module, telling it to look in the
 <code>module/Application/src/Application/</code> directory. Since the <code>Application\Module</code>
@@ -588,11 +589,12 @@ class is defined at the module root, we specify it in the <code>files</code> con
 <p>To improve on this, and simplify autoloading, we recommend adopting a complete
 PSR-4 directory structure for your module class files. As an example, to change
 the existing <code>Application</code> module to PSR-4, you can do the following:</p>
-<pre class=codehilite><code class=language-bash>$ cd module/Application
+<pre class="highlight"><code class="language-bash">$ cd module/Application
 $ mv src temp
 $ mv temp/Application src
 $ rm -Rf ./temp
 $ mv Module.php src/</code></pre>
+
 <p>Update your <code>Module.php</code> file to do the following:</p>
 <ul>
 <li>Remove the <code>getAutoloaderConfig()</code> method entirely, if defined.</li>
@@ -601,20 +603,22 @@ $ mv Module.php src/</code></pre>
   '/../config/module.config.php</code>.</li>
 </ul>
 <p>You can then update the <code>autoload</code> configuration to:</p>
-<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
-    &quot;psr-4&quot;: {
-        &quot;Application\\&quot;: &quot;module/Application/src/&quot;
+<pre class="highlight"><code class="language-json">"autoload": {
+    "psr-4": {
+        "Application\\": "module/Application/src/"
     }
 }</code></pre>
+
 <p>Afterwards, run the following to update the generated autoloader:</p>
-<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer dump-autoload</code></pre>
+
 <p>The updated application skeleton already takes this approach.</p>
 <h2 id="bootstrap">Bootstrap</h2>
 <p>Because version 3 requires usage of Composer for autoloading, you can simplify
 your application bootstrap.</p>
 <p>First, if you were using an <code>init_autoloader.php</code> file, you can now remove it.</p>
 <p>Second, update your <code>public/index.php</code> to read as follows:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 
 use Laminas\Mvc\Application;
 
@@ -638,13 +642,14 @@ include __DIR__ . '/../vendor/autoload.php';
 
 if (! class_exists(Application::class)) {
     throw new RuntimeException(
-        &quot;Unable to load application.\n&quot;
-        . &quot;- Type `composer install` if you are developing locally.\n&quot;
+        "Unable to load application.\n"
+        . "- Type `composer install` if you are developing locally.\n"
     );
 }
 
 // Run the application!
 Application::init(require __DIR__ . '/../config/application.config.php')-&gt;run();</code></pre>
+
 <h2 id="scripts">Scripts</h2>
 <p>The skeleton application for version 2 shipped three scripts with it:</p>
 <ul>
@@ -674,7 +679,8 @@ are no longer present.</p>
 which provides a way to store common development-specific settings in your
 repository and then selectively enable/disable them during development.</p>
 <p>If you are upgrading from an existing application, you can install this feature:</p>
-<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-development-mode</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-development-mode</code></pre>
+
 <p>Please refer to the <a href="https://github.com/laminas/laminas-development-mode">package documentation</a>
 for details on how to setup your application configuration to make use of this
 feature.</p>

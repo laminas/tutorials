@@ -486,11 +486,12 @@ whole tutorial.</p>
 <h2 id="writing-a-new-module">Writing a new Module</h2>
 <p>Let's start by creating a new folder under the <code>/module</code> directory called
 <code>Blog</code>, with the following stucture:</p>
-<pre class=codehilite><code class=language-text>module/
+<pre class="highlight"><code class="language-text">module/
     Blog/
         config/
         src/
         view/</code></pre>
+
 <p>To be recognized as a module by the <a href="https://docs.laminas.dev/laminas-modulemanager/intro/">ModuleManager</a>,
 we need to do three things:</p>
 <ul>
@@ -501,29 +502,32 @@ we need to do three things:</p>
 <p>Let's tell Composer about our new module. Open the <code>composer.json</code> file in the
 project root, and edit the <code>autoload</code> section to add a new PSR-4 entry for the
 <code>Blog</code> module; when you're done, it should read:</p>
-<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
-   &quot;psr-4&quot;: {
-        &quot;Application\\&quot;: &quot;module/Application/src/&quot;,
-        &quot;Album\\&quot;: &quot;module/Album/src/&quot;,
-        &quot;Blog\\&quot;: &quot;module/Blog/src/&quot;
+<pre class="highlight"><code class="language-json">"autoload": {
+   "psr-4": {
+        "Application\\": "module/Application/src/",
+        "Album\\": "module/Album/src/",
+        "Blog\\": "module/Blog/src/"
    }
 }</code></pre>
+
 <p>Once you're done, tell Composer to update its autoloading definitions:</p>
-<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer dump-autoload</code></pre>
+
 <p>Next, we will create a <code>Module</code> class under the <code>Blog</code> namespace. Create the
 file <code>module/Blog/src/Module.php</code> with the following contents:</p>
-<pre class=codehilite><code class=language-php>namespace Blog;
+<pre class="highlight"><code class="language-php">namespace Blog;
 
 class Module
 {
 }</code></pre>
+
 <p>We now have a module that can be detected by the
 <a href="https://docs.laminas.dev/laminas-modulemanager/intro/">ModuleManager</a>.
 Let's add this module to our application. Although our module doesn't do
 anything yet, just having the <code>Module.php</code> class allows it to be loaded by the
 ModuleManager.  To do this, add an entry for <code>Blog</code> to the modules array inside
 <code>config/modules.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>// In config/modules.config.php:
+<pre class="highlight"><code class="language-php">// In config/modules.config.php:
 
 return [
     /* ... */
@@ -531,6 +535,7 @@ return [
     'Album',
     'Blog',
 ];</code></pre>
+
 <p>If you refresh your application you should see no change at all (but also no
 errors).</p>
 <p>At this point it's worth taking a step back to discuss what modules are for. In
@@ -550,7 +555,7 @@ returns the configuration. (This method is defined in the
 <code>ConfigProviderInterface</code>, although explicitly implementing this interface in the
 module class is optional.) This method should return either an <code>array</code> or a
 <code>Traversable</code> object. Continue by editing <code>module/Blog/src/Module.php</code>:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Module.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Module.php:
 class Module
 {
     public function getConfig() : array
@@ -558,24 +563,27 @@ class Module
         return [];
     }
 }</code></pre>
+
 <p>With this, our module is now able to be configured. Configuration files can
 become quite big, though, and keeping everything inside the <code>getConfig()</code> method
 won't be optimal. To help keep our project organized, we're going to put our
 array configuration in a separate file. Go ahead and create this file at
 <code>module/Blog/config/module.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>return [];</code></pre>
+<pre class="highlight"><code class="language-php">return [];</code></pre>
+
 <p>Now rewrite the <code>getConfig()</code> function to include this newly created
 file instead of directly returning the array:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Module.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Module.php:
 
 public function getConfig() : array
 {
     return include __DIR__ . '/../config/module.config.php';
 }</code></pre>
+
 <p>Reload your application and you'll see that nothing changes. Creating,
 registering, and adding empty configuration for a new module has no visible
 effect on the application. Next we add the new route to our configuration file:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/config/module.config.php:
 namespace Blog;
 
 use Laminas\Router\Http\Literal;
@@ -585,13 +593,13 @@ return [
     'router' =&gt; [
         // Open configuration for all possible routes
         'routes' =&gt; [
-            // Define a new route called &quot;blog&quot;
+            // Define a new route called "blog"
             'blog' =&gt; [
-                // Define a &quot;literal&quot; route type:
+                // Define a "literal" route type:
                 'type' =&gt; Literal::class,
                 // Configure the route itself
                 'options' =&gt; [
-                    // Listen to &quot;/blog&quot; as uri:
+                    // Listen to "/blog" as uri:
                     'route' =&gt; '/blog',
                     // Define default controller and action to be called when
                     // this route is matched
@@ -604,22 +612,24 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>We've now created a route called <code>blog</code> that listens to the URL
 <code>localhost:8080/blog</code>. Whenever someone accesses this route, the <code>indexAction()</code>
 function of the class <code>Blog\Controller\ListController</code> will be executed.
 However, this controller does not exist yet, so if you reload the page you will
 see this error message:</p>
-<pre class=codehilite><code class=language-text>A 404 error occurred
+<pre class="highlight"><code class="language-text">A 404 error occurred
 Page not found.
 The requested controller could not be mapped by routing.
 
 Controller:
 Blog\Controller\ListController(resolves to invalid controller class or alias: Blog\Controller\ListController)</code></pre>
+
 <p>We now need to tell our module where to find this controller named
 <code>Blog\Controller\ListController</code>. To achieve this we have to add this key to the
 <code>controllers</code> configuration key inside your
 <code>module/Blog/config/module.config.php</code>.</p>
-<pre class=codehilite><code class=language-php>namespace Blog;
+<pre class="highlight"><code class="language-php">namespace Blog;
 
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -631,23 +641,26 @@ return [
     ],
     /* ... */
 ];</code></pre>
+
 <p>This configuration defines a factory for the controller class
 <code>Blog\Controller\ListController</code>, using the laminas-servicemanager
 <code>InvokableFactory</code> (which, internally, instantiates the class with no
 arguments).  Reloading the page should then give you:</p>
-<pre class=codehilite><code class=language-text>Fatal error: Class 'Blog\Controller\ListController' not found in {projectPath}/vendor/laminas/laminas-servicemanager/src/Factory/InvokableFactory.php on line 32</code></pre>
+<pre class="highlight"><code class="language-text">Fatal error: Class 'Blog\Controller\ListController' not found in {projectPath}/vendor/laminas/laminas-servicemanager/src/Factory/InvokableFactory.php on line 32</code></pre>
+
 <p>This error tells us that the application knows what class to load, but was not
 able to autoload it. In our case, we've already setup autoloading, but have not
 yet defined the controller class!</p>
 <p>Create the file <code>module/Blog/src/Controller/ListController.php</code> with the
 following contents:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Controller;
+<pre class="highlight"><code class="language-php">namespace Blog\Controller;
 
 class ListController
 {
 }</code></pre>
+
 <p>Reloading the page now will finally result into a new screen. The new error message looks like this:</p>
-<pre class=codehilite><code class=language-html>A 404 error occurred
+<pre class="highlight"><code class="language-html">A 404 error occurred
 Page not found.
 The requested controller was not dispatchable.
 
@@ -661,14 +674,15 @@ File:
 {projectPath}/vendor/laminas/laminas-mvc/src/Controller/ControllerManager.php:{lineNumber}
 
 Message:
-Plugin of type &quot;Blog\Controller\ListController&quot; is invalid; must implement Laminas\Stdlib\DispatchableInterface</code></pre>
+Plugin of type "Blog\Controller\ListController" is invalid; must implement Laminas\Stdlib\DispatchableInterface</code></pre>
+
 <p>This happens because our controller must implement
 <a href="https://github.com/laminas/laminas-stdlib/blob/0e66240daec93f19ae104084e369c393453fc901/src/DispatchableInterface.php">DispatchableInterface</a>
 in order to be 'dispatched' (or run) by laminas-mvc. laminas-mvc provides a base
 controller implementation of it with
 <a href="https://github.com/laminas/laminas-mvc/blob/9fc7f2cf569760d6a0cdc62f56e042a0aee3a4c9/src/Controller/AbstractActionController.php">AbstractActionController</a>,
 which we are going to use. Let's modify our controller now:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Controller/ListController.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Controller/ListController.php:
 
 namespace Blog\Controller;
 
@@ -677,8 +691,9 @@ use Laminas\Mvc\Controller\AbstractActionController;
 class ListController extends AbstractActionController
 {
 }</code></pre>
+
 <p>It's now time for another refresh of the site. You should now see a new error message:</p>
-<pre class=codehilite><code class=language-text>An error occurred
+<pre class="highlight"><code class="language-text">An error occurred
 
 An error occurred during execution; please try again later.
 
@@ -690,13 +705,15 @@ File:
 {projectPath}/vendor/laminas/laminas-view/src/Renderer/PhpRenderer.php:{lineNumber}
 
 Message:
-Laminas\View\Renderer\PhpRenderer::render: Unable to render template &quot;blog/list/index&quot;; resolver could not resolve to a file</code></pre>
+Laminas\View\Renderer\PhpRenderer::render: Unable to render template "blog/list/index"; resolver could not resolve to a file</code></pre>
+
 <p>Now the application tells you that a view template-file cannot be rendered,
 which is to be expected as we've not created it yet. The application is
 expecting it to be at <code>module/Blog/view/blog/list/index.phtml</code>. Create this
 file and add some dummy content to it:</p>
-<pre class=codehilite><code class=language-html>&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
+<pre class="highlight"><code class="language-html">&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
 &lt;h1&gt;Blog\Controller\ListController::indexAction()&lt;/h1&gt;</code></pre>
+
 <p>Before we continue let us quickly take a look at where we placed this file. Note
 that view files are found within the <code>/view</code> subdirectory, not <code>/src</code> as they
 are not PHP class files, but template files for rendering HTML. The path,
@@ -710,7 +727,7 @@ standard but you have the freedom to specify custom paths if desired.</p>
 topic of this part of the tutorial. We need to let the application know where
 to look for view files. We do this within our module's configuration file,
 <code>module.config.php</code>.</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php:
 
 return [
     'controllers' =&gt; [ /** Controller Configuration */ ],
@@ -721,6 +738,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>The above configuration tells the application that the folder
 <code>module/Blog/view/</code> has view files in it that match the standard path format:
 <code>view/{namespace}/{controller}/{action}.phtml</code>. It is important to note that the

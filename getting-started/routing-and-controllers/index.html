@@ -544,7 +544,7 @@ actions will be:</p>
 defined in the module’s <code>module.config.php</code> file. We will add a route for our
 album actions. This is the updated module config file with the new code
 highlighted using comments.</p>
-<pre class=codehilite><code class=language-php>namespace Album;
+<pre class="highlight"><code class="language-php">namespace Album;
 
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -582,6 +582,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>The name of the route is ‘album’ and has a type of ‘segment’. The segment route
 allows us to specify placeholders in the URL pattern (route) that will be mapped
 to named parameters in the matched route. In this case, the route is
@@ -645,7 +646,7 @@ service, <code>AbstractRestfulController</code> may be useful.</p>
 </blockquote>
 <p>Let’s go ahead and create our controller class in the file
 <code>laminas-mvc-tutorials/module/Album/src/Controller/AlbumController.php</code>:</p>
-<pre class=codehilite><code class=language-php>namespace Album\Controller;
+<pre class="highlight"><code class="language-php">namespace Album\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
@@ -668,6 +669,7 @@ class AlbumController extends AbstractActionController
     {
     }
 }</code></pre>
+
 <p>We have now set up the four actions that we want to use. They won't work yet
 until we set up the views. The URLs for each action are:</p>
 <div class="table-responsive"><table>

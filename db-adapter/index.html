@@ -481,7 +481,8 @@ as well as multiple adapters (which may be useful in architectures that have a
 cluster of read-only replicated servers and a single writable server of record).</p>
 <h2 id="installing-laminas-db">Installing laminas-db</h2>
 <p>First, install laminas-db using Composer:</p>
-<pre class=codehilite><code class=language-bash>$ composer require laminas/laminas-db</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-db</code></pre>
+
 <h3>Installation and automated Configuration</h3>
 <p>If you are using <a href="https://docs.laminas.dev/laminas-component-installer/">laminas-component-installer</a>
 (installed by default with the skeleton application, and optionally for
@@ -499,7 +500,7 @@ component to your application.</p>
 <p>For laminas-mvc applications, update your list of modules in either
 <code>config/application.config.php</code> or <code>config/modules.config.php</code> to add an
 entry for <code>'Laminas\Db'</code> at the top of the list:</p>
-<pre class=codehilite><code class=language-php>// In config/modules.config.php
+<pre class="highlight"><code class="language-php">// In config/modules.config.php
 return [
     'Laminas\Db', // &lt;-- This line
     'Laminas\Form', 
@@ -517,31 +518,35 @@ return [
     ],
     /* ... */
 ];</code></pre>
+
 <h4>Configuration for a mezzio-based Application</h4>
 <p>For Mezzio applications, create a new file,
 <code>config/autoload/laminas-db.global.php</code>, with the following contents:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Db\ConfigProvider;
+<pre class="highlight"><code class="language-php">use Laminas\Db\ConfigProvider;
 
 return (new ConfigProvider())();</code></pre>
+
 <h2 id="configuring-the-default-adapter">Configuring the default Adapter</h2>
 <p>Within your service factories, you may retrieve the default adapter from your application container using the
 class name <code>Laminas\Db\Adapter\AdapterInterface</code>:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Db\Adapter\AdapterInterface;
+<pre class="highlight"><code class="language-php">use Laminas\Db\Adapter\AdapterInterface;
 
 function ($container) {
     return new SomeServiceObject($container-&gt;get(AdapterInterface::class));
 }</code></pre>
+
 <p>When installed and configured, the factory associated with <code>AdapterInterface</code>
 will look for a top-level <code>db</code> key in the configuration, and use it to create an
 adapter. As an example, the following would connect to a MySQL database using
 PDO, and the supplied PDO DSN:</p>
-<pre class=codehilite><code class=language-php>// In config/autoload/global.php
+<pre class="highlight"><code class="language-php">// In config/autoload/global.php
 return [
     'db' =&gt; [
         'driver' =&gt; 'Pdo',
         'dsn'    =&gt; 'mysql:dbname=laminastutorial;host=localhost;charset=utf8',
     ],
 ];</code></pre>
+
 <p>More information on adapter configuration can be found in the docs for
 <a href="http://docs.laminas.dev/laminas-db/adapter/#creating-an-adapter-using-dependency-injection">Laminas\Db\Adapter</a>.</p>
 <h2 id="configuring-named-adapters">Configuring named Adapters</h2>
@@ -552,7 +557,7 @@ read-only.</p>
 <code>Laminas\Db\Adapter\AdapterAbstractServiceFactory</code>, for this purpose. To use it,
 you will need to create named configuration keys under <code>db.adapters</code>, each with
 configuration for an adapter:</p>
-<pre class=codehilite><code class=language-php>// In config/autoload/global.php
+<pre class="highlight"><code class="language-php">// In config/autoload/global.php
 return [
     'db' =&gt; [
         'adapters' =&gt; [
@@ -567,14 +572,16 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>You retrieve the database adapters using the keys you define, so ensure they are
 unique to your application, and descriptive of their purpose!</p>
 <h3>Retrieving named Adapters</h3>
 <p>Retrieve named adapters in your service factories just as you would another
 service:</p>
-<pre class=codehilite><code class=language-php>function ($container) {
+<pre class="highlight"><code class="language-php">function ($container) {
     return new SomeServiceObject($container-&gt;get('Application\Db\ReadOnlyAdapter'));
 }</code></pre>
+
 <h3>Using the <code>AdapterAbstractServiceFactory</code> as a Factory</h3>
 <p>Depending on what application container you use, abstract factories may not be
 available. Alternately, you may want to reduce lookup time when retrieving an
@@ -583,7 +590,7 @@ laminas-servicemanager abstract factories work as factories in their own right, 
 are passed the service name as an argument, allowing them to vary their return
 value based on requested service name. As such, you can add the following
 service configuration as well:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+<pre class="highlight"><code class="language-php">use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
 
 // If using laminas-mvc:
 // In module/YourModule/config/module.config.php

@@ -500,9 +500,11 @@ records.</p>
 database interactions. Consider a SQL and a NoSQL database; both have methods
 for CRUD (Create, Read, Update, Delete) operations. For example, to query the
 database against a given row in MySQL you might use</p>
-<pre class=codehilite><code class=language-php>$results = mysqli_query('SELECT foo FROM bar')`;</code></pre>
+<pre class="highlight"><code class="language-php">$results = mysqli_query('SELECT foo FROM bar')`;</code></pre>
+
 <p>However, for MongoDB,  for example you'd use something like:</p>
-<pre class=codehilite><code class=language-php>$results = $mongoDbClient-&gt;app-&gt;bar-&gt;find([], ['foo' =&gt; 1, '_id' =&gt; 0])`;</code></pre>
+<pre class="highlight"><code class="language-php">$results = $mongoDbClient-&gt;app-&gt;bar-&gt;find([], ['foo' =&gt; 1, '_id' =&gt; 0])`;</code></pre>
+
 <p>Both engines would give you the same result, but the execution is different.</p>
 <p>So if we start using a SQL database and write those codes directly into our
 <code>PostRepository</code> and a year later we decide to switch to a NoSQL database, the
@@ -534,7 +536,7 @@ implementations, we probably want to keep it separate from the operations that
 cause changes.</p>
 <p>Let's create a new interface, <code>Blog\Model\PostCommandInterface</code>, in
 <code>module/Blog/src/Model/PostCommandInterface.php</code>, and have it read as follows:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 interface PostCommandInterface
 {
@@ -562,6 +564,7 @@ interface PostCommandInterface
      */
     public function deletePost(Post $post);
 }</code></pre>
+
 <p>This new interface defines methods for each <em>command</em> within our model. Each
 expects a <code>Post</code> instance, and it is up to the implementation to determine how
 to use that instance to issue the command. In the case of an insert operation,

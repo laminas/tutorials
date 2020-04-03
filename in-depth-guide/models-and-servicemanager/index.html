@@ -536,7 +536,7 @@ things: we will define a method that will give us all posts, and another method
 that will give us a single post.</p>
 <p>Let's start by creating the interface at
 <code>module/Blog/src/Model/PostRepositoryInterface.php</code></p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 interface PostRepositoryInterface
 {
@@ -557,6 +557,7 @@ interface PostRepositoryInterface
      */
     public function findPost($id);
 }</code></pre>
+
 <p>The first method, <code>findAllPosts()</code>, will return all posts, and the second
 method, <code>findPost($id)</code>, will return the post matching the given identifier
 <code>$id</code>. What's new in here is the fact that we actually define a return value -
@@ -566,7 +567,7 @@ point; for now, we will create the <code>PostRepository</code> class.</p>
 be sure to implement the <code>PostRepositoryInterface</code> and its required method (we
 will fill these in later). You then should have a class that looks like the
 following:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 class PostRepository implements PostRepositoryInterface
 {
@@ -586,10 +587,11 @@ class PostRepository implements PostRepositoryInterface
         // TODO: Implement findPost() method.
     }
 }</code></pre>
+
 <h2 id="create-an-entity">Create an entity</h2>
 <p>Since our <code>PostRepository</code> will return <code>Post</code> instances, we must create that
 class, too. Let's create <code>module/Blog/src/Model/Post.php</code>:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 class Post
 {
@@ -644,6 +646,7 @@ class Post
         return $this-&gt;title;
     }
 }</code></pre>
+
 <p>Notice that we only created getter methods; this is because each instance should
 be unchangeable, allowing us to cache instances in the repository as necessary.</p>
 <h2 id="bringing-life-into-our-postrepository">Bringing Life into our PostRepository</h2>
@@ -652,7 +655,7 @@ be unchangeable, allowing us to cache instances in the repository as necessary.<
 will only return some hard-coded content from our <code>PostRepository</code> class directly.
 Create a property inside the <code>PostRepository</code> class called <code>$data</code> and make this an array
 of our <code>Post</code> type. Edit <code>PostRepository</code> as follows:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 class PostRepository implements PostRepositoryInterface
 {
@@ -700,9 +703,10 @@ class PostRepository implements PostRepositoryInterface
         // TODO: Implement findPost() method.
     }
 }</code></pre>
+
 <p>Now that we have some data, let's modify our <code>find*()</code> functions to return the
 appropriate entities:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Model;
+<pre class="highlight"><code class="language-php">namespace Blog\Model;
 
 use DomainException;
 
@@ -756,7 +760,7 @@ class PostRepository implements PostRepositoryInterface
     public function findPost($id)
     {
         if (! isset($this-&gt;data[$id])) {
-            throw new DomainException(sprintf('Post by id &quot;%s&quot; not found', $id));
+            throw new DomainException(sprintf('Post by id "%s" not found', $id));
         }
 
         return new Post(
@@ -766,6 +770,7 @@ class PostRepository implements PostRepositoryInterface
         );
     }
 }</code></pre>
+
 <p>Both methods now have appropriate return values. Please note that from a
 technical point of view, the current implementation is far from perfect. We will
 improve this repository in the future, but for now we have a working repository
@@ -784,7 +789,7 @@ the class <code>ListController</code>; without the <code>PostRepository</code>, 
 will not be able to function properly. To make sure that our <code>ListController</code>
 will always get the appropriate dependency, we will first define the dependency
 inside the <code>ListController</code> constructor. Modify <code>ListController</code> as follows:</p>
-<pre class=codehilite><code class=language-php>namespace Blog\Controller;
+<pre class="highlight"><code class="language-php">namespace Blog\Controller;
 
 use Blog\Model\PostRepositoryInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
@@ -801,14 +806,16 @@ class ListController extends AbstractActionController
         $this-&gt;postRepository = $postRepository;
     }
 }</code></pre>
+
 <p>The constructor now has a required argument; we will not be able to create
 instances of this class anymore without providing a <code>PostRepositoryInterface</code>
 implementation. If you were to go back to your browser and reload your project
 with the url <code>localhost:8080/blog</code>, you'd see the following error message:</p>
-<pre class=codehilite><code class=language-text>Catchable fatal error: Argument 1 passed to Blog\Controller\ListController::__construct()
+<pre class="highlight"><code class="language-text">Catchable fatal error: Argument 1 passed to Blog\Controller\ListController::__construct()
 must be an instance of Blog\Model\PostRepositoryInterface, none given,
 called in {projectPath}/vendor/laminas/src/Factory/InvokableFactory.php on line {lineNumber}
 and defined in {projectPath}/module/Blog/src/Controller/ListController.php on line {lineNumber}</code></pre>
+
 <p>And this error message is expected. It tells you exactly that our
 <code>ListController</code> expects to be passed an implementation of the
 <code>PostRepositoryInterface</code>. So how do we make sure that our <code>ListController</code> will
@@ -816,7 +823,7 @@ receive such an implementation? To solve this, we need to tell the application
 how to create instances of the <code>Blog\Controller\ListController</code>. If you remember
 back to when we created the controller, we mapped it to the <code>InvokableFactory</code>
 in the module configuration:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php:
 namespace Blog;
 
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -830,11 +837,12 @@ return [
     'router' =&gt; [ /** Router Config */ ]
     'view_manager' =&gt; [ /** ViewManager Config */ ],
 );</code></pre>
+
 <p>The <code>InvokableFactory</code> instantiates the mapped class using no constructor
 arguments.  Since our <code>ListController</code> now has a required argument, we need to
 change this. We will now create a custom factory for our <code>ListController</code>.
 First, update the configuration as follows:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php:
 namespace Blog;
 
 // Remove the InvokableFactory import statement
@@ -849,10 +857,11 @@ return [
     'router' =&gt; [ /** Router Config */ ]
     'view_manager' =&gt; [ /** ViewManager Config */ ],
 );</code></pre>
+
 <p>The above changes the mapping for the <code>ListController</code> to use a new factory
 class we'll be creating, <code>Blog\Factory\ListControllerFactory</code>.  If you refresh
 your browser you'll see a different error message:</p>
-<pre class=codehilite><code class=language-html>An error occurred
+<pre class="highlight"><code class="language-html">An error occurred
 
 An error occurred during execution; please try again later.
 
@@ -865,8 +874,9 @@ File:
 
 Message:
 
-Unable to resolve service &quot;Blog\Controller\ListController&quot; to a factory; are you
+Unable to resolve service "Blog\Controller\ListController" to a factory; are you
 certain you provided it during configuration?</code></pre>
+
 <p>This exception message indicates that the service container could not resolve
 the service to a factory, and asks if we provided it during configuration. We
 did, so the end result is that the factory must not exist. Let's write the
@@ -884,7 +894,7 @@ argument can be ignored; however, you can create re-usable factories by
 implementing the second argument, so this is a good one to consider when writing
 your factories! For our purposes, this is a one-off factory, so we'll only use
 the first argument. Let's implement our factory class:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Factory/ListControllerFactory.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Factory/ListControllerFactory.php:
 namespace Blog\Factory;
 
 use Blog\Controller\ListController;
@@ -905,6 +915,7 @@ class ListControllerFactory implements FactoryInterface
         return new ListController($container-&gt;get(PostRepositoryInterface::class));
     }
 }</code></pre>
+
 <p>The factory receives an instance of the application container, which, in our
 case, is a <code>Laminas\ServiceManager\ServiceManager</code> instance. The container also
 conforms to <code>Interop\Container\ContainerInterface</code>, allowing re-use in other
@@ -913,7 +924,7 @@ dependency injection systems if desired. We pull a service matching the
 controller's constructor.</p>
 <p>There's no magic happening; it's just PHP code. </p>
 <p>Refresh your browser and you will see this error message:</p>
-<pre class=codehilite><code class=language-text>An error occurred
+<pre class="highlight"><code class="language-text">An error occurred
 
 An error occurred during execution; please try again later.
 
@@ -926,8 +937,9 @@ File:
 
 Message:
 
-Unable to resolve service &quot;Blog\Model\PostRepositoryInterface&quot; to a factory; are
+Unable to resolve service "Blog\Model\PostRepositoryInterface" to a factory; are
 you certain you provided it during configuration?</code></pre>
+
 <p>Exactly what we expected. Within our factory, the service
 <code>Blog\Model\PostRepositoryInterface</code> is requested but the <code>ServiceManager</code>
 doesn't know about it yet. Therefore it isn't able to create an instance for the
@@ -938,7 +950,7 @@ We will modify our <code>module.config.php</code> and add a new key
 called <code>service_manager</code>; the configuration of this key is the same as that for
 the <code>controllers</code> key. We will add two entries, one for <code>aliases</code> and one for
 <code>factories</code>, as follows:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php
 namespace Blog;
 
 // Re-add the following import:
@@ -958,6 +970,7 @@ return [
     'router'       =&gt; [ /** Router Config */ ],
     'view_manager' =&gt; [ /** View Manager Config */ ],
 ];</code></pre>
+
 <p>This aliases <code>PostRepositoryInterface</code> to our <code>PostRepository</code> implementation,
 and then creates a factory for the <code>PostRepository</code> class by mapping it to the
 <code>InvokableFactory</code> (like we originally did for the <code>ListController</code>); we can do
@@ -978,7 +991,7 @@ exactly the page that we have created in the previous chapter of the tutorial.</
 <p>Let's now use the <code>PostRepository</code> within our <code>ListController</code>. For this we will
 need to overwrite the default <code>indexAction()</code> and return a view with the results
 from the <code>PostRepository</code>. Modify <code>ListController</code> as follows:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Controller/ListController.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Controller/ListController.php:
 namespace Blog\Controller;
 
 use Blog\Model\PostRepositoryInterface;
@@ -1006,6 +1019,7 @@ class ListController extends AbstractActionController
         ]);
     }
 }</code></pre>
+
 <p>First, please note that our controller imported another class,
 <code>Laminas\View\Model\ViewModel</code>; this is what controllers will usually return within
 laminas-mvc applications. <code>ViewModel</code> instances allow you to provide variables to
@@ -1019,27 +1033,27 @@ template to display the data.</p>
 <p>You do not actually need to return an instance of <code>ViewModel</code>; when you return
 a normal PHP array, laminas-mvc internally converts it into a <code>ViewModel</code>. The
 following are equivalent:</p>
-<pre class="codehilite"><code class="language-php">
-// Explicit ViewModel:
+<pre class="highlight"><code class="language-php">// Explicit ViewModel:
 return new ViewModel(['foo' =&gt; 'bar']);
 
 // Implicit ViewModel:
-return ['foo' =&gt; 'bar'];
-</code></pre>
+return ['foo' =&gt; 'bar'];</code></pre>
+
 </blockquote>
 <h2 id="accessing-view-variables">Accessing View Variables</h2>
 <p>Let's modify our view to display a table of all blog posts that our repository
 returns:</p>
-<pre class=codehilite><code class=language-php>&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
+<pre class="highlight"><code class="language-php">&lt;!-- Filename: module/Blog/view/blog/list/index.phtml --&gt;
 &lt;h1&gt;Blog&lt;/h1&gt;
 
 &lt;?php foreach ($this-&gt;posts as $post): ?&gt;
 &lt;article&gt;
-  &lt;h1 id=&quot;post&lt;?= $post-&gt;getId() ?&gt;&quot;&gt;&lt;?= $post-&gt;getTitle() ?&gt;&lt;/h1&gt;
+  &lt;h1 id="post&lt;?= $post-&gt;getId() ?&gt;"&gt;&lt;?= $post-&gt;getTitle() ?&gt;&lt;/h1&gt;
 
   &lt;p&gt;&lt;?= $post-&gt;getText() ?&gt;&lt;/p&gt;
 &lt;/article&gt;
 &lt;?php endforeach ?&gt;</code></pre>
+
 <p>In the view script, we iterate over the posts passed to the view model.  Since
 every single entry of our array is of type <code>Blog\Model\Post</code>, we can use its
 getter methods and render it.</p>

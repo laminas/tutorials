@@ -536,7 +536,7 @@ the input elements that we need to work with our blog data:</p>
 </ul>
 <p>Create the file <code>module/Blog/src/Form/PostFieldset.php</code> with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Form;
 
 use Laminas\Form\Fieldset;
@@ -567,6 +567,7 @@ class PostFieldset extends Fieldset
         ]);
     }
 }</code></pre>
+
 <p>This new class creates an extension of <code>Laminas\Form\Fieldset</code> that, in an <code>init()</code>
 method (more on this later),  adds elements for each aspect of our blog post. We
 can now re-use this fieldset in as many forms as we want. Let's create our first
@@ -576,7 +577,7 @@ form.</p>
 The form will use the <code>PostFieldset</code>, and also include a submit button so that
 the user can submit the data.</p>
 <p>Create the file <code>module/Blog/src/Form/PostForm.php</code> with the following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Form;
 
 use Laminas\Form\Form;
@@ -599,6 +600,7 @@ class PostForm extends Form
         ]);
     }
 }</code></pre>
+
 <p>And that's our form. Nothing special here, we add our <code>PostFieldset</code> to the
 form, we add a submit button to the form, and nothing more.</p>
 <h2 id="adding-a-new-post">Adding a new Post</h2>
@@ -625,7 +627,7 @@ in our <code>PostForm</code> in a previous section of this chapter.</p>
 <p>Let's create this new class now. Open a new file,
 <code>module/Blog/src/Controller/WriteController.php</code>, and add the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Controller;
 
 use Blog\Form\PostForm;
@@ -660,10 +662,11 @@ class WriteController extends AbstractActionController
     {
     }
 }</code></pre>
+
 <p>We'll now create a factory for this new controller; create a new file,
 <code>module/Blog/src/Factory/WriteControllerFactory.php</code>, with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Factory;
 
 use Blog\Controller\WriteController;
@@ -689,6 +692,7 @@ class WriteControllerFactory implements FactoryInterface
         );
     }
 }</code></pre>
+
 <p>The above factory introduces something new: the <code>FormElementManager</code>. This is a
 plugin manager implementation that is specifically for forms. We don't
 necessarily need to register our forms with it, as it will check to see if a
@@ -705,16 +709,17 @@ does provide a couple nice features: </p>
 <p>Finally, we need to configure the new factory; in
 <code>module/Blog/config/module.config.php</code>, add an entry in the <code>controllers</code>
 configuration section:</p>
-<pre class=codehilite><code class=language-php>'controllers' =&gt; [
+<pre class="highlight"><code class="language-php">'controllers' =&gt; [
     'factories' =&gt; [
         Controller\ListController::class =&gt; Factory\ListControllerFactory::class,
         // Add the following line:
         Controller\WriteController::class =&gt; Factory\WriteControllerFactory::class,
     ],
 ],</code></pre>
+
 <p>Now that we have the basics for our controller in place, we can create a route
 to it:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 // In module/Blog/config/module.config.php:
 namespace Blog;
 
@@ -768,13 +773,15 @@ return [
     ],
     'view_manager'    =&gt; [ /* ... */ ],
 ];</code></pre>
+
 <p>Finally, we'll create a dummy template:</p>
-<pre class=codehilite><code class=language-html>&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
+<pre class="highlight"><code class="language-html">&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
 &lt;h1&gt;WriteController::addAction()&lt;/h1&gt;</code></pre>
+
 <h3>Check-in</h3>
 <p>If you try to access the new route <code>localhost:8080/blog/add</code> you're supposed to
 see the following error message:</p>
-<pre class=codehilite><code class=language-text>An error occurred
+<pre class="highlight"><code class="language-text">An error occurred
 
 An error occurred during execution; please try again later.
 
@@ -786,7 +793,8 @@ File:
 {projectPath}/vendor/laminas/laminas-servicemanager/src/ServiceManager.php:{lineNumber}
 
 Message:
-Unable to resolve service &quot;Blog\Model\PostCommandInterface&quot; to a factory; are you certain you provided it during configuration?</code></pre>
+Unable to resolve service "Blog\Model\PostCommandInterface" to a factory; are you certain you provided it during configuration?</code></pre>
+
 <p>If this is not the case, be sure to follow the tutorial correctly and carefully
 check all your files.</p>
 <p>The error is due to the fact that we have not yet defined an <em>implementation</em> of
@@ -795,7 +803,7 @@ application!</p>
 <p>Let's create a dummy implementation, as we did when we first started working
 with repositories. Create the file <code>module/Blog/src/Model/PostCommand.php</code> with
 the following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Model;
 
 class PostCommand implements PostCommandInterface
@@ -821,8 +829,9 @@ class PostCommand implements PostCommandInterface
     {
     }
 }</code></pre>
+
 <p>Now add service configuration in <code>module/Blog/config/module.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>'service_manager' =&gt; [
+<pre class="highlight"><code class="language-php">'service_manager' =&gt; [
     'aliases' =&gt; [
         /* ... */
         // Add the following line:
@@ -834,19 +843,21 @@ class PostCommand implements PostCommandInterface
         Model\PostCommand::class =&gt; InvokableFactory::class,
     ],
 ],</code></pre>
+
 <p>Reloading your application now will yield you the desired result.</p>
 <h2 id="displaying-the-form">Displaying the form</h2>
 <p>Now that we have new controller working, it's time to pass this form to the view
 and render it.  Change your controller so that the form is passed to the view:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Controller/WriteController.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Controller/WriteController.php:
 public function addAction()
 {
     return new ViewModel([
         'form' =&gt; $this-&gt;form,
     ]);
 }</code></pre>
+
 <p>And then we need to modify our view to render the form:</p>
-<pre class=codehilite><code class=language-php>&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
+<pre class="highlight"><code class="language-php">&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
 &lt;h1&gt;Add a blog post&lt;/h1&gt;
 
 &lt;?php
@@ -857,6 +868,7 @@ $form-&gt;prepare();
 echo $this-&gt;form()-&gt;openTag($form);
 echo $this-&gt;formCollection($form);
 echo $this-&gt;form()-&gt;closeTag();</code></pre>
+
 <p>The above does the following:</p>
 <ul>
 <li>We set the <code>action</code> attribute of the form to the current URL.</li>
@@ -873,16 +885,15 @@ echo $this-&gt;form()-&gt;closeTag();</code></pre>
 <h3>Form method</h3>
 <p>HTML forms can be sent using <code>POST</code> and <code>GET</code>. laminas-form defaults to <code>POST</code>.
 If you want to switch to <code>GET</code>:</p>
-<pre class="codehilite"><code class="language-php">
-$form-&gt;setAttribute('method', 'GET');
-</code></pre>
+<pre class="highlight"><code class="language-php">$form-&gt;setAttribute('method', 'GET');</code></pre>
+
 </blockquote>
 <p>Refreshing the browser you will now see your form properly displayed. It's not
 pretty, though, as the default markup does not follow semantics for Bootstrap
 (which is used in the skeleton application by default). Let's update it a bit to
 make it look better; we'll do that in the view script itself, as markup-related
 concerns belong in the view layer:</p>
-<pre class=codehilite><code class=language-php>&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
+<pre class="highlight"><code class="language-php">&lt;!-- Filename: module/Blog/view/blog/write/add.phtml --&gt;
 &lt;h1&gt;Add a blog post&lt;/h1&gt;
 
 &lt;?php
@@ -908,13 +919,13 @@ echo $this-&gt;form()-&gt;openTag($form);
 ?&gt;
 
 &lt;fieldset&gt;
-&lt;div class=&quot;form-group&quot;&gt;
+&lt;div class="form-group"&gt;
     &lt;?= $this-&gt;formLabel($title) ?&gt;
     &lt;?= $this-&gt;formElement($title) ?&gt;
     &lt;?= $this-&gt;formElementErrors()-&gt;render($title, ['class' =&gt; 'help-block']) ?&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;form-group&quot;&gt;
+&lt;div class="form-group"&gt;
     &lt;?= $this-&gt;formLabel($text) ?&gt;
     &lt;?= $this-&gt;formElement($text) ?&gt;
     &lt;?= $this-&gt;formElementErrors()-&gt;render($text, ['class' =&gt; 'help-block']) ?&gt;
@@ -925,6 +936,7 @@ echo $this-&gt;form()-&gt;openTag($form);
 echo $this-&gt;formSubmit($submit);
 echo $this-&gt;formHidden($fieldset-&gt;get('id'));
 echo $this-&gt;form()-&gt;closeTag();</code></pre>
+
 <p>The above adds HTML attributes to a number of the elements we've defined, and
 uses more specific view helpers to allow us to render the exact markup we want
 for our form.</p>
@@ -948,7 +960,7 @@ regardless of form and entities:</p>
    messages.</li>
 </ol>
 <p>Modify your <code>WriteController:addAction()</code> to read as follows:</p>
-<pre class=codehilite><code class=language-php>public function addAction()
+<pre class="highlight"><code class="language-php">public function addAction()
 {
     $request   = $this-&gt;getRequest();
     $viewModel = new ViewModel(['form' =&gt; $this-&gt;form]);
@@ -979,6 +991,7 @@ regardless of form and entities:</p>
         ['id' =&gt; $post-&gt;getId()]
     );
 }</code></pre>
+
 <p>Stepping through the code:</p>
 <ul>
 <li>We retrieve the current request.</li>
@@ -999,14 +1012,15 @@ name is of the form <code>&lt;parent&gt;/&lt;child&gt;</code> &mdash; i.e., the 
 name are separated with a slash.</p>
 </blockquote>
 <p>Submitting the form right now will return into the following error</p>
-<pre class=codehilite><code class=language-text>Fatal error: Call to a member function getId() on null in
+<pre class="highlight"><code class="language-text">Fatal error: Call to a member function getId() on null in
 {projectPath}/module/Blog/src/Controller/WriteController.php
 on line {lineNumber}</code></pre>
+
 <p>This is because our stub <code>PostCommand</code> class does not return a new <code>Post</code>
 instance, violating the contract!</p>
 <p>Let's create a new implementation to work against laminas-db. Create the file
 <code>module/Blog/src/Model/LaminasDbSqlCommand.php</code> with the following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Model;
 
 use RuntimeException;
@@ -1076,6 +1090,7 @@ class LaminasDbSqlCommand implements PostCommandInterface
     {
     }
 }</code></pre>
+
 <p>In the <code>insertPost()</code> method, we do the following:</p>
 <ul>
 <li>We create a <code>Laminas\Db\Sql\Insert</code> instance, providing it the table name.</li>
@@ -1088,7 +1103,7 @@ class LaminasDbSqlCommand implements PostCommandInterface
 <p>Now that we have this in place, we'll create a factory for it; create the file
 <code>module/Blog/src/Factory/LaminasDbSqlCommandFactory.php</code> with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -1103,9 +1118,10 @@ class LaminasDbSqlCommandFactory implements FactoryInterface
         return new LaminasDbSqlCommand($container-&gt;get(AdapterInterface::class));
     }
 }</code></pre>
+
 <p>And finally, we'll wire it up in the configuration; update the <code>service_manager</code>
 section of <code>module/Blog/config/module.config.php</code> to read as follows:</p>
-<pre class=codehilite><code class=language-php>'service_manager' =&gt; [
+<pre class="highlight"><code class="language-php">'service_manager' =&gt; [
     'aliases' =&gt; [
         Model\PostRepositoryInterface::class =&gt; Model\LaminasDbSqlRepository::class,
         // Update the following alias:
@@ -1119,13 +1135,15 @@ section of <code>module/Blog/config/module.config.php</code> to read as follows:
         Model\LaminasDbSqlCommand::class =&gt; Factory\LaminasDbSqlCommandFactory::class,
     ],
 ],</code></pre>
+
 <p>Submitting your form again, it should process the form and redirect you to the
 detail page for the new entry!</p>
 <p>Let's see if we can improve this a bit.</p>
 <h2 id="using-laminas-hydrator-with-laminas-form">Using laminas-hydrator with laminas-form</h2>
 <p>In our controller currently, we have the following:</p>
-<pre class=codehilite><code class=language-php>$data = $this-&gt;form-&gt;getData()['post'];
+<pre class="highlight"><code class="language-php">$data = $this-&gt;form-&gt;getData()['post'];
 $post = new Post($data['title'], $data['text']);</code></pre>
+
 <p>What if we could automate that, so we didn't need to worry about:</p>
 <ul>
 <li>Whether or not we're using a fieldset</li>
@@ -1135,11 +1153,12 @@ $post = new Post($data['title'], $data['text']);</code></pre>
 us to return a <code>Post</code> instance when we retrieve the validated values!</p>
 <p>Let's udpate our fieldset to provide a hydrator and a prototype object.</p>
 <p>First, add two import statements to the top of the class file:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Form/PostFieldset.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Form/PostFieldset.php:
 use Blog\Model\Post;
 use Laminas\Hydrator\Reflection as ReflectionHydrator;</code></pre>
+
 <p>Next, update the <code>init()</code> method to add the following two lines:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Form/PostFieldset.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Form/PostFieldset.php:
 
 public function init()
 {
@@ -1148,6 +1167,7 @@ public function init()
 
     /* ... */
 }</code></pre>
+
 <p>When you grab the data from this fieldset, it will be returned as a <code>Post</code>
 instance.</p>
 <p>However, we grab data <em>from the form</em>; how can we simplify that interaction?</p>
@@ -1156,7 +1176,7 @@ This hints to the form that when we retrieve data from it, it should return the
 values from the specified fieldset instead; since our fieldset returns the
 <code>Post</code> instance, we'll have exactly what we need.</p>
 <p>Modify your <code>PostForm</code> class as follows:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Form/PostForm.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Form/PostForm.php:
 
 public function init()
 {
@@ -1169,12 +1189,15 @@ public function init()
     ]);
 
     /* ... */</code></pre>
+
 <p>Let's update our <code>WriteController</code>; modify the <code>addAction()</code> method to replace
 the following two lines:</p>
-<pre class=codehilite><code class=language-php>$data = $this-&gt;form-&gt;getData()['post'];
+<pre class="highlight"><code class="language-php">$data = $this-&gt;form-&gt;getData()['post'];
 $post = new Post($data['title'], $data['text']);</code></pre>
+
 <p>to:</p>
-<pre class=codehilite><code class=language-php>$post = $this-&gt;form-&gt;getData();</code></pre>
+<pre class="highlight"><code class="language-php">$post = $this-&gt;form-&gt;getData();</code></pre>
+
 <p>Everything should continue to work. The changes done serve the purpose of
 de-coupling the details of how the form is structured from the controller,
 allowing us to work directly with our entities at all times!</p>

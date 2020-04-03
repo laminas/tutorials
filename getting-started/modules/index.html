@@ -494,7 +494,7 @@ the <code>Application</code> module as required.</p>
 <h2 id="setting-up-the-album-module">Setting up the Album module</h2>
 <p>Start by creating a directory called <code>Album</code> under <code>module</code> with the following
 subdirectories to hold the module’s files:</p>
-<pre class=codehilite><code class=language-text>laminas-mvc-tutorial/
+<pre class="highlight"><code class="language-text">laminas-mvc-tutorial/
     /module
         /Album
             /config
@@ -505,6 +505,7 @@ subdirectories to hold the module’s files:</p>
             /view
                 /album
                     /album</code></pre>
+
 <p>The <code>Album</code> module has separate directories for the different types of files we
 will have. The PHP files that contain classes within the <code>Album</code> namespace live
 in the <code>src/</code> directory. The view directory also has a sub-folder called <code>album</code>
@@ -514,7 +515,7 @@ for our module's view scripts.</p>
 namespace (i.e., <code>Album</code>); in the case of our new module, that means the class
 <code>Album\Module</code>, which will be found in <code>module/Album/src/Module.php</code>.</p>
 <p>Let's create that file now, with the following contents:</p>
-<pre class=codehilite><code class=language-php>namespace Album;
+<pre class="highlight"><code class="language-php">namespace Album;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
@@ -525,6 +526,7 @@ class Module implements ConfigProviderInterface
         return include __DIR__ . '/../config/module.config.php';
     }
 }</code></pre>
+
 <p>The <code>ModuleManager</code> will call <code>getConfig()</code> automatically for us.</p>
 <h3>Autoloading</h3>
 <p>While Laminas provides autoloading capabilities via its
@@ -533,28 +535,31 @@ recommend using Composer's autoloading capabilities. As such, we need to inform
 Composer of our new namespace, and where its files live.</p>
 <p>Open <code>composer.json</code> in your project root, and look for the <code>autoload</code> section;
 it should look like the following by default:</p>
-<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
-    &quot;psr-4&quot;: {
-        &quot;Application\\&quot;: &quot;module/Application/src/&quot;
+<pre class="highlight"><code class="language-json">"autoload": {
+    "psr-4": {
+        "Application\\": "module/Application/src/"
     }
 },</code></pre>
+
 <p>We'll now add our new module to the list, so it now reads:</p>
-<pre class=codehilite><code class=language-json>&quot;autoload&quot;: {
-    &quot;psr-4&quot;: {
-        &quot;Application\\&quot;: &quot;module/Application/src/&quot;,
-        &quot;Album\\&quot;: &quot;module/Album/src/&quot;
+<pre class="highlight"><code class="language-json">"autoload": {
+    "psr-4": {
+        "Application\\": "module/Application/src/",
+        "Album\\": "module/Album/src/"
     }
 },</code></pre>
+
 <p>Once you've made that change, run the following to ensure Composer updates its
 autoloading rules:</p>
-<pre class=codehilite><code class=language-bash>$ composer dump-autoload</code></pre>
+<pre class="highlight"><code class="language-bash">$ composer dump-autoload</code></pre>
+
 <h2 id="configuration">Configuration</h2>
 <p>Having registered the autoloader, let’s have a quick look at the <code>getConfig()</code>
 method in <code>Album\Module</code>. This method loads the <code>config/module.config.php</code> file
 under the module's root directory.</p>
 <p>Create a file called <code>module.config.php</code> under
 <code>laminas-mvc-tutorial/module/Album/config/</code>:</p>
-<pre class=codehilite><code class=language-php>namespace Album;
+<pre class="highlight"><code class="language-php">namespace Album;
 
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -570,6 +575,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>The config information is passed to the relevant components by the
 <code>ServiceManager</code>. We need two initial sections: <code>controllers</code> and
 <code>view_manager</code>. The controllers section provides a list of all the controllers
@@ -586,7 +592,7 @@ by the skeleton application. Update this file so that the array it returns
 contains the <code>Album</code> module as well, so the file now looks like this:</p>
 <p>(Changes required are highlighted using comments; original comments from the
 file are omitted for brevity.)</p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     'Laminas\Form',
     'Laminas\Db',
     'Laminas\Router',
@@ -594,6 +600,7 @@ file are omitted for brevity.)</p>
     'Application',
     'Album',          // &lt;-- Add this line
 ];</code></pre>
+
 <p>As you can see, we have added our <code>Album</code> module into the list of modules after
 the <code>Application</code> module.</p>
 <p>We have now set up the module ready for putting our custom code into it.</p>

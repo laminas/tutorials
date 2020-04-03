@@ -502,19 +502,21 @@ classes.</p>
 tutorial, and that you've already populated the <code>data/laminastutorial.db</code> SQLite
 database. We will be re-using it, and adding another table to it.</p>
 <p>Create the file <code>data/posts.schema.sql</code> with the following contents:</p>
-<pre class=codehilite><code class=language-sql>CREATE TABLE posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar(100) NOT NULL, text TEXT NOT NULL);
+<pre class="highlight"><code class="language-sql">CREATE TABLE posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar(100) NOT NULL, text TEXT NOT NULL);
 
 INSERT INTO posts (title, text) VALUES ('Blog #1', 'Welcome to my first blog post');
 INSERT INTO posts (title, text) VALUES ('Blog #2', 'Welcome to my second blog post');
 INSERT INTO posts (title, text) VALUES ('Blog #3', 'Welcome to my third blog post');
 INSERT INTO posts (title, text) VALUES ('Blog #4', 'Welcome to my fourth blog post');
 INSERT INTO posts (title, text) VALUES ('Blog #5', 'Welcome to my fifth blog post');</code></pre>
+
 <p>Now we will execute this against the existing <code>data/laminastutorial.db</code> SQLite
 database using the <code>sqlite</code> command (or <code>sqlite3</code>; check your operating system):</p>
-<pre class=codehilite><code class=language-bash>$ sqlite data/laminastutorial.db &lt; data/posts.schema.sql</code></pre>
+<pre class="highlight"><code class="language-bash">$ sqlite data/laminastutorial.db &lt; data/posts.schema.sql</code></pre>
+
 <p>If you don't have a <code>sqlite</code> command, you can populate it using PHP. Create the
 following script in <code>data/load_posts.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 $db = new PDO('sqlite:' . __DIR__ . '/laminastutorial.db');
 $fh = fopen(__DIR__ . '/posts.schema.sql', 'r');
 while ($line = fread($fh, 4096)) {
@@ -522,8 +524,10 @@ while ($line = fread($fh, 4096)) {
     $db-&gt;exec($line);
 }
 fclose($fh);</code></pre>
+
 <p>and execute it using:</p>
-<pre class=codehilite><code class=language-bash>$ php data/load_posts.php</code></pre>
+<pre class="highlight"><code class="language-bash">$ php data/load_posts.php</code></pre>
+
 <h2 id="quick-facts-laminasdbsql">Quick Facts Laminas\Db\Sql</h2>
 <p>To create queries against a database using <code>Laminas\Db\Sql</code>, you need to have a
 database adapter available. The "Getting Started" tutorial
@@ -546,7 +550,7 @@ of these components is:</p>
 <h2 id="writing-the-repository-implementation">Writing the repository implementation</h2>
 <p>Create a class named <code>LaminasDbSqlRepository</code> in the <code>Blog\Model</code> namespace that
 implements <code>PostRepositoryInterface</code>; leave the methods empty for now:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Model/LaminasDbSqlRepository.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Model/LaminasDbSqlRepository.php:
 namespace Blog\Model;
 
 use InvalidArgumentException;
@@ -570,12 +574,13 @@ class LaminasDbSqlRepository implements PostRepositoryInterface
     {
     }
 }</code></pre>
+
 <p>Now recall what we have learned earlier: for <code>Laminas\Db\Sql</code> to function, we will
 need a working implementation of the <code>AdapterInterface</code>. This is a
 <em>requirement</em>, and therefore will be injected using <em>constructor injection</em>.
 Create a <code>__construct()</code> method that accepts an <code>AdapterInterface</code> as its sole
 parameter, and stores it as an instance property:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Model/LaminasDbSqlRepository.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Model/LaminasDbSqlRepository.php:
 namespace Blog\Model;
 
 use InvalidArgumentException;
@@ -613,9 +618,10 @@ class LaminasDbSqlRepository implements PostRepositoryInterface
     {
     }
 }</code></pre>
+
 <p>Whenever we have a required parameter, we need to write a factory for the class.
 Go ahead and create a factory for our new repository implementation:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Factory/LaminasDbSqlRepositoryFactory.php
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Factory/LaminasDbSqlRepositoryFactory.php
 namespace Blog\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -636,6 +642,7 @@ class LaminasDbSqlRepositoryFactory implements FactoryInterface
         return new LaminasDbSqlRepository($container-&gt;get(AdapterInterface::class));
     }
 }</code></pre>
+
 <p>We're now able to register our repository implementation as a service. To do so,
 we'll make two changes:</p>
 <ul>
@@ -644,7 +651,7 @@ we'll make two changes:</p>
   repository.</li>
 </ul>
 <p>Update <code>module/Blog/config/module.config.php</code> as follows:</p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     'service_manager' =&gt; [
         'aliases' =&gt; [
             // Update this line:
@@ -660,14 +667,16 @@ we'll make two changes:</p>
     'router'       =&gt; [ /* ... */ ],
     'view_manager' =&gt; [ /* ... */ ],
 ];</code></pre>
+
 <p>With the adapter in place you're now able to refresh the blog index at
 <code>localhost:8080/blog</code> and you'll notice that the <code>ServiceNotFoundException</code> is
 gone and we get the following PHP Warning:</p>
-<pre class=codehilite><code class=language-text>Warning: Invalid argument supplied for foreach() in {projectPath}/module/Blog/view/blog/list/index.phtml on line {lineNumber}</code></pre>
+<pre class="highlight"><code class="language-text">Warning: Invalid argument supplied for foreach() in {projectPath}/module/Blog/view/blog/list/index.phtml on line {lineNumber}</code></pre>
+
 <p>This is due to the fact that our mapper doesn't return anything yet. Let's
 modify the <code>findAllPosts()</code> function to return all blog posts from the database
 table:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Model/LaminasDbSqlRepository.php:
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Model/LaminasDbSqlRepository.php:
 namespace Blog\Model;
 
 use InvalidArgumentException;
@@ -711,11 +720,13 @@ class LaminasDbSqlRepository implements PostRepositoryInterface
     {
     }
 }</code></pre>
+
 <p>Sadly, though, a refresh of the application reveals another error message:</p>
-<pre class=codehilite><code class=language-text>PHP Fatal error:  Call to a member function getId() on array in {projectPath}/module/Blog/view/blog/list/index.phtml on line {lineNumber}</code></pre>
+<pre class="highlight"><code class="language-text">PHP Fatal error:  Call to a member function getId() on array in {projectPath}/module/Blog/view/blog/list/index.phtml on line {lineNumber}</code></pre>
+
 <p>Let's not return the <code>$result</code> variable for now and do a dump of it to see what
 we get here. Change the <code>findAllPosts()</code> method and dump the result:</p>
-<pre class=codehilite><code class=language-php>public function findAllPosts()
+<pre class="highlight"><code class="language-php">public function findAllPosts()
 {
     $sql    = new Sql($this-&gt;db);
     $select = $sql-&gt;select('posts');
@@ -727,12 +738,13 @@ we get here. Change the <code>findAllPosts()</code> method and dump the result:<
 
     return $result;
 }</code></pre>
+
 <p>Refreshing the application you should now see output similar to the following:</p>
-<pre class=codehilite><code class=language-text>Laminas\Db\Adapter\Driver\Pdo\Result::__set_state(array(
+<pre class="highlight"><code class="language-text">Laminas\Db\Adapter\Driver\Pdo\Result::__set_state(array(
     'statementMode'   =&gt; 'forward',
     'fetchMode'       =&gt; 2,
     'resource'        =&gt; PDOStatement::__set_state(array(
-        'queryString' =&gt; 'SELECT &quot;posts&quot;.* FROM &quot;posts&quot;',
+        'queryString' =&gt; 'SELECT "posts".* FROM "posts"',
     )),
     'options'         =&gt; null,
     'currentComplete' =&gt; false,
@@ -741,6 +753,7 @@ we get here. Change the <code>findAllPosts()</code> method and dump the result:<
     'generatedValue'  =&gt; '0',
     'rowCount'        =&gt; Closure::__set_state(array()),
 ))</code></pre>
+
 <p>As you can see, we do not get any data returned. Instead we are presented with a
 dump of some <code>Result</code> object that appears to have no data in it whatsoever. But
 this is a faulty assumption. This <code>Result</code> object only has information available
@@ -748,10 +761,11 @@ for you when you actually try to access it. If you can determine that the query
 was successful, the best way to make use of the data within the <code>Result</code> object
 is to pass it to a <code>ResultSet</code> object.</p>
 <p>First, add two more import statements to the class file:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Db\Adapter\Driver\ResultInterface;
+<pre class="highlight"><code class="language-php">use Laminas\Db\Adapter\Driver\ResultInterface;
 use Laminas\Db\ResultSet\ResultSet;</code></pre>
+
 <p>Now update the <code>findAllPosts()</code> method as follows:</p>
-<pre class=codehilite><code class=language-php>public function findAllPosts()
+<pre class="highlight"><code class="language-php">public function findAllPosts()
 {
     $sql    = new Sql($this-&gt;db);
     $select = $sql-&gt;select('posts');
@@ -767,8 +781,9 @@ use Laminas\Db\ResultSet\ResultSet;</code></pre>
 
     die('no data');
 }</code></pre>
+
 <p>Refreshing the page, you should now see the dump of a <code>ResultSet</code> instance:</p>
-<pre class=codehilite><code class=language-text>Laminas\Db\ResultSet\ResultSet::__set_state(array(
+<pre class="highlight"><code class="language-text">Laminas\Db\ResultSet\ResultSet::__set_state(array(
     'allowedReturnTypes'   =&gt;
         array(
             0 =&gt; 'arrayobject',
@@ -786,7 +801,7 @@ use Laminas\Db\ResultSet\ResultSet;</code></pre>
             'fetchMode'       =&gt; 2,
             'resource'        =&gt;
                 PDOStatement::__set_state(array(
-                    'queryString' =&gt; 'SELECT &quot;posts&quot;.* FROM &quot;posts&quot;',
+                    'queryString' =&gt; 'SELECT "posts".* FROM "posts"',
                 )),
             'options'         =&gt; null,
             'currentComplete' =&gt; false,
@@ -800,6 +815,7 @@ use Laminas\Db\ResultSet\ResultSet;</code></pre>
     'fieldCount'           =&gt; 3,
     'position'             =&gt; 0,
 ))</code></pre>
+
 <p>Of particular interest is the <code>returnType</code> property, which has a value of
 <code>arrayobject</code>.  This tells us that all database entries will be returned as an
 <code>ArrayObject</code> instances. And this is a little problem for us, as the
@@ -809,12 +825,14 @@ Luckily the <code>Laminas\Db\ResultSet</code> subcomponent offers a solution for
 specify with the data returned.</p>
 <p>Let's modify our code. First, remove the following import statement from the
 class file:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Db\ResultSet\ResultSet;</code></pre>
+<pre class="highlight"><code class="language-php">use Laminas\Db\ResultSet\ResultSet;</code></pre>
+
 <p>Next, we'll add the following import statements to our class file:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Hydrator\Reflection as ReflectionHydrator;
+<pre class="highlight"><code class="language-php">use Laminas\Hydrator\Reflection as ReflectionHydrator;
 use Laminas\Db\ResultSet\HydratingResultSet;</code></pre>
+
 <p>Now, update the <code>findAllPosts()</code> method to read as follows:</p>
-<pre class=codehilite><code class=language-php>public function findAllPosts()
+<pre class="highlight"><code class="language-php">public function findAllPosts()
 {
     $sql       = new Sql($this-&gt;db);
     $select    = $sql-&gt;select('posts');
@@ -832,6 +850,7 @@ use Laminas\Db\ResultSet\HydratingResultSet;</code></pre>
     $resultSet-&gt;initialize($result);
     return $resultSet;
 }</code></pre>
+
 <p>We have changed a couple of things here. First, instead of a normal <code>ResultSet</code>,
 we are now using the <code>HydratingResultSet</code>. This specialized result set requires two parameters, the
 second one being an object to hydrate with data, and the first one being the
@@ -851,7 +870,7 @@ both a hydrator and a <code>Post</code> prototype inside our <code>LaminasDbSqlR
 inject those instead, so that we can reuse them between our repository and
 command implementations, or vary them based on environment. Update your
 <code>LaminasDbSqlRepository</code> as follows:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Model/LaminasDbSqlRepository.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Model/LaminasDbSqlRepository.php:
 namespace Blog\Model;
 
 use InvalidArgumentException;
@@ -923,9 +942,10 @@ class LaminasDbSqlRepository implements PostRepositoryInterface
     {
     }
 }</code></pre>
+
 <p>Now that our repository requires more parameters, we need to update the
 <code>LaminasDbSqlRepositoryFactory</code> and inject those parameters:</p>
-<pre class=codehilite><code class=language-php>// In /module/Blog/src/Factory/LaminasDbSqlRepositoryFactory.php
+<pre class="highlight"><code class="language-php">// In /module/Blog/src/Factory/LaminasDbSqlRepositoryFactory.php
 namespace Blog\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -946,13 +966,14 @@ class LaminasDbSqlRepositoryFactory implements FactoryInterface
         );
     }
 }</code></pre>
+
 <p>With this in place you can refresh the application again and you'll see your
 blog posts listed once again. Our repository no longer has hidden dependencies,
 and works with a database!</p>
 <h2 id="finishing-the-repository">Finishing the repository</h2>
 <p>Before we jump into the next chapter, let's quickly finish the repository
 implementation by completing the <code>findPost()</code> method:</p>
-<pre class=codehilite><code class=language-php>public function findPost($id)
+<pre class="highlight"><code class="language-php">public function findPost($id)
 {
     $sql       = new Sql($this-&gt;db);
     $select    = $sql-&gt;select('posts');
@@ -963,7 +984,7 @@ implementation by completing the <code>findPost()</code> method:</p>
 
     if (! $result instanceof ResultInterface || ! $result-&gt;isQueryResult()) {
         throw new RuntimeException(sprintf(
-            'Failed retrieving blog post with identifier &quot;%s&quot;; unknown database error.',
+            'Failed retrieving blog post with identifier "%s"; unknown database error.',
             $id
         ));
     }
@@ -974,13 +995,14 @@ implementation by completing the <code>findPost()</code> method:</p>
 
     if (! $post) {
         throw new InvalidArgumentException(sprintf(
-            'Blog post with identifier &quot;%s&quot; not found.',
+            'Blog post with identifier "%s" not found.',
             $id
         ));
     }
 
     return $post;
 }</code></pre>
+
 <p>The <code>findPost()</code> function looks similar to the <code>findAllPosts()</code> method, with
 several differences.</p>
 <ul>

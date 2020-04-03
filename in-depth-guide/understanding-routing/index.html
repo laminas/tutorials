@@ -501,7 +501,7 @@ a specific string. Examples of URLs that can utilize literal routes include:</p>
 the "defaults" to return on a match. The "defaults" are then returned as route
 match parameters; one use case for these is to specify the controller to invoke
 and the action method on that controller to use. As an example:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'about' =&gt; [
             'type' =&gt; \Laminas\Router\Http\Literal::class,
@@ -515,6 +515,7 @@ and the action method on that controller to use. As an example:</p>
         ],
     ],
 ],</code></pre>
+
 <h3>Segment routes</h3>
 <p>Segment routes allow you to define routes with variable parameters; a common use
 case is for specifying an identifier in the path.  Examples of URLs that might
@@ -547,7 +548,7 @@ The primary differences are:</p>
 <p>As an example, let's consider a route where we want to specify a variable "year"
 segment, and indicate that the segment must contain exactly four digits; when
 matched, we should use the <code>ArchiveController</code> and its <code>byYear</code> action:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'archives' =&gt; [
             'type' =&gt; \Laminas\Router\Http\Segment::class,
@@ -565,6 +566,7 @@ matched, we should use the <code>ArchiveController</code> and its <code>byYear</
         ],
     ],
 ],</code></pre>
+
 <p>This configuration defines a route for a URL such as
 <code>//example.com/news/archive/2014</code>. The route contains the variable segment
 <code>:year</code>, which has a regex constraint defined as <code>\d{4}</code>, indicating it will
@@ -594,7 +596,7 @@ When writing these routes you have two options:</p>
 <h3>Generic routes</h3>
 <p>A generic route is greedy, and will match as many URLs as possible.
 A common approach is to write a route that matches the controller and action:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'default' =&gt; [
             'type' =&gt; \Laminas\Router\Http\Segment::class,
@@ -612,6 +614,7 @@ A common approach is to write a route that matches the controller and action:</p
         ],
     ],
 ],</code></pre>
+
 <p>Let's take a closer look as to what has been defined in this configuration. The
 <code>route</code> part now contains two optional parameters, <code>controller</code> and <code>action</code>.
 The <code>action</code> parameter is optional only when the <code>controller</code> parameter is
@@ -643,7 +646,7 @@ as an attacker could use this fact to launch a Denial of Service.</p>
 <p>By now, you should be convinced that generic routes, while nice for prototyping,
 should likely be avoided. That means defining explicit routes.</p>
 <p>Your initial approach might be to create one route for every permutation:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'news' =&gt; [
             'type' =&gt; \Laminas\Router\Http\Literal::class,
@@ -683,6 +686,7 @@ should likely be avoided. That means defining explicit routes.</p>
         ],
     ],
 ],</code></pre>
+
 <p>Routing is done as a stack, meaning last in, first out (LIFO). The trick is to
 define your most general routes first, and your most specific routes last. In
 the example above, our most general route is a literal match against the path
@@ -712,7 +716,7 @@ several optimizations:</p>
 </ul>
 <p>Let's take a look at a child routes configuration using the same example as
 above:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'news' =&gt; [
             // First we define the basic options for the parent route:
@@ -725,7 +729,7 @@ above:</p>
                 ],
             ],
 
-            // The following allows &quot;/news&quot; to match on its own if no child
+            // The following allows "/news" to match on its own if no child
             // routes match:
             'may_terminate' =&gt; true,
 
@@ -759,6 +763,7 @@ above:</p>
         ],
     ],
 ],</code></pre>
+
 <p>At its most basic, we define a parent route as normal, and then add an
 additional key, <code>child_routes</code>, which is normal routing configuration for
 additional routes to match if the parent route matches.</p>
@@ -798,7 +803,7 @@ only a single blog entry based on internal identifier.  Given that ID is a
 variable parameter, we need a segment route. Furthermore, we know that the route
 will also match against the same <code>/blog</code> path prefix, so we can define it as a
 child route of our existing route. Let's update our configuration:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php:
 namespace Blog;
 
 use Laminas\Router\Http\Literal;
@@ -839,13 +844,14 @@ return [
     ],
     'view_manager'    =&gt; [ /* ... */ ],
 ];</code></pre>
+
 <p>With this we have set up a new route that we use to display a single blog entry.
 The route defines a parameter, <code>id</code>, which needs to be a sequence of 1 or more
 positive digits, not beginning with 0.</p>
 <p>The route will call the same <code>controller</code> as the parent route, but using
 the <code>detailAction()</code> method instead. Go to your browser and request the URL
 <code>http://localhost:8080/blog/2</code>; you'll see the following error message:</p>
-<pre class=codehilite><code class=language-text>A 404 error occurred
+<pre class="highlight"><code class="language-text">A 404 error occurred
 
 Page not found.
 
@@ -855,11 +861,12 @@ Controller:
 Blog\Controller\ListController
 
 No Exception available</code></pre>
+
 <p>This is due to the fact that the controller tries to access the
 <code>detailAction()</code>, which does not yet exist. We'll create this action now; go to
 your <code>ListController</code> and add the following action, which will return an empty
 view model</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Controller/ListController.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Controller/ListController.php:
 
 /* .. */
 
@@ -872,12 +879,13 @@ class ListController extends AbstractActionController
         return new ViewModel();
     }
 }</code></pre>
+
 <p>Refresh your browser, which should result in the familiar message that a template
 was unable to be rendered.</p>
 <p>Let's create this template now and assume that we will get a <code>Post</code> instance
 passed to the template to see the details of our blog. Create a new view file
 under <code>module/Blog/view/blog/list/detail.phtml</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;h1&gt;Post Details&lt;/h1&gt;
+<pre class="highlight"><code class="language-php">&lt;h1&gt;Post Details&lt;/h1&gt;
 
 &lt;dl&gt;
     &lt;dt&gt;Post Title&lt;/dt&gt;
@@ -886,9 +894,10 @@ under <code>module/Blog/view/blog/list/detail.phtml</code>:</p>
     &lt;dt&gt;Post Text&lt;/dt&gt;
     &lt;dd&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;post-&gt;getText()) ?&gt;&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
+
 <p>The above template is expecting a <code>$post</code> variable referencing a <code>Post</code> instance
 in the view model. We'll now update the <code>ListController</code> to provide that:</p>
-<pre class=codehilite><code class=language-php>public function detailAction()
+<pre class="highlight"><code class="language-php">public function detailAction()
 {
     $id = $this-&gt;params()-&gt;fromRoute('id');
 
@@ -896,13 +905,14 @@ in the view model. We'll now update the <code>ListController</code> to provide t
         'post' =&gt; $this-&gt;postRepository-&gt;findPost($id),
     ]);
 }</code></pre>
+
 <p>If you refresh your application now, you'll see the details for our <code>Post</code> are
 displayed. However, there is one problem with what we have done: while we
 have our repository set up to throw an <code>InvalidArgumentException</code> when no post
 is found matching a given identifier, we do not check for it in our controller.</p>
 <p>Go to your browser and open the URL <code>http://localhost:8080/blog/99</code>; you will
 see the following error message:</p>
-<pre class=codehilite><code class=language-text>An error occurred
+<pre class="highlight"><code class="language-text">An error occurred
 
 An error occurred during execution; please try again later.
 
@@ -913,14 +923,16 @@ File:
 {projectPath}/module/Blog/src/Model/LaminasDbSqlRepository.php:{lineNumber}
 
 Message:
-Blog post with identifier &quot;99&quot; not found.</code></pre>
+Blog post with identifier "99" not found.</code></pre>
+
 <p>This is kind of ugly, so our <code>ListController</code> should be prepared to do something
 whenever an <code>InvalidArgumentException</code> is thrown by the <code>PostService</code>. Let's
 have the controller redirect to the blog post overview.</p>
 <p>First, add a new import to the <code>ListController</code> class file:</p>
-<pre class=codehilite><code class=language-php>use InvalidArgumentException;</code></pre>
+<pre class="highlight"><code class="language-php">use InvalidArgumentException;</code></pre>
+
 <p>Now add the following try-catch statement to the <code>detailAction()</code> method:</p>
-<pre class=codehilite><code class=language-php>public function detailAction()
+<pre class="highlight"><code class="language-php">public function detailAction()
 {
     $id = $this-&gt;params()-&gt;fromRoute('id');
 
@@ -934,6 +946,7 @@ have the controller redirect to the blog post overview.</p>
         'post' =&gt; $post,
     ]);
 }</code></pre>
+
 <p>Now whenever a user requests an invalid identifier, you'll be redirected to the
 route <code>blog</code>, which is our list of blog posts!</p>
 

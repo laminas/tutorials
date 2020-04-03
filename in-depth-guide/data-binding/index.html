@@ -518,7 +518,7 @@ bind it to the form. To do this, we will need to:</p>
 <li>We will add the <code>editAction()</code> implementation.</li>
 </ul>
 <p>The final result will look like the following:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 // In module/Blog/src/Controller/WriteController.php:
 
 namespace Blog\Controller;
@@ -628,6 +628,7 @@ class WriteController extends AbstractActionController
         );
     }
 }</code></pre>
+
 <p>The primary differences between <code>addAction()</code> and <code>editAction()</code> are that the
 latter needs to first fetch a <code>Post</code>, and this post is <em>bound</em> to the form. By
 binding it, we ensure that the data is populated in the form for the initial
@@ -635,10 +636,11 @@ display, and, once validated, the same instance is updated. This means that we
 can omit the call to <code>getData()</code> after validating the form.</p>
 <p>Now we need to update our <code>WriteControllerFactory</code>. First, add a new import
 statement to it:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Factory/WriteControllerFactory.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Factory/WriteControllerFactory.php:
 use Blog\Model\PostRepositoryInterface;</code></pre>
+
 <p>Next, update the body of the factory to read as follows:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Factory/WriteControllerFactory.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Factory/WriteControllerFactory.php:
 public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
 {
     $formManager = $container-&gt;get('FormElementManager');
@@ -649,6 +651,7 @@ public function __invoke(ContainerInterface $container, $requestedName, array $o
         $container-&gt;get(PostRepositoryInterface::class)
     );
 }</code></pre>
+
 <p>The controller and model are now wired together, so it's time to turn to
 routing.</p>
 <h2 id="adding-the-edit-route">Adding the edit route</h2>
@@ -659,7 +662,7 @@ with two exceptions:</p>
 <li>it will route to our <code>WriteController</code></li>
 </ul>
 <p>Update the 'blog' <code>child_routes</code> to add the new route:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/config/module.config.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/config/module.config.php:
 
 use Laminas\Router\Http\Segment;
 
@@ -693,6 +696,7 @@ return [
     ],
     'view_manager'    =&gt; [ /* ... */ ],
 ];</code></pre>
+
 <h2 id="creating-the-edit-template">Creating the edit template</h2>
 <p>Rendering the form remains essentially the same between the <code>add</code> and <code>edit</code>
 templates; the only difference between them is the form action. As such, we will
@@ -700,7 +704,7 @@ create a new <em>partial</em> script for the form, update the <code>add</code> t
 and create a new <code>edit</code> template.</p>
 <p>Create a new file, <code>module/Blog/view/blog/write/form.phtml</code>, with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 $form = $this-&gt;form;
 $fieldset = $form-&gt;get('post');
 
@@ -722,13 +726,13 @@ echo $this-&gt;form()-&gt;openTag($form);
 ?&gt;
 
 &lt;fieldset&gt;
-&lt;div class=&quot;form-group&quot;&gt;
+&lt;div class="form-group"&gt;
     &lt;?= $this-&gt;formLabel($title) ?&gt;
     &lt;?= $this-&gt;formElement($title) ?&gt;
     &lt;?= $this-&gt;formElementErrors()-&gt;render($title, ['class' =&gt; 'help-block']) ?&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;form-group&quot;&gt;
+&lt;div class="form-group"&gt;
     &lt;?= $this-&gt;formLabel($text) ?&gt;
     &lt;?= $this-&gt;formElement($text) ?&gt;
     &lt;?= $this-&gt;formElementErrors()-&gt;render($text, ['class' =&gt; 'help-block']) ?&gt;
@@ -739,9 +743,10 @@ echo $this-&gt;form()-&gt;openTag($form);
 echo $this-&gt;formSubmit($submit);
 echo $this-&gt;formHidden($fieldset-&gt;get('id'));
 echo $this-&gt;form()-&gt;closeTag();</code></pre>
+
 <p>Now, update the <code>add</code> template, <code>module/Blog/view/write/add.phtml</code> to read as
 follows:</p>
-<pre class=codehilite><code class=language-php>&lt;h1&gt;Add a blog post&lt;/h1&gt;
+<pre class="highlight"><code class="language-php">&lt;h1&gt;Add a blog post&lt;/h1&gt;
 
 &lt;?php
 $form = $this-&gt;form;
@@ -750,11 +755,12 @@ echo $this-&gt;partial('blog/write/form', [
     'form' =&gt; $form,
     'submitLabel' =&gt; 'Insert new post',
 ]);</code></pre>
+
 <p>The above retrieves the form, sets the form action, provides a
 context-appropriate label for the submit button, and renders it with our new
 partial view script.</p>
 <p>Next in line is the creation of the new template, <code>blog/write/edit</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;h1&gt;Edit blog post&lt;/h1&gt;
+<pre class="highlight"><code class="language-php">&lt;h1&gt;Edit blog post&lt;/h1&gt;
 
 &lt;?php
 $form = $this-&gt;form;
@@ -763,6 +769,7 @@ echo $this-&gt;partial('blog/write/form', [
     'form' =&gt; $form,
     'submitLabel' =&gt; 'Update post',
 ]);</code></pre>
+
 <p>The three differences between the <code>add</code> and <code>edit</code> templates are:</p>
 <ul>
 <li>The heading at the top of the page.</li>
@@ -777,12 +784,13 @@ view, however. laminas-router allows another option, however: you can tell it to
 re-use currently matched parameters.  This is done by setting the last parameter
 of the view-helper to <code>true</code>: <code>$this-&gt;url('blog/edit', [], true)</code>.</p>
 <p>If you try and update the post, you will receive the following error:</p>
-<pre class=codehilite><code class=language-text>Call to member function getId() on null</code></pre>
+<pre class="highlight"><code class="language-text">Call to member function getId() on null</code></pre>
+
 <p>That is because we have not yet implemented the update functionality in
 our command class which will return a Post object on success. Let's do that now.</p>
 <p>Edit the file <code>module/Blog/src/Model/LaminasDbSqlCommand.php</code>, and update the
 <code>updatePost()</code> method to read as follows:</p>
-<pre class=codehilite><code class=language-php>public function updatePost(Post $post)
+<pre class="highlight"><code class="language-php">public function updatePost(Post $post)
 {
     if (! $post-&gt;getId()) {
         throw new RuntimeException('Cannot update post; missing identifier');
@@ -807,6 +815,7 @@ our command class which will return a Post object on success. Let's do that now.
 
     return $post;
 }</code></pre>
+
 <p>This looks very similar to the <code>insertPost()</code> implementation we did earlier. The
 primary difference is the usage of the <code>Update</code> class; instead of calling a
 <code>values()</code> method on it, we call:</p>
@@ -822,7 +831,7 @@ success.</p>
 <h2 id="implementing-the-delete-functionality">Implementing the delete functionality</h2>
 <p>Last but not least, it's time to delete some data. We start this process by
 implementing the <code>deletePost()</code> method in our <code>LaminasDbSqlCommand</code> class:</p>
-<pre class=codehilite><code class=language-php>// In module/Blog/src/Model/LaminasDbSqlCommand.php:
+<pre class="highlight"><code class="language-php">// In module/Blog/src/Model/LaminasDbSqlCommand.php:
 
 public function deletePost(Post $post)
 {
@@ -843,12 +852,13 @@ public function deletePost(Post $post)
 
     return true;
 }</code></pre>
+
 <p>The above uses <code>Laminas\Db\Sql\Delete</code> to create the SQL necessary to delete the
 post with the given identifier, which we then execute.</p>
 <p>Next, let's create a new controller, <code>Blog\Controller\DeleteController</code>, in a
 new file <code>module/Blog/src/Controller/DeleteController.php</code>, with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Controller;
 
 use Blog\Model\Post;
@@ -910,6 +920,7 @@ class DeleteController extends AbstractActionController
         return $this-&gt;redirect()-&gt;toRoute('blog');
     }
 }</code></pre>
+
 <p>Like the <code>WriteController</code>, it composes both our <code>PostRepositoryInterface</code> and
 <code>PostCommandInterface</code>. The former is used to ensure we are referencing a valid
 post instance, and the latter to perform the actual deletion.</p>
@@ -921,7 +932,7 @@ blog listing page.</p>
 <p>Like the other controllers, we now need a factory. Create the file
 <code>module/Blog/src/Factory/DeleteControllerFactory.php</code> with the following
 contents:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 namespace Blog\Factory;
 
 use Blog\Controller\DeleteController;
@@ -946,11 +957,12 @@ class DeleteControllerFactory implements FactoryInterface
         );
     }
 }</code></pre>
+
 <p>We'll now wire this into the application, mapping the controller to its factory,
 and providing a new route. Open the file <code>module/Blog/config/module.config.php</code>
 and make the following edits.</p>
 <p>First, map the controller to its factory:</p>
-<pre class=codehilite><code class=language-php>'controllers' =&gt; [
+<pre class="highlight"><code class="language-php">'controllers' =&gt; [
     'factories' =&gt; [
         Controller\ListController::class =&gt; Factory\ListControllerFactory::class,
         Controller\WriteController::class =&gt; Factory\WriteControllerFactory::class,
@@ -958,8 +970,9 @@ and make the following edits.</p>
         Controller\DeleteController::class =&gt; Factory\DeleteControllerFactory::class,
     ],
 ],</code></pre>
+
 <p>Now add another child route to our "blog" route:</p>
-<pre class=codehilite><code class=language-php>'router' =&gt; [
+<pre class="highlight"><code class="language-php">'router' =&gt; [
     'routes' =&gt; [
         'blog' =&gt; [
             /* ... */
@@ -984,21 +997,23 @@ and make the following edits.</p>
         ],
     ],
 ],</code></pre>
+
 <p>Finally, we'll create a new view script,
 <code>module/Blog/view/blog/delete/delete.phtml</code>, with the following contents:</p>
-<pre class=codehilite><code class=language-php>&lt;h1&gt;Delete post&lt;/h1&gt;
+<pre class="highlight"><code class="language-php">&lt;h1&gt;Delete post&lt;/h1&gt;
 
 &lt;p&gt;Are you sure you want to delete the following post?&lt;/p&gt;
 
-&lt;ul class=&quot;list-group&quot;&gt;
-    &lt;li class=&quot;list-group-item&quot;&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;post-&gt;getTitle()) ?&gt;&lt;/li&gt;
+&lt;ul class="list-group"&gt;
+    &lt;li class="list-group-item"&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;post-&gt;getTitle()) ?&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;form action=&quot;&lt;?php $this-&gt;url('blog/delete', [], true) ?&gt;&quot; method=&quot;post&quot;&gt;
-    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;?= $this-&gt;escapeHtmlAttr($this-&gt;post-&gt;getId()) ?&gt;&quot; /&gt;
-    &lt;input class=&quot;btn btn-default&quot; type=&quot;submit&quot; name=&quot;confirm&quot; value=&quot;Cancel&quot; /&gt;
-    &lt;input class=&quot;btn btn-danger&quot; type=&quot;submit&quot; name=&quot;confirm&quot; value=&quot;Delete&quot; /&gt;
+&lt;form action="&lt;?php $this-&gt;url('blog/delete', [], true) ?&gt;" method="post"&gt;
+    &lt;input type="hidden" name="id" value="&lt;?= $this-&gt;escapeHtmlAttr($this-&gt;post-&gt;getId()) ?&gt;" /&gt;
+    &lt;input class="btn btn-default" type="submit" name="confirm" value="Cancel" /&gt;
+    &lt;input class="btn btn-danger" type="submit" name="confirm" value="Delete" /&gt;
 &lt;/form&gt;</code></pre>
+
 <p>This time around, we're not using laminas-form; as it consists of just a hidden
 element and cancel/confirm buttons, there's no need to provide an OOP model for it.</p>
 <p>From here, you can now visit one of the existing blog posts, e.g.,
@@ -1022,28 +1037,29 @@ determine if the edit and delete links will be displayed; we'll leave that for
 another tutorial, however.</p>
 <p>Open your <code>module/Blog/view/blog/list/index.phtml</code> file, and update it to read
 as follows:</p>
-<pre class=codehilite><code class=language-php>&lt;h1&gt;Blog Posts&lt;/h1&gt;
+<pre class="highlight"><code class="language-php">&lt;h1&gt;Blog Posts&lt;/h1&gt;
 
-&lt;div class=&quot;list-group&quot;&gt;
+&lt;div class="list-group"&gt;
 &lt;?php foreach ($this-&gt;posts as $post): ?&gt;
-  &lt;div class=&quot;list-group-item&quot;&gt;
-    &lt;h4 class=&quot;list-group-item-heading&quot;&gt;
-      &lt;a href=&quot;&lt;?= $this-&gt;url('blog/detail', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;
+  &lt;div class="list-group-item"&gt;
+    &lt;h4 class="list-group-item-heading"&gt;
+      &lt;a href="&lt;?= $this-&gt;url('blog/detail', ['id' =&gt; $post-&gt;getId()]) ?&gt;"&gt;
         &lt;?= $post-&gt;getTitle() ?&gt;
       &lt;/a&gt;
     &lt;/h4&gt;
 
-    &lt;div class=&quot;btn-group&quot; role=&quot;group&quot; aria-label=&quot;Post actions&quot;&gt;
-      &lt;a class=&quot;btn btn-xs btn-default&quot; href=&quot;&lt;?= $this-&gt;url('blog/edit', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;Edit&lt;/a&gt;
-      &lt;a class=&quot;btn btn-xs btn-danger&quot; href=&quot;&lt;?= $this-&gt;url('blog/delete', ['id' =&gt; $post-&gt;getId()]) ?&gt;&quot;&gt;Delete&lt;/a&gt;
+    &lt;div class="btn-group" role="group" aria-label="Post actions"&gt;
+      &lt;a class="btn btn-xs btn-default" href="&lt;?= $this-&gt;url('blog/edit', ['id' =&gt; $post-&gt;getId()]) ?&gt;"&gt;Edit&lt;/a&gt;
+      &lt;a class="btn btn-xs btn-danger" href="&lt;?= $this-&gt;url('blog/delete', ['id' =&gt; $post-&gt;getId()]) ?&gt;"&gt;Delete&lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;    
 &lt;?php endforeach ?&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;btn-group&quot; role=&quot;group&quot; aria-label=&quot;Post actions&quot;&gt;
-  &lt;a class=&quot;btn btn-primary&quot; href=&quot;&lt;?= $this-&gt;url('blog/add') ?&gt;&quot;&gt;Write new post&lt;/a&gt;
+&lt;div class="btn-group" role="group" aria-label="Post actions"&gt;
+  &lt;a class="btn btn-primary" href="&lt;?= $this-&gt;url('blog/add') ?&gt;"&gt;Write new post&lt;/a&gt;
 &lt;/div&gt;</code></pre>
+
 <p>At this point, we have a far more functional blog, as we can move around between
 pages using links and buttons.</p>
 <h2 id="summary">Summary</h2>
