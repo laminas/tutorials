@@ -828,7 +828,7 @@ class file:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Db\ResultSet\ResultSet;</code></pre>
 
 <p>Next, we'll add the following import statements to our class file:</p>
-<pre class="highlight"><code class="language-php">use Laminas\Hydrator\Reflection as ReflectionHydrator;
+<pre class="highlight"><code class="language-php">use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Db\ResultSet\HydratingResultSet;</code></pre>
 
 <p>Now, update the <code>findAllPosts()</code> method to read as follows:</p>
@@ -952,7 +952,7 @@ use Interop\Container\ContainerInterface;
 use Blog\Model\Post;
 use Blog\Model\LaminasDbSqlRepository;
 use Laminas\Db\Adapter\AdapterInterface;
-use Laminas\Hydrator\Reflection as ReflectionHydrator;
+use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class LaminasDbSqlRepositoryFactory implements FactoryInterface
