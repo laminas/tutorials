@@ -398,7 +398,7 @@ use Laminas\Db\ResultSet\ResultSet;
 Next, we'll add the following import statements to our class file:
 
 ```php
-use Laminas\Hydrator\Reflection as ReflectionHydrator;
+use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Db\ResultSet\HydratingResultSet;
 ```
 
@@ -535,7 +535,7 @@ use Interop\Container\ContainerInterface;
 use Blog\Model\Post;
 use Blog\Model\LaminasDbSqlRepository;
 use Laminas\Db\Adapter\AdapterInterface;
-use Laminas\Hydrator\Reflection as ReflectionHydrator;
+use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class LaminasDbSqlRepositoryFactory implements FactoryInterface
