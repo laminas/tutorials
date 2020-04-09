@@ -3,7 +3,7 @@
 In the previous chapter, we created a `PostRepository` that returns some data
 from blog posts. While the implementation was adequate for learning purposes, it
 is quite impractical for real world applications; no one would want to modify
-the source files each time a new post is added! Fortunately, we an always turn
+the source files each time a new post is added! Fortunately, we can always turn
 to databases for the actual storage of posts; all we need to learn is how to
 interact with databases within our application.
 

@@ -747,7 +747,7 @@ First, add two import statements to the top of the class file:
 ```php
 // In module/Blog/src/Form/PostFieldset.php:
 use Blog\Model\Post;
-use Laminas\Hydrator\Reflection as ReflectionHydrator;
+use Laminas\Hydrator\ReflectionHydrator;
 ```
 
 Next, update the `init()` method to add the following two lines:
