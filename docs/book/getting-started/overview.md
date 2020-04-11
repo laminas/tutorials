@@ -4,7 +4,7 @@ This tutorial is intended to give an introduction to using Laminas by creating a
 
 ## Some assumptions
 
-This tutorial assumes that you are running at least PHP 5.6 with the Apache
+This tutorial assumes that you are running at least PHP 7.3 with the Apache
 web server and MySQL, accessible via the PDO extension. Your Apache installation
 must have the `mod_rewrite` extension installed and configured.
 
