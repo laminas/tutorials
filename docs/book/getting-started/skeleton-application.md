@@ -1,6 +1,6 @@
 # Getting started: A skeleton application
 
-In order to build our application, we will start with the
+In order to build our application, we need to have at least PHP 7.3. We will start with the
 [Laminas MVC Skeleton Application](https://github.com/laminas/laminas-mvc-skeleton)
 available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.org)
 to create a new project from scratch:
