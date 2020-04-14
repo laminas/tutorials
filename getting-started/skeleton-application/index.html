@@ -480,7 +480,7 @@
     
 
     <h1 id="getting-started-a-skeleton-application">Getting started: A skeleton application</h1>
-<p>In order to build our application, we will start with the
+<p>In order to build our application, we need to have at least PHP 7.3. We will start with the
 <a href="https://github.com/laminas/laminas-mvc-skeleton">Laminas MVC Skeleton Application</a>
 available on <a href="https://github.com/">GitHub</a>. Use <a href="https://getcomposer.org">Composer</a>
 to create a new project from scratch:</p>
@@ -582,7 +582,7 @@ $ composer install</code></pre>
 <p>This takes a while. You should see output like the following:</p>
 <pre class="highlight"><code class="language-text">Installing dependencies from lock file
 - Installing laminas/laminas-component-installer (2.1.2)
-  
+
 ...
 
 Generating autoload files</code></pre>
@@ -599,7 +599,7 @@ $ docker-compose run laminas composer install</code></pre>
 
 <h3>Timeouts</h3>
 <p>If you see this message:</p>
-<pre class="highlight"><code class="language-text">[RuntimeException]      
+<pre class="highlight"><code class="language-text">[RuntimeException]
   The process timed out.</code></pre>
 
 <p>then your connection was too slow to download the entire package in time, and
@@ -659,7 +659,7 @@ and you should see the following 404 page:</p>
 virtual machines, and is a common way to provide a coherent and consistent
 development environment for development teams. The skeleton application provides
 a <code>Vagrantfile</code> based on Ubuntu 14.04, and using the <code>ondrej/php</code> PPA to provide
-PHP 7.0. Start it up using:</p>
+PHP 7.3. Start it up using:</p>
 <pre class="highlight"><code class="language-bash">$ vagrant up</code></pre>
 
 <p>Once it has been built and is running, you can also run composer from the
@@ -694,7 +694,7 @@ configuration initially only defines one container, with the environment name
 "laminas"; use that to execute commands, such as updating dependencies via composer:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose run laminas composer update</code></pre>
 
-<p>The configuration includes both PHP 7.0 and Apache 2.4, and maps the host port
+<p>The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.</p>
 <h3>Using the Apache Web Server</h3>
 <p>We will not cover installing <a href="https://httpd.apache.org">Apache</a>, and will assume
