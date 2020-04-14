@@ -2,21 +2,6 @@
 
 This tutorial is intended to give an introduction to using Laminas by creating a simple database driven application using the Model-View-Controller paradigm. By the end you will have a working Laminas application and you can then poke around the code to find out more about how it all works and fits together.
 
-> ### Getting started faster
->
-> Alternatively, you can use any of the following as well:
->
-> - The built-in web server in PHP. Run `php -S 0.0.0.0:8080 -t public
->   public/index.php` in your application root to start a web server listening
->   on port 8080.
-> - Use the shipped `Vagrantfile`, by executing `vagrant up` from the
->   application root. This binds the host machine's port 8080 to the Apache
->   server instance running on the Vagrant image.
-> - Use the shipped [docker-compose](https://docs.docker.com/compose/)
->   integration, by executing `docker-compose up -d --build` from the
->   application root. This binds the host machine's port 8080 to the Apache
->   server instance running container.
-
 ## The tutorial application
 
 The application that we are going to build is a simple inventory system to
