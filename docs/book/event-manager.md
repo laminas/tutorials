@@ -188,9 +188,9 @@ there is an additional argument at the *start* of the list, `'Example'`. This
 code is saying, "Listen to the 'do' event of the 'Example' target, and, when
 notified, execute this callback."
 
-This is where the `setIdentifiers()` argument of `EventManager` comes into play.
-The method allows passing a string, or an array of strings, defining the name or
-names of the context or targets the given instance will be interested in. If an
+This is where the `setIdentifiers()` method of `EventManager` comes into play.
+The method allows passing an array of strings, defining the names of the context
+or targets the given instance will be interested in. If an
 array is given, then any listener on any of the targets given will be notified.
 
 So, getting back to our example, let's assume that the above shared listener is
