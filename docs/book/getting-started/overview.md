@@ -2,30 +2,6 @@
 
 This tutorial is intended to give an introduction to using Laminas by creating a simple database driven application using the Model-View-Controller paradigm. By the end you will have a working Laminas application and you can then poke around the code to find out more about how it all works and fits together.
 
-## Some assumptions
-
-This tutorial assumes that you are running at least PHP 5.6 with the Apache
-web server and MySQL, accessible via the PDO extension. Your Apache installation
-must have the `mod_rewrite` extension installed and configured.
-
-You must also ensure that Apache is configured to support `.htaccess` files.
-This is usually done by changing the setting:
-
-```apache
-AllowOverride None
-```
-
-to
-
-```apache
-AllowOverride FileInfo
-```
-
-in your `httpd.conf` file. Check with your distribution’s documentation for
-exact details. You will not be able to navigate to any page other than the home
-page in this tutorial if you have not configured `mod_rewrite` and `.htaccess`
-usage correctly.
-
 > ### Getting started faster
 >
 > Alternatively, you can use any of the following as well:

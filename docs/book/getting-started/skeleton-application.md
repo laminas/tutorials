@@ -1,6 +1,6 @@
 # Getting started: A skeleton application
 
-In order to build our application, we will start with the
+In order to build our application, we need to have at least PHP 7.3. We will start with the
 [Laminas MVC Skeleton Application](https://github.com/laminas/laminas-mvc-skeleton)
 available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.org)
 to create a new project from scratch:
@@ -143,7 +143,7 @@ new application is ready to start!
 > ```text
 > Installing dependencies from lock file
 > - Installing laminas/laminas-component-installer (2.1.2)
->   
+>
 > ...
 >
 > Generating autoload files
@@ -168,7 +168,7 @@ new application is ready to start!
 > If you see this message:
 >
 > ```text
-> [RuntimeException]      
+> [RuntimeException]
 >   The process timed out.
 > ```
 >
@@ -190,13 +190,13 @@ new application is ready to start!
 > For windows users with wamp:
 >
 > #### 1. Install Composer for Windows
-> 
+>
 > Check Composer is properly installed by running:
 >
 > ```bash
 > $ composer
 > ```
-> 
+>
 > Otherwise follow the
 > [installation guide for Composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 >
@@ -208,7 +208,7 @@ new application is ready to start!
 > ```bash
 > $ git
 > ```
-> 
+>
 > Otherwise follow the
 > [installation guide for GitHub Desktop](https://desktop.github.com/).
 >
@@ -262,7 +262,7 @@ and you should see the following 404 page:
 virtual machines, and is a common way to provide a coherent and consistent
 development environment for development teams. The skeleton application provides
 a `Vagrantfile` based on Ubuntu 14.04, and using the `ondrej/php` PPA to provide
-PHP 7.0. Start it up using:
+PHP 7.3. Start it up using:
 
 ```bash
 $ vagrant up
@@ -319,7 +319,7 @@ configuration initially only defines one container, with the environment name
 $ docker-compose run laminas composer update
 ```
 
-The configuration includes both PHP 7.0 and Apache 2.4, and maps the host port
+The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.
 
 ### Using the Apache Web Server
