@@ -317,10 +317,10 @@ The three differences between the `add` and `edit` templates are:
 Because the URI requires the identifier, we need to ensure the identifier is
 passed. The way we've done this in the controllers is to pass the identifier as
 a parameter: `$this->url('blog/edit/', ['id' => $id])`. This would require that
-we pass the original `Post` instance (or the identifier we pull from it) to
-the view. However, laminas-router allows another option: we can tell it to
-re-use the currently matched parameters. This is done by setting the last
-parameter of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
+we pass the original `Post` instance or the identifier we pull from it to the
+view, however. laminas-router allows another option, however: you can tell it to
+re-use currently matched parameters.  This is done by setting the last parameter
+of the view-helper to `true`: `$this->url('blog/edit', [], true)`.
 
 If you try and update the post, you will receive the following error:
 
