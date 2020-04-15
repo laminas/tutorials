@@ -649,9 +649,9 @@ $sharedEvents-&gt;attach('Example', 'do', function ($e) {
 there is an additional argument at the <em>start</em> of the list, <code>'Example'</code>. This
 code is saying, "Listen to the 'do' event of the 'Example' target, and, when
 notified, execute this callback."</p>
-<p>This is where the <code>setIdentifiers()</code> argument of <code>EventManager</code> comes into play.
-The method allows passing a string, or an array of strings, defining the name or
-names of the context or targets the given instance will be interested in. If an
+<p>This is where the <code>setIdentifiers()</code> method of <code>EventManager</code> comes into play.
+The method allows passing an array of strings, defining the names of the context
+or targets the given instance will be interested in. If an
 array is given, then any listener on any of the targets given will be notified.</p>
 <p>So, getting back to our example, let's assume that the above shared listener is
 registered, and also that the <code>Example</code> class is defined as above. We can then
