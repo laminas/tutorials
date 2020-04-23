@@ -406,18 +406,18 @@ our modules:
 ```php
 <?php // in module/Application/view/partial/paginator.phtml: ?>
 <?php if ($this->pageCount): ?>
-<div>
+<nav>
   <ul class="pagination">
   <!-- Previous page link -->
   <?php if (isset($this->previous)): ?>
-    <li>
-      <a href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
+    <li class="page-item">
+      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
         &lt;&lt;
       </a>
     </li>
   <?php else: ?>
-    <li class="disabled">
-      <a href="#">
+    <li class="page-item disabled">
+      <a class="page-link" href="#">
         &lt;&lt;
       </a>
     </li>
@@ -426,34 +426,34 @@ our modules:
   <!-- Numbered page links -->
   <?php foreach ($this->pagesInRange as $page): ?>
     <?php if ($page !== $this->current): ?>
-      <li>
-        <a href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
+      <li class="page-item">
+        <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
           <?= $page ?>
         </a>
       </li>
     <?php else: ?>
-      <li class="active">
-        <a href="#"><?= $page ?></a>
+      <li class="page-item active">
+        <a class="page-link" href="#"><?= $page ?></a>
       </li>
     <?php endif ?>
   <?php endforeach ?>
 
   <!-- Next page link -->
   <?php if (isset($this->next)): ?>
-    <li>
-      <a href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
+    <li class="page-item">
+      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
         &gt;&gt;
       </a>
     </li>
   <?php else: ?>
-    <li class="disabled">
-      <a href="#">
+    <li class="page-item disabled">
+      <a class="page-link" href="#">
         &gt;&gt;
       </a>
     </li>
   <?php endif ?>
   </ul>
-</div>
+</nav>
 <?php endif ?>
 ```
 
