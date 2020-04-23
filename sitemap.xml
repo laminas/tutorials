@@ -1,111 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://docs.laminas.dev/tutorials/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/overview/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/skeleton-application/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/modules/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/routing-and-controllers/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/database-and-models/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/forms-and-actions/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/getting-started/conclusion/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/unit-testing/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/navigation/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/pagination/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/first-module/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/models-and-servicemanager/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/preparing-databases/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/laminas-db-sql-laminas-hydrator/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/understanding-routing/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/laminas-form-laminas-form-fieldset/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/data-binding/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/in-depth-guide/review/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/advanced-config/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/i18n/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/db-adapter/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/event-manager/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/migration/to-v3/overview/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/migration/to-v3/components/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/migration/to-v3/application/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/tutorials/migration-from-zendframework/</loc>
-     <lastmod>2020-04-15</lastmod>
+     <lastmod>2020-04-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
