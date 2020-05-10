@@ -196,26 +196,31 @@ rather than album specific):
 
 ```php
 <?php // in module/Application/view/partial/breadcrumb.phtml: ?>
-<ul class="breadcrumb">
-    <?php
-    // iterate through the pages
-    foreach ($this->pages as $key => $page):
-    ?>
-        <li>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <?php
+        // iterate through the pages
+        foreach ($this->pages as $key => $page): ?>
             <?php
             // if this isn't the last page, add a link and the separator:
             if ($key < count($this->pages) - 1):
-            ?>
-                <a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a>
+                ?>
+                <li class="breadcrumb-item">
+                    <a href="<?= $page->getHref() ?>">
+                        <?= $page->getLabel() ?>
+                    </a>
+                </li>
             <?php
             // otherwise, output the name only:
             else:
-            ?>
-                <?= $page->getLabel() ?>
+                ?>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <?= $page->getLabel() ?>
+                </li>
             <?php endif; ?>
-        </li>
-    <?php endforeach; ?>
-</ul>
+        <?php endforeach; ?>
+    </ol>
+</nav>
 ```
 
 Notice how the partial is passed a `Laminas\View\Model\ViewModel` instance with the
