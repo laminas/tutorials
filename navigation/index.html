@@ -643,26 +643,31 @@ a partial that outputs the <code>&lt;ul&gt;</code> using Bootstrap styles. We'll
 <code>view</code> directory of the <code>Application</code> module (this partial is application wide,
 rather than album specific):</p>
 <pre class="highlight"><code class="language-php">&lt;?php // in module/Application/view/partial/breadcrumb.phtml: ?&gt;
-&lt;ul class="breadcrumb"&gt;
-    &lt;?php
-    // iterate through the pages
-    foreach ($this-&gt;pages as $key =&gt; $page):
-    ?&gt;
-        &lt;li&gt;
+&lt;nav aria-label="breadcrumb"&gt;
+    &lt;ol class="breadcrumb"&gt;
+        &lt;?php
+        // iterate through the pages
+        foreach ($this-&gt;pages as $key =&gt; $page): ?&gt;
             &lt;?php
             // if this isn't the last page, add a link and the separator:
             if ($key &lt; count($this-&gt;pages) - 1):
-            ?&gt;
-                &lt;a href="&lt;?= $page-&gt;getHref() ?&gt;"&gt;&lt;?= $page-&gt;getLabel() ?&gt;&lt;/a&gt;
+                ?&gt;
+                &lt;li class="breadcrumb-item"&gt;
+                    &lt;a href="&lt;?= $page-&gt;getHref() ?&gt;"&gt;
+                        &lt;?= $page-&gt;getLabel() ?&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
             &lt;?php
             // otherwise, output the name only:
             else:
-            ?&gt;
-                &lt;?= $page-&gt;getLabel() ?&gt;
+                ?&gt;
+                &lt;li class="breadcrumb-item active" aria-current="page"&gt;
+                    &lt;?= $page-&gt;getLabel() ?&gt;
+                &lt;/li&gt;
             &lt;?php endif; ?&gt;
-        &lt;/li&gt;
-    &lt;?php endforeach; ?&gt;
-&lt;/ul&gt;</code></pre>
+        &lt;?php endforeach; ?&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
 
 <p>Notice how the partial is passed a <code>Laminas\View\Model\ViewModel</code> instance with the
 <code>pages</code> property set to an array of pages to render.</p>
