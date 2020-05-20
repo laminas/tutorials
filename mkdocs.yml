@@ -36,7 +36,7 @@ nav:
     - "_hidden":
         - "_migration-from-zendframework": migration-from-zendframework.md
 
-site_name: Tutorials
+site_name: tutorials
 site_description: 'Learn how to create laminas-mvc applications, get in-depth guides into components, and discover how to migrate your applications to version 3!'
 repo_url: 'https://github.com/laminas/tutorials'
 extra:
