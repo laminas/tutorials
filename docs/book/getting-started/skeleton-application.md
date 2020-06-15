@@ -6,7 +6,7 @@ available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.o
 to create a new project from scratch:
 
 ```bash
-$ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install
+$ composer create-project -sdev laminas/laminas-mvc-skeleton path/to/install
 ```
 
 This will install an initial set of dependencies, including:
