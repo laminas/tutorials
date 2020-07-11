@@ -13,7 +13,7 @@ We are going to use Sqlite, via PHP's PDO driver. Create a text file
 `data/schema.sql` with the following contents:
 
 ```sql
-CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
+CREATE TABLE album (id INTEGER PRIMARY KEY AUTO_INCREMENT, artist varchar(100) NOT NULL, title varchar(100) NOT NULL);
 INSERT INTO album (artist, title) VALUES ('The Military Wives', 'In My Dreams');
 INSERT INTO album (artist, title) VALUES ('Adele', '21');
 INSERT INTO album (artist, title) VALUES ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
