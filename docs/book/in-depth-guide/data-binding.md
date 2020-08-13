@@ -275,7 +275,7 @@ echo $this->formHidden($fieldset->get('id'));
 echo $this->form()->closeTag();
 ```
 
-Now, update the `add` template, `module/Blog/view/write/add.phtml` to read as
+Now, update the `add` template, `module/Blog/view/blog/write/add.phtml` to read as
 follows:
 
 ```php
