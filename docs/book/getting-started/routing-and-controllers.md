@@ -50,7 +50,7 @@ return [
     'router' => [
         'routes' => [
             'album' => [
-                'type'    => Segment::class,
+                'type'    => \Segment::class,
                 'options' => [
                     'route' => '/album[/:action[/:id]]',
                     'constraints' => [
