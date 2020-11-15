@@ -205,7 +205,7 @@ return [
                     'edit' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route'    => '/edit/:id',
+                            'route'    => '/edit[/:id]',
                             'defaults' => [
                                 'controller' => Controller\WriteController::class,
                                 'action'     => 'edit',
