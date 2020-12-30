@@ -32,6 +32,12 @@ $ sqlite data/laminastutorial.db < data/schema.sql
 Some systems, including Ubuntu, use the command `sqlite3`; check to see which
 one to use on your system.
 
+If you use `sqlite3` create the database using the following command:
+
+```bash
+cat data/schema.sql | sqlite3 laminastutorial.db
+```
+
 > ### Using PHP to create the database
 >
 > If you do not have Sqlite installed on your system, you can use PHP to load
