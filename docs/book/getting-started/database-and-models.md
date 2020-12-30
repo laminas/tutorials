@@ -35,7 +35,7 @@ one to use on your system.
 If you use `sqlite3` create the database using the following command:
 
 ```bash
-cat data/schema.sql | sqlite3 laminastutorial.db
+$ cat data/schema.sql | sqlite3 laminastutorial.db
 ```
 
 > ### Using PHP to create the database
