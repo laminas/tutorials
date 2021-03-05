@@ -450,7 +450,11 @@ This time we use `editAction()` in the `AlbumController`:
             return $viewData;
         }
 
-        $this->table->saveAlbum($album);
+        try {
+            $this->table->saveAlbum($album);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('album', ['action' => 'index']);
+        }
 
         // Redirect to album list
         return $this->redirect()->toRoute('album', ['action' => 'index']);
