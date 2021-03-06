@@ -388,7 +388,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -565,7 +565,6 @@ in <code>config/application.config.php</code>. The defaults look like this:</p>
     // Should be compatible with Laminas\ServiceManager\Config.
     // 'service_manager' =&gt; [],
 ];</code></pre>
-
 <p>The system configuration is for the bits and pieces related to the MVC that run
 before your application is ready. The configuration is usually brief, and quite
 minimal.</p>
@@ -574,7 +573,7 @@ other configuration &mdash; which means, with the exception of the values under
 the <code>service_manager</code> key, it cannot be overridden by a module.</p>
 <p>This leads us to our first trick: how do you provide environment-specific system
 configuration?</p>
-<h3>Environment-specific system configuration</h3>
+<h3 id="environment-specific-system-configuration">Environment-specific system configuration</h3>
 <p>What happens when you want to change the set of modules you use based on the
 environment? Or if the configuration caching should be enabled based on
 environment?</p>
@@ -592,7 +591,6 @@ specifically production and development.  The package is installed by default
 with version 3+ skeletons, and can be installed with existing v2 skeletons
 using the following:</p>
 <pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-development-mode</code></pre>
-
 <p>The approach it takes is as follows:</p>
 <ul>
 <li>The user provides production settings in <code>config/application.config.php</code>.</li>
@@ -607,7 +605,6 @@ using the following:</p>
 </ul>
 <p>When you execute:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/laminas-development-mode enable</code></pre>
-
 <p>The <code>.dist</code> files are copied to versions removing the suffix; doing so ensures
 they will then be used when invoking the application.</p>
 <p>As such, to accomplish our goals, we will do the following:</p>
@@ -618,23 +615,20 @@ they will then be used when invoking the application.</p>
 <pre class="highlight"><code class="language-php">'modules' =&gt; [
     'LaminasDeveloperTools',
 ],</code></pre>
-
 <ul>
 <li>Also in <code>config/development.config.php.dist</code>, we will disable config caching:</li>
 </ul>
 <pre class="highlight"><code class="language-php">'config_cache_enable' =&gt; false,</code></pre>
-
 <ul>
 <li>In <code>config/application.config.php</code>, we will enable config caching:</li>
 </ul>
 <pre class="highlight"><code class="language-php">'config_cache_enable' =&gt; true,</code></pre>
-
 <p>Enabling development mode now enables the selected module, and disables
 configuration caching; disabling development mode enables configuration
 caching. (Also, either operation clears the configuration cache.)</p>
 <p>If you require additional environments, you can extend laminas-development-mode to
 address them using the same workflow.</p>
-<h3>Environment-specific application configuration</h3>
+<h3 id="environment-specific-application-configuration">Environment-specific application configuration</h3>
 <p>Sometimes you want to change application configuration to load things such as
 database adapters, log writers, cache adapters, and more based on the
 environment. These are typically managed in the service manager, and may be
@@ -656,7 +650,7 @@ files, which you would then commit to your version control system, and
 environment-specific overrides in your "local" configuration files, which you
 would <em>omit</em> from version control.</p>
 <blockquote>
-<h3>Additional glob patterns for development mode</h3>
+<h3 id="additional-glob-patterns-for-development-mode">Additional glob patterns for development mode</h3>
 <p>When using laminas-development-mode, as detailed in the previous section, the
 shipped <code>config/development.config.php.dist</code> file provides an additional
 glob pattern for specifying development configuration:</p>
@@ -680,7 +674,6 @@ configuration, <code>APP_ENV</code>. In Apache, you'd put a directive like the f
 in either your system-wide apache.conf or httpd.conf, or in the definition for
 your virtual host; alternately, it can be placed in an .htaccess file.</p>
 <pre class="highlight"><code class="language-apacheconf">SetEnv "APP_ENV" "development"</code></pre>
-
 <p>For other web servers, consult the web server documentation to determine how to
 set environment variables.</p>
 <p>To simplify matters, we'll assume the environment is "production" if no
@@ -690,7 +683,6 @@ slightly:</p>
 <pre class="highlight"><code class="language-php">'config_glob_paths' =&gt; [
     realpath(__DIR__) . sprintf('/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production')
 ],</code></pre>
-
 <p>The above will allow you to define an additional set of application
 configuration files per environment; furthermore, these will be loaded <em>only</em> if
 that environment is detected!</p>
@@ -702,21 +694,19 @@ that environment is detected!</p>
         users.development.php
         users.testing.php
         users.local.php</code></pre>
-
 <p>If <code>$env</code> evaluates to <code>testing</code>, then the following files will be merged, in
 the following order:</p>
 <pre class="highlight"><code class="language-text">global.php
 users.testing.php
 local.php
 users.local.php</code></pre>
-
 <p>Note that <code>users.development.php</code> is not loaded &mdash; this is because it will
 not match the glob pattern!</p>
 <p>Also, because of the order in which they are loaded, you can predict which
 values will overwrite the others, allowing you to both selectively overwrite as
 well as debug later.</p>
 <blockquote>
-<h4>Order of config merging</h4>
+<h4 id="order-of-config-merging">Order of config merging</h4>
 <p>The files under <code>config/autoload/</code> are merged <em>after</em> your module
 configuration, detailed in next section. We have detailed it here, however, as
 setting up the <strong>application configuration</strong> glob path happens within the
@@ -733,7 +723,6 @@ of the <code>getConfig()</code> method is:</p>
 {
     return include __DIR__ . '/config/module.config.php';
 }</code></pre>
-
 <p>where <code>module.config.php</code> returns a PHP array. From that PHP array you can
 provide general configuration as well as configuration for all the available
 <code>Manager</code> classes provided by the ServiceManager. Please refer to the
@@ -849,7 +838,7 @@ configuration for a service manager, as denoted in the section on
 methods. Additionally, and of particular note: the configuration returned from
 those methods will <em>not</em> be cached.</p>
 <blockquote>
-<h3>Use cases for service configuration methods</h3>
+<h3 id="use-cases-for-service-configuration-methods">Use cases for service configuration methods</h3>
 <p>Use the various service configuration methods when you need to define closures
 or instance callbacks for factories, abstract factories, and initializers.
 This prevents caching problems, and also allows you to write your
@@ -897,11 +886,10 @@ class Module
         $configListener-&gt;setMergedConfig($config);
     }
 }</code></pre>
-
 <p>At this point, the merged application configuration will no longer contain the
 key <code>some_key</code>.</p>
 <blockquote>
-<h3>Cached configuration and merging</h3>
+<h3 id="cached-configuration-and-merging">Cached configuration and merging</h3>
 <p>If a cached config is used by the <code>ModuleManager</code>, the <code>EVENT_MERGE_CONFIG</code>
 event will not be triggered. However, typically that means that what is cached
 will be what was originally manipulated by your listener.</p>
@@ -1233,6 +1221,7 @@ merged.</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -1305,7 +1294,7 @@ merged.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>

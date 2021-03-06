@@ -388,7 +388,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -485,7 +485,6 @@
 available on <a href="https://github.com/">GitHub</a>. Use <a href="https://getcomposer.org">Composer</a>
 to create a new project from scratch:</p>
 <pre class="highlight"><code class="language-bash">$ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install</code></pre>
-
 <p>This will install an initial set of dependencies, including:</p>
 <ul>
 <li>laminas-component-installer, which helps automate injection of component
@@ -498,9 +497,8 @@ the outset, and, as such, the skeleton also ships with an installer plugin that
 will prompt you for a number of items.</p>
 <p>First, it will prompt:</p>
 <pre class="highlight"><code class="language-text">    Do you want a minimal install (no optional packages)? Y/n</code></pre>
-
 <blockquote>
-<h3>Prompts and default values</h3>
+<h3 id="prompts-and-default-values">Prompts and default values</h3>
 <p>All prompts emitted by the installer provide the list of options available,
 and will specify the default option via a capital letter. Default values are
 used if the user presses "Enter" with no value. In the previous example, "Y"
@@ -510,25 +508,20 @@ is the default.</p>
 raise any additional prompts, and finish installing your application. If you
 answer "n", it will continue prompting you:</p>
 <pre class="highlight"><code class="language-text">    Would you like to install the developer toolbar? y/N</code></pre>
-
 <p>The <a href="https://github.com/laminas/laminas-developer-tools">developer toolbar</a>
 provides an in-browser toolbar with timing and profiling information, and can be
 useful when debugging an application. For the purposes of the tutorial, however,
 we will not be using it; hit either "Enter", or "n" followed by "Enter".</p>
 <pre class="highlight"><code class="language-text">    Would you like to install caching support? y/N</code></pre>
-
 <p>We will not be demonstrating caching in this tutorial, so either hit "Enter", or
 "n" followed by "Enter".</p>
 <pre class="highlight"><code class="language-text">    Would you like to install database support (installs laminas-db)? y/N</code></pre>
-
 <p>We <em>will</em> be using laminas-db extensively in this tutorial, so hit "y" followed by
 "Enter". You should see the following text appear:</p>
 <pre class="highlight"><code class="language-text">    Will install laminas/laminas-db (^2.8.1)
     When prompted to install as a module, select application.config.php or modules.config.php</code></pre>
-
 <p>The next prompt is:</p>
 <pre class="highlight"><code class="language-text">    Would you like to install forms support (installs laminas-form)? y/N</code></pre>
-
 <p>This tutorial also uses laminas-form, so we will again select "y" to install this;
 doing so emits a similar message to that used for laminas-db.</p>
 <p>At this point, we can answer "n" to the remaining features:</p>
@@ -541,7 +534,6 @@ doing so emits a similar message to that used for laminas-db.</p>
     Would you like to install sessions support? y/N
     Would you like to install MVC testing support? y/N
     Would you like to install the laminas-di integration for laminas-servicemanager? y/N</code></pre>
-
 <p>At a certain point, you'll see the following text:</p>
 <pre class="highlight"><code class="language-text">Updating root package
     Running an update to install optional packages
@@ -554,18 +546,16 @@ Updating application configuration...
   [0] Do not inject
   [1] config/modules.config.php
   Make your selection (default is 0):</code></pre>
-
 <p>We want to enable the various selections we made in the application. As such,
 we'll choose <code>1</code>, which will then give us the following prompt:</p>
 <pre class="highlight"><code class="language-text">  Remember this option for other packages of the same type? (y/N)</code></pre>
-
 <p>In our case, we can safely say "y", which will mean we will no longer be
 prompted for additional packages. (The only package in the default set of
 prompts that you may not want to enable by default is <code>Laminas\Test</code>.)</p>
 <p>Once the installation is done, the skeleton installer removes itself, and the
 new application is ready to start!</p>
 <blockquote>
-<h3>Downloading the skeleton</h3>
+<h3 id="downloading-the-skeleton">Downloading the skeleton</h3>
 <p>Another way to install the Laminas MVC Skeleton Application is to use github to
 download a compressed archive. Go to
 https://github.com/laminas/laminas-mvc-skeleton, click the "Clone or
@@ -578,7 +568,6 @@ to resolve its dependencies. Run the following from within your new
 laminas-mvc-tutorial folder to install them:</p>
 <pre class="highlight"><code class="language-bash">$ composer self-update
 $ composer install</code></pre>
-
 <p>This takes a while. You should see output like the following:</p>
 <pre class="highlight"><code class="language-text">Installing dependencies from lock file
 - Installing laminas/laminas-component-installer (2.1.2)
@@ -586,7 +575,6 @@ $ composer install</code></pre>
 ...
 
 Generating autoload files</code></pre>
-
 <p>At this point, you will be prompted to answer questions as noted above.</p>
 <p>Alternately, if you do not have Composer installed, but <em>do</em> have either
 Vagrant or docker-compose available, you can run Composer via those:</p>
@@ -596,36 +584,29 @@ $ vagrant ssh -c 'composer install'
 # For docker-compose:
 $ docker-compose build
 $ docker-compose run laminas composer install</code></pre>
-
-<h3>Timeouts</h3>
+<h3 id="timeouts">Timeouts</h3>
 <p>If you see this message:</p>
 <pre class="highlight"><code class="language-text">[RuntimeException]
   The process timed out.</code></pre>
-
 <p>then your connection was too slow to download the entire package in time, and
 composer timed out. To avoid this, instead of running:</p>
 <pre class="highlight"><code class="language-bash">$ composer install</code></pre>
-
 <p>run instead:</p>
 <pre class="highlight"><code class="language-bash">$ COMPOSER_PROCESS_TIMEOUT=5000 composer install</code></pre>
-
-<h3>Windows users using WAMP</h3>
+<h3 id="windows-users-using-wamp">Windows users using WAMP</h3>
 <p>For windows users with wamp:</p>
-<h4>1. Install Composer for Windows</h4>
+<h4 id="1-install-composer-for-windows">1. Install Composer for Windows</h4>
 <p>Check Composer is properly installed by running:</p>
 <pre class="highlight"><code class="language-bash">$ composer</code></pre>
-
 <p>Otherwise follow the
 <a href="https://getcomposer.org/doc/00-intro.md#installation-windows">installation guide for Composer</a>.</p>
-<h4>2. Install Git for Windows</h4>
+<h4 id="2-install-git-for-windows">2. Install Git for Windows</h4>
 <p>Check Git is properly installed by running:</p>
 <pre class="highlight"><code class="language-bash">$ git</code></pre>
-
 <p>Otherwise follow the
 <a href="https://desktop.github.com/">installation guide for GitHub Desktop</a>.</p>
-<h4>3. Now install the Skeleton using</h4>
+<h4 id="3-now-install-the-skeleton-using">3. Now install the Skeleton using</h4>
 <pre class="highlight"><code class="language-bash">$ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install</code></pre>
-
 </blockquote>
 <p>We can now move on to the web server setup.</p>
 <h2 id="web-servers">Web Servers</h2>
@@ -637,11 +618,10 @@ server:</p>
 <li>Via docker-compose.</li>
 <li>Using Apache.</li>
 </ul>
-<h3>Using the Built-in PHP web Server</h3>
+<h3 id="using-the-built-in-php-web-server">Using the Built-in PHP web Server</h3>
 <p>You can use PHP's built-in web server when developing your application. To do
 this, start the server from the project's root directory:</p>
 <pre class="highlight"><code class="language-bash">$ php -S 0.0.0.0:8080 -t public public/index.php</code></pre>
-
 <p>This will make the website available on port 8080 on all network interfaces,
 using <code>public/index.php</code> to handle routing. This means the site is accessible
 via <code>http://localhost:8080</code> or <code>http://&lt;your-local-IP&gt;:8080</code>.</p>
@@ -651,27 +631,24 @@ via <code>http://localhost:8080</code> or <code>http://&lt;your-local-IP&gt;:808
 and you should see the following 404 page:</p>
 <p><img alt="laminas-mvc 404 page" src="../../images/user-guide.skeleton-application.404.png" class="img-responsive"/></p>
 <blockquote>
-<h3>Development only</h3>
+<h3 id="development-only">Development only</h3>
 <p>PHP's built-in web server should be used <strong>for development only</strong>.</p>
 </blockquote>
-<h3>Using Vagrant</h3>
+<h3 id="using-vagrant">Using Vagrant</h3>
 <p><a href="https://www.vagrantup.com/">Vagrant</a> provides a way to describe and provision
 virtual machines, and is a common way to provide a coherent and consistent
 development environment for development teams. The skeleton application provides
 a <code>Vagrantfile</code> based on Ubuntu 14.04, and using the <code>ondrej/php</code> PPA to provide
 PHP 7.3. Start it up using:</p>
 <pre class="highlight"><code class="language-bash">$ vagrant up</code></pre>
-
 <p>Once it has been built and is running, you can also run composer from the
 virtual machine. As an example, the following will install dependencies:</p>
 <pre class="highlight"><code class="language-bash">$ vagrant ssh -c 'composer install'</code></pre>
-
 <p>while this will update them:</p>
 <pre class="highlight"><code class="language-bash">$ vagrant ssh -c 'composer update'</code></pre>
-
 <p>The image uses Apache 2.4, and maps the host port 8080 to port 80 on the virtual
 machine.</p>
-<h3>Using docker-compose</h3>
+<h3 id="using-docker-compose">Using docker-compose</h3>
 <p><a href="https://www.docker.com/">Docker</a> containers wrap a piece of software and everything needed to run it,
 guaranteeing consistent operation regardless of the host environment; it is an
 alternative to virtual machines, as it runs as a layer on top of the host
@@ -685,18 +662,15 @@ for mapping additional containers you might need as part of your application,
 including a database server, cache servers, and more. To build and start the
 image, use:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose up -d --build</code></pre>
-
 <p>After the first build, you can truncate this to:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose up -d</code></pre>
-
 <p>Once built, you can also run commands on the container. The docker-compose
 configuration initially only defines one container, with the environment name
 "laminas"; use that to execute commands, such as updating dependencies via composer:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose run laminas composer update</code></pre>
-
 <p>The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.</p>
-<h3>Using the Apache Web Server</h3>
+<h3 id="using-the-apache-web-server">Using the Apache Web Server</h3>
 <p>We will not cover installing <a href="https://httpd.apache.org">Apache</a>, and will assume
 you already have it installed. We recommend installing Apache 2.4, and will only
 cover configuration for that version.</p>
@@ -722,13 +696,11 @@ define a virtual host along these lines:</p>
         Require all granted
     &lt;/Directory&gt;
 &lt;/VirtualHost&gt;</code></pre>
-
 <p>Make sure that you update your <code>/etc/hosts</code> or
 <code>c:\windows\system32\drivers\etc\hosts</code> file so that <code>laminas-mvc-tutorial.localhost</code> is
 mapped to <code>127.0.0.1</code>. The website can then be accessed using
 <code>http://laminas-mvc-tutorial.localhost</code>.</p>
 <pre class="highlight"><code class="language-none">127.0.0.1 laminas-mvc-tutorial.localhost localhost</code></pre>
-
 <p>Restart Apache.</p>
 <p>If you've done so correctly, you will get the same results as covered under
 <a href="#using-the-built-in-php-web-server">the PHP built-in web server</a>.</p>
@@ -739,7 +711,6 @@ earlier.  If you see a standard Apache 404 error, then you need to fix your
 <p>If you're are using IIS with the URL Rewrite Module, import the following:</p>
 <pre class="highlight"><code class="language-apache">RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [NC,L]</code></pre>
-
 <p>You now have a working skeleton application and we can start adding the specifics for our application.</p>
 <h2 id="error-reporting">Error reporting</h2>
 <p>Optionally, <em>when using Apache</em>, you can use the <code>APPLICATION_ENV</code> setting in
@@ -792,7 +763,6 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
 
 // Run the application!
 Application::init($appConfig)-&gt;run();</code></pre>
-
 <h2 id="development-mode">Development mode</h2>
 <p>Before we begin, we're going to enable <em>development mode</em> for the application.
 The skeleton application provides two files that allow us to specify general
@@ -813,19 +783,16 @@ mode, these two files that were created are then removed, leaving only the
 <code>.dist</code> versions. (The repository also contains rules to ignore the copies.)</p>
 <p>Let's enable development mode now:</p>
 <pre class="highlight"><code class="language-bash">$ composer development-enable</code></pre>
-
 <blockquote>
-<h3>Never enable development mode in production</h3>
+<h3 id="never-enable-development-mode-in-production">Never enable development mode in production</h3>
 <p>You should never enable development mode in production, as the typical
 reason to enable it is to enable debugging! As noted, the artifacts generated
 by enabling development mode cannot be committed to your repository, so
 assuming you don't run the command in production, you should be safe.</p>
 <p>You can test the status of development mode using:</p>
 <pre class="highlight"><code class="language-bash">$ composer development-status</code></pre>
-
 <p>And you can disable it using:</p>
 <pre class="highlight"><code class="language-bash">$ composer development-disable</code></pre>
-
 </blockquote>
 
 
@@ -1127,6 +1094,7 @@ assuming you don't run the command in production, you should be safe.</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -1199,7 +1167,7 @@ assuming you don't run the command in production, you should be safe.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>

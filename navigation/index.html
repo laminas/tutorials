@@ -388,7 +388,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -505,7 +505,6 @@ discrete entry points to the app, a home page, and an albums area.</p>
         ],
     ],
 ],</code></pre>
-
 <p>(You can also now remove the import for the <code>Album\Controller\AlbumController</code>
 class.)</p>
 <p>This change means that if you go to the home page of your application
@@ -516,7 +515,6 @@ available at the <code>/album</code> route.</p>
 <p>First, we need to install laminas-navigation. From your root directory, execute the
 following:</p>
 <pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-navigation</code></pre>
-
 <p>Assuming you followed the <a href="../getting-started/overview/">Getting Started tutorial</a>,
 you will be prompted by the <a href="https://docs.laminas.dev/laminas-component-installer">laminas-component-installer</a>
 plugin to inject <code>Laminas\Navigation</code>; be sure to select the option for either
@@ -524,7 +522,7 @@ plugin to inject <code>Laminas\Navigation</code>; be sure to select the option f
 only package you are installing, you can answer either "y" or "n" to the "Remember this
 option for other packages of the same type" prompt.</p>
 <blockquote>
-<h3>Manual configuration</h3>
+<h3 id="manual-configuration">Manual configuration</h3>
 <p>If you are not using laminas-component-installer, you will need to setup
 configuration manually. You can do this in one of two ways:</p>
 <ul>
@@ -541,7 +539,6 @@ use Laminas\Navigation\ConfigProvider;
 return [
     'service_manager' =&gt; (new ConfigProvider())-&gt;getDependencyConfig(),
 ];</code></pre>
-
 </blockquote>
 <p>Once installed, our application is now aware of laminas-navigation, and even has
 some default factories in place, which we will now make use of.</p>
@@ -585,7 +582,6 @@ return [
 
     /* ... */
 ];</code></pre>
-
 <p>This configuration maps out the pages we've defined in our Album module, with
 labels linking to the given route names and actions. You can define highly complex
 hierarchical sites here with pages and sub-pages linking to route names,
@@ -600,7 +596,6 @@ using the <a href="https://docs.laminas.dev/laminas-navigation/helpers/menu/">me
     &lt;?php // add this: ?&gt;
     &lt;?= $this-&gt;navigation('navigation')-&gt;menu() ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>The navigation helper is provided by default with laminas-view, and uses the service
 manager configuration we've already defined to configure itself automatically.
 Refreshing your application, you will see a working menu; with just a few tweaks
@@ -614,7 +609,6 @@ however, we can make it look even better:</p>
         -&gt;setMaxDepth(0)
         -&gt;setUlClass('nav navbar-nav') ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>Here we tell the renderer to give the root <code>&lt;ul&gt;</code> the class of <code>nav</code> (so that
 Bootstrap styles the menu correctly), and only render the first level of any
 given page. If you view your application in your browser, you will now see a
@@ -635,7 +629,6 @@ output the content from the view, let's add a breadcrumb by using the
     &lt;?= $this-&gt;navigation('navigation')-&gt;breadcrumbs()-&gt;setMinDepth(0) ?&gt;
     &lt;?= $this-&gt;content ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>This adds a simple but functional breadcrumb to every page (we tell it to render
 from a depth of 0 so we see all page levels), but we can do better than that!
 Because Bootstrap has a styled breadcrumb as part of its base CSS, let's add
@@ -668,7 +661,6 @@ rather than album specific):</p>
         &lt;?php endforeach; ?&gt;
     &lt;/ol&gt;
 &lt;/nav&gt;</code></pre>
-
 <p>Notice how the partial is passed a <code>Laminas\View\Model\ViewModel</code> instance with the
 <code>pages</code> property set to an array of pages to render.</p>
 <p>Now we need to tell the breadcrumb helper to use the partial we have just
@@ -682,7 +674,6 @@ written:</p>
             -&gt;setPartial('partial/breadcrumb') ?&gt;
     &lt;?= $this-&gt;content ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>Refreshing the page now gives us a styled set of breadcrumbs on each page.</p>
 
 
@@ -984,6 +975,7 @@ written:</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -1056,7 +1048,7 @@ written:</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>

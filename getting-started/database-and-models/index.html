@@ -388,7 +388,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -503,15 +503,13 @@ INSERT INTO album (artist, title) VALUES ('Adele', '21');
 INSERT INTO album (artist, title) VALUES ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
 INSERT INTO album (artist, title) VALUES ('Lana Del Rey', 'Born To Die');
 INSERT INTO album (artist, title) VALUES ('Gotye', 'Making Mirrors');</code></pre>
-
 <p>(The test data chosen happens to be the Bestsellers on Amazon UK at the time of writing!)</p>
 <p>Now create the database using the following:</p>
 <pre class="highlight"><code class="language-bash">$ sqlite data/laminastutorial.db &lt; data/schema.sql</code></pre>
-
 <p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
 one to use on your system.</p>
 <blockquote>
-<h3>Using PHP to create the database</h3>
+<h3 id="using-php-to-create-the-database">Using PHP to create the database</h3>
 <p>If you do not have Sqlite installed on your system, you can use PHP to load
 the database using the same SQL schema file created earlier. Create the file
 <code>data/load_db.php</code> with the following contents:</p>
@@ -522,10 +520,8 @@ while ($line = fread($fh, 4096)) {
     $db-&gt;exec($line);
 }
 fclose($fh);</code></pre>
-
 <p>Once created, execute it:</p>
 <pre class="highlight"><code class="language-bash">$ php data/load_db.php</code></pre>
-
 </blockquote>
 <p>We now have some data in a database and can write a very simple model for it.</p>
 <h2 id="the-model-files">The model files</h2>
@@ -561,7 +557,6 @@ class Album
         $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
     }
 }</code></pre>
-
 <p>Our <code>Album</code> entity object is a PHP class. In order to work with laminas-db's
 <code>TableGateway</code> class, we need to implement the <code>exchangeArray()</code> method; this
 method copies the data from the provided array to our entity's properties. We
@@ -633,7 +628,6 @@ class AlbumTable
     }
 }
 </code></pre>
-
 <p>There's a lot going on here. Firstly, we set the protected property
 <code>$tableGateway</code> to the <code>TableGateway</code> instance passed in the constructor,
 hinting against the <code>TableGatewayInterface</code> (which allows us to provide
@@ -688,7 +682,6 @@ class Module implements ConfigProviderInterface
         ];
     }
 }</code></pre>
-
 <p>This method returns an array of <code>factories</code> that are all merged together by the
 <code>ModuleManager</code> before passing them to the <code>ServiceManager</code>. The factory for
 <code>Album\Model\AlbumTable</code> uses the <code>ServiceManager</code> to create an
@@ -704,7 +697,7 @@ instantiated object. See
 <a href="http://ralphschindler.com/2012/03/09/php-constructor-best-practices-and-the-prototype-pattern">PHP Constructor Best Practices and the Prototype Pattern</a>
 for more details.</p>
 <blockquote>
-<h3>Factories</h3>
+<h3 id="factories">Factories</h3>
 <p>The above demonstrates building factories as closures within your module
 class. Another option is to build the factory as a <em>class</em>, and then map the
 class in your module configuration. This approach has a number of benefits:</p>
@@ -727,7 +720,6 @@ contains the following entries:</p>
     'Laminas\Validator',
     /* ... */
 ],</code></pre>
-
 <p>All Laminas components that provide laminas-servicemanager configuration are
 also exposed as modules themselves; the prompts as to where to register the
 components during our initial installation occurred to ensure that the above
@@ -749,7 +741,6 @@ module) with following code:</p>
         'dsn'    =&gt; sprintf('sqlite:%s/data/laminastutorial.db', realpath(getcwd())),
     ],
 ];</code></pre>
-
 <p>If you were configuring a database that required credentials, you would put the
 general configuration in your <code>config/autoload/global.php</code>, and then the
 configuration for the current environment, including the DSN and credentials, in
@@ -782,7 +773,6 @@ class AlbumController extends AbstractActionController
 
     /* ... */
 }</code></pre>
-
 <p>Our controller now depends on <code>AlbumTable</code>, so we will need to create a factory
 for the controller.  Similar to how we created factories for the model, we'll
 create it in our <code>Module</code> class, only this time, under a new method,
@@ -812,7 +802,6 @@ class Module implements ConfigProviderInterface
         ];
     }
 }</code></pre>
-
 <p>Because we're now defining our own factory, we can modify our
 <code>module.config.php</code> to remove the definition. Open
 <code>module/Album/config/module.config.php</code> and remove the following lines:</p>
@@ -832,7 +821,6 @@ return [
 
     /* ... */
 ];</code></pre>
-
 <p>We can now access the property <code>$table</code> from within our controller whenever we
 need to interact with our model.</p>
 <h2 id="listing-albums">Listing albums</h2>
@@ -848,7 +836,6 @@ them to the view. To do this, we fill in <code>indexAction()</code> within
         ]);
     }
 // ...</code></pre>
-
 <p>With Laminas, in order to set variables in the view, we return a
 <code>ViewModel</code> instance where the first parameter of the constructor is an array
 containing data we wish to represent. These are then automatically passed to the
@@ -883,7 +870,6 @@ $this-&gt;headTitle($title);
     &lt;/tr&gt;
 &lt;?php endforeach; ?&gt;
 &lt;/table&gt;</code></pre>
-
 <p>The first thing we do is to set the title for the page (used in the layout) and
 also set the title for the <code>&lt;head&gt;</code> section using the <code>headTitle()</code> view helper
 which will display in the browser's title bar. We then create a link to add a
@@ -905,7 +891,7 @@ a colon and <code>endforeach;</code> as it is easier to scan than to try and mat
 braces. Again, the <code>url()</code> view helper is used to create the edit and delete
 links.</p>
 <blockquote>
-<h3>Escaping</h3>
+<h3 id="escaping">Escaping</h3>
 <p>We always use the <code>escapeHtml()</code> view helper to help protect ourselves from
 <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">Cross Site Scripting (XSS) vulnerabilities</a>.</p>
 </blockquote>
@@ -1212,6 +1198,7 @@ if you are using self-hosted Apache) you should see this:</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -1284,7 +1271,7 @@ if you are using self-hosted Apache) you should see this:</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
