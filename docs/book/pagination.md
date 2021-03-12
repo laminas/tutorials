@@ -412,14 +412,12 @@ our modules:
   <?php if (isset($this->previous)): ?>
     <li class="page-item">
       <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
-        &lt;&lt;
+        Previous
       </a>
     </li>
   <?php else: ?>
     <li class="page-item disabled">
-      <a class="page-link" href="#">
-        &lt;&lt;
-      </a>
+      <span class="page-link">Previous</span>
     </li>
   <?php endif ?>
 
@@ -432,8 +430,8 @@ our modules:
         </a>
       </li>
     <?php else: ?>
-      <li class="page-item active">
-        <a class="page-link" href="#"><?= $page ?></a>
+      <li class="page-item active" aria-current="page">
+        <span class="page-link"><?= $page ?></span>
       </li>
     <?php endif ?>
   <?php endforeach ?>
@@ -442,14 +440,12 @@ our modules:
   <?php if (isset($this->next)): ?>
     <li class="page-item">
       <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
-        &gt;&gt;
+        Next
       </a>
     </li>
   <?php else: ?>
     <li class="page-item disabled">
-      <a class="page-link" href="#">
-        &gt;&gt;
-      </a>
+      <span class="page-link">Next</span>
     </li>
   <?php endif ?>
   </ul>
