@@ -380,8 +380,12 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($album->title) ?></td>
             <td><?= $this->escapeHtml($album->artist) ?></td>
             <td>
-                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
-                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
+                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">
+                    Edit
+                </a>
+                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">
+                    Delete
+                </a>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -410,7 +414,8 @@ our modules:
   <!-- Previous page link -->
   <?php if (isset($this->previous)): ?>
     <li class="page-item">
-      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
+      <a class="page-link"
+         href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
         Previous
       </a>
     </li>
@@ -424,7 +429,8 @@ our modules:
   <?php foreach ($this->pagesInRange as $page): ?>
     <?php if ($page !== $this->current): ?>
       <li class="page-item">
-        <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
+        <a class="page-link"
+           href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
           <?= $page ?>
         </a>
       </li>
@@ -438,7 +444,8 @@ our modules:
   <!-- Next page link -->
   <?php if (isset($this->next)): ?>
     <li class="page-item">
-      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
+      <a class="page-link"
+         href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
         Next
       </a>
     </li>
