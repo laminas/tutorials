@@ -508,6 +508,8 @@ INSERT INTO album (artist, title) VALUES ('Gotye', 'Making Mirrors');</code></pr
 <pre class="highlight"><code class="language-bash">$ sqlite data/laminastutorial.db &lt; data/schema.sql</code></pre>
 <p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
 one to use on your system.</p>
+<p>If you use <code>sqlite3</code> create the database using the following command:</p>
+<pre class="highlight"><code class="language-bash">$ cat data/schema.sql | sqlite3 laminastutorial.db</code></pre>
 <blockquote>
 <h3 id="using-php-to-create-the-database">Using PHP to create the database</h3>
 <p>If you do not have Sqlite installed on your system, you can use PHP to load
