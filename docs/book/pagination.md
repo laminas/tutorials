@@ -240,6 +240,7 @@ option for other packages of the same type" prompt.
 >
 >   ```php
 >   <?php
+>   
 >   use Laminas\Paginator\ConfigProvider;
 >   
 >   return [
@@ -263,7 +264,6 @@ of the `AlbumTable` model, so that it can optionally return a paginator object:
 // in module/Album/src/Model/AlbumTable.php:
 namespace Album\Model;
 
-use RuntimeException;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\TableGateway\TableGatewayInterface;
@@ -302,8 +302,7 @@ class AlbumTable
             $resultSetPrototype
         );
 
-        $paginator = new Paginator($paginatorAdapter);
-        return $paginator;
+        return new Paginator($paginatorAdapter);
     }
 
     /* ... */
