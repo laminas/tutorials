@@ -8,13 +8,27 @@ separation of concerns.
 
 [Getting Started with Laminas](getting-started/overview.md){: class="btn btn-primary text-decoration-none font-weight-bold" }
 
+### Extensions for Album Module
+
 <ul class="list-group list-group-flush">
     <li class="list-group-item"><a href="unit-testing/">Unit Testing a laminas-mvc Application</a></li>
     <li class="list-group-item"><a href="navigation/">Adding laminas-navigation to the Album Module</a></li>
     <li class="list-group-item"><a href="pagination/">Adding laminas-paginator to the Album Module</a></li>
-    <li class="list-group-item"><a href="in-depth-guide/first-module/">In-Depth Tutorial</a></li>
-    <li class="list-group-item"><a href="advanced-config/">Advanced Configuration</a></li>
+</ul>
+
+### Internationalization and Configuration
+
+<ul class="list-group list-group-flush">
     <li class="list-group-item"><a href="i18n/">Internationalization</a></li>
+    <li class="list-group-item"><a href="advanced-config/">Advanced Configuration Tricks</a></li>
+</ul>
+
+### In-Depth Tutorial
+
+The in-dept tutorial includes a more complex example. It combines best-practices and interesting features, like a repository, SQL abstraction and the form element manager. 
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="in-depth-guide/first-module/">In-Depth Tutorial</a></li>
 </ul>
 
 ### Application Integrations

@@ -11,9 +11,13 @@ nav:
           - "Database and Models": getting-started/database-and-models.md
           - "Forms and Actions": getting-started/forms-and-actions.md
           - Conclusion: getting-started/conclusion.md
-      - "Unit Testing A laminas-mvc Application": unit-testing.md
-      - "Adding laminas-navigation to the Album Module": navigation.md
-      - "Adding laminas-paginator to the Album Module": pagination.md
+      - "Extensions for Album Module":
+          - "Unit Testing A laminas-mvc Application": unit-testing.md
+          - "Adding laminas-navigation to the Album Module": navigation.md
+          - "Adding laminas-paginator to the Album Module": pagination.md
+      - "Internationalization and Configuration":
+          - Internationalization: i18n.md
+          - "Advanced Configuration Tricks": advanced-config.md
       - "In-Depth Tutorial":
           - "Introducing the Blog Module": in-depth-guide/first-module.md
           - "Models and the ServiceManager": in-depth-guide/models-and-servicemanager.md
@@ -23,16 +27,13 @@ nav:
           - "Making Use of Forms and Fieldsets": in-depth-guide/laminas-form-laminas-form-fieldset.md
           - "Editing and Deleting Data": in-depth-guide/data-binding.md
           - "Reviewing the Blog Module": in-depth-guide/review.md
-      - "Advanced Configuration": advanced-config.md
-      - Internationalization: i18n.md
     - "Component Tutorials":
       - "Setting Up A Database Adapter": db-adapter.md
       - "Using the EventManager": event-manager.md
-    - Migration:
-        - "To Version 3":
-            - Overview: migration/to-v3/overview.md
-            - Components: migration/to-v3/components.md
-            - Applications: migration/to-v3/application.md
+    - "Migration To Version 3":
+          - Overview: migration/to-v3/overview.md
+          - Components: migration/to-v3/components.md
+          - Applications: migration/to-v3/application.md
     - "_hidden":
         - "_migration-from-zendframework": migration-from-zendframework.md
 
