@@ -827,7 +827,7 @@ implementing the <code>deletePost()</code> method in our <code>LaminasDbSqlComma
 public function deletePost(Post $post)
 {
     if (! $post-&gt;getId()) {
-        throw new RuntimeException('Cannot update post; missing identifier');
+        throw new RuntimeException('Cannot delete post; missing identifier');
     }
 
     $delete = new Delete('posts');
