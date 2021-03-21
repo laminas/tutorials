@@ -386,7 +386,7 @@ implementing the `deletePost()` method in our `LaminasDbSqlCommand` class:
 public function deletePost(Post $post)
 {
     if (! $post->getId()) {
-        throw new RuntimeException('Cannot update post; missing identifier');
+        throw new RuntimeException('Cannot delete post; missing identifier');
     }
 
     $delete = new Delete('posts');
