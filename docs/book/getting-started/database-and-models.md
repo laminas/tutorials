@@ -29,8 +29,12 @@ Now create the database using the following:
 $ sqlite data/laminastutorial.db < data/schema.sql
 ```
 
-Some systems, including Ubuntu, use the command `sqlite3`; check to see which
-one to use on your system.
+<!-- markdownlint-disable-next-line MD033-->
+<details markdown="1"><summary>Alternative Commands</summary>
+
+### SQLite3
+
+Some systems, including Ubuntu, use the command `sqlite3`; check to see which one to use on your system.
 
 If you use `sqlite3` create the database using the following command:
 
@@ -38,27 +42,28 @@ If you use `sqlite3` create the database using the following command:
 $ cat data/schema.sql | sqlite3 laminastutorial.db
 ```
 
-> ### Using PHP to create the database
->
-> If you do not have Sqlite installed on your system, you can use PHP to load
-> the database using the same SQL schema file created earlier. Create the file
-> `data/load_db.php` with the following contents:
->
-> ```php
-> <?php
-> $db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
-> $fh = fopen(__DIR__ . '/schema.sql', 'r');
-> while ($line = fread($fh, 4096)) {
->     $db->exec($line);
-> }
-> fclose($fh);
-> ```
->
-> Once created, execute it:
->
-> ```bash
-> $ php data/load_db.php
-> ```
+### Using PHP to Create the Database
+
+If you do not have Sqlite installed on your system, you can use PHP to load the database using the same SQL schema file created earlier. Create the file `data/load_db.php` with the following contents:
+
+```php
+<?php
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
+$fh = fopen(__DIR__ . '/schema.sql', 'r');
+while ($line = fread($fh, 4096)) {
+    $db->exec($line);
+}
+fclose($fh);
+```
+
+Once created, execute it:
+
+```bash
+$ php data/load_db.php
+```
+
+</details>
+<!-- markdownlint-disable-next-line MD033-->
 
 We now have some data in a database and can write a very simple model for it.
 
