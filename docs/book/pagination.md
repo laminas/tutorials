@@ -185,27 +185,41 @@ $ sqlite data/laminastutorial.db < data/album-fixtures.sql
 Some systems, including Ubuntu, use the command `sqlite3`; check to see which
 one to use on your system.
 
-> ### Using PHP to create the database
->
-> If you do not have Sqlite installed on your system, you can use PHP to load
-> the database using the same SQL schema file created earlier. Create the file
-> `data/load_album_fixtures.php` with the following contents:
->
-> ```php
-> <?php
-> $db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
-> $fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
-> while ($line = fread($fh, 4096)) {
->     $db->exec($line);
-> }
-> fclose($fh);
-> ```
->
-> Once created, execute it:
->
-> ```bash
-> $ php data/load_album_fixtures.php
-> ```
+<!-- markdownlint-disable-next-line MD033-->
+<details markdown="1"><summary>Alternative Commands</summary>
+
+Some systems, including Ubuntu, use the command `sqlite3`; check to see which one to use on your system.
+
+### SQLite3
+
+If you use `sqlite3` create the database using the following command:
+
+```bash
+$ cat data/schema.sql | sqlite3 laminastutorial.db
+```
+
+### Using PHP to Create the Database
+
+If you do not have Sqlite installed on your system, you can use PHP to load the database using the same SQL schema file created earlier. Create the file `data/load_album_fixtures.php` with the following contents:
+
+```php
+<?php
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
+$fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
+while ($line = fread($fh, 4096)) {
+    $db->exec($line);
+}
+fclose($fh);
+```
+
+Once created, execute it:
+
+```bash
+$ php data/load_album_fixtures.php
+```
+
+</details>
+<!-- markdownlint-disable-next-line MD033-->
 
 This gives us a handy extra 150 rows to play with. If you now visit your album
 list at `/album`, you'll see a huge long list of 150+ albums; it's ugly.
@@ -240,6 +254,7 @@ option for other packages of the same type" prompt.
 >
 >   ```php
 >   <?php
+>   
 >   use Laminas\Paginator\ConfigProvider;
 >   
 >   return [
@@ -263,7 +278,6 @@ of the `AlbumTable` model, so that it can optionally return a paginator object:
 // in module/Album/src/Model/AlbumTable.php:
 namespace Album\Model;
 
-use RuntimeException;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\TableGateway\TableGatewayInterface;
@@ -302,8 +316,7 @@ class AlbumTable
             $resultSetPrototype
         );
 
-        $paginator = new Paginator($paginatorAdapter);
-        return $paginator;
+        return new Paginator($paginatorAdapter);
     }
 
     /* ... */
@@ -381,8 +394,12 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($album->title) ?></td>
             <td><?= $this->escapeHtml($album->artist) ?></td>
             <td>
-                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
-                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
+                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">
+                    Edit
+                </a>
+                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">
+                    Delete
+                </a>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -411,15 +428,14 @@ our modules:
   <!-- Previous page link -->
   <?php if (isset($this->previous)): ?>
     <li class="page-item">
-      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
-        &lt;&lt;
+      <a class="page-link"
+         href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous]]) ?>">
+        Previous
       </a>
     </li>
   <?php else: ?>
     <li class="page-item disabled">
-      <a class="page-link" href="#">
-        &lt;&lt;
-      </a>
+      <span class="page-link">Previous</span>
     </li>
   <?php endif ?>
 
@@ -427,13 +443,14 @@ our modules:
   <?php foreach ($this->pagesInRange as $page): ?>
     <?php if ($page !== $this->current): ?>
       <li class="page-item">
-        <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
+        <a class="page-link"
+           href="<?= $this->url($this->route, [], ['query' => ['page' => $page]]) ?>">
           <?= $page ?>
         </a>
       </li>
     <?php else: ?>
-      <li class="page-item active">
-        <a class="page-link" href="#"><?= $page ?></a>
+      <li class="page-item active" aria-current="page">
+        <span class="page-link"><?= $page ?></span>
       </li>
     <?php endif ?>
   <?php endforeach ?>
@@ -441,15 +458,14 @@ our modules:
   <!-- Next page link -->
   <?php if (isset($this->next)): ?>
     <li class="page-item">
-      <a class="page-link" href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
-        &gt;&gt;
+      <a class="page-link"
+         href="<?= $this->url($this->route, [], ['query' => ['page' => $this->next]]) ?>">
+        Next
       </a>
     </li>
   <?php else: ?>
     <li class="page-item disabled">
-      <a class="page-link" href="#">
-        &gt;&gt;
-      </a>
+      <span class="page-link">Next</span>
     </li>
   <?php endif ?>
   </ul>
