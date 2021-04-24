@@ -257,7 +257,7 @@ whenever it creates a new result row. The `TableGateway` classes use the
 prototype pattern for creation of result sets and entities. This means that
 instead of instantiating when required, the system clones a previously
 instantiated object. See
-[PHP Constructor Best Practices and the Prototype Pattern](http://ralphschindler.com/2012/03/09/php-constructor-best-practices-and-the-prototype-pattern)
+[PHP Constructor Best Practices and the Prototype Pattern](https://dbglory.wordpress.com/2012/03/10/php-constructor-best-practices-and-the-prototype-pattern/)
 for more details.
 
 > ### Factories
