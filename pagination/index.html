@@ -656,11 +656,15 @@ time of writing!)</p>
 <pre class="highlight"><code class="language-bash">$ sqlite data/laminastutorial.db &lt; data/album-fixtures.sql</code></pre>
 <p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which
 one to use on your system.</p>
-<blockquote>
-<h3 id="using-php-to-create-the-database">Using PHP to create the database</h3>
-<p>If you do not have Sqlite installed on your system, you can use PHP to load
-the database using the same SQL schema file created earlier. Create the file
-<code>data/load_album_fixtures.php</code> with the following contents:</p>
+<!-- markdownlint-disable-next-line MD033-->
+<details>
+<p><summary>Alternative Commands</summary></p>
+<p>Some systems, including Ubuntu, use the command <code>sqlite3</code>; check to see which one to use on your system.</p>
+<h3 id="sqlite3">SQLite3</h3>
+<p>If you use <code>sqlite3</code> create the database using the following command:</p>
+<pre class="highlight"><code class="language-bash">$ cat data/schema.sql | sqlite3 laminastutorial.db</code></pre>
+<h3 id="using-php-to-create-the-database">Using PHP to Create the Database</h3>
+<p>If you do not have Sqlite installed on your system, you can use PHP to load the database using the same SQL schema file created earlier. Create the file <code>data/load_album_fixtures.php</code> with the following contents:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 $db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
 $fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
@@ -670,7 +674,9 @@ while ($line = fread($fh, 4096)) {
 fclose($fh);</code></pre>
 <p>Once created, execute it:</p>
 <pre class="highlight"><code class="language-bash">$ php data/load_album_fixtures.php</code></pre>
-</blockquote>
+</details>
+<!-- markdownlint-disable-next-line MD033-->
+
 <p>This gives us a handy extra 150 rows to play with. If you now visit your album
 list at <code>/album</code>, you'll see a huge long list of 150+ albums; it's ugly.</p>
 <h2 id="install-laminas-paginator">Install laminas-paginator</h2>
@@ -696,6 +702,7 @@ configuration manually. You can do this in one of two ways:</p>
   the following contents:</li>
 </ul>
 <pre class="highlight"><code class="language-php">&lt;?php
+
 use Laminas\Paginator\ConfigProvider;
 
 return [
@@ -714,7 +721,6 @@ of the <code>AlbumTable</code> model, so that it can optionally return a paginat
 <pre class="highlight"><code class="language-php">// in module/Album/src/Model/AlbumTable.php:
 namespace Album\Model;
 
-use RuntimeException;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\TableGateway\TableGatewayInterface;
@@ -753,8 +759,7 @@ class AlbumTable
             $resultSetPrototype
         );
 
-        $paginator = new Paginator($paginatorAdapter);
-        return $paginator;
+        return new Paginator($paginatorAdapter);
     }
 
     /* ... */
@@ -819,8 +824,12 @@ $this-&gt;headTitle($title);
             &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;title) ?&gt;&lt;/td&gt;
             &lt;td&gt;&lt;?= $this-&gt;escapeHtml($album-&gt;artist) ?&gt;&lt;/td&gt;
             &lt;td&gt;
-                &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;Edit&lt;/a&gt;
-                &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;Delete&lt;/a&gt;
+                &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'edit', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;
+                    Edit
+                &lt;/a&gt;
+                &lt;a href="&lt;?= $this-&gt;url('album', ['action' =&gt; 'delete', 'id' =&gt; $album-&gt;id]) ?&gt;"&gt;
+                    Delete
+                &lt;/a&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;?php endforeach; ?&gt;
@@ -843,15 +852,14 @@ our modules:</p>
   &lt;!-- Previous page link --&gt;
   &lt;?php if (isset($this-&gt;previous)): ?&gt;
     &lt;li class="page-item"&gt;
-      &lt;a class="page-link" href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;previous]]) ?&gt;"&gt;
-        &amp;lt;&amp;lt;
+      &lt;a class="page-link"
+         href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;previous]]) ?&gt;"&gt;
+        Previous
       &lt;/a&gt;
     &lt;/li&gt;
   &lt;?php else: ?&gt;
     &lt;li class="page-item disabled"&gt;
-      &lt;a class="page-link" href="#"&gt;
-        &amp;lt;&amp;lt;
-      &lt;/a&gt;
+      &lt;span class="page-link"&gt;Previous&lt;/span&gt;
     &lt;/li&gt;
   &lt;?php endif ?&gt;
 
@@ -859,13 +867,14 @@ our modules:</p>
   &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
     &lt;?php if ($page !== $this-&gt;current): ?&gt;
       &lt;li class="page-item"&gt;
-        &lt;a class="page-link" href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $page]]) ?&gt;"&gt;
+        &lt;a class="page-link"
+           href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $page]]) ?&gt;"&gt;
           &lt;?= $page ?&gt;
         &lt;/a&gt;
       &lt;/li&gt;
     &lt;?php else: ?&gt;
-      &lt;li class="page-item active"&gt;
-        &lt;a class="page-link" href="#"&gt;&lt;?= $page ?&gt;&lt;/a&gt;
+      &lt;li class="page-item active" aria-current="page"&gt;
+        &lt;span class="page-link"&gt;&lt;?= $page ?&gt;&lt;/span&gt;
       &lt;/li&gt;
     &lt;?php endif ?&gt;
   &lt;?php endforeach ?&gt;
@@ -873,15 +882,14 @@ our modules:</p>
   &lt;!-- Next page link --&gt;
   &lt;?php if (isset($this-&gt;next)): ?&gt;
     &lt;li class="page-item"&gt;
-      &lt;a class="page-link" href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;next]]) ?&gt;"&gt;
-        &amp;gt;&amp;gt;
+      &lt;a class="page-link"
+         href="&lt;?= $this-&gt;url($this-&gt;route, [], ['query' =&gt; ['page' =&gt; $this-&gt;next]]) ?&gt;"&gt;
+        Next
       &lt;/a&gt;
     &lt;/li&gt;
   &lt;?php else: ?&gt;
     &lt;li class="page-item disabled"&gt;
-      &lt;a class="page-link" href="#"&gt;
-        &amp;gt;&amp;gt;
-      &lt;/a&gt;
+      &lt;span class="page-link"&gt;Next&lt;/span&gt;
     &lt;/li&gt;
   &lt;?php endif ?&gt;
   &lt;/ul&gt;
