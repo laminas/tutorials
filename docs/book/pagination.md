@@ -185,27 +185,41 @@ $ sqlite data/laminastutorial.db < data/album-fixtures.sql
 Some systems, including Ubuntu, use the command `sqlite3`; check to see which
 one to use on your system.
 
-> ### Using PHP to create the database
->
-> If you do not have Sqlite installed on your system, you can use PHP to load
-> the database using the same SQL schema file created earlier. Create the file
-> `data/load_album_fixtures.php` with the following contents:
->
-> ```php
-> <?php
-> $db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
-> $fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
-> while ($line = fread($fh, 4096)) {
->     $db->exec($line);
-> }
-> fclose($fh);
-> ```
->
-> Once created, execute it:
->
-> ```bash
-> $ php data/load_album_fixtures.php
-> ```
+<!-- markdownlint-disable-next-line MD033-->
+<details markdown="1"><summary>Alternative Commands</summary>
+
+Some systems, including Ubuntu, use the command `sqlite3`; check to see which one to use on your system.
+
+### SQLite3
+
+If you use `sqlite3` create the database using the following command:
+
+```bash
+$ cat data/schema.sql | sqlite3 laminastutorial.db
+```
+
+### Using PHP to Create the Database
+
+If you do not have Sqlite installed on your system, you can use PHP to load the database using the same SQL schema file created earlier. Create the file `data/load_album_fixtures.php` with the following contents:
+
+```php
+<?php
+$db = new PDO('sqlite:' . realpath(__DIR__) . '/laminastutorial.db');
+$fh = fopen(__DIR__ . '/album-fixtures.sql', 'r');
+while ($line = fread($fh, 4096)) {
+    $db->exec($line);
+}
+fclose($fh);
+```
+
+Once created, execute it:
+
+```bash
+$ php data/load_album_fixtures.php
+```
+
+</details>
+<!-- markdownlint-disable-next-line MD033-->
 
 This gives us a handy extra 150 rows to play with. If you now visit your album
 list at `/album`, you'll see a huge long list of 150+ albums; it's ugly.
