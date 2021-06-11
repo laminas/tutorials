@@ -76,7 +76,8 @@ interface, `InputFilterAwareInterface`, which laminas-form will use in order to
 bind an input filter to a given form. We'll add this capability now to our
 `Album` class.
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="4-12,14,20-21,30-96"><code>
 // module/Album/src/Model/Album.php:
 namespace Album\Model;
 
@@ -174,7 +175,8 @@ class Album implements InputFilterAwareInterface
         return $this->inputFilter;
     }
 }
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 The `InputFilterAwareInterface` defines two methods: `setInputFilter()` and
 `getInputFilter()`. We only need to implement `getInputFilter()` so we
@@ -191,7 +193,8 @@ doesn't enter more characters than we can store into the database.
 We now need to get the form to display and then process it on submission. This
 is done within the `AlbumController::addAction()`:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3-5,11-34"><code>
 // module/Album/src/Controller/AlbumController.php:
 
 // Add the following import statements at the top of the file:
@@ -229,7 +232,8 @@ class AlbumController extends AbstractActionController
 
     /* ... */
 }
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 After adding the `Album` and `AlbumForm` classes to the import list, we
 implement `addAction()`. Let's look at the `addAction()` code in a little more
@@ -510,7 +514,8 @@ expects to find two methods in the model: `getArrayCopy()` and
 `exchangeArray()`. We have already written `exchangeArray()` in our `Album`
 entity, so we now need to write `getArrayCopy()`:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="11-19"><code>
 // module/Album/src/Model/Album.php:
 // ...
 
@@ -532,7 +537,8 @@ entity, so we now need to write `getArrayCopy()`:
     }
 
 // ...
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 As a result of using `bind()` with its hydrator, we do not need to populate the
 form's data back into the `$album` as that's already been done, so we can just
@@ -702,7 +708,8 @@ use Album\Controller\AlbumController;
 
 and change the `controller` from `Controller\IndexController::class` to `AlbumController::class`:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="6"><code>
 'home' => [
     'type' => \Laminas\Router\Http\Literal::class,
     'options' => [
@@ -713,6 +720,7 @@ and change the `controller` from `Controller\IndexController::class` to `AlbumCo
         ],
     ],
 ],
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 That's it &mdash; you now have a fully working application!

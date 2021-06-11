@@ -33,7 +33,8 @@ defined in the module’s `module.config.php` file. We will add a route for our
 album actions. This is the updated module config file with the new code
 highlighted using comments.
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3,13-31"><code>
 namespace Album;
 
 use Laminas\Router\Http\Segment;
@@ -72,7 +73,8 @@ return [
         ],
     ],
 ];
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 The name of the route is ‘album’ and has a type of ‘segment’. The segment route
 allows us to specify placeholders in the URL pattern (route) that will be mapped
