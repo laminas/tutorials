@@ -211,7 +211,8 @@ by implementing `getServiceConfig()` to provide a factory that creates an
 `AlbumTable`. Add this method to the bottom of the `module/Album/src/Module.php`
 file:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3-6,13-30"><code>
 namespace Album;
 
 // Add these import statements:
@@ -243,7 +244,8 @@ class Module implements ConfigProviderInterface
         ];
     }
 }
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 This method returns an array of `factories` that are all merged together by the
 `ModuleManager` before passing them to the `ServiceManager`. The factory for
@@ -306,14 +308,16 @@ store the credentials for your database if you want to. Modify
 `config/autoload/global.php` (in the project root, not inside the `Album`
 module) with following code:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="2-5"><code>
 return [
     'db' => [
         'driver' => 'Pdo',
         'dsn'    => sprintf('sqlite:%s/data/laminastutorial.db', realpath(getcwd())),
     ],
 ];
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 If you were configuring a database that required credentials, you would put the
 general configuration in your `config/autoload/global.php`, and then the
@@ -331,7 +335,8 @@ Firstly, we'll add a constructor to our controller. Open the file
 `module/Album/src/Controller/AlbumController.php` and add the following property
 and constructor:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="10-17"><code>
 namespace Album\Controller;
 
 // Add the following import:
@@ -352,14 +357,16 @@ class AlbumController extends AbstractActionController
 
     /* ... */
 }
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 Our controller now depends on `AlbumTable`, so we will need to create a factory
 for the controller.  Similar to how we created factories for the model, we'll
 create it in our `Module` class, only this time, under a new method,
 `Album\Module::getControllerConfig()`:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="12-24"><code>
 namespace Album;
 
 use Laminas\Db\Adapter\AdapterInterface;
@@ -385,14 +392,15 @@ class Module implements ConfigProviderInterface
         ];
     }
 }
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 Because we're now defining our own factory, we can modify our
 `module.config.php` to remove the definition. Open
 `module/Album/config/module.config.php` and remove the following lines:
 
-```php
-<?php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3-4,7-12"><code>
 namespace Album;
 
 // Remove this:
@@ -408,7 +416,8 @@ return [
 
     /* ... */
 ];
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 We can now access the property `$table` from within our controller whenever we
 need to interact with our model.
@@ -419,7 +428,8 @@ In order to list the albums, we need to retrieve them from the model and pass
 them to the view. To do this, we fill in `indexAction()` within
 `AlbumController`. Update the `AlbumController::indexAction()` as follows:
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="5-7"><code>
 // module/Album/src/Controller/AlbumController.php:
 // ...
     public function indexAction()
@@ -429,7 +439,8 @@ them to the view. To do this, we fill in `indexAction()` within
         ]);
     }
 // ...
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 With Laminas, in order to set variables in the view, we return a
 `ViewModel` instance where the first parameter of the constructor is an array

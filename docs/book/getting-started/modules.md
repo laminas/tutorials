@@ -81,14 +81,16 @@ it should look like the following by default:
 
 We'll now add our new module to the list, so it now reads:
 
-```json
+<!-- markdownlint-disable MD033 -->
+<pre class="language-json" data-line="4"><code>
 "autoload": {
     "psr-4": {
         "Application\\": "module/Application/src/",
         "Album\\": "module/Album/src/"
     }
 },
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 Once you've made that change, run the following to ensure Composer updates its
 autoloading rules:
@@ -146,16 +148,18 @@ contains the `Album` module as well, so the file now looks like this:
 (Changes required are highlighted using comments; original comments from the
 file are omitted for brevity.)
 
-```php
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="7"><code>
 return [
     'Laminas\Form',
     'Laminas\Db',
     'Laminas\Router',
     'Laminas\Validator',
     'Application',
-    'Album',          // <-- Add this line
+    'Album', // <-- Add this line
 ];
-```
+</code></pre>
+<!-- markdownlint-enable MD033 -->
 
 As you can see, we have added our `Album` module into the list of modules after
 the `Application` module.
