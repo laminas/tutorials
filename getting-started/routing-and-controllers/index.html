@@ -553,44 +553,49 @@ actions will be:</p>
 defined in the module’s <code>module.config.php</code> file. We will add a route for our
 album actions. This is the updated module config file with the new code
 highlighted using comments.</p>
-<pre class="highlight"><code class="language-php">namespace Album;
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3,13-31"><code>
+namespace Album;
 
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'controllers' =&gt; [
-        'factories' =&gt; [
-            Controller\AlbumController::class =&gt; InvokableFactory::class,
+    'controllers' => [
+        'factories' => [
+            Controller\AlbumController::class => InvokableFactory::class,
         ],
     ],
 
     // The following section is new and should be added to your file:
-    'router' =&gt; [
-        'routes' =&gt; [
-            'album' =&gt; [
-                'type'    =&gt; Segment::class,
-                'options' =&gt; [
-                    'route' =&gt; '/album[/:action[/:id]]',
-                    'constraints' =&gt; [
-                        'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     =&gt; '[0-9]+',
+    'router' => [
+        'routes' => [
+            'album' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/album[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
                     ],
-                    'defaults' =&gt; [
-                        'controller' =&gt; Controller\AlbumController::class,
-                        'action'     =&gt; 'index',
+                    'defaults' => [
+                        'controller' => Controller\AlbumController::class,
+                        'action'     => 'index',
                     ],
                 ],
             ],
         ],
     ],
 
-    'view_manager' =&gt; [
-        'template_path_stack' =&gt; [
-            'album' =&gt; __DIR__ . '/../view',
+    'view_manager' => [
+        'template_path_stack' => [
+            'album' => __DIR__ . '/../view',
         ],
     ],
-];</code></pre>
+];
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>The name of the route is ‘album’ and has a type of ‘segment’. The segment route
 allows us to specify placeholders in the URL pattern (route) that will be mapped
 to named parameters in the matched route. In this case, the route is
@@ -749,16 +754,6 @@ directory named after the controller. Create these four empty files now:</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/getting-started/routing-and-controllers.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>

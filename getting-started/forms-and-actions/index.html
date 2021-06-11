@@ -559,7 +559,9 @@ provides a general purpose mechanism for input validation. It also provides an
 interface, <code>InputFilterAwareInterface</code>, which laminas-form will use in order to
 bind an input filter to a given form. We'll add this capability now to our
 <code>Album</code> class.</p>
-<pre class="highlight"><code class="language-php">// module/Album/src/Model/Album.php:
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="4-12,14,20-21,30-96"><code>
+// module/Album/src/Model/Album.php:
 namespace Album\Model;
 
 // Add the following import statements:
@@ -583,9 +585,9 @@ class Album implements InputFilterAwareInterface
 
     public function exchangeArray(array $data)
     {
-        $this-&gt;id     = !empty($data['id']) ? $data['id'] : null;
-        $this-&gt;artist = !empty($data['artist']) ? $data['artist'] : null;
-        $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
+        $this->id     = !empty($data['id']) ? $data['id'] : null;
+        $this->artist = !empty($data['artist']) ? $data['artist'] : null;
+        $this->title  = !empty($data['title']) ? $data['title'] : null;
     }
 
     /* Add the following methods: */
@@ -600,62 +602,65 @@ class Album implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if ($this-&gt;inputFilter) {
-            return $this-&gt;inputFilter;
+        if ($this->inputFilter) {
+            return $this->inputFilter;
         }
 
         $inputFilter = new InputFilter();
 
-        $inputFilter-&gt;add([
-            'name' =&gt; 'id',
-            'required' =&gt; true,
-            'filters' =&gt; [
-                ['name' =&gt; ToInt::class],
+        $inputFilter->add([
+            'name' => 'id',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class],
             ],
         ]);
 
-        $inputFilter-&gt;add([
-            'name' =&gt; 'artist',
-            'required' =&gt; true,
-            'filters' =&gt; [
-                ['name' =&gt; StripTags::class],
-                ['name' =&gt; StringTrim::class],
+        $inputFilter->add([
+            'name' => 'artist',
+            'required' => true,
+            'filters' => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
-            'validators' =&gt; [
+            'validators' => [
                 [
-                    'name' =&gt; StringLength::class,
-                    'options' =&gt; [
-                        'encoding' =&gt; 'UTF-8',
-                        'min' =&gt; 1,
-                        'max' =&gt; 100,
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
                     ],
                 ],
             ],
         ]);
 
-        $inputFilter-&gt;add([
-            'name' =&gt; 'title',
-            'required' =&gt; true,
-            'filters' =&gt; [
-                ['name' =&gt; StripTags::class],
-                ['name' =&gt; StringTrim::class],
+        $inputFilter->add([
+            'name' => 'title',
+            'required' => true,
+            'filters' => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
-            'validators' =&gt; [
+            'validators' => [
                 [
-                    'name' =&gt; StringLength::class,
-                    'options' =&gt; [
-                        'encoding' =&gt; 'UTF-8',
-                        'min' =&gt; 1,
-                        'max' =&gt; 100,
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
                     ],
                 ],
             ],
         ]);
 
-        $this-&gt;inputFilter = $inputFilter;
-        return $this-&gt;inputFilter;
+        $this->inputFilter = $inputFilter;
+        return $this->inputFilter;
     }
-}</code></pre>
+}
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>The <code>InputFilterAwareInterface</code> defines two methods: <code>setInputFilter()</code> and
 <code>getInputFilter()</code>. We only need to implement <code>getInputFilter()</code> so we
 throw an exception from <code>setInputFilter()</code>.</p>
@@ -668,7 +673,9 @@ them to be <em>required</em> and add a <code>StringLength</code> validator to en
 doesn't enter more characters than we can store into the database.</p>
 <p>We now need to get the form to display and then process it on submission. This
 is done within the <code>AlbumController::addAction()</code>:</p>
-<pre class="highlight"><code class="language-php">// module/Album/src/Controller/AlbumController.php:
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="3-5,11-34"><code>
+// module/Album/src/Controller/AlbumController.php:
 
 // Add the following import statements at the top of the file:
 use Album\Form\AlbumForm;
@@ -682,29 +689,32 @@ class AlbumController extends AbstractActionController
     public function addAction()
     {
         $form = new AlbumForm();
-        $form-&gt;get('submit')-&gt;setValue('Add');
+        $form->get('submit')->setValue('Add');
 
-        $request = $this-&gt;getRequest();
+        $request = $this->getRequest();
 
-        if (! $request-&gt;isPost()) {
-            return ['form' =&gt; $form];
+        if (! $request->isPost()) {
+            return ['form' => $form];
         }
 
         $album = new Album();
-        $form-&gt;setInputFilter($album-&gt;getInputFilter());
-        $form-&gt;setData($request-&gt;getPost());
+        $form->setInputFilter($album->getInputFilter());
+        $form->setData($request->getPost());
 
-        if (! $form-&gt;isValid()) {
-            return ['form' =&gt; $form];
+        if (! $form->isValid()) {
+            return ['form' => $form];
         }
 
-        $album-&gt;exchangeArray($form-&gt;getData());
-        $this-&gt;table-&gt;saveAlbum($album);
-        return $this-&gt;redirect()-&gt;toRoute('album');
+        $album->exchangeArray($form->getData());
+        $this->table->saveAlbum($album);
+        return $this->redirect()->toRoute('album');
     }
 
     /* ... */
-}</code></pre>
+}
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>After adding the <code>Album</code> and <code>AlbumForm</code> classes to the import list, we
 implement <code>addAction()</code>. Let's look at the <code>addAction()</code> code in a little more
 detail:</p>
@@ -925,27 +935,32 @@ hydrators, but the default one is <code>Laminas\Hydrator\ArraySerializable</code
 expects to find two methods in the model: <code>getArrayCopy()</code> and
 <code>exchangeArray()</code>. We have already written <code>exchangeArray()</code> in our <code>Album</code>
 entity, so we now need to write <code>getArrayCopy()</code>:</p>
-<pre class="highlight"><code class="language-php">// module/Album/src/Model/Album.php:
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="11-19"><code>
+// module/Album/src/Model/Album.php:
 // ...
 
     public function exchangeArray($data)
     {
-        $this-&gt;id     = isset($data['id']) ? $data['id'] : null;
-        $this-&gt;artist = isset($data['artist']) ? $data['artist'] : null;
-        $this-&gt;title  = isset($data['title']) ? $data['title'] : null;
+        $this->id     = isset($data['id']) ? $data['id'] : null;
+        $this->artist = isset($data['artist']) ? $data['artist'] : null;
+        $this->title  = isset($data['title']) ? $data['title'] : null;
     }
 
     // Add the following method:
     public function getArrayCopy()
     {
         return [
-            'id'     =&gt; $this-&gt;id,
-            'artist' =&gt; $this-&gt;artist,
-            'title'  =&gt; $this-&gt;title,
+            'id'     => $this->id,
+            'artist' => $this->artist,
+            'title'  => $this->title,
         ];
     }
 
-// ...</code></pre>
+// ...
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>As a result of using <code>bind()</code> with its hydrator, we do not need to populate the
 form's data back into the <code>$album</code> as that's already been done, so we can just
 call the mapper's <code>saveAlbum()</code> method to store the changes back to the
@@ -1083,16 +1098,21 @@ home route:</p>
 <p>Import <code>Album\Controller\AlbumController</code> at the top of the file:</p>
 <pre class="highlight"><code class="language-php">use Album\Controller\AlbumController;</code></pre>
 <p>and change the <code>controller</code> from <code>Controller\IndexController::class</code> to <code>AlbumController::class</code>:</p>
-<pre class="highlight"><code class="language-php">'home' =&gt; [
-    'type' =&gt; \Laminas\Router\Http\Literal::class,
-    'options' =&gt; [
-        'route'    =&gt; '/',
-        'defaults' =&gt; [
-            'controller' =&gt; AlbumController::class, // &lt;-- change here
-            'action'     =&gt; 'index',
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="6"><code>
+'home' => [
+    'type' => \Laminas\Router\Http\Literal::class,
+    'options' => [
+        'route'    => '/',
+        'defaults' => [
+            'controller' => AlbumController::class, // <-- change here
+            'action'     => 'index',
         ],
     ],
-],</code></pre>
+],
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>That's it &mdash; you now have a fully working application!</p>
 
 
@@ -1122,16 +1142,6 @@ home route:</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/getting-started/forms-and-actions.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>

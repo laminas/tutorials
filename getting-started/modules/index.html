@@ -548,12 +548,17 @@ it should look like the following by default:</p>
     }
 },</code></pre>
 <p>We'll now add our new module to the list, so it now reads:</p>
-<pre class="highlight"><code class="language-json">"autoload": {
+<!-- markdownlint-disable MD033 -->
+<pre class="language-json" data-line="4"><code>
+"autoload": {
     "psr-4": {
         "Application\\": "module/Application/src/",
         "Album\\": "module/Album/src/"
     }
-},</code></pre>
+},
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>Once you've made that change, run the following to ensure Composer updates its
 autoloading rules:</p>
 <pre class="highlight"><code class="language-bash">$ composer dump-autoload</code></pre>
@@ -595,14 +600,19 @@ by the skeleton application. Update this file so that the array it returns
 contains the <code>Album</code> module as well, so the file now looks like this:</p>
 <p>(Changes required are highlighted using comments; original comments from the
 file are omitted for brevity.)</p>
-<pre class="highlight"><code class="language-php">return [
+<!-- markdownlint-disable MD033 -->
+<pre class="language-php" data-line="7"><code>
+return [
     'Laminas\Form',
     'Laminas\Db',
     'Laminas\Router',
     'Laminas\Validator',
     'Application',
-    'Album',          // &lt;-- Add this line
-];</code></pre>
+    'Album', // <-- Add this line
+];
+</code></pre>
+<!-- markdownlint-enable MD033 -->
+
 <p>As you can see, we have added our <code>Album</code> module into the list of modules after
 the <code>Application</code> module.</p>
 <p>We have now set up the module ready for putting our custom code into it.</p>
@@ -634,16 +644,6 @@ the <code>Application</code> module.</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/tutorials/edit/master/docs/book/getting-started/modules.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
