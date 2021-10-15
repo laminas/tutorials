@@ -39,7 +39,7 @@ Some systems, including Ubuntu, use the command `sqlite3`; check to see which on
 If you use `sqlite3` create the database using the following command:
 
 ```bash
-$ cat data/schema.sql | sqlite3 laminastutorial.db
+$ cat data/schema.sql | sqlite3 data/laminastutorial.db
 ```
 
 ### Using PHP to Create the Database
