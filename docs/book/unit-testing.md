@@ -75,7 +75,7 @@ Now it's time to write our own tests!
 ## Setting up the tests directory
 
 As laminas-mvc applications are built from modules that should be
-standalone blocks of an application, we don't test the application in it's
+standalone blocks of an application, we don't test the application in its
 entirety, but module by module.
 
 We will demonstrate setting up the minimum requirements to test a module, the
