@@ -336,7 +336,7 @@ Firstly, we'll add a constructor to our controller. Open the file
 and constructor:
 
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="10-17"><code>
+<pre class="language-php" data-line="3-4,10-17"><code>
 namespace Album\Controller;
 
 // Add the following import:
