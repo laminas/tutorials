@@ -11,7 +11,7 @@ The most important part of applications built with laminas-mvc are the
 building blocks of any [laminas-mvc application](https://docs.laminas.dev/laminas-mvc/quick-start/).
 
 To ease the work with dependencies inside our applications, we use the
-[service manager](https://docs.laminas.dev/laminas-servicemanager/intro/).
+[service manager](https://docs.laminas.dev/laminas-servicemanager/quick-start/).
 
 To be able to map a request to controllers and their actions, we use
 [routes](https://docs.laminas.dev/laminas-router/routing/).
