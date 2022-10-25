@@ -27,7 +27,7 @@ integration for laminas-mvc, including application scaffolding and custom
 assertions. You will need to install it:
 
 ```bash
-$ composer require --dev laminas/laminas-test phpunit/phpunit
+$ composer require --dev laminas/laminas-test phpunit/phpunit phpspec/prophecy-phpunit
 ```
 
 laminas-test package supports very wide range of PHPUnit versions, make sure to
@@ -348,16 +348,19 @@ the `fetchAll` method.
 First, let's do some setup.
 
 Add import statements to the top of the test class file for each of the
-`AlbumTable` and `ServiceManager` classes:
+`AlbumTable`, `ServiceManager` and `ProphecyTrait` classes:
 
 ```php
 use Album\Model\AlbumTable;
 use Laminas\ServiceManager\ServiceManager;
+use Prophecy\PhpUnit\ProphecyTrait;
 ```
 
 Now add the following property to the test class:
 
 ```php
+use ProphecyTrait;
+
 protected $albumTable;
 ```
 
@@ -394,7 +397,7 @@ When done, we disable overrides to ensure that if, during dispatch, any code
 attempts to override a service, an exception will be raised.
 
 The last method above creates a mock instance of our `AlbumTable` using
-[Prophecy](https://github.com/phpspec/prophecy), an object mocking framework
+[Prophecy](https://github.com/phpspec/prophecy-phpunit), an object mocking framework
 that's bundled and integrated in PHPUnit. The instance returned by
 `prophesize()` is a scaffold object; calling `reveal()` on it, as done in the
 `configureServiceManager()` method above, provides the underlying mock object
@@ -684,9 +687,12 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Laminas\Db\ResultSet\ResultSetInterface;
 use Laminas\Db\TableGateway\TableGatewayInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AlbumTableTest extends TestCase
 {
+    use ProphecyTrait;
+    
     protected function setUp() : void
     {
         $this->tableGateway = $this->prophesize(TableGatewayInterface::class);
