@@ -38,6 +38,11 @@ laminas-mvc based applications.
 
 <ul class="list-group list-group-flush">
     <li class="list-group-item">
+        <a href="https://docs.laminas.dev/laminas-eventmanager/application-integration/usage-in-a-laminas-mvc-application/">
+            Adding laminas-eventmanager to a laminas-mvc Application
+        </a>
+    </li>
+    <li class="list-group-item">
         <a href="https://docs.laminas.dev/laminas-form/application-integration/usage-in-a-laminas-mvc-application/">
             Adding laminas-form to a laminas-mvc Application
         </a>
