@@ -151,14 +151,9 @@ new application is ready to start!
 >
 > At this point, you will be prompted to answer questions as noted above.
 >
-> Alternately, if you do not have Composer installed, but *do* have either
-> Vagrant or docker-compose available, you can run Composer via those:
+> Alternately, if you do not have Composer installed, but *do* have docker-compose available, you can run Composer via those:
 >
 > ```bash
-> # For Vagrant:
-> $ vagrant up
-> $ vagrant ssh -c 'composer install'
-> # For docker-compose:
 > $ docker-compose build
 > $ docker-compose run laminas composer install
 > ```
@@ -226,7 +221,6 @@ In this tutorial, we will step you through four different ways to setup your web
 server:
 
 - Via the PHP built-in web server.
-- Via Vagrant.
 - Via docker-compose.
 - Using Apache.
 
@@ -255,34 +249,6 @@ and you should see the following 404 page:
 > ### Development only
 >
 > PHP's built-in web server should be used **for development only**.
-
-### Using Vagrant
-
-[Vagrant](https://www.vagrantup.com/) provides a way to describe and provision
-virtual machines, and is a common way to provide a coherent and consistent
-development environment for development teams. The skeleton application provides
-a `Vagrantfile` based on Ubuntu 14.04, and using the `ondrej/php` PPA to provide
-PHP 7.3. Start it up using:
-
-```bash
-$ vagrant up
-```
-
-Once it has been built and is running, you can also run composer from the
-virtual machine. As an example, the following will install dependencies:
-
-```bash
-$ vagrant ssh -c 'composer install'
-```
-
-while this will update them:
-
-```bash
-$ vagrant ssh -c 'composer update'
-```
-
-The image uses Apache 2.4, and maps the host port 8080 to port 80 on the virtual
-machine.
 
 ### Using docker-compose
 
@@ -426,7 +392,6 @@ if (! class_exists(Application::class)) {
     throw new RuntimeException(
         "Unable to load application.\n"
         . "- Type `composer install` if you are developing locally.\n"
-        . "- Type `vagrant ssh -c 'composer install'` if you are using Vagrant.\n"
         . "- Type `docker-compose run laminas composer install` if you are using Docker.\n"
     );
 }
