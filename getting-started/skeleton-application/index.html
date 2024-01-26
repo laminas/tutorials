@@ -412,7 +412,7 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                     <a href="https://github.com/laminas/tutorials" class="header__link header__link--github" title="Go to repository of tutorials">
-                        <i class="fa fa-github"></i> GitHub
+                        <i class="fab fa-github"></i> GitHub
                     </a>
                 
             </div>
@@ -592,13 +592,8 @@ $ composer install</code></pre>
 
 Generating autoload files</code></pre>
 <p>At this point, you will be prompted to answer questions as noted above.</p>
-<p>Alternately, if you do not have Composer installed, but <em>do</em> have either
-Vagrant or docker-compose available, you can run Composer via those:</p>
-<pre class="highlight"><code class="language-bash"># For Vagrant:
-$ vagrant up
-$ vagrant ssh -c 'composer install'
-# For docker-compose:
-$ docker-compose build
+<p>Alternately, if you do not have Composer installed, but <em>do</em> have docker-compose available, you can run Composer via those:</p>
+<pre class="highlight"><code class="language-bash">$ docker-compose build
 $ docker-compose run laminas composer install</code></pre>
 <h3 id="timeouts">Timeouts</h3>
 <p>If you see this message:</p>
@@ -630,7 +625,6 @@ composer timed out. To avoid this, instead of running:</p>
 server:</p>
 <ul>
 <li>Via the PHP built-in web server.</li>
-<li>Via Vagrant.</li>
 <li>Via docker-compose.</li>
 <li>Using Apache.</li>
 </ul>
@@ -650,20 +644,6 @@ and you should see the following 404 page:</p>
 <h3 id="development-only">Development only</h3>
 <p>PHP's built-in web server should be used <strong>for development only</strong>.</p>
 </blockquote>
-<h3 id="using-vagrant">Using Vagrant</h3>
-<p><a href="https://www.vagrantup.com/">Vagrant</a> provides a way to describe and provision
-virtual machines, and is a common way to provide a coherent and consistent
-development environment for development teams. The skeleton application provides
-a <code>Vagrantfile</code> based on Ubuntu 14.04, and using the <code>ondrej/php</code> PPA to provide
-PHP 7.3. Start it up using:</p>
-<pre class="highlight"><code class="language-bash">$ vagrant up</code></pre>
-<p>Once it has been built and is running, you can also run composer from the
-virtual machine. As an example, the following will install dependencies:</p>
-<pre class="highlight"><code class="language-bash">$ vagrant ssh -c 'composer install'</code></pre>
-<p>while this will update them:</p>
-<pre class="highlight"><code class="language-bash">$ vagrant ssh -c 'composer update'</code></pre>
-<p>The image uses Apache 2.4, and maps the host port 8080 to port 80 on the virtual
-machine.</p>
 <h3 id="using-docker-compose">Using docker-compose</h3>
 <p><a href="https://www.docker.com/">Docker</a> containers wrap a piece of software and everything needed to run it,
 guaranteeing consistent operation regardless of the host environment; it is an
@@ -766,7 +746,6 @@ if (! class_exists(Application::class)) {
     throw new RuntimeException(
         "Unable to load application.\n"
         . "- Type `composer install` if you are developing locally.\n"
-        . "- Type `vagrant ssh -c 'composer install'` if you are using Vagrant.\n"
         . "- Type `docker-compose run laminas composer install` if you are using Docker.\n"
     );
 }
@@ -1154,13 +1133,13 @@ assuming you don't run the command in production, you should be safe.</p>
                                 <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fab fa-slack"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fab fa-github"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="fab fa-mastodon"></i></a>
                             </li>
                             <li class="support__list-item">
                                 <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
@@ -1186,7 +1165,7 @@ assuming you don't run the command in production, you should be safe.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2023 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2024 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
