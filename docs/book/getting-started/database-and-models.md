@@ -208,20 +208,22 @@ To configure the `ServiceManager`, we can either supply the name of the class to
 be instantiated or a factory (closure, callback, or class name of a factory
 class) that instantiates the object when the `ServiceManager` needs it. We start
 by implementing `getServiceConfig()` to provide a factory that creates an
-`AlbumTable`. Add this method to the bottom of the `module/Album/src/Module.php`
+`AlbumTable`. Add the `ServiceProviderInterface` to the class and add this method to the bottom of the `module/Album/src/Module.php`
 file:
 
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="3-6,13-30"><code>
+<pre class="language-php" data-line="3-7,10,15-32"><code>
 namespace Album;
 
 // Add these import statements:
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements ConfigProviderInterface
+// Add the ServiceProviderInterface
+class Module implements ConfigProviderInterface, ServiceProviderInterface
 {
     // getConfig() method is here
 
@@ -366,15 +368,18 @@ create it in our `Module` class, only this time, under a new method,
 `Album\Module::getControllerConfig()`:
 
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="12-24"><code>
+<pre class="language-php" data-line="6,10,15-27"><code>
 namespace Album;
 
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ModuleManager\Feature\ControllerProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements ConfigProviderInterface
+// Add the ControllerProviderInterface interface to the class
+class Module implements ConfigProviderInterface, ServiceProviderInterface, ControllerProviderInterface
 {
     // getConfig() and getServiceConfig() methods are here
 

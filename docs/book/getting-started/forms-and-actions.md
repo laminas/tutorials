@@ -340,8 +340,8 @@ element, and error view helpers for each element, but you still have to wrap
 complexity of your view script in situations where the default HTML rendering of
 the form is acceptable.
 
-You should now be able to use the "Add new album" link on the home page of the
-application to add a new album record, resulting in something like the
+You should now be able to use the "Add new album" page of the
+application at `http://localhost:8080/album/add` to add a new album record, resulting in something like the
 following:
 
 ![Add Album Form](../images/user-guide.forms-and-actions.album-form-add-original.png)
