@@ -16,6 +16,9 @@ extending from `Laminas\Form\Form`. Create the file
 ```php
 namespace Album\Form;
 
+use Laminas\Form\Element\Hidden;
+use Laminas\Form\Element\Submit;
+use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
 
 class AlbumForm extends Form
@@ -27,25 +30,25 @@ class AlbumForm extends Form
 
         $this->add([
             'name' => 'id',
-            'type' => 'hidden',
+            'type' => Hidden::class,
         ]);
         $this->add([
             'name' => 'title',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => [
                 'label' => 'Title',
             ],
         ]);
         $this->add([
             'name' => 'artist',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => [
                 'label' => 'Artist',
             ],
         ]);
         $this->add([
             'name' => 'submit',
-            'type' => 'submit',
+            'type' => Submit::class,
             'attributes' => [
                 'value' => 'Go',
                 'id'    => 'submitbutton',
