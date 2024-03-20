@@ -220,34 +220,14 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'controllers' => [
-        'factories' => [
-            Controller\AlbumController::class => InvokableFactory::class,
-        ],
+        // ...
     ],
 
-    // The following section is new and should be added to your file:
     'router' => [
-        'routes' => [
-            'album' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/album[/:action[/:id]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\AlbumController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-        ],
+        // ..
     ],
     'view_manager' => [
-        'template_path_stack' => [
-            'album' => __DIR__ . '/../view',
-        ],
+        // ...
     ],
     'service_manager' => [
         'factories' => [
@@ -397,47 +377,27 @@ class AlbumController extends AbstractActionController
 </code></pre>
 <!-- markdownlint-enable MD033 -->
 
-Our controller now depends on `AlbumTable`, so we will need to create a factory
-for the controller that will inject the `AlbumTable`.
+Our controller now depends on `AlbumTable`, so we will need to update the factory
+for the controller so that it will inject the `AlbumTable`.
 
-Let's create the `AlbumControllerFactory.php` in `module/Album/src/Controller`:
+We will use the `ReflectionBasedAbstractFactory` factory to build the `AlbumController`.
+`ReflectionBasedAbstractFactory` provides a reflection-based approach to instantiation, resolving constructor dependencies to the relevant services. Since the `AlbumController` constructor has an `AlbumTable` parameter, the factory will instantiate an `AlbumTable` instance and pass it to the `AlbumController`constructor.
 
-````php
-namespace Album\Controller;
-
-use Album\Model\AlbumTable;
-use Laminas\ServiceManager\Factory\FactoryInterface;
-use Psr\Container\ContainerInterface;
-
-class AlbumControllerFactory implements FactoryInterface
-{
-
-    /**
-     * @inheritDoc
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): AlbumController
-    {
-        return new AlbumController(
-            $container->get(AlbumTable::class)
-        );
-    }
-}
-````
-
-Then we can modify the `controllers` section of the `module.config.php` to use the new factory:
+Then we can modify the `controllers` section of the `module.config.php` to 
+use `ReflectionBasedAbstractFactory`:
 
 <!-- markdownlint-disable MD033 -->
 <pre class="language-php" data-line="3,10"><code>
 namespace Album;
 
-use Album\Controller\AlbumControllerFactory;
+use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Album\Model\AlbumTableFactory;
 use Laminas\Router\Http\Segment;
 
 return [
     'controllers' => [
         'factories' => [
-            Controller\AlbumController::class => AlbumControllerFactory::class
+            Controller\AlbumController::class => ReflectionBasedAbstractFactory::class
         ],
     ],
 

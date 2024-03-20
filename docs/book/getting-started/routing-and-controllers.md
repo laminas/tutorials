@@ -156,7 +156,7 @@ URL                                                  | Method called
 `http://localhost:8080/album/edit`                   | `Album\Controller\AlbumController::editAction`
 `http://localhost:8080/album/delete`                 | `Album\Controller\AlbumController::deleteAction`
 
-**Note:** If you are using self-hosted Apache, replace `http://localhost:8080/` by `http://laminas-mvc-tutorial.localhost/`
+NOTE: If you are using self-hosted Apache, replace `http://localhost:8080/` by `http://laminas-mvc-tutorial.localhost/`
 
 We now have a working router and the actions are set up for each page of our
 application.
