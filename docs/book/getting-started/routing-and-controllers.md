@@ -151,10 +151,12 @@ until we set up the views. The URLs for each action are:
 
 URL                                                  | Method called
 ---------------------------------------------------- | -------------
-`http://laminas-mvc-tutorial.localhost/album`        | `Album\Controller\AlbumController::indexAction`
-`http://laminas-mvc-tutorial.localhost/album/add`    | `Album\Controller\AlbumController::addAction`
-`http://laminas-mvc-tutorial.localhost/album/edit`   | `Album\Controller\AlbumController::editAction`
-`http://laminas-mvc-tutorial.localhost/album/delete` | `Album\Controller\AlbumController::deleteAction`
+`http://localhost:8080/album`                        | `Album\Controller\AlbumController::indexAction`
+`http://localhost:8080/album/add`                    | `Album\Controller\AlbumController::addAction`
+`http://localhost:8080/album/edit`                   | `Album\Controller\AlbumController::editAction`
+`http://localhost:8080/album/delete`                 | `Album\Controller\AlbumController::deleteAction`
+
+NOTE: If you are using self-hosted Apache, replace `http://localhost:8080/` by `http://laminas-mvc-tutorial.localhost/`
 
 We now have a working router and the actions are set up for each page of our
 application.

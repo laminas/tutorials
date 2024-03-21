@@ -61,7 +61,7 @@ We *will* be using laminas-db extensively in this tutorial, so hit "y" followed 
 "Enter". You should see the following text appear:
 
 ```text
-    Will install laminas/laminas-db (^2.8.1)
+    Will install laminas/laminas-db (^2.17.0)
     When prompted to install as a module, select application.config.php or modules.config.php
 ```
 
@@ -79,12 +79,11 @@ At this point, we can answer "n" to the remaining features:
 ```text
     Would you like to install JSON de/serialization support? y/N
     Would you like to install logging support? y/N
-    Would you like to install MVC-based console support? (We recommend migrating to symfony/console, or Aura.CLI) y/N
+    Would you like to install command-line interface support? y/N
     Would you like to install i18n support? y/N
     Would you like to install the official MVC plugins, including PRG support, identity, and flash messages? y/N
     Would you like to use the PSR-7 middleware dispatcher? y/N
     Would you like to install sessions support? y/N
-    Would you like to install MVC testing support? y/N
     Would you like to install the laminas-di integration for laminas-servicemanager? y/N
 ```
 
@@ -101,7 +100,7 @@ Updating application configuration...
   Please select which config file you wish to inject 'Laminas\Db' into:
   [0] Do not inject
   [1] config/modules.config.php
-  Make your selection (default is 0):
+  Make your selection (default is 1):
 ```
 
 We want to enable the various selections we made in the application. As such,
