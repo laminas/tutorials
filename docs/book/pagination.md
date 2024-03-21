@@ -7,10 +7,11 @@ Currently, we only have a handful of albums to display, so showing everything on
 one page is not a problem. However, how will the album list look when we have
 100 albums or more in our database? The standard solution to this problem is to
 split the data up into a number of pages, and allow the user to navigate around
-these pages using a pagination control. Just type "Laminas" into Google,
-and you can see their pagination control at the bottom of the page:
+these pages using a pagination control. 
 
-![Example pagination control](images/pagination.sample.png)
+A typical paginator on a web page looks like this:
+
+![Example pagination control](images/user-guide.pagination.sample.png)
 
 ## Preparation
 
@@ -227,25 +228,31 @@ list at `/album`, you'll see a huge long list of 150+ albums; it's ugly.
 ## Install laminas-paginator
 
 laminas-paginator is not installed or configured by default, so we will need to do
-that. Run the following from the application root:
+that. 
+
+laminas-paginator uses data source adapters to access data collections. In order to
+access data into our database, we will need an adapter that uses laminas-db which is 
+provided by an additional component: laminas-paginator-adapter-laminasdb.
+
+Run the following from the application root:
 
 ```bash
-$ composer require laminas/laminas-paginator
+$ composer require laminas/laminas-paginator laminas-paginator-adapter-laminasdb
 ```
 
 Assuming you followed the [Getting Started tutorial](getting-started/overview.md),
 you will be prompted by the [laminas-component-installer](https://docs.laminas.dev/laminas-component-installer)
-plugin to inject `Laminas\Paginator`; be sure to select the option for either
-`config/application.config.php` or `config/modules.config.php`; since it is the
-only package you are installing, you can answer either "y" or "n" to the "Remember this
-option for other packages of the same type" prompt.
+plugin to inject `Laminas\Paginator` and `Laminas\Paginator\Adapter\Laminasdb`; be sure to select the option for either
+`config/application.config.php` or `config/modules.config.php`; since you are installing more than one 
+package, you can answer "y" to the "Remember this
+option for other packages of the same type" prompt such that the same option is applied to both components.
 
 > ### Manual configuration
 >
 > If you are not using laminas-component-installer, you will need to setup
 > configuration manually. You can do this in one of two ways:
 >
-> - Register the `Laminas\Paginator` module in either
+> - Register the `Laminas\Paginator` and `Laminas\Paginator\Adapter\LaminasDb` modules in either
 >   `config/application.config.php` or `config/modules.config.php`. Make sure
 >   you put it towards the top of the module list, before any modules you have
 >   defined or third party modules you are using.
@@ -256,19 +263,21 @@ option for other packages of the same type" prompt.
 >   <?php
 >   
 >   use Laminas\Paginator\ConfigProvider;
+>   use Laminas\Paginator\Adapter\LaminasDb\ConfigProvider as LaminasDbAdapterConfigProvider;
 >   
 >   return [
 >       'service_manager' => (new ConfigProvider())->getDependencyConfig(),
+>       'paginators' => (new LaminasDbAdapterConfigProvider())->getPaginatorConfig(),
 >   ];
 >   ```
 
-Once installed, our application is now aware of laminas-paginator, and even has
+Once installed, our application is now aware of `laminas-paginator` and its data source adapters, and even has
 some default factories in place, which we will now make use of.
 
 ## Modifying the AlbumTable
 
 In order to let laminas-paginator handle our database queries automatically for us,
-we will be using the [DbSelect pagination adapter](https://docs.laminas.dev/laminas-paginator/usage/#the-dbselect-adapter)
+we will be using the [DbSelect pagination adapter](https://docs.laminas.dev/laminas-paginator-adapter-laminasdb/)
 This will automatically manipulate and run a `Laminas\Db\Sql\Select` object to
 include the correct `LIMIT` and `WHERE` clauses so that it returns only the
 configured amount of data for the given page. Let's modify the `fetchAll` method
@@ -281,8 +290,9 @@ namespace Album\Model;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\TableGateway\TableGatewayInterface;
-use Laminas\Paginator\Adapter\DbSelect;
+use Laminas\Paginator\Adapter\LaminasDb\DbSelect;
 use Laminas\Paginator\Paginator;
+use RuntimeException;
 
 class AlbumTable
 {
@@ -323,7 +333,7 @@ class AlbumTable
 }
 ```
 
-This will return a fully configured `Paginator` instance. We've already told the
+This will return a fully configured `Paginator` instance using a `DbSelect` adapter. We've already told the
 `DbSelect` adapter to use our created `Select` object, to use the adapter that
 the `TableGateway` object uses, and also how to hydrate the result into a
 `Album` entity in the same fashion as the `TableGateway` does. This means that
