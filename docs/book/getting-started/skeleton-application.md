@@ -232,7 +232,7 @@ server:
 - Via docker-compose.
 - Using Apache.
 
-### Using the Built-in PHP web Server
+### Using the Built-in PHP Web Server
 
 You can use PHP's built-in web server when developing your application. To do
 this, start the server from the project's root directory:
@@ -360,9 +360,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [NC,L]
 ```
 
-You now have a working skeleton application and we can start adding the specifics for our application.
-
-## Error reporting
+### Error Reporting
 
 Optionally, *when using Apache*, you can use the `APPLICATION_ENV` setting in
 your `VirtualHost` to let PHP output all its errors to the browser. This can be
