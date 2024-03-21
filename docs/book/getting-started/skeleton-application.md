@@ -1,6 +1,7 @@
 # Getting started: A skeleton application
 
 In order to build our application, we need to have at least PHP 7.3. We will start with the
+In order to build our application, we need to have at least PHP 8.1. We will start with the
 [Laminas MVC Skeleton Application](https://github.com/laminas/laminas-mvc-skeleton)
 available on [GitHub](https://github.com/). Use [Composer](https://getcomposer.org)
 to create a new project from scratch:
@@ -293,7 +294,7 @@ configuration initially only defines one container, with the environment name
 $ docker-compose run laminas composer update
 ```
 
-The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
+The configuration includes both PHP 8.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.
 
 <!-- markdownlint-disable-next-line no-inline-html -->
