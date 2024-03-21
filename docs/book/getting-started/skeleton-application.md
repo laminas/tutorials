@@ -227,7 +227,7 @@ We can now move on to the web server setup.
 
 ## Web Servers
 
-In this tutorial, we will step you through four different ways to setup your web
+In this tutorial, we will step you through different ways to set up your web
 server:
 
 - Via the PHP built-in web server.
