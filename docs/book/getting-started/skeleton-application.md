@@ -26,12 +26,9 @@ First, it will prompt:
     Do you want a minimal install (no optional packages)? Y/n
 ```
 
-> ### Prompts and default values
->
-> All prompts emitted by the installer provide the list of options available,
-> and will specify the default option via a capital letter. Default values are
-> used if the user presses "Enter" with no value. In the previous example, "Y"
-> is the default.
+NOTE: **Prompts and Default Values**
+All prompts emitted by the installer provide the list of options available, and will specify the default option via a capital letter.
+Default values are used if the user presses "Enter" with no value. In the previous example, "Y" is the default.
 
 If you answer "Y", or press enter with no selection, the installer will not
 raise any additional prompts, and finish installing your application. If you
@@ -245,9 +242,8 @@ and you should see the following 404 page:
 
 ![laminas-mvc 404 page](../images/user-guide.skeleton-application.404.png)
 
-> ### Development only
->
-> PHP's built-in web server should be used **for development only**.
+NOTE: **Development only**
+PHP's built-in web server should be used **for development only**.
 
 ### Using docker-compose
 
@@ -431,7 +427,7 @@ Let's enable development mode now:
 $ composer development-enable
 ```
 
-> ### Never enable development mode in production
+> WARNING: **Never Enable Development Mode in Production**
 >
 > You should never enable development mode in production, as the typical
 > reason to enable it is to enable debugging! As noted, the artifacts generated
