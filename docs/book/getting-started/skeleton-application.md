@@ -114,100 +114,112 @@ prompts that you may not want to enable by default is `Laminas\Test`.)
 Once the installation is done, the skeleton installer removes itself, and the
 new application is ready to start!
 
-> ### Downloading the skeleton
->
-> Another way to install the Laminas MVC Skeleton Application is to use github to
-> download a compressed archive. Go to
-> https://github.com/laminas/laminas-mvc-skeleton, click the "Clone or
-> download" button, and select "Download ZIP". This will download a file with a
-> name like `laminas-mvc-skeleton-master.zip` or similar.
->
-> Unzip this file into the directory where you keep all your vhosts and rename
-> the resultant directory to `laminas-mvc-tutorial`.
->
-> laminas-mvc-skeleton is set up to use [Composer](https://getcomposer.org)
-> to resolve its dependencies. Run the following from within your new
-> laminas-mvc-tutorial folder to install them:
->
-> ```bash
-> $ composer self-update
-> $ composer install
-> ```
->
-> This takes a while. You should see output like the following:
->
-> ```text
-> Installing dependencies from lock file
-> - Installing laminas/laminas-component-installer (2.1.2)
->
-> ...
->
-> Generating autoload files
-> ```
->
-> At this point, you will be prompted to answer questions as noted above.
->
-> Alternately, if you do not have Composer installed, but *do* have docker-compose available, you can run Composer via those:
->
-> ```bash
-> $ docker-compose build
-> $ docker-compose run laminas composer install
-> ```
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details markdown="1"><summary>Downloading the Skeleton</summary>
 
-> ### Timeouts
->
-> If you see this message:
->
-> ```text
-> [RuntimeException]
->   The process timed out.
-> ```
->
-> then your connection was too slow to download the entire package in time, and
-> composer timed out. To avoid this, instead of running:
->
-> ```bash
-> $ composer install
-> ```
->
-> run instead:
->
-> ```bash
-> $ COMPOSER_PROCESS_TIMEOUT=5000 composer install
-> ```
+Another way to install the Laminas MVC Skeleton Application is to use github to
+download a compressed archive. Go to
+https://github.com/laminas/laminas-mvc-skeleton, click the "Clone or
+download" button, and select "Download ZIP". This will download a file with a
+name like `laminas-mvc-skeleton-master.zip` or similar.
 
-> ### Windows users using WAMP
->
-> For windows users with wamp:
->
-> #### 1. Install Composer for Windows
->
-> Check Composer is properly installed by running:
->
-> ```bash
-> $ composer
-> ```
->
-> Otherwise follow the
-> [installation guide for Composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
->
-> #### 2. Install Git for Windows
->
->
-> Check Git is properly installed by running:
->
-> ```bash
-> $ git
-> ```
->
-> Otherwise follow the
-> [installation guide for GitHub Desktop](https://desktop.github.com/).
->
-> #### 3. Now install the Skeleton using
->
-> ```bash
-> $ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install
-> ```
+Unzip this file into the directory where you keep all your vhosts and rename
+the resultant directory to `laminas-mvc-tutorial`.
+
+laminas-mvc-skeleton is set up to use [Composer](https://getcomposer.org)
+to resolve its dependencies. Run the following from within your new
+laminas-mvc-tutorial folder to install them:
+
+```bash
+$ composer self-update
+$ composer install
+```
+
+This takes a while. You should see output like the following:
+
+```text
+Installing dependencies from lock file
+- Installing laminas/laminas-component-installer (2.1.2)
+
+...
+
+Generating autoload files
+```
+
+At this point, you will be prompted to answer questions as noted above.
+
+Alternately, if you do not have Composer installed, but *do* have docker-compose available, you can run Composer via those:
+
+```bash
+$ docker-compose build
+$ docker-compose run laminas composer install
+```
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details markdown="1"><summary>Timeouts</summary>
+
+If you see this message:
+
+```text
+[RuntimeException]
+  The process timed out.
+```
+
+then your connection was too slow to download the entire package in time, and
+composer timed out. To avoid this, instead of running:
+
+```bash
+$ composer install
+```
+
+run instead:
+
+```bash
+$ COMPOSER_PROCESS_TIMEOUT=5000 composer install
+```
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details markdown="1"><summary>Windows Users Using WAMP</summary>
+
+For windows users with wamp:
+
+#### 1. Install Composer for Windows
+
+Check Composer is properly installed by running:
+
+```bash
+$ composer
+```
+
+Otherwise follow the
+[installation guide for Composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
+
+#### 2. Install Git for Windows
+
+
+Check Git is properly installed by running:
+
+```bash
+$ git
+```
+
+Otherwise follow the
+[installation guide for GitHub Desktop](https://desktop.github.com/).
+
+#### 3. Now Install the Skeleton Using
+
+```bash
+$ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install
+```
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
 
 We can now move on to the web server setup.
 
@@ -245,7 +257,8 @@ and you should see the following 404 page:
 NOTE: **Development only**
 PHP's built-in web server should be used **for development only**.
 
-### Using docker-compose
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details markdown="1"><summary>Using docker-compose</summary>
 
 [Docker](https://www.docker.com/) containers wrap a piece of software and everything needed to run it,
 guaranteeing consistent operation regardless of the host environment; it is an
@@ -283,7 +296,11 @@ $ docker-compose run laminas composer update
 The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.
 
-### Using the Apache Web Server
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details markdown="1"><summary>Using the Apache Web Server</summary>
 
 We will not cover installing [Apache](https://httpd.apache.org), and will assume
 you already have it installed. We recommend installing Apache 2.4, and will only
@@ -401,7 +418,12 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
 Application::init($appConfig)->run();
 ```
 
-## Development mode
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+
+You now have a working skeleton application, and we can start adding the specifics for our application.
+
+## Development Mode
 
 Before we begin, we're going to enable *development mode* for the application.
 The skeleton application provides two files that allow us to specify general
