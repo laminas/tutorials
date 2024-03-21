@@ -700,23 +700,27 @@ until we set up the views. The URLs for each action are:</p>
 </thead>
 <tbody>
 <tr>
-<td><code>http://laminas-mvc-tutorial.localhost/album</code></td>
+<td><code>http://localhost:8080/album</code></td>
 <td><code>Album\Controller\AlbumController::indexAction</code></td>
 </tr>
 <tr>
-<td><code>http://laminas-mvc-tutorial.localhost/album/add</code></td>
+<td><code>http://localhost:8080/album/add</code></td>
 <td><code>Album\Controller\AlbumController::addAction</code></td>
 </tr>
 <tr>
-<td><code>http://laminas-mvc-tutorial.localhost/album/edit</code></td>
+<td><code>http://localhost:8080/album/edit</code></td>
 <td><code>Album\Controller\AlbumController::editAction</code></td>
 </tr>
 <tr>
-<td><code>http://laminas-mvc-tutorial.localhost/album/delete</code></td>
+<td><code>http://localhost:8080/album/delete</code></td>
 <td><code>Album\Controller\AlbumController::deleteAction</code></td>
 </tr>
 </tbody>
 </table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using self-hosted Apache, replace <code>http://localhost:8080/</code> by <code>http://laminas-mvc-tutorial.localhost/</code></p>
+</div>
 <p>We now have a working router and the actions are set up for each page of our
 application.</p>
 <p>It's time to build the view and the model layer.</p>

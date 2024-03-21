@@ -513,6 +513,9 @@ extending from <code>Laminas\Form\Form</code>. Create the file
 <code>module/Album/src/Form/AlbumForm.php</code> with the following contents:</p>
 <pre class="highlight"><code class="language-php">namespace Album\Form;
 
+use Laminas\Form\Element\Hidden;
+use Laminas\Form\Element\Submit;
+use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
 
 class AlbumForm extends Form
@@ -524,25 +527,25 @@ class AlbumForm extends Form
 
         $this-&gt;add([
             'name' =&gt; 'id',
-            'type' =&gt; 'hidden',
+            'type' =&gt; Hidden::class,
         ]);
         $this-&gt;add([
             'name' =&gt; 'title',
-            'type' =&gt; 'text',
+            'type' =&gt; Text::class,
             'options' =&gt; [
                 'label' =&gt; 'Title',
             ],
         ]);
         $this-&gt;add([
             'name' =&gt; 'artist',
-            'type' =&gt; 'text',
+            'type' =&gt; Text::class,
             'options' =&gt; [
                 'label' =&gt; 'Artist',
             ],
         ]);
         $this-&gt;add([
             'name' =&gt; 'submit',
-            'type' =&gt; 'submit',
+            'type' =&gt; Submit::class,
             'attributes' =&gt; [
                 'value' =&gt; 'Go',
                 'id'    =&gt; 'submitbutton',
@@ -792,8 +795,8 @@ element, and error view helpers for each element, but you still have to wrap
 <code>formCollection($form)</code> with the open and close form tags. This helps reduce the
 complexity of your view script in situations where the default HTML rendering of
 the form is acceptable.</p>
-<p>You should now be able to use the "Add new album" link on the home page of the
-application to add a new album record, resulting in something like the
+<p>You should now be able to use the "Add new album" page of the
+application at <code>http://localhost:8080/album/add</code> to add a new album record, resulting in something like the
 following:</p>
 <p><img alt="Add Album Form" src="../../images/user-guide.forms-and-actions.album-form-add-original.png" class="img-responsive"/></p>
 <p>This doesn't look all that great! The reason is because Bootstrap, the CSS

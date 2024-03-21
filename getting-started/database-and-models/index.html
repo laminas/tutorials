@@ -570,11 +570,11 @@ class Album
     public $artist;
     public $title;
 
-    public function exchangeArray(array $data)
+    public function exchangeArray(array $array): void
     {
-        $this-&gt;id     = !empty($data['id']) ? $data['id'] : null;
-        $this-&gt;artist = !empty($data['artist']) ? $data['artist'] : null;
-        $this-&gt;title  = !empty($data['title']) ? $data['title'] : null;
+        $this-&gt;id     = ! empty($array['id']) ? $array['id'] : null;
+        $this-&gt;artist = ! empty($array['artist']) ? $array['artist'] : null;
+        $this-&gt;title  = ! empty($array['title']) ? $array['title'] : null;
     }
 }</code></pre>
 <p>Our <code>Album</code> entity object is a PHP class. In order to work with laminas-db's
@@ -661,71 +661,82 @@ already exists, and <code>deleteAlbum()</code> removes the row completely. The c
 of these methods is, hopefully, self-explanatory.</p>
 <h2 id="using-servicemanager-to-configure-the-table-gateway-and-inject-into-the-albumtable">Using ServiceManager to configure the table gateway and inject into the AlbumTable</h2>
 <p>In order to always use the same instance of our <code>AlbumTable</code>, we will use the
-<code>ServiceManager</code> to define how to create one. This is most easily done in the
-<code>Module</code> class where we create a method called <code>getServiceConfig()</code> which is
-automatically called by the <code>ModuleManager</code> and applied to the <code>ServiceManager</code>.
-We'll then be able to retrieve when we need it.</p>
+<code>ServiceManager</code> to define how to create one. 
+This is most easily done by adding a <code>ServiceManager</code> configuration to the <code>module.config.php</code> 
+which is automatically loaded by the <code>ModuleManager</code> and applied to the <code>ServiceManager</code>.
+We'll then be able to retrieve the <code>AlbumTable</code> when we need it.</p>
 <p>To configure the <code>ServiceManager</code>, we can either supply the name of the class to
-be instantiated or a factory (closure, callback, or class name of a factory
-class) that instantiates the object when the <code>ServiceManager</code> needs it. We start
-by implementing <code>getServiceConfig()</code> to provide a factory that creates an
-<code>AlbumTable</code>. Add this method to the bottom of the <code>module/Album/src/Module.php</code>
-file:</p>
+be instantiated and a factory (closure, callback, or class name of a factory
+class) that instantiates the object when the <code>ServiceManager</code> needs it. </p>
+<p>Add a <code>service_manager</code> configuration to <code>module/Album/config/module.config.php</code>:</p>
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="3-6,13-30"><code>
+<pre class="language-php" data-line="3,38-41"><code>
 namespace Album;
 
-// Add these import statements:
-use Laminas\Db\Adapter\AdapterInterface;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Album\Model\AlbumTableFactory;
+use Laminas\Router\Http\Segment;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
-class Module implements ConfigProviderInterface
-{
-    // getConfig() method is here
+return [
+    'controllers' => [
+        // ...
+    ],
 
-    // Add this method:
-    public function getServiceConfig()
-    {
-        return [
-            'factories' => [
-                Model\AlbumTable::class => function($container) {
-                    $tableGateway = $container->get(Model\AlbumTableGateway::class);
-                    return new Model\AlbumTable($tableGateway);
-                },
-                Model\AlbumTableGateway::class => function ($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
-                },
-            ],
-        ];
-    }
-}
+    'router' => [
+        // ..
+    ],
+    'view_manager' => [
+        // ...
+    ],
+    'service_manager' => [
+        'factories' => [
+            Model\AlbumTable::class => AlbumTableFactory::class,
+        ],
+
+    ],
+];
 </code></pre>
 <!-- markdownlint-enable MD033 -->
 
 <p>This method returns an array of <code>factories</code> that are all merged together by the
-<code>ModuleManager</code> before passing them to the <code>ServiceManager</code>. The factory for
-<code>Album\Model\AlbumTable</code> uses the <code>ServiceManager</code> to create an
-<code>Album\Model\AlbumTableGateway</code> service representing a <code>TableGateway</code> to pass to
-its constructor. We also tell the <code>ServiceManager</code> that the <code>AlbumTableGateway</code>
-service is created by fetching a <code>Laminas\Db\Adapter\AdapterInterface</code>
-implementation (also from the <code>ServiceManager</code>) and using it to create a
+<code>ModuleManager</code> before passing them to the <code>ServiceManager</code>. When requesting the <code>ServiceManager</code> 
+to create <code>Album\Model\AlbumTable</code>, the <code>ServiceManager</code> will invoke the <code>AlbumTableFactory</code> class, which we need to create next.</p>
+<p>Let's create the <code>AlbumTableFactory.php</code> factory in <code>module/Album/src/Model</code>:</p>
+<pre class="highlight"><code class="language-php">namespace Album\Model;
+
+use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
+
+class AlbumTableFactory implements FactoryInterface
+{
+
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): AlbumTable
+    {
+        $dbAdapter = $container-&gt;get(AdapterInterface::class);
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype-&gt;setArrayObjectPrototype(new Album());
+        $tableGateway = new TableGateway('album', $dbAdapter, null, $resultSetPrototype); 
+        return new AlbumTable($tableGateway);
+    }
+}</code></pre>
+<p>The <code>AlbumTableFactory</code> factory uses the <code>ServiceManager</code> to fetch a <code>Laminas\Db\Adapter\AdapterInterface</code>
+implementation (also from the <code>ServiceManager</code>) and use it to create a
 <code>TableGateway</code> object. The <code>TableGateway</code> is told to use an <code>Album</code> object
 whenever it creates a new result row. The <code>TableGateway</code> classes use the
 prototype pattern for creation of result sets and entities. This means that
 instead of instantiating when required, the system clones a previously
-instantiated object. See
+instantiated object. Then, finally, the factory creates a <code>AlbumTable</code> object passing it the <code>TableGateway</code> object.
+See
 <a href="https://dbglory.wordpress.com/2012/03/10/php-constructor-best-practices-and-the-prototype-pattern/">PHP Constructor Best Practices and the Prototype Pattern</a>
 for more details.</p>
 <blockquote>
 <h3 id="factories">Factories</h3>
-<p>The above demonstrates building factories as closures within your module
-class. Another option is to build the factory as a <em>class</em>, and then map the
-class in your module configuration. This approach has a number of benefits:</p>
+<p>The above demonstrates building factories as a <em>class</em> and mapping the
+class factory in your module configuration. Another option would have been to use a closure that contains
+the same code a the <code>AlbumTableFactory</code>. Using a class for the factory has a number of benefits:</p>
 <ul>
 <li>The code is not parsed or executed unless the factory is invoked.</li>
 <li>You can easily unit test the factory to ensure it does what it should.</li>
@@ -808,62 +819,31 @@ class AlbumController extends AbstractActionController
 </code></pre>
 <!-- markdownlint-enable MD033 -->
 
-<p>Our controller now depends on <code>AlbumTable</code>, so we will need to create a factory
-for the controller.  Similar to how we created factories for the model, we'll
-create it in our <code>Module</code> class, only this time, under a new method,
-<code>Album\Module::getControllerConfig()</code>:</p>
+<p>Our controller now depends on <code>AlbumTable</code>, so we will need to update the factory
+for the controller so that it will inject the <code>AlbumTable</code>.</p>
+<p>We will use the <code>ReflectionBasedAbstractFactory</code> factory to build the <code>AlbumController</code>.
+<code>ReflectionBasedAbstractFactory</code> provides a reflection-based approach to instantiation, resolving constructor dependencies to the relevant services. Since the <code>AlbumController</code> constructor has an <code>AlbumTable</code> parameter, the factory will instantiate an <code>AlbumTable</code> instance and pass it to the <code>AlbumController</code>constructor.</p>
+<p>Then we can modify the <code>controllers</code> section of the <code>module.config.php</code> to 
+use <code>ReflectionBasedAbstractFactory</code>:</p>
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="12-24"><code>
+<pre class="language-php" data-line="3,10"><code>
 namespace Album;
 
-use Laminas\Db\Adapter\AdapterInterface;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\ModuleManager\Feature\ConfigProviderInterface;
-
-class Module implements ConfigProviderInterface
-{
-    // getConfig() and getServiceConfig() methods are here
-
-    // Add this method:
-    public function getControllerConfig()
-    {
-        return [
-            'factories' => [
-                Controller\AlbumController::class => function($container) {
-                    return new Controller\AlbumController(
-                        $container->get(Model\AlbumTable::class)
-                    );
-                },
-            ],
-        ];
-    }
-}
-</code></pre>
-<!-- markdownlint-enable MD033 -->
-
-<p>Because we're now defining our own factory, we can modify our
-<code>module.config.php</code> to remove the definition. Open
-<code>module/Album/config/module.config.php</code> and remove the following lines:</p>
-<!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="3-4,7-12"><code>
-namespace Album;
-
-// Remove this:
-use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
+use Album\Model\AlbumTableFactory;
+use Laminas\Router\Http\Segment;
 
 return [
-    // And remove the entire "controllers" section here:
     'controllers' => [
         'factories' => [
-            Controller\AlbumController::class => InvokableFactory::class,
+            Controller\AlbumController::class => ReflectionBasedAbstractFactory::class
         ],
     ],
 
-    /* ... */
+    // the rest of the code
 ];
+
 </code></pre>
-<!-- markdownlint-enable MD033 -->
 
 <p>We can now access the property <code>$table</code> from within our controller whenever we
 need to interact with our model.</p>

@@ -534,7 +534,7 @@ we will not be using it; hit either "Enter", or "n" followed by "Enter".</p>
 <pre class="highlight"><code class="language-text">    Would you like to install database support (installs laminas-db)? y/N</code></pre>
 <p>We <em>will</em> be using laminas-db extensively in this tutorial, so hit "y" followed by
 "Enter". You should see the following text appear:</p>
-<pre class="highlight"><code class="language-text">    Will install laminas/laminas-db (^2.8.1)
+<pre class="highlight"><code class="language-text">    Will install laminas/laminas-db (^2.17.0)
     When prompted to install as a module, select application.config.php or modules.config.php</code></pre>
 <p>The next prompt is:</p>
 <pre class="highlight"><code class="language-text">    Would you like to install forms support (installs laminas-form)? y/N</code></pre>
@@ -543,12 +543,11 @@ doing so emits a similar message to that used for laminas-db.</p>
 <p>At this point, we can answer "n" to the remaining features:</p>
 <pre class="highlight"><code class="language-text">    Would you like to install JSON de/serialization support? y/N
     Would you like to install logging support? y/N
-    Would you like to install MVC-based console support? (We recommend migrating to symfony/console, or Aura.CLI) y/N
+    Would you like to install command-line interface support? y/N
     Would you like to install i18n support? y/N
     Would you like to install the official MVC plugins, including PRG support, identity, and flash messages? y/N
     Would you like to use the PSR-7 middleware dispatcher? y/N
     Would you like to install sessions support? y/N
-    Would you like to install MVC testing support? y/N
     Would you like to install the laminas-di integration for laminas-servicemanager? y/N</code></pre>
 <p>At a certain point, you'll see the following text:</p>
 <pre class="highlight"><code class="language-text">Updating root package
@@ -561,7 +560,7 @@ Updating application configuration...
   Please select which config file you wish to inject 'Laminas\Db' into:
   [0] Do not inject
   [1] config/modules.config.php
-  Make your selection (default is 0):</code></pre>
+  Make your selection (default is 1):</code></pre>
 <p>We want to enable the various selections we made in the application. As such,
 we'll choose <code>1</code>, which will then give us the following prompt:</p>
 <pre class="highlight"><code class="language-text">  Remember this option for other packages of the same type? (y/N)</code></pre>
