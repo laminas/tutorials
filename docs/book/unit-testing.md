@@ -27,14 +27,10 @@ integration for laminas-mvc, including application scaffolding and custom
 assertions. You will need to install it:
 
 ```bash
-$ composer require --dev laminas/laminas-test phpunit/phpunit:<version>
+$ composer require --dev laminas/laminas-test
 ```
 
-where `<version>` is a version of `phpunit/phpunit` that is compatible with your tests.
-`laminas-test` package supports very wide range of PHPUnit versions, make sure to
-always explicitly require phpunit/phpunit versions that are compatible with your tests. 
-If you do not explicitely require a phpunit/phpunit version, the latest version supported by laminas-test
-will be installed.
+This will also install phpunit/phpunit since it is required by laminas-test. 
 
 This tutorial assumes that `phpunit/phpunit:^10.0` is installed.
 
@@ -410,26 +406,26 @@ Next, we'll create three new methods that we'll invoke during setup:
 
 ```php
 protected function configureServiceManager(ServiceManager $services): void
-    {
-        $services->setAllowOverride(true);
+{
+    $services->setAllowOverride(true);
 
-        $services->setService('config', $this->updateConfig($services->get('config')));
-        $services->setService(AlbumTable::class, $this->mockAlbumTable());
+    $services->setService('config', $this->updateConfig($services->get('config')));
+    $services->setService(AlbumTable::class, $this->mockAlbumTable());
 
-        $services->setAllowOverride(false);
-    }
+    $services->setAllowOverride(false);
+}
 
 protected function updateConfig($config)
-    {
-        $config['db'] = [];
-        return $config;
-    }
+{
+    $config['db'] = [];
+    return $config;
+}
 
 protected function mockAlbumTable(): AlbumTable
-    {
-        $this->albumTable = $this->createMock(AlbumTable::class);
-        return $this->albumTable;
-    }
+{
+    $this->albumTable = $this->createMock(AlbumTable::class);
+    return $this->albumTable;
+}
 ```
 
 By default, the `ServiceManager` does not allow us to replace existing services.
@@ -772,48 +768,48 @@ method. This test should run fine, so now we can add the rest of the test
 methods:
 
 ```php
-    public function testCanDeleteAnAlbumByItsId(): void
-    {
-        $this->tableGateway->expects($this->once())
+public function testCanDeleteAnAlbumByItsId(): void
+{
+    $this->tableGateway->expects($this->once())
             ->method('delete');
-        $this->albumTable->deleteAlbum(123);
-    }
+    $this->albumTable->deleteAlbum(123);
+}
 
-    public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId(): void
-    {
-        $albumData = [
-            'artist' => 'The Military Wives',
-            'title'  => 'In My Dreams'
-        ];
-        $album = new Album();
-        $album->exchangeArray($albumData);
+public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId(): void
+{
+    $albumData = [
+        'artist' => 'The Military Wives',
+        'title'  => 'In My Dreams'
+    ];
+    $album = new Album();
+    $album->exchangeArray($albumData);
 
-        $this->tableGateway->expects($this->once())
+    $this->tableGateway->expects($this->once())
             ->method('insert');
 
-        $this->albumTable->saveAlbum($album);
-    }
+    $this->albumTable->saveAlbum($album);
+}
 
-    public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId(): void
-    {
-        $albumData = [
-            'id'     => 123,
-            'artist' => 'The Military Wives',
-            'title'  => 'In My Dreams',
-        ];
-        $album = new Album();
-        $album->exchangeArray($albumData);
+public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId(): void
+{
+    $albumData = [
+        'id'     => 123,
+        'artist' => 'The Military Wives',
+        'title'  => 'In My Dreams',
+    ];
+    $album = new Album();
+    $album->exchangeArray($albumData);
 
-        $resultSet = $this->createMock(ResultSetInterface::class);
-        $resultSet->expects($this->once())
+    $resultSet = $this->createMock(ResultSetInterface::class);
+    $resultSet->expects($this->once())
             ->method('current')
             ->willReturn($album);
 
-        $this->tableGateway->expects($this->once())
+    $this->tableGateway->expects($this->once())
             ->method('select')
             ->with(['id' => 123])
             ->willReturn($resultSet);
-        $this->tableGateway->expects($this->once())
+    $this->tableGateway->expects($this->once())
             ->method('update')
             ->with(
                 array_filter($albumData, function ($key) {
@@ -822,24 +818,24 @@ methods:
                 ['id' => 123]
             );
 
-        $this->albumTable->saveAlbum($album);
-    }
+    $this->albumTable->saveAlbum($album);
+}
 
-    public function testExceptionIsThrownWhenGettingNonExistentAlbum(): void
-    {
-        $resultSet = $this->createMock(ResultSetInterface::class);
-        $resultSet->expects($this->once())
+public function testExceptionIsThrownWhenGettingNonExistentAlbum(): void
+{
+    $resultSet = $this->createMock(ResultSetInterface::class);
+    $resultSet->expects($this->once())
             ->method('current')
             ->willReturn(null);
 
-        $this->tableGateway->expects($this->once())
+    $this->tableGateway->expects($this->once())
             ->method('select')
             ->willReturn($resultSet);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Could not find row with identifier 123');
-        $this->albumTable->getAlbum(123);
-    }
+    $this->expectException(RuntimeException::class);
+    $this->expectExceptionMessage('Could not find row with identifier 123');
+    $this->albumTable->getAlbum(123);
+}
 ```
 
 These tests are nothing complicated and should be self explanatory. In each

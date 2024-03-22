@@ -242,7 +242,7 @@ $ composer require laminas/laminas-paginator laminas-paginator-adapter-laminasdb
 
 Assuming you followed the [Getting Started tutorial](getting-started/overview.md),
 you will be prompted by the [laminas-component-installer](https://docs.laminas.dev/laminas-component-installer)
-plugin to inject `Laminas\Paginator` and `Laminas\Paginator\Adapter\Laminasdb`; be sure to select the option for either
+plugin to inject `Laminas\Paginator` and `Laminas\Paginator\Adapter\LaminasDb`; be sure to select the option for either
 `config/application.config.php` or `config/modules.config.php`; since you are installing more than one 
 package, you can answer "y" to the "Remember this
 option for other packages of the same type" prompt such that the same option is applied to both components.
