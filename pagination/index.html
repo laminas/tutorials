@@ -514,9 +514,9 @@ to add a handy pagination controller to the bottom of the album list.</p>
 one page is not a problem. However, how will the album list look when we have
 100 albums or more in our database? The standard solution to this problem is to
 split the data up into a number of pages, and allow the user to navigate around
-these pages using a pagination control. Just type "Laminas" into Google,
-and you can see their pagination control at the bottom of the page:</p>
-<p><img alt="Example pagination control" src="../images/pagination.sample.png" class="img-responsive"/></p>
+these pages using a pagination control. </p>
+<p>A typical paginator on a web page looks like this:</p>
+<p><img alt="Example pagination control" src="../images/user-guide.pagination.sample.png" class="img-responsive"/></p>
 <h2 id="preparation">Preparation</h2>
 <p>As before, we are going to use sqlite, via PHP's PDO driver. Create a text file
 <code>data/album-fixtures.sql</code> with the following contents:</p>
@@ -704,20 +704,24 @@ fclose($fh);</code></pre>
 list at <code>/album</code>, you'll see a huge long list of 150+ albums; it's ugly.</p>
 <h2 id="install-laminas-paginator">Install laminas-paginator</h2>
 <p>laminas-paginator is not installed or configured by default, so we will need to do
-that. Run the following from the application root:</p>
-<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-paginator</code></pre>
+that. </p>
+<p>laminas-paginator uses data source adapters to access data collections. In order to
+access data into our database, we will need an adapter that uses laminas-db which is 
+provided by an additional component: laminas-paginator-adapter-laminasdb.</p>
+<p>Run the following from the application root:</p>
+<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-paginator laminas-paginator-adapter-laminasdb</code></pre>
 <p>Assuming you followed the <a href="../getting-started/overview/">Getting Started tutorial</a>,
 you will be prompted by the <a href="https://docs.laminas.dev/laminas-component-installer">laminas-component-installer</a>
-plugin to inject <code>Laminas\Paginator</code>; be sure to select the option for either
-<code>config/application.config.php</code> or <code>config/modules.config.php</code>; since it is the
-only package you are installing, you can answer either "y" or "n" to the "Remember this
-option for other packages of the same type" prompt.</p>
+plugin to inject <code>Laminas\Paginator</code> and <code>Laminas\Paginator\Adapter\LaminasDb</code>; be sure to select the option for either
+<code>config/application.config.php</code> or <code>config/modules.config.php</code>; since you are installing more than one 
+package, you can answer "y" to the "Remember this
+option for other packages of the same type" prompt such that the same option is applied to both components.</p>
 <blockquote>
 <h3 id="manual-configuration">Manual configuration</h3>
 <p>If you are not using laminas-component-installer, you will need to setup
 configuration manually. You can do this in one of two ways:</p>
 <ul>
-<li>Register the <code>Laminas\Paginator</code> module in either
+<li>Register the <code>Laminas\Paginator</code> and <code>Laminas\Paginator\Adapter\LaminasDb</code> modules in either
   <code>config/application.config.php</code> or <code>config/modules.config.php</code>. Make sure
   you put it towards the top of the module list, before any modules you have
   defined or third party modules you are using.</li>
@@ -727,16 +731,18 @@ configuration manually. You can do this in one of two ways:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
 use Laminas\Paginator\ConfigProvider;
+use Laminas\Paginator\Adapter\LaminasDb\ConfigProvider as LaminasDbAdapterConfigProvider;
 
 return [
     'service_manager' =&gt; (new ConfigProvider())-&gt;getDependencyConfig(),
+    'paginators' =&gt; (new LaminasDbAdapterConfigProvider())-&gt;getPaginatorConfig(),
 ];</code></pre>
 </blockquote>
-<p>Once installed, our application is now aware of laminas-paginator, and even has
+<p>Once installed, our application is now aware of <code>laminas-paginator</code> and its data source adapters, and even has
 some default factories in place, which we will now make use of.</p>
 <h2 id="modifying-the-albumtable">Modifying the AlbumTable</h2>
 <p>In order to let laminas-paginator handle our database queries automatically for us,
-we will be using the <a href="https://docs.laminas.dev/laminas-paginator/usage/#the-dbselect-adapter">DbSelect pagination adapter</a>
+we will be using the <a href="https://docs.laminas.dev/laminas-paginator-adapter-laminasdb/">DbSelect pagination adapter</a>
 This will automatically manipulate and run a <code>Laminas\Db\Sql\Select</code> object to
 include the correct <code>LIMIT</code> and <code>WHERE</code> clauses so that it returns only the
 configured amount of data for the given page. Let's modify the <code>fetchAll</code> method
@@ -747,8 +753,9 @@ namespace Album\Model;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\TableGateway\TableGatewayInterface;
-use Laminas\Paginator\Adapter\DbSelect;
+use Laminas\Paginator\Adapter\LaminasDb\DbSelect;
 use Laminas\Paginator\Paginator;
+use RuntimeException;
 
 class AlbumTable
 {
@@ -787,7 +794,7 @@ class AlbumTable
 
     /* ... */
 }</code></pre>
-<p>This will return a fully configured <code>Paginator</code> instance. We've already told the
+<p>This will return a fully configured <code>Paginator</code> instance using a <code>DbSelect</code> adapter. We've already told the
 <code>DbSelect</code> adapter to use our created <code>Select</code> object, to use the adapter that
 the <code>TableGateway</code> object uses, and also how to hydrate the result into a
 <code>Album</code> entity in the same fashion as the <code>TableGateway</code> does. This means that

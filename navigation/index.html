@@ -653,11 +653,12 @@ output the content from the view, let's add a breadcrumb by using the
     &lt;?= $this-&gt;content ?&gt;
 &lt;/div&gt;</code></pre>
 <p>This adds a simple but functional breadcrumb to every page (we tell it to render
-from a depth of 0 so we see all page levels), but we can do better than that!
-Because Bootstrap has a styled breadcrumb as part of its base CSS, let's add
+from a depth of 0 so we see all page levels), but we can do better than that!</p>
+<p>Because Bootstrap has a styled breadcrumb as part of its base CSS, let's add
 a partial that outputs the <code>&lt;ul&gt;</code> using Bootstrap styles. We'll create it in the
 <code>view</code> directory of the <code>Application</code> module (this partial is application wide,
-rather than album specific):</p>
+rather than album specific).</p>
+<p>Let's create the partial <code>module/Application/view/partial/breadcrumbs.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php // in module/Application/view/partial/breadcrumb.phtml: ?&gt;
 &lt;nav aria-label="breadcrumb"&gt;
     &lt;ol class="breadcrumb"&gt;
@@ -697,7 +698,9 @@ written:</p>
             -&gt;setPartial('partial/breadcrumb') ?&gt;
     &lt;?= $this-&gt;content ?&gt;
 &lt;/div&gt;</code></pre>
-<p>Refreshing the page now gives us a styled set of breadcrumbs on each page.</p>
+<p>Refreshing the page now gives us a styled set of breadcrumbs on each page that should look
+like this:</p>
+<p><img alt="navigation" src="../images/user-guide.navigation.menu-breadcrumbs.png" class="img-responsive"/></p>
 
 
 

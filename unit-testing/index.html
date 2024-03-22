@@ -548,9 +548,8 @@ cover using that library for testing your applications.</p>
 <p><a href="https://docs.laminas.dev/laminas-test/">laminas-test</a> provides PHPUnit
 integration for laminas-mvc, including application scaffolding and custom
 assertions. You will need to install it:</p>
-<pre class="highlight"><code class="language-bash">$ composer require --dev laminas/laminas-test phpunit/phpunit</code></pre>
-<p>laminas-test package supports very wide range of PHPUnit versions, make sure to
-always explicitly require phpunit/phpunit versions that are compatible with your tests.</p>
+<pre class="highlight"><code class="language-bash">$ composer require --dev laminas/laminas-test</code></pre>
+<p>This will also install phpunit/phpunit since it is required by laminas-test. </p>
 <p>The above command will update your <code>composer.json</code> file and perform an update
 for you, which will also setup autoloading rules.</p>
 <h2 id="running-the-initial-tests">Running the initial tests</h2>
@@ -559,19 +558,19 @@ for you, which will also setup autoloading rules.</p>
 installed, you can run these:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit</code></pre>
 <blockquote>
-<h3 id="phpunit-invocation-on-windows">PHPUnit invocation on Windows</h3>
+<h3 id="phpunit-invocation-on-windows-command-shell">PHPUnit invocation on Windows Command Shell</h3>
 <p>On Windows, you need to wrap the command in double quotes:</p>
-<pre class="highlight"><code class="language-bash">$ "vendor/bin/phpunit"</code></pre>
+<pre class="highlight"><code class="language-cmd">C:\&gt; "vendor/bin/phpunit"</code></pre>
 </blockquote>
 <p>You should see output similar to the following:</p>
-<pre class="highlight"><code class="language-text">PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+<pre class="highlight"><code class="language-text">PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
 
-...                                                                 3 / 3 (100%)
+....                                                                4 / 4 (100%)
 
-Time: 116 ms, Memory: 11.00MB
+Time: 00:00.334, Memory: 16.00 MB
 
-OK (3 tests, 7 assertions)</code></pre>
-<p>There might be 2 failing tests if you followed the getting started guide. This
+Tests: 4, Assertions: 6, Failures: 0.</code></pre>
+<p>There might be 1 failing test if you followed the getting started guide. This
 is because the <code>Application\IndexController</code> is overridden by the
 <code>AlbumController</code>. This can be ignored for now.</p>
 <p>Now it's time to write our own tests!</p>
@@ -602,7 +601,7 @@ source files, and it will allow you to keep your tests well-organized and easy
 to find.</p>
 <h2 id="bootstrapping-your-tests">Bootstrapping your tests</h2>
 <p>Next, edit the <code>phpunit.xml.dist</code> file at the project root; we'll add a new
-test suite to it. When done, it should read as follows:</p>
+test suite to it and modify the existing "Laminas MVC Application Test Suite". When done, it should read as follows:</p>
 <pre class="highlight"><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;phpunit colors="true"&gt;
     &lt;testsuites&gt;
@@ -622,9 +621,10 @@ test suite to it. When done, it should read as follows:</p>
 <pre class="highlight"><code class="language-bash">$ "vendor/bin/phpunit" --testsuite Album</code></pre>
 </blockquote>
 <p>You should get similar output to the following:</p>
-<pre class="highlight"><code class="language-text">PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+<pre class="highlight"><code class="language-text">PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
 
-Time: 0 seconds, Memory: 1.75Mb
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
 No tests executed!</code></pre>
 <p>Let's write our first test!</p>
@@ -691,13 +691,16 @@ module.</p>
 <p>If you run:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album</code></pre>
 <p>again, you should see something like the following:</p>
-<pre class="highlight"><code class="language-text">PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+<pre class="highlight"><code class="language-text">PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
 .                                                                   1 / 1 (100%)
 
-Time: 124 ms, Memory: 11.50MB
+Time: 00:00.210, Memory: 14.00 MB
 
-OK (1 test, 5 assertions)</code></pre>
+OK (1 test, 7 assertions)</code></pre>
 <p>A successful first test!</p>
 <h2 id="a-failing-test-case">A failing test case</h2>
 <p>We likely don't want to hit the same database during testing as we use for our
@@ -713,39 +716,73 @@ $services-&gt;setAllowOverride(false);</code></pre>
 <p>The above removes the 'db' configuration entirely; we'll be replacing it with
 something else before long.</p>
 <p>When we run the tests now:</p>
-<pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+<pre class="highlight"><code class="language-text">$ ./vendor/bin/phpunit --testsuite Album
+PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
 
-F
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
-Time: 0 seconds, Memory: 8.50Mb
+F                                                                   1 / 1 (100%)
+
+Time: 00:00.208, Memory: 12.00 MB
 
 There was 1 failure:
 
 1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
 Failed asserting response code "200", actual status code is "500"
 
-{projectPath}/vendor/laminas/laminas-test/src/PHPUnit/Controller/AbstractControllerTestCase.php:{lineNumber}
-{projectPath}/module/Album/test/AlbumTest/Controller/AlbumControllerTest.php:{lineNumber}
+&lt;your_local_path&gt;\vendor\laminas\laminas-test\src\PHPUnit\Controller\AbstractControllerTestCase.php:433
+&lt;your_local_path&gt;\module\Album\test\Controller\AlbumControllerTest.php:38
+
+--
+
+There was 1 risky test:
+
+1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
+This test did not perform any assertions
+
+&lt;your_local_path&gt;\module\Album\test\Controller\AlbumControllerTest.php:35
+
+--
+
+1 test triggered 1 PHP warning:
+
+1) &lt;your_local_path&gt;\vendor\laminas\laminas-db\src\Adapter\AdapterServiceFactory.php:21
+Undefined array key "db"
+
+Triggered by:
+
+* AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
+  &lt;your_local_path&gt;\module\Album\test\Controller\AlbumControllerTest.php:35
 
 FAILURES!
-Tests: 1, Assertions: 0, Failures: 1.</code></pre>
+Tests: 1, Assertions: 0, Failures: 1, Warnings: 1, Risky: 1.</code></pre>
 <p>The failure message doesn't tell us much, apart from that the expected status
 code is not 200, but 500. To get a bit more information when something goes
 wrong in a test case, we set the protected <code>$traceError</code> member to <code>true</code> (which
-is the default; we set it to <code>false</code> to demonstrate this capability). Modify the
+is the default; we set it to <code>false</code> to demonstrate this capability). </p>
+<p>We also got risky test and warning report. The warning was expected since we removed the <code>db</code> 
+key from the configuration which is expected by the <code>AdapterServiceFactory</code> database adapter factory.
+And since the test case does not execute beyond the response status code assertion, we get a risk 
+test indication that the test did not performed any assertions.</p>
+<p>Modify the
 following line from just above the <code>setUp</code> method in our <code>AlbumControllerTest</code> class:</p>
 <pre class="highlight"><code class="language-php">protected $traceError = true;</code></pre>
 <p>Running the <code>phpunit</code> command again and we should see some more information
 about what went wrong in our test. You'll get a list of the exceptions raised,
 along with their messages, the filename, and line number:</p>
-<pre class="highlight"><code class="language-text">1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
+<pre class="highlight"><code class="language-text">There was 1 failure:
+
+1) AlbumTest\Controller\AlbumControllerTest::testIndexActionCanBeAccessed
 Failed asserting response code "200", actual status code is "500"
 
 Exceptions raised:
-Exception 'Laminas\ServiceManager\Exception\ServiceNotCreatedException' with message 'Service with name "Laminas\Db\Adapter\AdapterInterface" could not be created. Reason: createDriver expects a "driver" key to be present inside the parameters' in {projectPath}/vendor/laminas/laminas-servicemanager/src/ServiceManager.php:{lineNumber}
+Exception 'Laminas\ServiceManager\Exception\ServiceNotCreatedException' with message 'Service with name "Laminas\Db\Adapter\AdapterInterface" could not be created. Reason: The supplied
+ or instantiated driver object does not implement Laminas\Db\Adapter\Driver\DriverInterface' in &lt;your_local_path&gt;\vendor\laminas\laminas-servicemanager\src\ServiceManager.php:649
 
-Exception 'Laminas\Db\Adapter\Exception\InvalidArgumentException' with message 'createDriver expects a "driver" key to be present inside the parameters' in {projectPath}/vendor/laminas/laminas-db/src/Adapter/Adapter.php:{lineNumber}</code></pre>
+Exception 'Laminas\Db\Adapter\Exception\InvalidArgumentException' with message 'The supplied or instantiated driver object does not implement Laminas\Db\Adapter\Driver\DriverInterface'
+ in &lt;your_local_path&gt;\vendor\laminas\laminas-db\src\Adapter\Adapter.php:78
+</code></pre>
 <p>Based on the exception messages, it appears we are unable to create a laminas-db
 adapter instance, due to missing configuration!</p>
 <h2 id="configuring-the-service-manager-for-the-tests">Configuring the service manager for the tests</h2>
@@ -762,8 +799,8 @@ prevent the actual database calls by mocking them out. This is a much better
 approach, but creating the adapter mock is tedious (but no doubt we will have to
 create it at some point).</p>
 <p>The best thing to do would be to mock out our <code>Album\Model\AlbumTable</code> class
-which retrieves the list of albums from the database. Remember, we are now
-testing our controller, so we can mock out the actual call to <code>fetchAll</code> and
+which retrieves the list of albums from the database. Remember, <strong>we are now
+testing our controller</strong>, so we can mock out the actual call to <code>fetchAll</code> and
 replace the return values with dummy values. At this point, we are not
 interested in how <code>fetchAll()</code> retrieves the albums, but only that it gets called
 and that it returns an array of albums; these facts allow us to provide mock
@@ -777,12 +814,12 @@ use Laminas\ServiceManager\ServiceManager;</code></pre>
 <p>Now add the following property to the test class:</p>
 <pre class="highlight"><code class="language-php">protected $albumTable;</code></pre>
 <p>Next, we'll create three new methods that we'll invoke during setup:</p>
-<pre class="highlight"><code class="language-php">protected function configureServiceManager(ServiceManager $services)
+<pre class="highlight"><code class="language-php">protected function configureServiceManager(ServiceManager $services): void
 {
     $services-&gt;setAllowOverride(true);
 
     $services-&gt;setService('config', $this-&gt;updateConfig($services-&gt;get('config')));
-    $services-&gt;setService(AlbumTable::class, $this-&gt;mockAlbumTable()-&gt;reveal());
+    $services-&gt;setService(AlbumTable::class, $this-&gt;mockAlbumTable());
 
     $services-&gt;setAllowOverride(false);
 }
@@ -793,9 +830,9 @@ protected function updateConfig($config)
     return $config;
 }
 
-protected function mockAlbumTable()
+protected function mockAlbumTable(): AlbumTable
 {
-    $this-&gt;albumTable = $this-&gt;prophesize(AlbumTable::class);
+    $this-&gt;albumTable = $this-&gt;createMock(AlbumTable::class);
     return $this-&gt;albumTable;
 }</code></pre>
 <p>By default, the <code>ServiceManager</code> does not allow us to replace existing services.
@@ -803,12 +840,8 @@ protected function mockAlbumTable()
 overriding services, and then we inject specific overrides we wish to use.
 When done, we disable overrides to ensure that if, during dispatch, any code
 attempts to override a service, an exception will be raised.</p>
-<p>The last method above creates a mock instance of our <code>AlbumTable</code> using
-<a href="https://github.com/phpspec/prophecy">Prophecy</a>, an object mocking framework
-that's bundled and integrated in PHPUnit. The instance returned by
-<code>prophesize()</code> is a scaffold object; calling <code>reveal()</code> on it, as done in the
-<code>configureServiceManager()</code> method above, provides the underlying mock object
-that will then be asserted against.</p>
+<p>The last method above creates a mock instance of our <code>AlbumTable</code>. The instance returned by
+<code>$this-&gt;createMock()</code> is a mock <code>AlbumTable</code> object that will then be asserted against.</p>
 <p>With this in place, we can update our <code>setUp()</code> method to read as follows:</p>
 <pre class="highlight"><code class="language-php">protected function setUp() : void
 {
@@ -828,10 +861,14 @@ that will then be asserted against.</p>
     $this-&gt;configureServiceManager($this-&gt;getApplicationServiceLocator());
 }</code></pre>
 <p>Now update the <code>testIndexActionCanBeAccessed()</code> method to add a line asserting
-the <code>AlbumTable</code>'s <code>fetchAll()</code> method will be called, and return an array:</p>
+the <code>AlbumTable</code>'s <code>fetchAll()</code> method will be called, and return an array. This is achieved
+by configuring the mock <code>AlbumTable</code> to expect the <code>saveAlbum</code> method to be called once and to return
+an empty array.</p>
 <pre class="highlight"><code class="language-php">public function testIndexActionCanBeAccessed()
 {
-    $this-&gt;albumTable-&gt;fetchAll()-&gt;willReturn([]);
+    $this-&gt;albumTable-&gt;expects($this-&gt;once())
+            -&gt;method('fetchAll')
+            -&gt;willReturn([]);
 
     $this-&gt;dispatch('/album');
     $this-&gt;assertResponseStatusCode(200);
@@ -843,55 +880,61 @@ the <code>AlbumTable</code>'s <code>fetchAll()</code> method will be called, and
 <p>Running <code>phpunit</code> at this point, we will get the following output as the tests
 now pass:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
 .                                                                   1 / 1 (100%)
 
-Time: 105 ms, Memory: 10.75MB
+Time: 00:00.219, Memory: 12.00 MB
 
-OK (1 test, 5 assertions)</code></pre>
+OK (1 test, 8 assertions)</code></pre>
 <h2 id="testing-actions-with-post">Testing actions with POST</h2>
 <p>A common scenario with controllers is processing POST data submitted via a form,
 as we do in the <code>AlbumController::addAction()</code>. Let's write a test for that.</p>
-<pre class="highlight"><code class="language-php">public function testAddActionRedirectsAfterValidPost()
+<pre class="highlight"><code class="language-php">public function testAddActionRedirectAfterValidPost()
 {
-    $this-&gt;albumTable
-        -&gt;saveAlbum(Argument::type(Album::class))
-        -&gt;shouldBeCalled();
+    $this-&gt;albumTable-&gt;expects($this-&gt;once())
+        -&gt;method('saveAlbum')
+        -&gt;with($this-&gt;isInstanceOf(Album::class));
 
     $postData = [
-        'title'  =&gt; 'Led Zeppelin III',
+        'title' =&gt; 'Lez Zeppelin III',
         'artist' =&gt; 'Led Zeppelin',
-        'id'     =&gt; '',
+        'id' =&gt; '',
     ];
+
     $this-&gt;dispatch('/album/add', 'POST', $postData);
     $this-&gt;assertResponseStatusCode(302);
     $this-&gt;assertRedirectTo('/album');
 }</code></pre>
-<p>This test case references two new classes that we need to import; add the
-following import statements at the top of the class file:</p>
-<pre class="highlight"><code class="language-php">use Album\Model\Album;
-use Prophecy\Argument;</code></pre>
-<p><code>Prophecy\Argument</code> allows us to perform assertions against the values passed as
-arguments to mock objects. In this case, we want to assert that we received an
-<code>Album</code> instance. (We could have also done deeper assertions to ensure the
+<p>This test case references the <code>Album</code> class that we need to import; add the following import statement
+ at the top of the class file:</p>
+<pre class="highlight"><code class="language-php">use Album\Model\Album;</code></pre>
+<p>For this test case, the <code>AlbumTable</code> mock is configured to expect the <code>saveAlbum</code>
+method to be called once with an argument that must be an instance of <code>Album</code>.
+(We could have also done deeper assertions to ensure the
 <code>Album</code> instance contained expected data.)</p>
 <p>When we dispatch the application this time, we use the request method POST, and
 pass data to it. This test case then asserts a 302 response status, and
 introduces a new assertion against the location to which the response redirects.</p>
 <p>Running <code>phpunit</code> gives us the following output:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
 ..                                                                  2 / 2 (100%)
 
-Time: 1.49 seconds, Memory: 13.25MB
+Time: 00:00.236, Memory: 14.00 MB
 
-OK (2 tests, 8 assertions)</code></pre>
+OK (2 tests, 11 assertions)</code></pre>
 <p>Testing the <code>editAction()</code> and <code>deleteAction()</code> methods can be performed
 similarly; however, when testing the <code>editAction()</code> method, you will also need
 to assert against the <code>AlbumTable::getAlbum()</code> method:</p>
-<pre class="highlight"><code class="language-php">$this-&gt;albumTable-&gt;getAlbum($id)-&gt;willReturn(new Album());</code></pre>
+<pre class="highlight"><code class="language-php">$this-&gt;albumTable-&gt;expects($this-&gt;once())-&gt;method('getAlbum')-&gt;willReturn(new Album());</code></pre>
 <p>Ideally, you should test all the various paths through each method. For example:</p>
 <ul>
 <li>Test that a non-POST request to <code>addAction()</code> displays an empty form.</li>
@@ -1019,13 +1062,16 @@ class AlbumTest extends TestCase
 <p>If we run <code>phpunit</code> again, we will get the following output, confirming that our
 model is indeed correct:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
 .......                                                             7 / 7 (100%)
 
-Time: 186 ms, Memory: 13.75MB
+Time: 00:00.319, Memory: 14.00 MB
 
-OK (7 tests, 24 assertions)</code></pre>
+OK (7 tests, 27 assertions)</code></pre>
 <h2 id="testing-model-tables">Testing model tables</h2>
 <p>The final step in this unit testing tutorial for laminas-mvc applications is
 writing tests for our model tables.</p>
@@ -1036,27 +1082,31 @@ parts with mocks.</p>
 <p>Create a file <code>AlbumTableTest.php</code> in <code>module/Album/test/Model/</code> with the
 following contents:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
+
 namespace AlbumTest\Model;
 
 use Album\Model\AlbumTable;
-use Album\Model\Album;
-use PHPUnit\Framework\TestCase;
-use RuntimeException;
 use Laminas\Db\ResultSet\ResultSetInterface;
 use Laminas\Db\TableGateway\TableGatewayInterface;
+use PHPUnit\Framework\TestCase;
 
 class AlbumTableTest extends TestCase
 {
-    protected function setUp() : void
+    private $tableGateway;
+    private $albumTable;
+
+    protected function setUp(): void
     {
-        $this-&gt;tableGateway = $this-&gt;prophesize(TableGatewayInterface::class);
-        $this-&gt;albumTable = new AlbumTable($this-&gt;tableGateway-&gt;reveal());
+        $this-&gt;tableGateway = $this-&gt;createMock(TableGatewayInterface::class);
+        $this-&gt;albumTable = new AlbumTable($this-&gt;tableGateway);
     }
 
-    public function testFetchAllReturnsAllAlbums()
+    public function testFetchAllReturnsAllAlbums(): void
     {
-        $resultSet = $this-&gt;prophesize(ResultSetInterface::class)-&gt;reveal();
-        $this-&gt;tableGateway-&gt;select()-&gt;willReturn($resultSet);
+        $resultSet = $this-&gt;createMock(ResultSetInterface::class);
+        $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('select')
+            -&gt;willReturn($resultSet);
 
         $this-&gt;assertSame($resultSet, $this-&gt;albumTable-&gt;fetchAll());
     }
@@ -1070,13 +1120,14 @@ with no parameters. If it does, it should return a <code>ResultSet</code> instan
 we expect that this same <code>ResultSet</code> object will be returned to the calling
 method. This test should run fine, so now we can add the rest of the test
 methods:</p>
-<pre class="highlight"><code class="language-php">public function testCanDeleteAnAlbumByItsId()
+<pre class="highlight"><code class="language-php">public function testCanDeleteAnAlbumByItsId(): void
 {
-    $this-&gt;tableGateway-&gt;delete(['id' =&gt; 123])-&gt;shouldBeCalled();
+    $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('delete');
     $this-&gt;albumTable-&gt;deleteAlbum(123);
 }
 
-public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId()
+public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId(): void
 {
     $albumData = [
         'artist' =&gt; 'The Military Wives',
@@ -1085,11 +1136,13 @@ public function testSaveAlbumWillInsertNewAlbumsIfTheyDontAlreadyHaveAnId()
     $album = new Album();
     $album-&gt;exchangeArray($albumData);
 
-    $this-&gt;tableGateway-&gt;insert($albumData)-&gt;shouldBeCalled();
+    $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('insert');
+
     $this-&gt;albumTable-&gt;saveAlbum($album);
 }
 
-public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId()
+public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId(): void
 {
     $albumData = [
         'id'     =&gt; 123,
@@ -1099,31 +1152,37 @@ public function testSaveAlbumWillUpdateExistingAlbumsIfTheyAlreadyHaveAnId()
     $album = new Album();
     $album-&gt;exchangeArray($albumData);
 
-    $resultSet = $this-&gt;prophesize(ResultSetInterface::class);
-    $resultSet-&gt;current()-&gt;willReturn($album);
+    $resultSet = $this-&gt;createMock(ResultSetInterface::class);
+    $resultSet-&gt;expects($this-&gt;once())
+            -&gt;method('current')
+            -&gt;willReturn($album);
 
-    $this-&gt;tableGateway
-        -&gt;select(['id' =&gt; 123])
-        -&gt;willReturn($resultSet-&gt;reveal());
-    $this-&gt;tableGateway
-        -&gt;update(
-            array_filter($albumData, function ($key) {
-                return in_array($key, ['artist', 'title']);
-            }, ARRAY_FILTER_USE_KEY),
-            ['id' =&gt; 123]
-        )-&gt;shouldBeCalled();
+    $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('select')
+            -&gt;with(['id' =&gt; 123])
+            -&gt;willReturn($resultSet);
+    $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('update')
+            -&gt;with(
+                array_filter($albumData, function ($key) {
+                    return in_array($key, ['artist', 'title']);
+                }, ARRAY_FILTER_USE_KEY),
+                ['id' =&gt; 123]
+            );
 
     $this-&gt;albumTable-&gt;saveAlbum($album);
 }
 
-public function testExceptionIsThrownWhenGettingNonExistentAlbum()
+public function testExceptionIsThrownWhenGettingNonExistentAlbum(): void
 {
-    $resultSet = $this-&gt;prophesize(ResultSetInterface::class);
-    $resultSet-&gt;current()-&gt;willReturn(null);
+    $resultSet = $this-&gt;createMock(ResultSetInterface::class);
+    $resultSet-&gt;expects($this-&gt;once())
+            -&gt;method('current')
+            -&gt;willReturn(null);
 
-    $this-&gt;tableGateway
-        -&gt;select(['id' =&gt; 123])
-        -&gt;willReturn($resultSet-&gt;reveal());
+    $this-&gt;tableGateway-&gt;expects($this-&gt;once())
+            -&gt;method('select')
+            -&gt;willReturn($resultSet);
 
     $this-&gt;expectException(RuntimeException::class);
     $this-&gt;expectExceptionMessage('Could not find row with identifier 123');
@@ -1143,13 +1202,16 @@ against methods in our <code>AlbumTable</code>.</p>
 </ol>
 <p>Running <code>phpunit</code> one last time, we get the output as follows:</p>
 <pre class="highlight"><code class="language-bash">$ ./vendor/bin/phpunit --testsuite Album
-PHPUnit 9.0.1 by Sebastian Bergmann and contributors.
+PHPUnit 10.5.13 by Sebastian Bergmann and contributors.
 
-.............                                                     13 / 13 (100%)
+Runtime:       PHP 8.3.2
+Configuration: &lt;your_local_path&gt;\phpunit.xml.dist
 
-Time: 151 ms, Memory: 14.00MB
+............                                                      12 / 12 (100%)
 
-OK (13 tests, 31 assertions)</code></pre>
+Time: 00:00.326, Memory: 14.00 MB
+
+OK (12 tests, 37 assertions)</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>In this short tutorial, we gave a few examples how different parts of a laminas-mvc
 application can be tested. We covered setting up the environment for testing,
