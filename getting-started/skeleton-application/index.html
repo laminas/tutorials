@@ -436,15 +436,15 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
+                        <a href="#create-a-new-project" class="toc__link nav-link">Create a New Project</a>
+                    </li>
+                
+                    <li class="toc__entry">
                         <a href="#web-servers" class="toc__link nav-link">Web Servers</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#error-reporting" class="toc__link nav-link">Error reporting</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#development-mode" class="toc__link nav-link">Development mode</a>
+                        <a href="#development-mode" class="toc__link nav-link">Development Mode</a>
                     </li>
                 
             </ul>
@@ -496,7 +496,8 @@
     
 
     <h1 id="getting-started-a-skeleton-application">Getting started: A skeleton application</h1>
-<p>In order to build our application, we need to have at least PHP 7.3. We will start with the
+<h2 id="create-a-new-project">Create a New Project</h2>
+<p>In order to build our application, we need to have at least PHP 8.1. We will start with the
 <a href="https://github.com/laminas/laminas-mvc-skeleton">Laminas MVC Skeleton Application</a>
 available on <a href="https://github.com/">GitHub</a>. Use <a href="https://getcomposer.org">Composer</a>
 to create a new project from scratch:</p>
@@ -513,13 +514,12 @@ the outset, and, as such, the skeleton also ships with an installer plugin that
 will prompt you for a number of items.</p>
 <p>First, it will prompt:</p>
 <pre class="highlight"><code class="language-text">    Do you want a minimal install (no optional packages)? Y/n</code></pre>
-<blockquote>
-<h3 id="prompts-and-default-values">Prompts and default values</h3>
-<p>All prompts emitted by the installer provide the list of options available,
-and will specify the default option via a capital letter. Default values are
-used if the user presses "Enter" with no value. In the previous example, "Y"
-is the default.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Prompts and Default Values</p>
+<p>
+All prompts emitted by the installer provide the list of options available, and will specify the default option via a capital letter.
+Default values are used if the user presses "Enter" with no value. In the previous example, "Y" is the default.</p>
+</div>
 <p>If you answer "Y", or press enter with no selection, the installer will not
 raise any additional prompts, and finish installing your application. If you
 answer "n", it will continue prompting you:</p>
@@ -569,8 +569,9 @@ prompted for additional packages. (The only package in the default set of
 prompts that you may not want to enable by default is <code>Laminas\Test</code>.)</p>
 <p>Once the installation is done, the skeleton installer removes itself, and the
 new application is ready to start!</p>
-<blockquote>
-<h3 id="downloading-the-skeleton">Downloading the skeleton</h3>
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+<p><summary>Downloading the Skeleton</summary></p>
 <p>Another way to install the Laminas MVC Skeleton Application is to use github to
 download a compressed archive. Go to
 https://github.com/laminas/laminas-mvc-skeleton, click the "Clone or
@@ -594,7 +595,11 @@ Generating autoload files</code></pre>
 <p>Alternately, if you do not have Composer installed, but <em>do</em> have docker-compose available, you can run Composer via those:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose build
 $ docker-compose run laminas composer install</code></pre>
-<h3 id="timeouts">Timeouts</h3>
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+<p><summary>Timeouts</summary></p>
 <p>If you see this message:</p>
 <pre class="highlight"><code class="language-text">[RuntimeException]
   The process timed out.</code></pre>
@@ -603,7 +608,11 @@ composer timed out. To avoid this, instead of running:</p>
 <pre class="highlight"><code class="language-bash">$ composer install</code></pre>
 <p>run instead:</p>
 <pre class="highlight"><code class="language-bash">$ COMPOSER_PROCESS_TIMEOUT=5000 composer install</code></pre>
-<h3 id="windows-users-using-wamp">Windows users using WAMP</h3>
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+<p><summary>Windows Users Using WAMP</summary></p>
 <p>For windows users with wamp:</p>
 <h4 id="1-install-composer-for-windows">1. Install Composer for Windows</h4>
 <p>Check Composer is properly installed by running:</p>
@@ -615,19 +624,20 @@ composer timed out. To avoid this, instead of running:</p>
 <pre class="highlight"><code class="language-bash">$ git</code></pre>
 <p>Otherwise follow the
 <a href="https://desktop.github.com/">installation guide for GitHub Desktop</a>.</p>
-<h4 id="3-now-install-the-skeleton-using">3. Now install the Skeleton using</h4>
+<h4 id="3-now-install-the-skeleton-using">3. Now Install the Skeleton Using</h4>
 <pre class="highlight"><code class="language-bash">$ composer create-project -s dev laminas/laminas-mvc-skeleton path/to/install</code></pre>
-</blockquote>
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
 <p>We can now move on to the web server setup.</p>
 <h2 id="web-servers">Web Servers</h2>
-<p>In this tutorial, we will step you through four different ways to setup your web
+<p>In this tutorial, we will step you through different ways to set up your web
 server:</p>
 <ul>
 <li>Via the PHP built-in web server.</li>
 <li>Via docker-compose.</li>
 <li>Using Apache.</li>
 </ul>
-<h3 id="using-the-built-in-php-web-server">Using the Built-in PHP web Server</h3>
+<h3 id="using-the-built-in-php-web-server">Using the Built-in PHP Web Server</h3>
 <p>You can use PHP's built-in web server when developing your application. To do
 this, start the server from the project's root directory:</p>
 <pre class="highlight"><code class="language-bash">$ php -S 0.0.0.0:8080 -t public public/index.php</code></pre>
@@ -639,11 +649,14 @@ via <code>http://localhost:8080</code> or <code>http://&lt;your-local-IP&gt;:808
 <p>To test that your routing is working, navigate to <code>http://localhost:8080/1234</code>,
 and you should see the following 404 page:</p>
 <p><img alt="laminas-mvc 404 page" src="../../images/user-guide.skeleton-application.404.png" class="img-responsive"/></p>
-<blockquote>
-<h3 id="development-only">Development only</h3>
-<p>PHP's built-in web server should be used <strong>for development only</strong>.</p>
-</blockquote>
-<h3 id="using-docker-compose">Using docker-compose</h3>
+<div class="admonition note">
+<p class="admonition-title">Development only</p>
+<p>
+PHP's built-in web server should be used <strong>for development only</strong>.</p>
+</div>
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+<p><summary>Using docker-compose</summary></p>
 <p><a href="https://www.docker.com/">Docker</a> containers wrap a piece of software and everything needed to run it,
 guaranteeing consistent operation regardless of the host environment; it is an
 alternative to virtual machines, as it runs as a layer on top of the host
@@ -663,9 +676,13 @@ image, use:</p>
 configuration initially only defines one container, with the environment name
 "laminas"; use that to execute commands, such as updating dependencies via composer:</p>
 <pre class="highlight"><code class="language-bash">$ docker-compose run laminas composer update</code></pre>
-<p>The configuration includes both PHP 7.3 and Apache 2.4, and maps the host port
+<p>The configuration includes both PHP 8.3 and Apache 2.4, and maps the host port
 8080 to port 80 of the container.</p>
-<h3 id="using-the-apache-web-server">Using the Apache Web Server</h3>
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+<p><summary>Using the Apache Web Server</summary></p>
 <p>We will not cover installing <a href="https://httpd.apache.org">Apache</a>, and will assume
 you already have it installed. We recommend installing Apache 2.4, and will only
 cover configuration for that version.</p>
@@ -706,8 +723,7 @@ earlier.  If you see a standard Apache 404 error, then you need to fix your
 <p>If you're are using IIS with the URL Rewrite Module, import the following:</p>
 <pre class="highlight"><code class="language-apache">RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [NC,L]</code></pre>
-<p>You now have a working skeleton application and we can start adding the specifics for our application.</p>
-<h2 id="error-reporting">Error reporting</h2>
+<h3 id="error-reporting">Error Reporting</h3>
 <p>Optionally, <em>when using Apache</em>, you can use the <code>APPLICATION_ENV</code> setting in
 your <code>VirtualHost</code> to let PHP output all its errors to the browser. This can be
 useful during the development of your application.</p>
@@ -757,7 +773,10 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
 
 // Run the application!
 Application::init($appConfig)-&gt;run();</code></pre>
-<h2 id="development-mode">Development mode</h2>
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
+<p>You now have a working skeleton application, and we can start adding the specifics for our application.</p>
+<h2 id="development-mode">Development Mode</h2>
 <p>Before we begin, we're going to enable <em>development mode</em> for the application.
 The skeleton application provides two files that allow us to specify general
 development settings we want to use everywhere; these may include enabling
@@ -777,8 +796,8 @@ mode, these two files that were created are then removed, leaving only the
 <code>.dist</code> versions. (The repository also contains rules to ignore the copies.)</p>
 <p>Let's enable development mode now:</p>
 <pre class="highlight"><code class="language-bash">$ composer development-enable</code></pre>
-<blockquote>
-<h3 id="never-enable-development-mode-in-production">Never enable development mode in production</h3>
+<div class="admonition warning">
+<p class="admonition-title">Never Enable Development Mode in Production</p>
 <p>You should never enable development mode in production, as the typical
 reason to enable it is to enable debugging! As noted, the artifacts generated
 by enabling development mode cannot be committed to your repository, so
@@ -787,7 +806,7 @@ assuming you don't run the command in production, you should be safe.</p>
 <pre class="highlight"><code class="language-bash">$ composer development-status</code></pre>
 <p>And you can disable it using:</p>
 <pre class="highlight"><code class="language-bash">$ composer development-disable</code></pre>
-</blockquote>
+</div>
 
 
 
