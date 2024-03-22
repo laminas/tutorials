@@ -32,8 +32,6 @@ $ composer require --dev laminas/laminas-test
 
 This will also install phpunit/phpunit since it is required by laminas-test. 
 
-This tutorial assumes that `phpunit/phpunit:^10.0` is installed.
-
 The above command will update your `composer.json` file and perform an update
 for you, which will also setup autoloading rules.
 
