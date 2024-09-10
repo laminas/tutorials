@@ -237,7 +237,7 @@ provided by an additional component: laminas-paginator-adapter-laminasdb.
 Run the following from the application root:
 
 ```bash
-$ composer require laminas/laminas-paginator laminas-paginator-adapter-laminasdb
+$ composer require laminas/laminas-paginator laminas/laminas-paginator-adapter-laminasdb
 ```
 
 Assuming you followed the [Getting Started tutorial](getting-started/overview.md),
