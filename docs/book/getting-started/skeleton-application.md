@@ -372,7 +372,6 @@ Edit `laminas-mvc-tutorial/public/index.php` directory and change it to the foll
 
 ```php
 use Laminas\Mvc\Application;
-use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Display all errors when APPLICATION_ENV is development.
@@ -408,14 +407,11 @@ if (! class_exists(Application::class)) {
     );
 }
 
-// Retrieve configuration
-$appConfig = require __DIR__ . '/../config/application.config.php';
-if (file_exists(__DIR__ . '/../config/development.config.php')) {
-    $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
-}
-
+$container = require __DIR__ . '/../config/container.php';
 // Run the application!
-Application::init($appConfig)->run();
+/** @var Application $app */
+$app = $container->get('Application');
+$app->run();
 ```
 
 <!-- markdownlint-disable-next-line no-inline-html -->
