@@ -111,7 +111,12 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">tutorials</a>
+            <a href="../..">
+                
+                
+    tutorials
+
+            </a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -387,7 +392,12 @@
                     Components
 
                     
-                        <small class="header__subtitle">tutorials</small>
+                        <small class="header__subtitle">
+                            
+                            
+    tutorials
+
+                        </small>
                     
                 </h1>
             </div>
@@ -450,7 +460,13 @@
             <li class="breadcrumb-item"><a href="https://docs.laminas.dev/components/">Components</a></li>
 
             
-                <li class="breadcrumb-item"><a href="../..">tutorials</a></li>
+                <li class="breadcrumb-item">
+                    <a href="../..">
+                        
+    tutorials
+
+                    </a>
+                </li>
 
                 
                     
@@ -718,7 +734,6 @@ your <code>VirtualHost</code> to let PHP output all its errors to the browser. T
 useful during the development of your application.</p>
 <p>Edit <code>laminas-mvc-tutorial/public/index.php</code> directory and change it to the following:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Mvc\Application;
-use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Display all errors when APPLICATION_ENV is development.
@@ -754,14 +769,11 @@ if (! class_exists(Application::class)) {
     );
 }
 
-// Retrieve configuration
-$appConfig = require __DIR__ . '/../config/application.config.php';
-if (file_exists(__DIR__ . '/../config/development.config.php')) {
-    $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
-}
-
+$container = require __DIR__ . '/../config/container.php';
 // Run the application!
-Application::init($appConfig)-&gt;run();</code></pre>
+/** @var Application $app */
+$app = $container-&gt;get('Application');
+$app-&gt;run();</code></pre>
 <!-- markdownlint-disable-next-line no-inline-html -->
 </details>
 <p>You now have a working skeleton application, and we can start adding the specifics for our application.</p>
@@ -852,7 +864,12 @@ assuming you don't run the command in production, you should be safe.</p>
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">tutorials</a>
+            <a href="../..">
+                
+                
+    tutorials
+
+            </a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -1172,7 +1189,7 @@ assuming you don't run the command in production, you should be safe.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/tutorials/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2024 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2025 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
