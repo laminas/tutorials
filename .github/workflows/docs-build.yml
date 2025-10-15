@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - master
-  repository_dispatch:
-    types: docs-build
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-deploy:
@@ -14,4 +16,5 @@ jobs:
       - name: Build Docs
         uses: laminas/documentation-theme/github-actions/docs@master
         env:
-          DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
+          DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
